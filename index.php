@@ -14,7 +14,7 @@
             background-color: wheat;
         }
 
-        .inner {
+        .inner { 
             width: 60%;
             height: 50%;
             background: white;
