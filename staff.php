@@ -9,21 +9,20 @@ include_once('conn.php');
 
 <head>
     <meta charset="UTF-8">
-    <title>Expenses</title>
+    <title>Services</title>
 </head>
 
 <body>
     <div class="container d-flex justify-content-center align-items-center vh-100 rounded">
         <div class="row shadow-lg vw-100 rounded">
             <div class="col-md-8">
-                <h1 class="text-center text-primary">Expenses</h1>
+                <h1 class="text-center text-primary">Services</h1>
                 <table class="table table-hover" id="dataTable">
                     <thead>
                         <tr>
-                            
+                            <th>Name</th>
                             <th>Description</th>
-                            <th>Amount</th>
-                            <th>Date</th>
+                            <th>Fee</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
@@ -31,19 +30,18 @@ include_once('conn.php');
                         <?php
 
                         // Select all services from the database
-                        $sql = "SELECT * FROM expenses";
+                        $sql = "SELECT * FROM staff";
                         $result = mysqli_query($conn, $sql);
 
                         // Loop through each row and display the data in the table
                         while ($row = mysqli_fetch_assoc($result)) {
                             echo "<tr>";
-                            
+                            echo "<td>" . $row["name"] . "</td>";
                             echo "<td>" . $row["description"] . "</td>";
-                            echo "<td>" . $row["amount"] . "</td>";
-                            echo "<td>" . $row["date"] . "</td>";
+                            echo "<td>" . $row["fee"] . "</td>";
                             echo "<td class='text-center'> 
-                                    <button  class='btn btn-primary' onclick='editExpenses(" . $row['expense_id'] . ")'> EDIT </button> 
-                                    <a href='#' class='btn btn-danger ms-2' onclick='deleteExpense(" . $row['expense_id'] . ")'> DELETE </a> 
+                                    <button  class='btn btn-primary' onclick='editServices(" . $row['service_id'] . ")'> EDIT </button> 
+                                    <a href='#' class='btn btn-danger ms-2' onclick='deleteService(" . $row['service_id'] . ")'> DELETE </a> 
                                   </td>";
                             echo "</tr>";
                         }
@@ -57,22 +55,21 @@ include_once('conn.php');
             <div class="col-md-4">
                 <div class="card p-3 rounded">
                     <div class="card-body shadow rounded p-3">
-                        <h1 class="card-title text-center text-primary fs-5">New Expense</h1>
+                        <h1 class="card-title text-center text-primary fs-5">New Service</h1>
                         <form action="services/process_service.php" method="post" id="formInsertUpdate">
                             <!-- hidden input -->
                             <input type="hidden" name="id" id="id">
-                            
+                            <div class="mb-3">
+                                <label for="name" class="form-label text-primary ">Service Name</label>
+                                <input type="text" class="form-control border border-1 border-primary" id="name" name="name" required>
+                            </div>
                             <div class="mb-3">
                                 <label for="description" class="form-label text-primary">Description</label>
                                 <textarea class="form-control border border-1 border-primary" id="description" name="description" required></textarea>
                             </div>
                             <div class="mb-3">
-                                <label for="fee" class="form-label text-primary">Amount</label>
-                                <input type="number" class="form-control border border-1 border-primary" id="amount" name="amount" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="name" class="form-label text-primary ">Service Name</label>
-                                <input type="date" class="form-control border border-1 border-primary" id="date" name="date" required>
+                                <label for="fee" class="form-label text-primary">Fee</label>
+                                <input type="number" class="form-control border border-1 border-primary" id="fee" name="fee" required>
                             </div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-outline-primary" id="submit">Submit</button>
@@ -89,21 +86,21 @@ include_once('conn.php');
 <script>
 
 
-    function editExpenses(ids) {
+    function editServices(ids) {
 
         var id = ids;
         $('#id').val(id);
         $.ajax({
-            url: 'expenses/getExpenses.php',
+            url: 'services/getService.php',
             type: 'POST',
             data: {
                 updateid: id
             },
             success: function(response) {
                 var data = JSON.parse(response);
-                $('#date').val(data.date);
+                $('#name').val(data.name);
                 $('#description').val(data.description);
-                $('#amount').val(data.amount);
+                $('#fee').val(data.fee);
             }
 
         });
@@ -111,10 +108,10 @@ include_once('conn.php');
         $("#submit").text('Update');
     }
 
-    function deleteExpense(id) {
+    function deleteService(id) {
         var id = id;
         $.ajax({
-            url: 'expenses/deleteExpense.php',
+            url: 'services/deleteService.php',
             type: 'POST',
             data: {
                 deleteid: id
@@ -145,7 +142,7 @@ include_once('conn.php');
             e.preventDefault();
             var formData = new FormData(this);
             $.ajax({
-                url: 'expenses/process_expense.php',
+                url: 'services/process_service.php',
                 type: 'POST',
                 data: formData,
                 success: function(response) {

@@ -32,7 +32,7 @@ CREATE TABLE services (
   fee DECIMAL(10, 2) NOT NULL,
   PRIMARY KEY (service_id)
 );
-
+  
 CREATE TABLE payments (
   payment_id INT NOT NULL AUTO_INCREMENT,
   appointment_id INT NOT NULL,

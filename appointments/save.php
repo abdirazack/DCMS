@@ -20,12 +20,12 @@ if(isset($_POST['patients'])){
         return ;
     }
     else{
-        $check_patient = mysqli_query($conn, "select * from patients where first_name = '$patients'");
-        $row = mysqli_fetch_array($check_patient);
-        $patient_id = $row['patient_id'];
+    //     $check_patient = mysqli_query($conn, "select * from patients where first_name = '$patients'");
+    //     $row = mysqli_fetch_array($check_patient);
+    //    // $patient_id = $row['patient_id'];
         
         
-            $query=mysqli_query($conn,"insert into appointments values('null','$patient_id','$service','$start_datetime','$end_datetime')");
+            $query=mysqli_query($conn,"insert into appointments values('null','$patients','$service','$start_datetime','$end_datetime')");
             if($query){
                     $data = ['message'=>'Success', 'status'=>200];
                     echo json_encode($data);

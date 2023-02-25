@@ -60,7 +60,7 @@
                                         $query = "SELECT * FROM `patients`";
                                         $result = mysqli_query($conn, $query);
                                         while ($row = mysqli_fetch_array($result)) {
-                                            echo "<option value='" . $row['first_name'] . "'>" . $row['first_name'] . "</option>";
+                                            echo "<option value='" . $row['patient_id'] . "'>" . $row['first_name'] . "</option>";
                                         }
                                         ?>
                                     </select>
@@ -152,15 +152,16 @@
     }
     ?>
     <?php
-    if (isset($conn)) $conn->close();
     ?>
 </body>
 <script>
     var scheds = $.parseJSON('<?= json_encode($sched_res) ?>');
+    //console scheds
+
 
     //document ready
     $(document).ready(function() {
-
+        console.log(scheds);
         $('.select2').select2();
 
         $('#schedule-form').submit(function(e) {
@@ -184,6 +185,53 @@
                     }
                 }
             });
+        });
+
+        $("#edit").click(function() {
+            var id = $(this).attr('data-id');
+            var sched = scheds[id];
+            console.log(sched);
+            $('#schedule-form input[name="id"]').val(sched.appointment_id);
+            $('#schedule-form select[name="patients"]').val(sched.patient_id).trigger('change');
+            $('#schedule-form select[name="service"]').val(sched.service).trigger('change');
+            $('#schedule-form input[name="start_datetime"]').val(sched.start_date);
+            $('#schedule-form input[name="end_datetime"]').val(sched.end_date);
+            $('#schedule-form').attr('action', 'appointments/update.php');
+            $('#event-details-modal').modal('hide');
+        });
+
+        $("#delete").click(function() {
+            var id = $(this).attr('data-id')
+            if (!!scheds[id]) {
+                var _conf = confirm("Are you sure to delete this scheduled event?");
+                if (_conf === true) {
+                    //location.href = "appointments/delete.php?id=" + scheds[id].appointment_id;
+                    
+                    $.ajax({
+                        url:"appointments/delete.php",
+                        type:"post",
+                        data:{id:scheds[id].appointment_id},
+                          success:function(data){
+                            var obj = jQuery.parseJSON(data);
+                            if (obj.status == 200) {
+                                //close modal 
+                                $('#event-details-modal').modal('hide');
+                                //reload calendar
+                                calendar.refetchEvents();
+                                //reload page
+                                location.reload();
+                            }
+                            if (obj.status == 404) {
+                               // $("#state").text(obj.message);
+                               alert(obj.message);
+                            }
+                        }
+                      });
+
+                }
+            } else {
+                alert("Event is undefined");
+            }
         });
     });
     //onsubmit schedule-form 

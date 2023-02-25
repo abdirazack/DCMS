@@ -9,7 +9,7 @@ include_once('conn.php');
 
 <head>
     <meta charset="UTF-8">
-    <title>Services</title>
+    <title>Users</title>
 </head>
 
 <body>
