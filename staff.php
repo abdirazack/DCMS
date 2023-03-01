@@ -1,117 +1,103 @@
-<?php
-include_once('header.php');
-include_once('conn.php');
-
-?>
-
 <!DOCTYPE html>
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <title>Services</title>
+    <title>Staff Page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <?php include_once('header.php');
+    include_once('conn.php') ?>
 </head>
 
 <body>
-    <div class="container d-flex justify-content-center align-items-center vh-100 rounded">
-        <div class="row shadow-lg vw-100 rounded">
-            <div class="col-md-8">
-                <h1 class="text-center text-primary">Services</h1>
-                <table class="table table-hover" id="dataTable">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Fee</th>
-                            <th class="text-center">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
 
-                        // Select all services from the database
-                        $sql = "SELECT * FROM staff";
-                        $result = mysqli_query($conn, $sql);
+    <div class="container d-flex flex-column justify-content-center align-items-center" style="min-height: 100vh;">
 
-                        // Loop through each row and display the data in the table
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            echo "<tr>";
-                            echo "<td>" . $row["name"] . "</td>";
-                            echo "<td>" . $row["description"] . "</td>";
-                            echo "<td>" . $row["fee"] . "</td>";
-                            echo "<td class='text-center'> 
-                                    <button  class='btn btn-primary' onclick='editServices(" . $row['service_id'] . ")'> EDIT </button> 
-                                    <a href='#' class='btn btn-danger ms-2' onclick='deleteService(" . $row['service_id'] . ")'> DELETE </a> 
+        <div class="row mt-5 p-3 shadow-lg rounded">
+        <div class='small' id='small'></div>
+            <div class='d-flex justify-content-around mb-4'>
+                <h2 class="text-center text-primary">Staff List</h2>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staffModal">
+                    ADD NEW STUFF
+                </button>
+            </div>
+
+            <table class="table table-hover" id="dataTable">
+                <thead>
+                    <tr>
+                        <th>Staff ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Phone Number</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                        <th> Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+
+                    // Select all staff from the database
+                    $result = mysqli_query($conn, "SELECT * FROM staff");
+
+                    // Loop through the results and output each staff member as a table row
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo "<tr>";
+                        echo "<td>" . $row['staff_id'] . "</td>";
+                        echo "<td>" . $row['first_name'] . "</td>";
+                        echo "<td>" . $row['last_name'] . "</>";
+                        echo "<td>" . $row['phone_number'] . "</td>";
+                        echo "<td>" . $row['email'] . "</td>";
+                        echo "<td>" . $row['address'] . "</td>";
+                        echo "<td class='text-center'> 
+                                    <button  class='btn btn-primary' onclick='editStaff(" . $row['staff_id'] . ")'> EDIT </button> 
+                                    <a href='#' class='btn btn-danger ms-2 mt-1' onclick='deleteStaff(" . $row['staff_id'] . ")'> DELETE </a> 
                                   </td>";
-                            echo "</tr>";
-                        }
-
-                        // Close the database connection
-                        mysqli_close($conn);
-                        ?>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-md-4">
-                <div class="card p-3 rounded">
-                    <div class="card-body shadow rounded p-3">
-                        <h1 class="card-title text-center text-primary fs-5">New Service</h1>
-                        <form action="services/process_service.php" method="post" id="formInsertUpdate">
-                            <!-- hidden input -->
-                            <input type="hidden" name="id" id="id">
-                            <div class="mb-3">
-                                <label for="name" class="form-label text-primary ">Service Name</label>
-                                <input type="text" class="form-control border border-1 border-primary" id="name" name="name" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="description" class="form-label text-primary">Description</label>
-                                <textarea class="form-control border border-1 border-primary" id="description" name="description" required></textarea>
-                            </div>
-                            <div class="mb-3">
-                                <label for="fee" class="form-label text-primary">Fee</label>
-                                <input type="number" class="form-control border border-1 border-primary" id="fee" name="fee" required>
-                            </div>
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-outline-primary" id="submit">Submit</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+                        echo "</tr>";
+                    }
+                    ?>
+                </tbody>
+            </table>
         </div>
     </div>
 </body>
 
-</html>
+
+
 <script>
-
-
-    function editServices(ids) {
+    function editStaff(ids) {
 
         var id = ids;
         $('#id').val(id);
         $.ajax({
-            url: 'services/getService.php',
+            url: 'staff/getStaff.php',
             type: 'POST',
             data: {
                 updateid: id
             },
             success: function(response) {
                 var data = JSON.parse(response);
-                $('#name').val(data.name);
-                $('#description').val(data.description);
-                $('#fee').val(data.fee);
+                $('#first_name').val(data.first_name);
+                $('#last_name').val(data.last_name);
+                $('#phone_number').val(data.phone_number);
+                $('#email').val(data.email);
+                $('#address').val(data.address);
+
+                $('#submit').text('update staff')
             }
 
         });
 
         $("#submit").text('Update');
+        //toggle modal
+        $('#staffModal').modal('show');
     }
 
-    function deleteService(id) {
+    function deleteStaff(id) {
         var id = id;
         $.ajax({
-            url: 'services/deleteService.php',
+            url: 'staff/deleteStaff.php',
             type: 'POST',
             data: {
                 deleteid: id
@@ -142,14 +128,18 @@ include_once('conn.php');
             e.preventDefault();
             var formData = new FormData(this);
             $.ajax({
-                url: 'services/process_service.php',
+                url: 'staff/process_staff.php',
                 type: 'POST',
                 data: formData,
                 success: function(response) {
                     var obj = jQuery.parseJSON(response);
                     if (obj.status == 200) {
+                        //hide modal
+                        $('#staffModal').modal('hide');
                         location.reload();
                     } else {
+                        //show error on div with id small
+                        $('#small').html(obj.message);
                         alert(obj.message);
                     }
                 },
@@ -161,3 +151,53 @@ include_once('conn.php');
 
     });
 </script>
+
+</html>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="staffModal" tabindex="-1" aria-labelledby="staffModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content rounded shadow">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staffModalLabel">ADD NEW STAFF</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="staff/process_staff.php" method="post" id="formInsertUpdate">
+                    <input type="hidden" name="id" id="id">
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
+                            <label for="first_name" class="form-label">First Name:</label>
+                            <input type="text" class="form-control border border-1 border-primary" id="first_name" name="first_name" required>
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label for="last_name" class="form-label">Last Name:</label>
+                            <input type="text" class="form-control border border-1 border-primary" id="last_name" name="last_name" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
+                            <label for="phone_number" class="form-label">Phone Number:</label>
+                            <input type="text" class="form-control border border-1 border-primary" id="phone_number" name="phone_number" required>
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label for="email" class="form-label">Email:</label>
+                            <input type="email" class="form-control border border-1 border-primary" id="email" name="email" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Address:</label>
+                        <textarea class="form-control border border-1 border-primary" id="address" name="address" required> </textarea>
+                    </div>
+                    <center> <button type="submit" id='submit' class="btn btn-outline-primary">Add Staff</button> </center>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
