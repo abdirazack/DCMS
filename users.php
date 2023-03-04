@@ -22,7 +22,6 @@ include_once('conn.php');
                         <tr>
 
                             <th>UserName</th>
-                            <th>Password</th>
                             <th>UserType</th>
                             <th class="text-center">Action</th>
                         </tr>
@@ -39,7 +38,6 @@ include_once('conn.php');
                             echo "<tr>";
 
                             echo "<td>" . $row["username"] . "</td>";
-                            echo "<td>" . $row["password"] . "</td>";
                             echo "<td>" . $row["user_type"] . "</td>";
                             echo "<td class='text-center'> 
                                     <button  class='btn btn-primary' onclick='editUsers(" . $row['user_id'] . ")'> EDIT </button> 
@@ -118,6 +116,7 @@ include_once('conn.php');
                 $('#user_type').val(data.user_type);
 
                 $('#help').addClass('d-block');
+                $("#password").val("");
             }
 
         });
