@@ -14,7 +14,7 @@
     <div class="container d-flex flex-column justify-content-center align-items-center" style="min-height: 100vh;">
 
         <div class="row mt-5 p-3 shadow-lg rounded">
-        <div class='small' id='small'></div>
+            <div class='small' id='small'></div>
             <div class='d-flex justify-content-around mb-4'>
                 <h2 class="text-center text-primary">Staff List</h2>
                 <!-- Button trigger modal -->
