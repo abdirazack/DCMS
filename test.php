@@ -1,175 +1,81 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <title>Staff Page</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?php include_once('header.php');
-    include_once('conn.php') ?>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern Responsive Sidebar Menu</title>
+    <?php include_once('header.php'); ?>
 </head>
-
 <body>
-
-    <div class="container d-flex flex-column justify-content-center align-items-center" style="min-height: 100vh;">
-        <div class="row mb-3">
-            <h2 class="text-center text-primary">Add Staff</h2>
-        </div>
-        <div class="row shadow p-3 rounded">
-            <form action="staff/process_staff.php" method="post" id="formInsertUpdate">
-                <input type="hidden" name="id" id="id">
-                <div class="row">
-                    <div class="mb-3 col-md-6">
-                        <label for="first_name" class="form-label">First Name:</label>
-                        <input type="text" class="form-control border border-1 border-primary" id="first_name" name="first_name" required>
-                    </div>
-                    <div class="mb-3 col-md-6">
-                        <label for="last_name" class="form-label">Last Name:</label>
-                        <input type="text" class="form-control border border-1 border-primary" id="last_name" name="last_name" required>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="mb-3 col-md-6">
-                        <label for="phone_number" class="form-label">Phone Number:</label>
-                        <input type="text" class="form-control border border-1 border-primary" id="phone_number" name="phone_number" required>
-                    </div>
-                    <div class="mb-3 col-md-6">
-                        <label for="email" class="form-label">Email:</label>
-                        <input type="email" class="form-control border border-1 border-primary" id="email" name="email" required>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="address" class="form-label">Address:</label>
-                    <textarea class="form-control border border-1 border-primary" id="address" name="address" required> </textarea>
-                </div>
-                <center> <button type="submit" id='submit' class="btn btn-outline-primary">Add Staff</button> </center>
-            </form>
-        </div>
-        <div class="row mt-5 p-3 shadow-lg rounded">
-            <h2 class="text-center text-primary">Staff List</h2>
-            <table class="table table-hover" id="dataTable">
-                <thead>
-                    <tr>
-                        <th>Staff ID</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Phone Number</th>
-                        <th>Email</th>
-                        <th>Address</th>
-                        <th> Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-
-                    // Select all staff from the database
-                    $result = mysqli_query($conn, "SELECT * FROM staff");
-
-                    // Loop through the results and output each staff member as a table row
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        echo "<tr>";
-                        echo "<td>" . $row['staff_id'] . "</td>";
-                        echo "<td>" . $row['first_name'] . "</td>";
-                        echo "<td>" . $row['last_name'] . "</>";
-                        echo "<td>" . $row['phone_number'] . "</td>";
-                        echo "<td>" . $row['email'] . "</td>";
-                        echo "<td>" . $row['address'] . "</td>";
-                        echo "<td class='text-center'> 
-                                    <button  class='btn btn-primary' onclick='editStaff(" . $row['staff_id'] . ")'> EDIT </button> 
-                                    <a href='#' class='btn btn-danger ms-2' onclick='deleteStaff(" . $row['staff_id'] . ")'> DELETE </a> 
-                                  </td>";
-                        echo "</tr>";
-                    }
-                    ?>
-                </tbody>
-            </table>
-        </div>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top mb-5">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" href="#">My Website</a>
     </div>
-</body>
+  </nav>
 
+  <div class="container mt-5">
+    <div class="row">
+      <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+        <div class="position-sticky">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link active" href="./appointment.php">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./expenses.php">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./services.php">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
 
+      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <div id="contentArea">
+          <h1 class="mb-3">Welcome to My Website!</h1>
+          <p>This is the home page of my website. Use the sidebar to navigate to other pages.</p>
+        </div>
+      </main>
+    </div>
+  </div>
 
-<script>
-    function editStaff(ids) {
+ <script>
+  $(document).ready(function() {
+    // Add smooth scrolling to all links
+    $("a").on('click', function(event) {
+      // Make sure this.hash has a value before overriding default behavior
+      if (this.hash !== "") {
+        // Prevent default anchor click behavior
+        event.preventDefault();
 
-        var id = ids;
-        $('#id').val(id);
-        $.ajax({
-            url: 'staff/getStaff.php',
-            type: 'POST',
-            data: {
-                updateid: id
-            },
-            success: function(response) {
-                var data = JSON.parse(response);
-                $('#first_name').val(data.first_name);
-                $('#last_name').val(data.last_name);
-                $('#phone_number').val(data.phone_number);
-                $('#email').val(data.email);
-                $('#address').val(data.address);
+        // Store hash
+        var hash = this.hash;
 
-                $('#submit').text('update staff')
-            }
-
+        // Using jQuery's animate() method to add smooth page scroll
+        $('html, body').animate({
+          scrollTop: $(hash).offset().top
+        }, 800, function(){
+      
+          // Add hash (#) to URL when done scrolling (default click behavior)
+          window.location.hash = hash;
         });
-
-        $("#submit").text('Update');
-    }
-
-    function deleteStaff(id) {
-        var id = id;
-        $.ajax({
-            url: 'staff/deleteStaff.php',
-            type: 'POST',
-            data: {
-                deleteid: id
-            },
-            success: function(response) {
-                var obj = jQuery.parseJSON(response);
-                if (obj.status == 200) {
-                    location.reload();
-                } else {
-                    alert(obj.message);
-                }
-            }
-        });
-    }
-
-    $(document).ready(function() {
-        $('#dataTable').DataTable({
-            pagingType: 'full_numbers',
-            "aLengthMenu": [
-                [5, 10, , 20, 50, 75, -1],
-                [5, 10, 20, 50, 75, "All"]
-            ],
-            "iDisplayLength": 5,
-            "bDestroy": true
-        });
-
-        $('#formInsertUpdate').submit(function(e) {
-            e.preventDefault();
-            var formData = new FormData(this);
-            $.ajax({
-                url: 'staff/process_staff.php',
-                type: 'POST',
-                data: formData,
-                success: function(response) {
-                    var obj = jQuery.parseJSON(response);
-                    if (obj.status == 200) {
-                        location.reload();
-                    } else {
-                        alert(obj.message);
-                    }
-                },
-                cache: false,
-                contentType: false,
-                processData: false
-            });
-        });
-
+      } // End if
     });
+
+    // Update the content area when a sidebar link is clicked
+    $('.nav-link').on('click', function(event) {
+      event.preventDefault();
+      var href = $(this).attr('href');
+      $('#contentArea').load(href);
+    });
+  });
 </script>
-
+</body>
 </html>
-
-
