@@ -1,5 +1,5 @@
 <head>
-    <?php include_once('header.php');
+    <?php 
     include_once('conn.php'); ?>
     <link rel="stylesheet" href="./fullcalendar/lib/main.min.css">
     <script src="./fullcalendar/lib/main.min.js">
@@ -15,7 +15,6 @@
         body {
             height: 100%;
             width: 100%;
-            font-family: Apple Chancery, cursive;
         }
 
         .btn-info.text-light:hover,
