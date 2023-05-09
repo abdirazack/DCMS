@@ -1,0 +1,233 @@
+Staff table:
+staff_id (unique identifier for each staff member)
+first_name
+last_name
+role (position/title of staff member)
+phone_number
+email_address
+
+Suppliers Table:
+supplier_id (unique identifier for each supplier)
+supplier_name
+contact_name
+email
+phone_number
+address
+
+Services Table:
+service_id (unique identifier for each service)
+service_name
+description (brief summary of the service)
+price
+
+Equipment table:
+equipment_id (unique identifier for each equipment item)
+equipment_type
+manufacturer
+model
+purchase_date
+warranty_information
+maintenance_schedule
+
+Inventory Table:
+inventory_id (unique identifier for each inventory item)
+item_name
+description
+unit_cost
+quantity
+supplier_id (foreign key referencing the supplier_id column in the Suppliers Table)
+
+Patients table:
+patient_id (unique identifier for each patient)
+first_name
+last_name
+date_of_birth
+address
+phone_number
+email_address
+
+Procedures table:
+procedure_id (unique identifier for each procedure)
+procedure_code
+procedure_name
+procedure_price
+procedure_description
+
+Dentists table:
+dentist_id (unique identifier for each dentist)
+first_name
+last_name
+specialty (specialization of dentist)
+phone_number
+email_address
+
+Medications table:
+medication_id (unique identifier for each medication)
+medication_code
+medication_name
+medication_dosage
+medication_description
+
+Appointments table:
+appointment_id (unique identifier for each appointment)
+appointment_date
+appointment_time
+patient_id (foreign key referencing the patient_id column in the Patients table)
+dentist_id (foreign key referencing the dentist_id column in the Dentists table)
+procedure_id (foreign key referencing the procedure_id column in the Procedures table)
+status (status of appointment, e.g. confirmed, canceled, rescheduled)
+
+Treatment Plans table:
+treatment_plan_id (unique identifier for each treatment plan)
+patient_id (foreign key referencing the patient_id column in the Patients table)
+start_date
+end_date
+total_cost
+status (status of treatment plan, e.g. active, completed)
+
+Payments table:
+payment_id (unique identifier for each payment)
+patient_id (foreign key referencing the patient_id column in the Patients table)
+amount_paid
+date_paid
+payment_method (e.g. cash, credit card)
+
+Prescriptions table:
+prescription_id (unique identifier for each prescription)
+patient_id (foreign key referencing the patient_id column in the Patients table)
+medication_id (foreign key referencing the medication_id column in the Medications table)
+dosage
+instructions
+date_prescribed
+
+Invoices table:
+invoice_id (unique identifier for each invoice)
+patient_id (foreign key referencing the patient_id column in the Patients table)
+invoice_date
+total_cost
+paid (boolean indicating whether the invoice has been paid or not)
+
+DentalCharts table:
+dental_chart_id (unique identifier for each dental chart)
+patient_id (foreign key referencing the patient_id column in the Patients table)
+chart_image (image of the patient's dental chart)
+date_created
+date_modified
+
+///
+Staff Table:
+
+staff_id (PK)
+first_name
+last_name
+role
+phone_number
+email_address
+Suppliers Table:
+
+supplier_id (PK)
+supplier_name
+contact_name
+email
+phone_number
+address
+Services Table:
+
+service_id (PK)
+service_name
+description
+price
+Equipment Table:
+
+equipment_id (PK)
+equipment_type
+manufacturer
+model
+purchase_date
+warranty_information
+maintenance_schedule
+Inventory Table:
+
+inventory_id (PK)
+item_name
+description
+unit_cost
+quantity
+supplier_id (FK references supplier_id in Suppliers Table)
+Patients Table:
+
+patient_id (PK)
+first_name
+last_name
+date_of_birth
+address
+phone_number
+email_address
+Procedures Table:
+
+procedure_id (PK)
+procedure_code
+procedure_name
+procedure_price
+procedure_description
+Dentists Table:
+
+dentist_id (PK)
+first_name
+last_name
+specialty
+phone_number
+email_address
+Medications Table:
+
+medication_id (PK)
+medication_code
+medication_name
+medication_dosage
+medication_description
+Appointments Table:
+
+appointment_id (PK)
+appointment_date
+appointment_time
+patient_id (FK references patient_id in Patients Table)
+dentist_id (FK references dentist_id in Dentists Table)
+procedure_id (FK references procedure_id in Procedures Table)
+status
+Treatment Plans Table:
+
+treatment_plan_id (PK)
+patient_id (FK references patient_id in Patients Table)
+start_date
+end_date
+total_cost
+status
+Payments Table:
+
+payment_id (PK)
+patient_id (FK references patient_id in Patients Table)
+amount_paid
+date_paid
+payment_method
+Prescriptions Table:
+
+prescription_id (PK)
+patient_id (FK references patient_id in Patients Table)
+medication_id (FK references medication_id in Medications Table)
+dosage
+instructions
+date_prescribed
+Invoices Table:
+
+invoice_id (PK)
+patient_id (FK references patient_id in Patients Table)
+invoice_date
+total_cost
+paid
+DentalCharts Table:
+
+dental_chart_id (PK)
+patient_id (FK references patient_id in Patients Table)
+chart_image
+date_created
+date_modified

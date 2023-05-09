@@ -160,7 +160,6 @@
 
     //document ready
     $(document).ready(function() {
-        console.log(scheds);
         $('.select2').select2();
 
         $('#schedule-form').submit(function(e) {
@@ -189,7 +188,6 @@
         $("#edit").click(function() {
             var id = $(this).attr('data-id');
             var sched = scheds[id];
-            console.log(sched);
             $('#schedule-form input[name="id"]').val(sched.appointment_id);
             $('#schedule-form select[name="patients"]').val(sched.patient_id).trigger('change');
             $('#schedule-form select[name="service"]').val(sched.service).trigger('change');

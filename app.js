@@ -28,9 +28,9 @@ $(function() {
                 center: 'title',
             },
             navLinks: true, // can click day/week names to navigate views
-            editable: true,
             eventLimit: true, // allow "more" link when too many events
             selectable: true,
+            dropable: true,
             selectHelper: true,
             themeSystem: 'bootstrap',
             //Random default events
@@ -52,7 +52,30 @@ $(function() {
             eventDidMount: function(info) {
                 // Do Something after events mounted
             },
-            editable: true
+            editable: true,
+            //handle eventDrop function
+            eventDrop: function(info) {
+               alert('jello')
+                var id = info.event.id
+                var start = info.event.start
+                var end = info.event.end
+                $.ajax({
+                    url: './appointments/update.php',
+                    type: 'POST',
+                    data: {
+                        id: id,
+                        start: start,
+                        end: end
+                    },
+                    success: function(response) {
+                        if (response == 1) {
+                            alert('Event updated');
+                        } else {
+                            alert('Event not updated');
+                        }
+                    }
+                })
+            },
         });
 
         calendar.render();
