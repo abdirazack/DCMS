@@ -1,40 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
 
-<head>
-    <meta charset="UTF-8">
-    <?php include_once 'header.php'; include_once('db-connect.php')?>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" />
-    <title>LOGIN</title>
+// require('app/util/auth.php');
 
-</head>
+$titles = [
+    'dashboard' => 'Home',
+    // books
+        'patient'    => ["title" => 'Add New Patient',                                  "path" => './app/patient/'],
+        'view_books'  => ["title" => 'View Books',                                      "path" => './app/books/'],
+        'issue_book'  => ["title" => 'Issue Book',                                      "path" => './app/books/issue_book'],
+        'return_book' => ["title" => 'Return Book',                                     "path" => './app/books/return_book'],
+    // users and members                                
+        'new_member'   => ["title" => 'Add New Member',                                 "path" => './app/members'],
+        'add_user'   => ["title" => 'Add New User',                                     "path" => './app/users'],
+        'view_members' => ["title" => 'View Members',                                   "path" => './app/members'],
+    // new tab elements                                
+        'author'   => ["title" => 'Add New Author',                                     "path" => './new_tabs/author'],
+        'publisher'   => ["title" => 'Add New Publisher',                               "path" => './new_tabs/publisher'],
+        'genre'   => ["title" => 'Add New Genre',                                       "path" => './new_tabs/genre'],
+        'language'   => ["title" => 'Add New Book Language',                            "path" => './new_tabs/language'],
+        'cover_format'   => ["title" => 'Add New Book Cover Format',                    "path" => './new_tabs/cover_format'],
+    // payments                             
+        'pay_member' => ["title" => 'Add New Payment',                                  "path" => './payments'],
+        'pay_all'    => ["title" => 'Pay All Members',                                  "path" => './payments'],
+        'expenses'   => ["title" => 'New Expenses',                                     "path" => './payments'],
+    // reports
+        //financial reports
+            'all_payments'    => ["title" =>  'Financial Report',                       "path" => './reports'],
+            'member_payments' => ["title" => 'Individual Payment Report',               "path" => './reports'],
+            'expense_report'  => ["title" => 'Expense Report',                          "path" => './reports'],
+            'cash_report'     => ["title" => 'Cash Report',                             "path" => './reports'],
+            'income_summary'  => ["title" => 'Income Summary',                          "path" => './reports'],
+        // other reports            
+            'all_new_books'         => ["title" => 'All New Books',                     "path" => './reports'],
+            'all_books'             => ["title" =>'All Books Info',                     "path" => './reports'],
+            'all_issued_books'      => ["title" => 'All Issued Books',                  "path" => './reports'],
+            'cust_issued_books'     => ["title" =>'Specific Customer Issued Books',     "path" => './reports'],
+            'all_returned_books'    => ["title" =>'All Returned Books',                 "path" => './reports'],
+            'cust_returned_books'   => ["title" => 'Specific Customer Returned Books',  "path" => './reports'],
 
-<body style='background-color: #F5F4F3; width: 100vw;'>
-    <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
-        <div class="container">
-            <div class="row justify-content-center bg-white p-5 rounded-5 shadow-lg ">
-                <div class="col-md-7 col-lg-6">
-                    <form action="loginProcess.php" method="post">
-                        <h1 class="fs-3 text-decoration-underline">LOGIN HERE</h1>
-                        <div class="mb-3 mt-3">
-                            <label for="username" class="form-label fs-6 text-primary">Username</label>
-                            <input type="text" class="form-control shadow border border-2 border-primary" name="username" id=" username">
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label fs-6 text-primary">Password</label>
-                            <input type="password" class="form-control shadow border border-2 border-primary" name="password" id="password">
-                        </div>
-                        <button type="submit" name='btnLogin' class="btn btn-outline-primary shadow mt-4">Login</button>
-                    </form>
-                </div>
-                <div class="col-md-5 col-lg-6 d-flex justify-content-center align-items-center">
-                    <img src="one.jpg" class="img-fluid shadow rounded" alt="Image" style="width: 400px; height: 350px;">
-                </div>
-            </div>
-        </div>
-    </div>
-</body>
 
-</html>
+];
+$is404 = false;
+$page = '';
+if(isset($_GET['page']) && !empty($_GET['page'])){
+    $page = $_GET['page'];
+    $title = $titles[$page]["title"];
+    $file = $titles[$page]["path"]."/$page.php";
+
+    // $FOF = ;
+    if(!file_exists($file)){
+        $is404 = true;
+    }
+}
+elseif(!in_array($page, $titles)){
+    $is404 = true;
+}
+else{
+    header("Location: index.php?page=dashboard");
+}
+require('./includes/header.php');
+require('./includes/sidebar.php');
+require($is404 ? 'dashboard.php' : $file );
+
+
+require('./includes/footer.php');
+?>
