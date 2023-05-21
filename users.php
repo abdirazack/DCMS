@@ -40,8 +40,8 @@ include_once('conn.php');
                             echo "<td>" . $row["username"] . "</td>";
                             echo "<td>" . $row["user_type"] . "</td>";
                             echo "<td class='text-center'> 
-                                    <button  class='btn btn-primary' onclick='editUsers(" . $row['user_id'] . ")'> EDIT </button> 
-                                    <a href='#' class='btn btn-danger ms-2' onclick='deleteUser(" . $row['user_id'] . ")'> DELETE </a> 
+                                    <button  class='btn btn-primary' onclick='editUsers(" . $row['user_id'] . ")'> <icon class = 'fa fa-edit'> </icon> </button> 
+                                    <a href='#' class='btn btn-danger ms-2' onclick='deleteUser(" . $row['user_id'] . ")'> <icon class = 'fa fa-trash'> </icon> </a> 
                                   </td>";
                             echo "</tr>";
                         }
