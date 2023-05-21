@@ -3,6 +3,8 @@
 <link rel="stylesheet" href="./Assets/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="./Assets/bootstrap/css/bootstrap.css">
 <link rel="stylesheet" href="./Assets/fontawesome/css/fontawesome.min.css">
+<link rel="stylesheet" href="assets/fontawesome/css/all.min.css">
+<link rel="stylesheet" href="assets/fontawesome/css/all.css">
 <link rel="stylesheet" href="./Assets/select2/css/select2.min.css"  />
 <link rel="stylesheet" href="./Assets/DataTables/datatables.css"/>
 <link rel="stylesheet" href="./Assets/DataTables/DataTables/css/dataTables.bootstrap5.min.css"/>

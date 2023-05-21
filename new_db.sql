@@ -86,6 +86,7 @@ CREATE TABLE Appointments (
   dentist_id INT,
   procedure_id INT,
   status VARCHAR(20),
+  Type VARCHAR(50),
   FOREIGN KEY (patient_id) REFERENCES Patients(patient_id),
   FOREIGN KEY (dentist_id) REFERENCES Dentists(dentist_id),
   FOREIGN KEY (procedure_id) REFERENCES Procedures(procedure_id)
@@ -136,5 +137,15 @@ CREATE TABLE DentalCharts (
   chart_image VARCHAR(200),
   date_created DATE,
   date_modified DATE,
+  FOREIGN KEY (patient_id) REFERENCES Patients(patient_id)
+);
+
+Create Table Login (
+  username VARCHAR(100) PRIMARY KEY,
+  password VARCHAR(100),
+  role VARCHAR(50),
+  staff_id INT,
+   patient_id INT,
+  FOREIGN KEY (staff_id) REFERENCES Staff(staff_id),
   FOREIGN KEY (patient_id) REFERENCES Patients(patient_id)
 );
