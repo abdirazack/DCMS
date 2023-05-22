@@ -1,24 +1,15 @@
-<!DOCTYPE html>
-<html>
+<?php 
+    include_once('./app/database/conn.php') 
+?>
 
-<head>
-    <title>Staff Page</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?php include_once('header.php');
-    include_once('conn.php') ?>
-</head>
+    <div class="container-fluid ">
 
-<body>
-
-    <div class="container d-flex flex-column justify-content-center align-items-center" style="min-height: 100vh;">
-
-        <div class="row mt-5 p-3 shadow-lg rounded">
+        <div class=" mt-1 p-3 shadow-lg rounded">
             <div class='small' id='small'></div>
-            <div class='d-flex justify-content-around mb-4'>
+            <div class='d-flex justify-content-between mb-4'>
                 <h2 class="text-center text-primary">Staff List</h2>
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staffModal">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staffModal">
                     ADD NEW STUFF
                 </button>
             </div>
@@ -51,8 +42,8 @@
                         echo "<td>" . $row['email'] . "</td>";
                         echo "<td>" . $row['address'] . "</td>";
                         echo "<td class='text-center'> 
-                                    <button  class='btn btn-primary' onclick='editStaff(" . $row['staff_id'] . ")'> EDIT </button> 
-                                    <a href='#' class='btn btn-danger ms-2 mt-1' onclick='deleteStaff(" . $row['staff_id'] . ")'> DELETE </a> 
+                                    <button  class='btn btn-primary' onclick='editStaff(" . $row['staff_id'] . ")'> <i class='fa fa-edit'></i> </button> 
+                                    <a href='#' class='btn btn-danger ms-2 mt-1' onclick='deleteStaff(" . $row['staff_id'] . ")'> <i class='fa fa-trash'></i> </a> 
                                   </td>";
                         echo "</tr>";
                     }
@@ -61,7 +52,6 @@
             </table>
         </div>
     </div>
-</body>
 
 
 
@@ -71,7 +61,7 @@
         var id = ids;
         $('#id').val(id);
         $.ajax({
-            url: 'staff/getStaff.php',
+            url: './app/staff/getStaff.php',
             type: 'POST',
             data: {
                 updateid: id
@@ -97,7 +87,7 @@
     function deleteStaff(id) {
         var id = id;
         $.ajax({
-            url: 'staff/deleteStaff.php',
+            url: './app/staff/deleteStaff.php',
             type: 'POST',
             data: {
                 deleteid: id
@@ -128,7 +118,7 @@
             e.preventDefault();
             var formData = new FormData(this);
             $.ajax({
-                url: 'staff/process_staff.php',
+                url: './app/staff/process_staff.php',
                 type: 'POST',
                 data: formData,
                 success: function(response) {
@@ -152,7 +142,6 @@
     });
 </script>
 
-</html>
 
 
 
@@ -162,10 +151,9 @@
         <div class="modal-content rounded shadow">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="staffModalLabel">ADD NEW STAFF</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <form action="./app/staff/process_staff.php" method="post" id="formInsertUpdate">
             <div class="modal-body">
-                <form action="staff/process_staff.php" method="post" id="formInsertUpdate">
                     <input type="hidden" name="id" id="id">
                     <div class="row">
                         <div class="mb-3 col-md-6">
@@ -191,13 +179,13 @@
                         <label for="address" class="form-label">Address:</label>
                         <textarea class="form-control border border-1 border-primary" id="address" name="address" required> </textarea>
                     </div>
-                    <center> <button type="submit" id='submit' class="btn btn-outline-primary">Add Staff</button> </center>
-                </form>
+               
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" id='submit' class="btn btn-outline-primary">Add Staff</button>
             </div>
+            </form>
         </div>
     </div>
 </div>

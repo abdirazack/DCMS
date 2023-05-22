@@ -5,13 +5,13 @@
 $titles = [
     'dashboard' => 'Home',
     // books
-        'patient'    => ["title" => 'Add New Patient',                                  "path" => './app/patient/'],
+        'staff'       => ["title" => 'Staff',                                           "path" => './app/staff/'],
         'view_books'  => ["title" => 'View Books',                                      "path" => './app/books/'],
         'issue_book'  => ["title" => 'Issue Book',                                      "path" => './app/books/issue_book'],
         'return_book' => ["title" => 'Return Book',                                     "path" => './app/books/return_book'],
     // users and members                                
         'new_member'   => ["title" => 'Add New Member',                                 "path" => './app/members'],
-        'add_user'   => ["title" => 'Add New User',                                     "path" => './app/users'],
+        'add_user'   =>   ["title" => 'Add New User',                                     "path" => './app/users'],
         'view_members' => ["title" => 'View Members',                                   "path" => './app/members'],
     // new tab elements                                
         'author'   => ["title" => 'Add New Author',                                     "path" => './new_tabs/author'],
@@ -62,6 +62,6 @@ require_once('./includes/header.php');
 require_once('./includes/sidebar.php');
 require_once($is404 ? 'dashboard.php' : $file );
 
-
+ECHO '<div class="mb-2"></div>';
 require_once('./includes/footer.php');
 ?>

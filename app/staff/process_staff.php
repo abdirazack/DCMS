@@ -1,6 +1,6 @@
 <?php
 // Connect to the database
-include_once('../conn.php');
+include_once('../database/conn.php');
 
 
     $id = @$_POST["id"];
@@ -30,7 +30,6 @@ include_once('../conn.php');
   } else {
 
         // Update the staff
-
 
     $sql = "UPDATE staff SET first_name = '$first_name', last_name = '$last_name', phone_number = '$phone_number', email = '$email', address = '$address' WHERE staff_id='$id'";
     if ($conn->query($sql) === TRUE) {
