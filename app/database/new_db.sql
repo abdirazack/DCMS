@@ -50,7 +50,10 @@ CREATE TABLE Patients (
   date_of_birth DATE,
   address VARCHAR(200),
   phone_number VARCHAR(20),
-  email_address VARCHAR(100)
+  email_address VARCHAR(100),
+  profile_photo VARCHAR(255),
+  username VARCHAR(200),
+  password VARCHAR(255)
 );
 
 CREATE TABLE Procedures (
