@@ -58,10 +58,10 @@ elseif(!in_array($page, $titles)){
 else{
     header("Location: index.php?page=dashboard");
 }
-require('./includes/header.php');
-require('./includes/sidebar.php');
-require($is404 ? 'dashboard.php' : $file );
+require_once('./includes/header.php');
+require_once('./includes/sidebar.php');
+require_once($is404 ? 'dashboard.php' : $file );
 
 
-require('./includes/footer.php');
+require_once('./includes/footer.php');
 ?>

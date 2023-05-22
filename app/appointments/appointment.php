@@ -1,9 +1,11 @@
 <head>
     <?php 
-    include_once('conn.php'); ?>
-    <link rel="stylesheet" href="./fullcalendar/lib/main.min.css">
+    include_once('../database/conn.php'); 
+    include_once('../../includes/header.php')
+    ?>
+    <!-- <link rel="stylesheet" href="./fullcalendar/lib/main.min.css">
     <script src="./fullcalendar/lib/main.min.js">
-    </script>
+    </script> -->
 <!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
     <style>

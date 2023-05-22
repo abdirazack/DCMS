@@ -1,5 +1,5 @@
 <?php
-// require('./app/database/conn.php');
+    require_once('./app/database/conn.php');
 ?>
 
 
@@ -26,17 +26,17 @@
 <?php  
 
 // require_once('./patient_proc.php');
-require_once('./encrypt.php');
+// require_once('./encrypt.php');
 
-$msg = $_GET['msg'];
-$key = 4;
-if($msg != ""){
-    $encodec = new encodec();
-    $msg  = $encodec->deco($msg, $key);
-    echo "<center class='mb-2'>";
-    echo "<strong class='p-1 rounded' style='background-color:green;color:white;'>".$msg."</strong>";
-    echo "</center>";
-}
+// $msg = $_GET['msg'];
+// $key = 4;
+// if($msg != ""){
+//     $encodec = new encodec();
+//     $msg  = $encodec->deco($msg, $key);
+//     echo "<center class='mb-2'>";
+//     echo "<strong class='p-1 rounded' style='background-color:green;color:white;'>".$msg."</strong>";
+//     echo "</center>";
+// }
 
 ?>
     <table class="table table-hover" id="dataTable">
