@@ -6,18 +6,20 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php
-    include_once('./database/conn.php'); ?>
+    include_once('./app/database/conn.php');
+    ?>
 </head>
 
 <body>
 
-    <div class="container d-flex flex-column justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="container-fluid ">
 
-        <div class="row mt-5 p-3 shadow-lg rounded">
-            <div class='d-flex justify-content-around mb-4'>
+        <div class=" mt-1 p-3 shadow-lg rounded">
+            <div class='small' id='small'></div>
+            <div class='d-flex justify-content-between mb-4'>
                 <h2 class="text-center text-primary">Patients List</h2>
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#patientModal">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#patientModal">
                     ADD NEW PATIENT
                 </button>
             </div>
@@ -42,7 +44,7 @@
                     $result = mysqli_query($conn, "SELECT * FROM patients");
 
                     // Loop through the results and output each patients member as a table row
-                    While($row = mysqli_fetch_assoc($result)){
+                    while ($row = mysqli_fetch_assoc($result)) {
                         echo "<tr>";
                         echo "<td>" . $row['patient_id'] . "</td>";
                         echo "<td>" . $row['first_name'] . "</td>";
@@ -55,7 +57,6 @@
                                     <button  class='btn btn-primary' onclick='editPatient(" . $row['patient_id'] . ")'> EDIT </button> 
                                     <a href='#' class='btn btn-danger ms-2 mt-1' onclick='deletePatient(" . $row['patient_id'] . ")'> DELETE </a> 
                                   </td>";
-
                     }
 
                     ?>
@@ -166,11 +167,10 @@
         <div class="modal-content rounded shadow">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="patientModalLabel">ADD NEW PATIENT</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-            <p class='small text-danger' id='small'></p>
-                <form action="patient/process_patient.php" method="post" id="formInsertUpdate">
+            <form action="./app/patient/process_patient.php" method="post" id="formInsertUpdate">
+                <div class="modal-body">
+                    <p class='small text-danger' id='small'></p>
                     <input type="hidden" name="id" id="id">
                     <div class="row">
                         <div class="mb-3 col-md-6">
@@ -193,32 +193,37 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                                <label for="name" class="form-label text-primary ">User Type</label>
-                                <?php
-                                        // Get the list of possible enum values for the gender column
-                                        $result = mysqli_query($conn, "SHOW COLUMNS FROM patients WHERE Field='gender'");
-                                        $row = mysqli_fetch_array($result);
-                                        $enum_list = $row['Type'];
+                        <label for="name" class="form-label text-primary ">User Type</label>
+                        <?php
+                        // Get the list of possible enum values for the gender column
+                        $result = mysqli_query($conn, "SHOW COLUMNS FROM patients WHERE Field='gender'");
+                        $row = mysqli_fetch_array($result);
+                        $enum_list = $row['Type'];
 
-                                        // Parse the enum list to extract the individual values
-                                        preg_match_all("/'([^']+)'/", $enum_list, $matches);
-                                        $enum_values = $matches[1];
+                        // Parse the enum list to extract the individual values
+                        preg_match_all("/'([^']+)'/", $enum_list, $matches);
+                        $enum_values = $matches[1];
 
-                                        // Output the HTML select element
-                                        echo '<select name="gender" id="gender" class="form-control border border-1 border-primary">';
-                                        foreach ($enum_values as $value) {
-                                            echo '<option value="' . $value . '">' . $value . '</option>';
-                                        }
-                                        echo '</select>';
-                                    ?>
-                            </div>
+                        // Output the HTML select element
+                        echo '<select name="gender" id="gender" class="form-control border border-1 border-primary">';
+                        echo '<option value=""> Select Gender </option>';
+                        foreach ($enum_values as $value) {
+                            echo '<option value="' . $value . '">' . $value . '</option>';
+                        }
+                        echo '</select>';
+                        ?>
+                    </div>
                     <div class="mb-3">
                         <label for="address" class="form-label">Address:</label>
                         <textarea class="form-control border border-1 border-primary" id="address" name="address" required> </textarea>
                     </div>
-                    <center> <button type="submit" id='submit' class="btn btn-outline-primary">Add Patient</button> </center>
-                </form>
-            </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" id='submit' class="btn btn-outline-primary">Add Patient</button>
+                    </div>
+                </div>
+            </form>
+
         </div>
     </div>
 </div>

@@ -36,11 +36,9 @@
         </a>
         <div id="collapseAppointment" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Books:</h6>
-                <a class="collapse-item" href="index.php?page=patient">Add New Patient</a>
-                <a class="collapse-item" href="index.php?page=view_books">View All Books</a>
-                <a class="collapse-item" href="index.php?page=issue_book">Issue Book</a>
-                <a class="collapse-item" href="index.php?page=return_book">Return Book</a>
+                <h6 class="collapse-header">Appointments:</h6>
+                <a class="collapse-item" href="index.php?page=appointment">Add New Appointment</a>
+                <a class="collapse-item" href="index.php?page=appointment">View All Appointments</a>
             </div>
         </div>
     </li>
@@ -55,9 +53,8 @@
         <div id="collapsePatient" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 
-                <h6 class="collapse-header">Users:</h6>
-                <a class="collapse-item" href="index.php?page=add_user">Add New Patient</a>
-                <a class="collapse-item" href="index.php?page=view_users">View All Patients </a>
+                <h6 class="collapse-header">Patients:</h6>
+                <a class="collapse-item" href="index.php?page=patients">Patients</a>
                 
             </div>
         </div>
@@ -72,11 +69,7 @@
         </a>
         <div id="collapseStaff" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="index.php?page=author">Add Author</a>
-                <a class="collapse-item" href="index.php?page=publisher">Add Publisher</a>
-                <a class="collapse-item" href="index.php?page=genre">Add Genre</a>
-                <a class="collapse-item" href="index.php?page=language">Add Language</a>
-                <a class="collapse-item" href="index.php?page=cover_format">Add Cover Format</a>
+                <a class="collapse-item" href="index.php?page=staff">Staff</a>
             </div>
         </div>
     </li>
@@ -92,10 +85,7 @@
         <div id="collapseServices" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Users:</h6>
-                <a class="collapse-item" href="#">Pay Member</a>
-                <a class="collapse-item" href="#">Pay All Members</a>
-                <h6 class="collapse-header">Expenses:</h6>
-                <a class="collapse-item" href="#">Add New Expense</a>
+                <a class="collapse-item" href="index.php?page=services">Services</a>
             </div>
         </div>
     </li>
@@ -111,11 +101,8 @@
         </a>
         <div id="collapseExpenses" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Users:</h6>
-                <a class="collapse-item" href="#">Pay Member</a>
-                <a class="collapse-item" href="#">Pay All Members</a>
                 <h6 class="collapse-header">Expenses:</h6>
-                <a class="collapse-item" href="#">Add New Expense</a>
+                <a class="collapse-item" href="index.php?page=expenses">Expense</a>
             </div>
         </div>
     </li>
@@ -133,9 +120,6 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Users:</h6>
                 <a class="collapse-item" href="#">Pay Member</a>
-                <a class="collapse-item" href="#">Pay All Members</a>
-                <h6 class="collapse-header">Expenses:</h6>
-                <a class="collapse-item" href="#">Add New Expense</a>
             </div>
         </div>
     </li>
@@ -196,7 +180,7 @@
                         <span
                             class="mr-2 d-none d-lg-inline text-gray-600 small">Patient-Zero</span>
                         <div class="rounded-circle btn-warning">
-                            <img class="img-profile rounded-circle" src="../img/undraw_profile.svg">
+                            <img class="img-profile rounded-circle" src="./app/img/undraw_profile.svg">
                         </div>
                     </a>
                     <!-- Dropdown - User Information -->

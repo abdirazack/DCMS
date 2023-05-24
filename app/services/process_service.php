@@ -1,6 +1,6 @@
 <?php
-// Connect to the database
-include_once('../conn.php');
+  // Connect to the database
+  include_once('../database/conn.php') ;
 
 
     $id = @$_POST["id"];

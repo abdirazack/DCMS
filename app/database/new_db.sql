@@ -83,16 +83,16 @@ CREATE TABLE Medications (
 
 CREATE TABLE Appointments (
   appointment_id INT PRIMARY KEY,
+  Type VARCHAR(50),
+  status VARCHAR(20),
   appointment_date DATE,
   appointment_time TIME,
   patient_id INT,
   dentist_id INT,
-  procedure_id INT,
-  status VARCHAR(20),
-  Type VARCHAR(50),
+  service_id INT,
   FOREIGN KEY (patient_id) REFERENCES Patients(patient_id),
   FOREIGN KEY (dentist_id) REFERENCES Dentists(dentist_id),
-  FOREIGN KEY (procedure_id) REFERENCES Procedures(procedure_id)
+  FOREIGN KEY (service_id) REFERENCES Services(service_id)
 );
 
 CREATE TABLE Treatment_Plans (
@@ -109,6 +109,7 @@ CREATE TABLE Payments (
   payment_id INT PRIMARY KEY,
   patient_id INT,
   amount_paid DECIMAL(10,2),
+  description TEXT,
   date_paid DATE,
   payment_method VARCHAR(50),
   FOREIGN KEY (patient_id) REFERENCES Patients(patient_id)

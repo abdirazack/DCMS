@@ -1,12 +1,13 @@
 <?php
-// Connect to the database
-include_once('../conn.php');
+  // Connect to the database
+  include_once('../database/conn.php');
 
 
     $id = @$_POST["id"];
     $date = $_POST["date"];
     $description = $_POST["description"];
     $amount = $_POST["amount"];
+    $quantity = $_POST['Quantity'];
     $drug_id = $_POST["drug_id"];
     $expense_type = $_POST["expense_type"];
 
@@ -14,7 +15,7 @@ include_once('../conn.php');
   if ($id == "") {
 
     // Insert a new expense
-    $sql = "INSERT INTO expenses (date, description,  amount, expense_type, drug_id) VALUES ( '$date','$description', '$amount', '$expense_type', '$drug_id')";
+    $sql = "INSERT INTO expenses (date, description,  amount, Quantity, expense_type, drug_id) VALUES ( '$date','$description', '$amount', '$quantity ','$expense_type', '$drug_id')";
     if ($conn->query($sql) === TRUE) {
         $data = ['message'=>'Succeesully added expense', 'status'=>200];
         echo json_encode($data);
@@ -30,7 +31,7 @@ include_once('../conn.php');
   } else {
 
         // Update the expense
-    $sql = "UPDATE expenses SET date='$date', description='$description', amount='$amount', expense_type = '$expense_type', drug_id = '$drug_id' WHERE expense_id='$id'";
+    $sql = "UPDATE expenses SET date='$date', description='$description', amount='$amount', Quantity = '$quantity', expense_type = '$expense_type', drug_id = '$drug_id' WHERE expense_id='$id'";
     if ($conn->query($sql) === TRUE) {
         $data = ['message'=>'succeffully updated Expense', 'status'=>200];
         echo json_encode($data);

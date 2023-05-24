@@ -1,7 +1,5 @@
 <?php
-include_once('header.php');
-include_once('conn.php');
-
+    include_once('./app/database/conn.php')
 ?>
 
 <!DOCTYPE html>
@@ -13,10 +11,10 @@ include_once('conn.php');
 </head>
 
 <body>
-    <div class="container d-flex justify-content-center align-items-center vh-100 rounded">
-        <div class="row shadow-lg vw-100 rounded">
+    <div class="container-fluid mx-auto">
+        <div class="row shadow-lg rounded p-2">
             <div class="col-md-8">
-                <h1 class="text-center text-primary">Services</h1>
+                <h1 class="text-primary">Services</h1>
                 <table class="table table-hover" id="dataTable">
                     <thead>
                         <tr>
@@ -40,9 +38,9 @@ include_once('conn.php');
                             echo "<td>" . $row["description"] . "</td>";
                             echo "<td>" . $row["fee"] . "</td>";
                             echo "<td class='text-center'> 
-                                    <button  class='btn btn-primary' onclick='editServices(" . $row['service_id'] . ")'> EDIT </button> 
-                                    <a href='#' class='btn btn-danger ms-2' onclick='deleteService(" . $row['service_id'] . ")'> DELETE </a> 
-                                  </td>";
+                            <button  class='btn btn-primary' onclick='editServices(" . $row['service_id'] . ")'> <i class='fa fa-edit'></i> </button> 
+                            <a href='#' class='btn btn-danger ms-2 mt-1' onclick='deleteServices(" . $row['service_id'] . ")'> <i class='fa fa-trash'></i> </a> 
+                          </td>";
                             echo "</tr>";
                         }
 
@@ -56,7 +54,7 @@ include_once('conn.php');
                 <div class="card p-3 rounded">
                     <div class="card-body shadow rounded p-3">
                         <h1 class="card-title text-center text-primary fs-5">New Service</h1>
-                        <form action="services/process_service.php" method="post" id="formInsertUpdate">
+                        <form>
                             <!-- hidden input -->
                             <input type="hidden" name="id" id="id">
                             <div class="mb-3">
@@ -72,7 +70,7 @@ include_once('conn.php');
                                 <input type="number" class="form-control border border-1 border-primary" id="fee" name="fee" required>
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-outline-primary" id="submit">Submit</button>
+                                <button type="Button" class="btn btn-outline-primary" id="submit" onclick="insertUpdate()">Submit</button>
                             </div>
                         </form>
                     </div>
@@ -84,34 +82,34 @@ include_once('conn.php');
 
 </html>
 <script>
-
-
     function editServices(ids) {
 
         var id = ids;
         $('#id').val(id);
+        //get services data
+
         $.ajax({
-            url: 'services/getService.php',
+            url: './app/services/getService.php',
             type: 'POST',
             data: {
                 updateid: id
             },
             success: function(response) {
                 var data = JSON.parse(response);
+                // alert(data.name);
                 $('#name').val(data.name);
                 $('#description').val(data.description);
                 $('#fee').val(data.fee);
             }
 
         });
-
         $("#submit").text('Update');
     }
 
-    function deleteService(id) {
+    function deleteServices(id) {
         var id = id;
         $.ajax({
-            url: 'services/deleteService.php',
+            url: './app/services/deleteService.php',
             type: 'POST',
             data: {
                 deleteid: id
@@ -129,35 +127,47 @@ include_once('conn.php');
 
     $(document).ready(function() {
         $('#dataTable').DataTable({
-            pagingType: 'full_numbers',
-            "aLengthMenu": [
-                [5, 10, , 20, 50, 75, -1],
-                [5, 10, 20, 50, 75, "All"]
+            "pagingType": "full_numbers",
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "All"]
             ],
-            "iDisplayLength": 5,
-            "bDestroy": true
-        });
+            responsive: true,
+            language: {
+                search: "_INPUT_",
+                searchPlaceholder: "Search records",
+            }});
+        //$('#dataTable').DataTable();
 
-        $('#formInsertUpdate').submit(function(e) {
-            e.preventDefault();
-            var formData = new FormData(this);
-            $.ajax({
-                url: 'services/process_service.php',
-                type: 'POST',
-                data: formData,
-                success: function(response) {
-                    var obj = jQuery.parseJSON(response);
-                    if (obj.status == 200) {
-                        location.reload();
-                    } else {
-                        alert(obj.message);
-                    }
-                },
-                cache: false,
-                contentType: false,
-                processData: false
-            });
-        });
 
     });
+
+    function insertUpdate() {
+
+        var name = $('#name').val();
+        var description = $('#description').val();
+        var fee = $('#fee').val();
+        var id = $('#id').val();
+        var ulr = './app/services/process_service.php';
+        var data = {
+            name: name,
+            description: description,
+            fee: fee,
+            id: id
+        };
+
+        $.ajax({
+            url: ulr,
+            type: 'POST',
+            data: data,
+            success: function(response) {
+                var obj = jQuery.parseJSON(response);
+                if (obj.status == 200) {
+                    location.reload();
+                } else {
+                    alert(obj.message);
+                }
+            }
+        });
+    }
 </script>
