@@ -8,6 +8,10 @@ if(isset($_POST['patients'])){
     $service=mysqli_real_escape_string($conn, $_POST['service']);
     $start_datetime=mysqli_real_escape_string($conn, $_POST['start_datetime']);
     $end_datetime=mysqli_real_escape_string($conn, $_POST['end_datetime']);
+    $status = mysqli_real_escape_string($conn, $_POST['status']);
+    $dentst = 1;
+    $type = 'Walk-in';
+
 
     if(empty($patients)){
         $data = ['message'=>'select a patient', 'status'=>404];
@@ -25,7 +29,7 @@ if(isset($_POST['patients'])){
     //    // $patient_id = $row['patient_id'];
         
         
-            $query=mysqli_query($conn,"insert into appointments values('null','$patients','$service','$start_datetime','$end_datetime')");
+            $query=mysqli_query($conn,"insert into appointments values('Walk-in','$patients','$service','$start_datetime','$end_datetime')");
             if($query){
                     $data = ['message'=>'Success', 'status'=>200];
                     echo json_encode($data);

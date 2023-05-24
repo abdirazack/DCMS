@@ -1,13 +1,21 @@
+<?php
+    include_once('./app/database/conn.php');
+    // require_once('db-connect.php');
+ ?>
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-    <?php 
-    include_once('../database/conn.php'); 
-    // include_once('../../includes/header.php')
-    ?>
-    <link rel="stylesheet" href="./fullcalendar/lib/main.min.css">
-    <script src="./fullcalendar/lib/main.min.js">
-    </script>
-<!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scheduling</title>
+
+    <link rel="stylesheet" href="./app/appointments/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./app/appointments/fullcalendar/lib/main.min.css">
+    <!-- <script src="./app/appointments/js/jquery-3.6.0.min.js"></script> -->
+    <script src="./app/appointments/js/bootstrap.min.js"></script>
+    <script src="./app/appointments/fullcalendar/lib/main.min.js"></script>
     <style>
         :root {
             --bs-success-rgb: 71, 222, 152 !important;
@@ -17,6 +25,7 @@
         body {
             height: 100%;
             width: 100%;
+            font-family: Apple Chancery, cursive;
         }
 
         .btn-info.text-light:hover,
@@ -38,7 +47,6 @@
     </style>
 </head>
 
-<body>
     <div class="container py-5" id="page-container">
         <div class="row">
             <div class="col-md-9">
@@ -47,69 +55,87 @@
             <div class="col-md-3">
                 <div class="cardt rounded shadow">
                     <div class="card-header bg-gradient bg-primary text-light">
-                        <h5 class="card-title p-2">appointments Form</h5>
+                        <h5 class="card-title">Schedule Form</h5>
                     </div>
                     <div class="card-body">
                         <div class="container-fluid">
-                            <form action="appointments/save.php" method="post" id="schedule-form">
+                            <form action="save_schedule.php" method="post" id="schedule-form">
                                 <input type="hidden" name="id" value="">
-
-                                <div class="form-group mt-2 mb-3">
-                                    <select class="form-control select2 " id="patients" name="patients" REQUIRED>
-                                        <option value="">Select Patients</option>
-                                        <?php
-                                        $query = "SELECT * FROM `patients`";
-                                        $result = mysqli_query($conn, $query);
-                                        while ($row = mysqli_fetch_array($result)) {
-                                            echo "<option value='" . $row['patient_id'] . "'>" . $row['first_name'] . "</option>";
-                                        }
-                                        ?>
+                                <div class="form-group mb-3">
+                                    <!-- select for status  -->
+                                    <label for="status" class="control-label">Status</label>
+                                    <select name="status" id="status" class="form-control select2 form-control-sm rounded-0" required>
+                                        <option value="Finished">Finished</option>
+                                        <option value="Cancelled">Cancelled</option>
+                                        <option value="Pending">Pending</option>
+                                        <option value="Rescheduled">Rescheduled</option>
+                                        <option value="No Show">No Show</option>
+                                        <option value="Confirmed">Confirmed</option>
+                                        <option value="Checked In">Checked In</option>
+                                        <option value="Checked Out">Checked Out</option>
+                                        
                                     </select>
                                 </div>
-
-                                <div class="form-group mb-2">
-                                    <select class="form-control select2" id="service" name="service" REQUIRED>
-                                        <option value="">Select service</option>
+                                <div class="form-group mb-3">
+                                    <!-- get patient with select2 -->
+                                    <label for="patient_id" class="control-label">Patient</label>
+                                    <select name="patient_id" id="patient_id" class="form-control select2 form-control-sm rounded-0" required>
+                                        <option value="">Select Patient</option>
                                         <?php
-                                        $query = "SELECT * FROM `services`";
-                                        $result = mysqli_query($conn, $query);
-                                        while ($row = mysqli_fetch_array($result)) {
-                                            echo "<option value='" . $row['name'] . "'>" . $row['name'] . "</option>";
-                                        }
+                                        $patients = $conn->query("SELECT * FROM `patients`");
+                                        while ($row = $patients->fetch_assoc()) {
                                         ?>
+                                            <option value="<?= $row['id'] ?>"><?php ucwords($row['last_name'] . ', ' . $row['first_name']); ?></option>
+                                        <?php }?>
                                     </select>
                                 </div>
-                                <div class="form-group mb-2">
+                                <!-- Dentist select2 -->
+                                <div class="form-group mb-3">
+                                    <label for="dentist_id" class="control-label">Dentist</label>
+                                    <select name="dentist_id" id="dentist_id" class="form-control select2 form-control-sm rounded-0" required>
+                                        <option value="">Select Dentist</option>
+                                        <?php
+                                        $dentists = $conn->query("SELECT * FROM `dentists`");
+                                        while ($row = $dentists->fetch_assoc()) {
+                                        ?>
+                                            <option value="<?= $row['id'] ?>"><?php ucwords($row['last_name'] . ', ' . $row['first_name']); ?></option>
+                                        <?php }?>
+                                    </select>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="description" class="control-label">Description</label>
+                                    <textarea rows="3" class="form-control form-control-sm rounded-0" name="description" id="description" required></textarea>
+                                </div>
+                                <div class="form-group mb-3">
                                     <label for="start_datetime" class="control-label">Start</label>
                                     <input type="datetime-local" class="form-control form-control-sm rounded-0" name="start_datetime" id="start_datetime" required>
                                 </div>
-                                <div class="form-group mb-2">
+                                <div class="form-group mb-3">
                                     <label for="end_datetime" class="control-label">End</label>
                                     <input type="datetime-local" class="form-control form-control-sm rounded-0" name="end_datetime" id="end_datetime" required>
                                 </div>
                             </form>
                         </div>
                     </div>
-                    <div class="card-footer p-2">
+                    <div class="card-footer">
                         <div class="text-center">
                             <button class="btn btn-primary btn-sm rounded" type="submit" form="schedule-form"><i class="fa fa-save"></i> Save</button>
-                            <button class="btn btn-default border btn-sm rounded" type="reset" form="schedule-form"><i class="fa-reset"></i> Cancel</button>
+                            <button class="btn btn-default border btn-sm rounded" type="reset" form="schedule-form"><i class="fa fa-reset"></i> Cancel</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
     <!-- Event Details Modal -->
     <div class="modal fade" tabindex="-1" data-bs-backdrop="static" id="event-details-modal">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content rounded">
-                <div class="modal-header rounded">
-                    <h5 class="modal-title">appointments Details</h5>
+            <div class="modal-content rounded-0">
+                <div class="modal-header rounded-0">
+                    <h5 class="modal-title">Schedule Details</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body rounded">
+                <div class="modal-body rounded-0">
                     <div class="container-fluid">
                         <dl>
                             <dt class="text-muted">Title</dt>
@@ -123,11 +149,11 @@
                         </dl>
                     </div>
                 </div>
-                <div class="modal-footer rounded">
+                <div class="modal-footer rounded-0">
                     <div class="text-end">
-                        <button type="button" class="btn btn-primary btn-sm rounded" id="edit" data-id="">Edit</button>
-                        <button type="button" class="btn btn-danger btn-sm rounded" id="delete" data-id="">Delete</button>
-                        <button type="button" class="btn btn-secondary btn-sm rounded" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary btn-sm rounded-0" id="edit" data-id="">Edit</button>
+                        <button type="button" class="btn btn-danger btn-sm rounded-0" id="delete" data-id="">Delete</button>
+                        <button type="button" class="btn btn-secondary btn-sm rounded-0" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -135,104 +161,26 @@
     </div>
     <!-- Event Details Modal -->
 
-
     <?php
-    // Get all appointments
-    $schedules = $conn->query("SELECT * FROM `showappointments`");
-    if (!$schedules) {
-        echo "Error: " . $conn->error;
-    } else {
-        foreach ($schedules->fetch_all(MYSQLI_ASSOC) as $row) {
-            // Format the start and end dates
-            $row['sdate'] = date("F d, Y h:i A", strtotime($row['start_date']));
-            $row['edate'] = date("F d, Y h:i A", strtotime($row['end_date']));
-
-            // Add the appointment to the array
-            $sched_res[$row['appointment_id']] = $row;
-        }
-    }
-    ?>
-    <?php
-    ?>
-</body>
+    // $schedules = $conn->query("SELECT * FROM `schedule_list`");
+    // $sched_res = [];
+    // foreach ($schedules->fetch_all(MYSQLI_ASSOC) as $row) {
+    //     $row['sdate'] = date("F d, Y h:i A", strtotime($row['start_datetime']));
+    //     $row['edate'] = date("F d, Y h:i A", strtotime($row['end_datetime']));
+    //     $sched_res[$row['id']] = $row;
+    // }
+    // ?>
+     <?php
+    // if (isset($conn)) $conn->close();
+    // ?>
 <script>
-    var scheds = $.parseJSON('<?= json_encode($sched_res) ?>');
-    //console scheds
-
-
-    //document ready
+    // var scheds = $.parseJSON('<?= json_encode($sched_res) ?>')
+    $('.select2').select2();
+    //document ready function
     $(document).ready(function() {
-        $('.select2').select2();
-
-        $('#schedule-form').submit(function(e) {
-            e.preventDefault();
-            $.ajax({
-                url: $(this).attr('action'),
-                method: 'POST',
-                data: $(this).serialize(),
-                success: function(resp) {
-                    var obj = jQuery.parseJSON(resp);
-                    if (obj.status == 200) {
-                        
-                        alert("Appointment Added");
-                        //reload calendar
-                        calendar.refetchEvents();
-                        //reload page
-                        location.reload();
-                    }
-                    if (obj.status == 404) {
-                        alert(obj.message);
-                    }
-                }
-            });
-        });
-
-        $("#edit").click(function() {
-            var id = $(this).attr('data-id');
-            var sched = scheds[id];
-            $('#schedule-form input[name="id"]').val(sched.appointment_id);
-            $('#schedule-form select[name="patients"]').val(sched.patient_id).trigger('change');
-            $('#schedule-form select[name="service"]').val(sched.service).trigger('change');
-            $('#schedule-form input[name="start_datetime"]').val(sched.start_date);
-            $('#schedule-form input[name="end_datetime"]').val(sched.end_date);
-            $('#schedule-form').attr('action', 'appointments/update.php');
-            $('#event-details-modal').modal('hide');
-        });
-
-        $("#delete").click(function() {
-            var id = $(this).attr('data-id')
-            if (!!scheds[id]) {
-                var _conf = confirm("Are you sure to delete this scheduled event?");
-                if (_conf === true) {
-                    //location.href = "appointments/delete.php?id=" + scheds[id].appointment_id;
-                    
-                    $.ajax({
-                        url:"appointments/delete.php",
-                        type:"post",
-                        data:{id:scheds[id].appointment_id},
-                          success:function(data){
-                            var obj = jQuery.parseJSON(data);
-                            if (obj.status == 200) {
-                                //close modal 
-                                $('#event-details-modal').modal('hide');
-                                //reload calendar
-                                calendar.refetchEvents();
-                                //reload page
-                                location.reload();
-                            }
-                            if (obj.status == 404) {
-                               // $("#state").text(obj.message);
-                               alert(obj.message);
-                            }
-                        }
-                      });
-
-                }
-            } else {
-                alert("Event is undefined");
-            }
-        });
-    });
-    //onsubmit schedule-form 
+        $('.select2').select2();    
+    }); //end of
 </script>
-<script src="app.js"></script>
+<script src="./app/appointments/js/script.js"></script>
+
+</html>

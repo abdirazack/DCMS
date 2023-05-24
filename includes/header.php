@@ -23,18 +23,18 @@
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> -->
     <link href="./vendor/DataTables/datatables.css" rel="stylesheet">
     <link href="./vendor/select2/css/select2.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
-
     <!-- Page Wrapper -->
     <div id="wrapper">
+    
+
 
     <script src="./vendor/jquery/jquery.js" ></script>
     <script src="./vendor/DataTables/datatables.js"></script>
-    <script src="./vendor/datatables/jquery.dataTables.js"></script>
     <script src="./vendor/select2/js/select2.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->

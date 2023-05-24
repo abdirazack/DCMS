@@ -143,12 +143,20 @@ CREATE TABLE DentalCharts (
   FOREIGN KEY (patient_id) REFERENCES Patients(patient_id)
 );
 
-Create Table Login (
-  username VARCHAR(100) PRIMARY KEY,
-  password VARCHAR(100),
-  role VARCHAR(50),
-  staff_id INT,
-   patient_id INT,
-  FOREIGN KEY (staff_id) REFERENCES Staff(staff_id),
-  FOREIGN KEY (patient_id) REFERENCES Patients(patient_id)
-);
+CREATE VIEW AppointmentDetails 
+AS 
+SELECT 
+A.appointment_id, 
+A.Type, 
+A.status, 
+A.appointment_date, 
+A.appointment_time, 
+P.patient_id as patient_id, 
+P.first_name AS patient_first_name, 
+P.last_name AS patient_last_name,
+ D.dentist_id AS dentists_id, 
+ D.first_name AS dentist_first_name, 
+ D.last_name AS dentist_last_name, 
+ S.service_id AS service_id, 
+ S.name AS services_name 
+ FROM Appointments A JOIN Patients P ON A.patient_id = P.patient_id JOIN Dentists D ON A.dentist_id = D.dentist_id JOIN Services S ON A.service_id = S.service_id;

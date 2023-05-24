@@ -1,7 +1,6 @@
 <?php
 
 // require('app/util/auth.php');
-
 $titles = [
     'dashboard' => 'Home',
     // books
@@ -25,10 +24,8 @@ $titles = [
 
     // payments                             
         'pay_member' => ["title" => 'Add New Payment',                                  "path" => './payments'],
-        'pay_all'    => ["title" => 'Pay All Members',                                  "path" => './payments'],
+        'pay_all'    => ["title" => 'Pay All Members',                                  "path" => './payments']
         //'expenses'   => ["title" => 'New Expenses',                                     "path" => './payments'],
-
-
 ];
 $is404 = false;
 $page = '';
@@ -55,11 +52,13 @@ require_once($is404 ? 'dashboard.php' : $file );
 ECHO '<div class="mb-2"></div>';
 require_once('./includes/footer.php');
 ?>
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> -->
     <link href="./vendor/DataTables/datatables.css" rel="stylesheet">
     <link href="./vendor/select2/css/select2.css" rel="stylesheet">
+
     
+
     <script src="./vendor/DataTables/DataTables/js/jquery.dataTables.min.js"></script>
-    <script src="./vendor//DataTables/DataTables/js/dataTables.bootstrap5.min.js"></script>
+    <script src="./vendor/DataTables/DataTables/js/dataTables.bootstrap5.min.js"></script>
     <script src="./vendor/select2/js/select2.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->

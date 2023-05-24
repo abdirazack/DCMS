@@ -63,7 +63,7 @@ $result = mysqli_query($conn, $sql);
 
 
     <!-- Modal -->
-    <div class="modal fade" id="ExpenseModal" tabindex="-1" aria-labelledby="ExpenseModalLabel" aria-hidden="true">
+    <div class="modal fade" id="ExpenseModal"  aria-labelledby="ExpenseModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -98,7 +98,7 @@ $result = mysqli_query($conn, $sql);
                         </div>
                         <div class="mb-3">
                             <label for="drug_id" class="form-label text-primary ">Select Drug</label> <br>
-                            <select class="form-control select2 border border-1 border-primary" data-container="#ExpenseModal" id="drug_id" name="drug_id" REQUIRED>
+                            <select class="form-control select2 border border-1 border-primary" style="width: 100%; border: 1px solid blue;" data-container="#ExpenseModal" id="drug_id" name="drug_id" REQUIRED>
                                 <option value="">Select Drug</option>
                                 <?php
                                 $query = "SELECT * FROM `drugs`";
@@ -194,7 +194,11 @@ $result = mysqli_query($conn, $sql);
 
 
     $(document).ready(function() {
-        $('#drug_id').select2();
+
+        $("#drug_id").select2({
+            placeholder: "Select a Drug",
+            allowClear: true
+        });
 
 
         $('#dataTable').DataTable();
