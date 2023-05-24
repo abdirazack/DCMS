@@ -75,7 +75,6 @@ CREATE TABLE Dentists (
 
 CREATE TABLE Medications (
   medication_id INT PRIMARY KEY,
-  medication_code VARCHAR(20),
   medication_name VARCHAR(100),
   medication_dosage VARCHAR(100),
   medication_description TEXT

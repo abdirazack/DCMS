@@ -19,6 +19,9 @@ $titles = [
 
     //expenses
         'expenses'    => ["title" => 'Expenses',                                        "path" => './app/expenses'],
+    
+    //medication
+        'medication'    => ["title" => 'Medication',                                        "path" => './app/medication'],
 
     // payments                             
         'pay_member' => ["title" => 'Add New Payment',                                  "path" => './payments'],
