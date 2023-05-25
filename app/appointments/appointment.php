@@ -1,14 +1,9 @@
-<head>
-    <?php
+<?php
+    //connect to database
     include_once('./app/database/conn.php');
     // include_once('../../includes/header.php')
-    ?>
-    <link rel="stylesheet" href="./app/appointments/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./app/appointments/fullcalendar/lib/main.min.css">
-    <script src="./app/appointments/js/jquery-3.6.0.min.js"></script>
-    <script src="./app/appointments/js/bootstrap.min.js"></script>
-    <script src="./app/appointments/fullcalendar/lib/main.min.js"></script>
-
+?>
+<head>
     <style>
         :root {
             --bs-success-rgb: 71, 222, 152 !important;
@@ -40,7 +35,7 @@
 </head>
 
 <body>
-    <div class="container py-5" id="page-container">
+    <div class="container-fluid py-1 mx-auto" id="page-container">
         <div class="row">
             <div class="col-md-9">
                 <div id="calendar"></div>
@@ -91,7 +86,7 @@
                                         $query = "SELECT * FROM `services`";
                                         $result = mysqli_query($conn, $query);
                                         while ($row = mysqli_fetch_array($result)) {
-                                            echo "<option value='" . $row['name'] . "'>" . $row['name'] . "</option>";
+                                            echo "<option value='" . $row['service_id'] . "'>" . $row['name'] . "</option>";
                                         }
                                         ?>
                                     </select>
@@ -110,7 +105,7 @@
                     <div class="card-footer p-2">
                         <div class="text-center">
                             <button class="btn btn-primary btn-sm rounded" type="submit" form="schedule-form"><i class="fa fa-save"></i> Save</button>
-                            <button class="btn btn-default border btn-sm rounded" type="reset" form="schedule-form"><i class="fa-reset"></i> Cancel</button>
+                            <button class="btn btn-default border btn-sm rounded" type="reset" form="schedule-form"><i class="fa fa-reset"></i> Cancel</button>
                         </div>
                     </div>
                 </div>
@@ -130,9 +125,9 @@
                     <div class="container-fluid">
                         <dl>
                             <dt class="text-muted">Patient</dt>
-                            <dd id="title" class="fw-bold fs-4"></dd>
+                            <dd id="patient" class=""></dd>
                             <dt class="text-muted">Dentist</dt>
-                            <dd id="description" class=""></dd>
+                            <dd id="dentist" class=""></dd>
                             <dt class="text-muted">Start</dt>
                             <dd id="start" class=""></dd>
                             <dt class="text-muted">End</dt>
@@ -155,7 +150,7 @@
 
     <?php
     // Get all appointments
-    $schedules = $conn->query("SELECT * FROM `appointments`");
+    $schedules = $conn->query("SELECT * FROM `appointmentdetails`");
     if (!$schedules) {
         echo "Error: " . $conn->error;
     } else {
@@ -174,8 +169,8 @@
 </body>
 <script>
     var scheds = $.parseJSON('<?= json_encode($sched_res) ?>');
-    //console scheds
 
+    
 
     //document ready
     $(document).ready(function() {
@@ -190,8 +185,6 @@
                 success: function(resp) {
                     var obj = jQuery.parseJSON(resp);
                     if (obj.status == 200) {
-
-                        alert("Appointment Added");
                         //reload calendar
                         calendar.refetchEvents();
                         //reload page
@@ -208,11 +201,12 @@
             var id = $(this).attr('data-id');
             var sched = scheds[id];
             $('#schedule-form input[name="id"]').val(sched.appointment_id);
+            $('#schedule-form select[name="status"]').val(sched.status).trigger('change');
             $('#schedule-form select[name="patients"]').val(sched.patient_id).trigger('change');
-            $('#schedule-form select[name="service"]').val(sched.service).trigger('change');
+            $('#schedule-form select[name="service"]').val(sched.service_id).trigger('change');
             $('#schedule-form input[name="start_datetime"]').val(sched.start_date);
             $('#schedule-form input[name="end_datetime"]').val(sched.end_date);
-            $('#schedule-form').attr('action', 'appointments/update.php');
+            $('#schedule-form').attr('action', './app/appointments/save.php');
             $('#event-details-modal').modal('hide');
         });
 
@@ -224,7 +218,7 @@
                     //location.href = "appointments/delete.php?id=" + scheds[id].appointment_id;
 
                     $.ajax({
-                        url: "appointments/delete.php",
+                        url: "./app/appointments/delete.php",
                         type: "post",
                         data: {
                             id: scheds[id].appointment_id
@@ -251,7 +245,8 @@
                 alert("Event is undefined");
             }
         });
+
     });
     //onsubmit schedule-form 
 </script>
-<script src="app.js"></script>
+<script src="./app/appointments/app.js"></script>

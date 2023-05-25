@@ -4,9 +4,10 @@
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
         <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-tooth"></i><div class="sidebar-brand-text mx-3">Amina Dental</div>
+            <i class="fas fa-tooth"></i>
+            <div class="sidebar-brand-text mx-3">Amina Dental</div>
         </div>
-        
+
     </a>
 
     <!-- Divider -->
@@ -29,8 +30,7 @@
 
     <!-- Nav Item - Books Collapse Menu ---------------------------------------------------------------- -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAppointment" aria-expanded="true"
-            aria-controls="collapseUtilities">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAppointment" aria-expanded="true" aria-controls="collapseUtilities">
             <i class="fa fa-fw fa-calendar"></i>
             <span>Appointments</span>
         </a>
@@ -45,25 +45,23 @@
     <!-- ------------------------------------------------------------------------------------------------ -->
     <!-- Nav Item - Users Collapse Menu ---------------------------------------------------------------- -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePatient" aria-expanded="true"
-            aria-controls="collapseUtilities">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePatient" aria-expanded="true" aria-controls="collapseUtilities">
             <i class="fa-solid fa-fw fa-person-half-dress"></i>
             <span>Patients</span>
         </a>
         <div id="collapsePatient" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                
+
                 <h6 class="collapse-header">Patients:</h6>
                 <a class="collapse-item" href="index.php?page=patients">Patients</a>
-                
+
             </div>
         </div>
     </li>
     <!-- ------------------------------------------------------------------------------------------------ -->
     <!-- Nav Item - New Tab Collapse Menu ---------------------------------------------------------------- -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStaff" aria-expanded="true"
-            aria-controls="collapseUtilities">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStaff" aria-expanded="true" aria-controls="collapseUtilities">
             <i class="fas fa-fw fa-user"></i>
             <span>Staff</span>
         </a>
@@ -76,9 +74,8 @@
     <!-- ------------------------------------------------------------------------------------------------ -->
     <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
     <li class="nav-item">
-        
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseServices"
-            aria-expanded="true" aria-controls="collapseUtilities">
+
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseServices" aria-expanded="true" aria-controls="collapseUtilities">
             <i class="fas fa-fw fa-gear"></i>
             <span>Services</span>
         </a>
@@ -89,13 +86,12 @@
             </div>
         </div>
     </li>
-    
+
     <!-- ------------------------------------------------------------------------------------------------ -->
     <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
     <li class="nav-item">
-        
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseExpenses"
-            aria-expanded="true" aria-controls="collapseUtilities">
+
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseExpenses" aria-expanded="true" aria-controls="collapseUtilities">
             <i class="fas fa-fw fa-money-bills"></i>
             <span>Expenses</span>
         </a>
@@ -106,13 +102,12 @@
             </div>
         </div>
     </li>
-    
+
     <!-- ------------------------------------------------------------------------------------------------ -->
     <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
     <li class="nav-item">
-        
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMedication"
-            aria-expanded="true" aria-controls="collapseUtilities">
+
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMedication" aria-expanded="true" aria-controls="collapseUtilities">
             <i class="fas fa-fw fa-pills"></i>
             <span>Medication</span>
         </a>
@@ -126,9 +121,8 @@
     <!-- ------------------------------------------------------------------------------------------------ -->
     <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
     <li class="nav-item">
-        
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsers"
-            aria-expanded="true" aria-controls="collapseUtilities">
+
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsers" aria-expanded="true" aria-controls="collapseUtilities">
             <i class="fas fa-fw fa-users"></i>
             <span>Users</span>
         </a>
@@ -139,12 +133,11 @@
             </div>
         </div>
     </li>
-    
+
     <!-- ------------------------------------------------------------------------------------------------ -->
     <!-- Nav Item - Reports Collapse Menu ---------------------------------------------------------------- -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReports"
-            aria-expanded="true" aria-controls="collapseUtilities">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReports" aria-expanded="true" aria-controls="collapseUtilities">
             <i class="fas fa-fw fa-file-lines"></i>
             <span>Reports</span>
         </a>
@@ -186,22 +179,20 @@
 
             <!-- Topbar Navbar -->
             <ul class="navbar-nav ml-auto">
-
+                <li class="me-5"><?php echo $title; ?></li>
                 <div class="topbar-divider d-none d-sm-block"></div>
+
 
                 <!-- Nav Item - User Information -->
                 <li class="nav-item dropdown no-arrow">
-                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <span
-                            class="mr-2 d-none d-lg-inline text-gray-600 small">Patient-Zero</span>
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="mr-2 d-none d-lg-inline text-gray-600 small">Patient-Zero</span>
                         <div class="rounded-circle btn-warning">
                             <img class="img-profile rounded-circle" src="./app/img/undraw_profile.svg">
                         </div>
                     </a>
                     <!-- Dropdown - User Information -->
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                        aria-labelledby="userDropdown">
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                         <a class="dropdown-item" href="#">
                             <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                             Profile

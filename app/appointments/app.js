@@ -10,7 +10,7 @@ $(function() {
                 var row = scheds[k];
                 events.push({ 
                     id: row.appointment_id , 
-                    title: row.first_name , 
+                    title: row.patient_first_name + ' ' + row.patient_last_name, 
                     start: row.start_date, 
                     end: row.end_date  
                 });
@@ -39,8 +39,8 @@ $(function() {
                 var _details = $('#event-details-modal')
                 var id = info.event.id
                 if (!!scheds[id]) {
-                    _details.find('#title').text(scheds[id].first_name)
-                    _details.find('#description').text(scheds[id].service)
+                    _details.find('#patient').text(scheds[id].patient_first_name + ' ' + scheds[id].patient_last_name)
+                    _details.find('#dentist').text(scheds[id].dentist_first_name + ' ' + scheds[id].dentist_last_name)
                     _details.find('#start').text(scheds[id].start_date)
                     _details.find('#end').text(scheds[id].end_date)
                     _details.find('#edit,#delete').attr('data-id', id)
@@ -55,12 +55,11 @@ $(function() {
             editable: true,
             //handle eventDrop function
             eventDrop: function(info) {
-               alert('jello')
                 var id = info.event.id
                 var start = info.event.start
                 var end = info.event.end
                 $.ajax({
-                    url: './appointments/update.php',
+                    url: './app/appointments/update.php',
                     type: 'POST',
                     data: {
                         id: id,

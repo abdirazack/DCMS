@@ -1,6 +1,6 @@
 <?php
 
-include_once '../conn.php';
+include_once('../database/conn.php') ;
 
 //delete appointment
 if(isset($_POST['id'])){
