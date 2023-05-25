@@ -20,11 +20,15 @@ $titles = [
         'expenses'    => ["title" => 'Expenses',                                        "path" => './app/expenses'],
     
     //medication
-        'medication'    => ["title" => 'Medication',                                        "path" => './app/medication'],
+        'medication'  => ["title" => 'Medication',                                       "path" => './app/medication'],
+    //Supplier 
+        'supplier'    => ["title" => 'Suppliers',                                        "path" => './app/supplier'],
+    //inventory 
+        'inventory'    => ["title" => 'Inventory',                                        "path" => './app/inventory'],
 
     // payments                             
-        'pay_member' => ["title" => 'Add New Payment',                                  "path" => './payments'],
-        'pay_all'    => ["title" => 'Pay All Members',                                  "path" => './payments']
+        'pay_member'  => ["title" => 'Add New Payment',                                  "path" => './payments'],
+        'pay_all'     => ["title" => 'Pay All Members',                                  "path" => './payments']
         //'expenses'   => ["title" => 'New Expenses',                                     "path" => './payments'],
 ];
 $is404 = false;

@@ -10,7 +10,6 @@ CREATE TABLE Staff (
 CREATE TABLE Suppliers (
   supplier_id INT PRIMARY KEY,
   supplier_name VARCHAR(100),
-  contact_name VARCHAR(100),
   email VARCHAR(100),
   phone_number VARCHAR(20),
   address VARCHAR(200)
@@ -34,7 +33,7 @@ CREATE TABLE Equipment (
 );
 
 CREATE TABLE Inventory (
-  inventory_id INT PRIMARY KEY,
+  inventory_id INT PRIMARY KEY AUTO_INCREMENT,
   item_name VARCHAR(100),
   description TEXT,
   unit_cost DECIMAL(10,2),
@@ -70,7 +69,10 @@ CREATE TABLE Dentists (
   last_name VARCHAR(50),
   specialty VARCHAR(100),
   phone_number VARCHAR(20),
-  email_address VARCHAR(100)
+  email_address VARCHAR(100),
+  profile_photo VARCHAR(255),
+  username VARCHAR(200),
+  password VARCHAR(255)
 );
 
 CREATE TABLE Medications (

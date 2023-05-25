@@ -25,7 +25,7 @@
 
     <!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> -->
     <link href="./vendor/DataTables/datatables.css" rel="stylesheet">
-    <link href="./vendor/select2/css/select2.css" rel="stylesheet">
+    <!-- <link href="./vendor/select2/css/select2.css" rel="stylesheet"> -->
 </head>
 
 <body id="page-top">
@@ -36,12 +36,12 @@
 
     <script src="./vendor/jquery/jquery.js" ></script>
     <script src="./vendor/DataTables/datatables.js"></script>
-    <script src="./vendor/select2/js/select2.js"></script>
+    <!-- <script src="./vendor/select2/js/select2.js"></script> -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
 
 
     <link rel="stylesheet" href="./vendor/css/bootstrap.min.css">
     <link rel="stylesheet" href="./vendor/fullcalendar/lib/main.min.css">
-    <script src="./vendor/js/jquery-3.6.0.min.js"></script>
+    <!-- <script src="./vendor/js/jquery-3.6.0.min.js"></script> -->
     <script src="./vendor/js/bootstrap.min.js"></script>
     <script src="./vendor/fullcalendar/lib/main.min.js"></script>

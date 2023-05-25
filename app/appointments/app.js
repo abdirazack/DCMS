@@ -17,9 +17,11 @@ $(function() {
             })
 }
         var date = new Date()
-        var d = date.getDate(),
-            m = date.getMonth(),
-            y = date.getFullYear()
+        var h = (date.getHours()<10?'0':'') + date.getHours(),
+            m = (date.getMinutes()<10?'0':'') + date.getMinutes(),
+            s = date.getSeconds()
+            var time = h + ":" + m + ":" + s;
+            
 
         calendar = new Calendar(document.getElementById('calendar'), {
             headerToolbar: {
@@ -28,10 +30,7 @@ $(function() {
                 center: 'title',
             },
             navLinks: true, // can click day/week names to navigate views
-            eventLimit: true, // allow "more" link when too many events
             selectable: true,
-            dropable: true,
-            selectHelper: true,
             themeSystem: 'bootstrap',
             //Random default events
             events: events,
@@ -75,6 +74,16 @@ $(function() {
                     }
                 })
             },
+            // javascript get current time
+            
+
+            //when event is selected
+            select: function(info) {
+                var start = info.startStr
+                var end = info.endStr
+                $('#schedule-form').find('#start_datetime').val(start + 'T' + time)
+                $('#schedule-form').find('#end_datetime').val(end + 'T' + time)
+            }
         });
 
         calendar.render();

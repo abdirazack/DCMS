@@ -35,12 +35,12 @@
 </head>
 
 <body>
-    <div class="container-fluid py-1 mx-auto" id="page-container">
+    <div class="container py-1 mx-auto" id="page-container">
         <div class="row">
-            <div class="col-md-9">
+            <div class="col-md-8">
                 <div id="calendar"></div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="cardt rounded shadow">
                     <div class="card-header bg-gradient bg-primary text-light">
                         <h5 class="card-title p-2">appointments Form</h5>
@@ -51,7 +51,7 @@
                                 <input type="hidden" name="id" value="">
 
                                 <div class="form-group mb-2">
-                                    <label for="title" class="control-label">Status</label>
+                                    <label for="title" class="control-label">Status</label> <br>
                                     <!-- select appointment status  -->
                                     <select class="form-control select2" id="title" name="status" id="status" REQUIRED>
                                         <option value="">Select Status</option>
@@ -65,7 +65,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group mt-2 mb-3">
-                                    <label for="patients" class="control-label">Patients</label>
+                                    <label for="patients" class="control-label">Patients</label><br>
                                     <select class="form-control select2 " id="patients" name="patients" REQUIRED>
                                         <option value="">Select Patients</option>
                                         <?php
@@ -79,7 +79,7 @@
                                 </div>
 
                                 <div class="form-group mb-2">
-                                    <label for="service" class="control-label">Service</label>
+                                    <label for="service" class="control-label">Service</label><br>
                                     <select class="form-control select2" id="service" name="service" REQUIRED>
                                         <option value="">Select service</option>
                                         <?php

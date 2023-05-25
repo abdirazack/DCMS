@@ -38,7 +38,6 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Appointments:</h6>
                 <a class="collapse-item" href="index.php?page=appointment">Add New Appointment</a>
-                <a class="collapse-item" href="index.php?page=appointment">View All Appointments</a>
             </div>
         </div>
     </li>
@@ -133,6 +132,36 @@
             </div>
         </div>
     </li>
+    <!-- ------------------------------------------------------------------------------------------------ -->
+    <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
+    <li class="nav-item">
+
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSupplier" aria-expanded="true" aria-controls="collapseUtilities">
+            <i class="fas fa-fw fa-industry"></i>
+            <span>Supplier</span>
+        </a>
+        <div id="collapseSupplier" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Suppliers:</h6>
+                <a class="collapse-item" href="index.php?page=supplier">Suppliers</a>
+            </div>
+        </div>
+    </li>
+    <!-- ------------------------------------------------------------------------------------------------ -->
+    <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
+    <li class="nav-item">
+
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInventory" aria-expanded="true" aria-controls="collapseUtilities">
+            <i class="fas fa-fw fa-industry"></i>
+            <span>Inventory</span>
+        </a>
+        <div id="collapseInventory" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Inventory:</h6>
+                <a class="collapse-item" href="index.php?page=inventory">Inventory</a>
+            </div>
+        </div>
+    </li>
 
     <!-- ------------------------------------------------------------------------------------------------ -->
     <!-- Nav Item - Reports Collapse Menu ---------------------------------------------------------------- -->
@@ -179,7 +208,7 @@
 
             <!-- Topbar Navbar -->
             <ul class="navbar-nav ml-auto">
-                <li class="me-5"><?php echo $title; ?></li>
+                <li class="mt-3 text-center me-5 fs-4"><?php echo $title; ?></li>
                 <div class="topbar-divider d-none d-sm-block"></div>
 
 
