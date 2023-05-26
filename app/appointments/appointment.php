@@ -183,6 +183,7 @@
                 method: 'POST',
                 data: $(this).serialize(),
                 success: function(resp) {
+                    alert(resp);
                     var obj = jQuery.parseJSON(resp);
                     if (obj.status == 200) {
                         //reload calendar

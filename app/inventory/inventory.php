@@ -1,9 +1,7 @@
 <?php
-include_once('./app/database/conn.php')
+include_once('./app/database/conn.php');
 ?>
-<style>
-.select2-drop {z-index: 99999;}
-</style>
+
 <div class="container-fluid ">
 
     <div class=" mt-1 p-3 shadow-lg rounded">
@@ -61,7 +59,7 @@ include_once('./app/database/conn.php')
 
 
 <!-- Modal -->
-<div class="modal fade" id="inventoryModal"  aria-labelledby="inventoryModalLabel" aria-hidden="true">
+<div class="modal fade" id="inventoryModal" aria-labelledby="inventoryModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content rounded shadow">
             <div class="modal-header">
@@ -85,11 +83,25 @@ include_once('./app/database/conn.php')
                             <label for="quantity" class="form-label">Quantity:</label>
                             <input type="text" class="form-control border border-1 border-primary" id="quantity" name="quantity" required>
                         </div>
+                        <!-- supplier id from database into a select2  -->
+                        <div class="mb-3 col-md-6">
+                            <label for="supplier_id" class="form-label">Supplier:</label>
+                            <select class="form-control border border-1 border-primary select2" id="supplier_id" name="supplier_id" required>
+                                <option value="">Select Supplier</option>
+                                <?php
+                                $result = mysqli_query($conn, "SELECT * FROM suppliers");
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    echo "<option value='" . $row['supplier_id'] . "'>" . $row['supplier_name'] . "</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>
+
 
                     </div>
 
                     <div class="row">
-                        <div class="mb-3 col-md-6">
+                        <div class="mb-3 col-md-12">
                             <label for="description" class="form-label">Description:</label>
                             <textarea type='text' class="form-control border border-1 border-primary" id="description" name="description" required> </textarea>
                         </div>
@@ -122,10 +134,10 @@ include_once('./app/database/conn.php')
                 $('#item_name').val(data.item_name);
                 $('#unit_cost').val(data.unit_cost);
                 $('#quantity').val(data.quantity);
-                $('#supplier_id').val(data.supplier_id);
+               // $('#supplier_id').val(data.supplier_id);
                 $('#description').val(data.description);
+                $('#formInsertUpdate select[name="supplier_id"]').val(data.supplier_id).trigger('change');
 
-                $('#submit').text('update Inventory')
             }
 
         });
@@ -155,9 +167,17 @@ include_once('./app/database/conn.php')
     }
 
     $(document).ready(function() {
-        $('.modal .select2').select2({
-    dropdownParent: $('.modal')
-});
+        $(".select2").select2();
+
+        //make the width of the select2 100%
+        $('.select2').css('width', '100%');
+
+
+        $('#supplier_id').select2({
+            dropdownParent: $('#inventoryModal')
+        });
+
+
 
         $('#dataTable').DataTable();
 
@@ -169,6 +189,7 @@ include_once('./app/database/conn.php')
                 type: 'POST',
                 data: formData,
                 success: function(response) {
+                    // alert(response);
                     var obj = jQuery.parseJSON(response);
                     if (obj.status == 200) {
                         //hide modal

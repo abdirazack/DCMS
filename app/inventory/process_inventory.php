@@ -3,24 +3,25 @@
 include_once('../database/conn.php');
 
 
-    $id = @$_POST["id"];
-    $first_name = $_POST["first_name"];
-    $last_name = $_POST["last_name"];
-    $phone_number = $_POST["phone_number"];
-    $email = $_POST["email"];
-    $address = $_POST["address"];
+    $id = mysqli_real_escape_string($conn,  @$_POST["id"]);
+    $item_name = mysqli_real_escape_string($conn, $_POST["item_name"]);
+    $unit_cost = mysqli_real_escape_string($conn, $_POST["unit_cost"]);
+    $quantity = mysqli_real_escape_string($conn, $_POST["quantity"]);
+    $supplier_id = mysqli_real_escape_string($conn, $_POST["supplier_id"]);
+    $description = mysqli_real_escape_string($conn, $_POST["description"]);
+
 
   // Check if the ID field is set (if set, it's an update)
   if ($id == "") {
 
-    // Insert a new staff
-    $sql = "INSERT INTO staff (first_name, last_name, phone_number, email, address) VALUES ('$first_name', '$last_name', '$phone_number', '$email', '$address')";
+    // Insert a new inventory
+    $sql = "INSERT INTO inventory  VALUES (null,'$item_name', '$description', '$unit_cost', '$quantity', '$supplier_id' )";
     if ($conn->query($sql) === TRUE) {
-        $data = ['message'=>'Succeesully added staff', 'status'=>200];
+        $data = ['message'=>'Succeesully added inventory', 'status'=>200];
         echo json_encode($data);
         return ;
     } else {
-        $data = ['message'=>'failed to add staff', 'status'=>404];
+        $data = ['message'=>'failed to add inventory', 'status'=>404];
         echo json_encode($data);
         return ;
     }
@@ -29,15 +30,15 @@ include_once('../database/conn.php');
 
   } else {
 
-        // Update the staff
+        // Update the inventory
 
-    $sql = "UPDATE staff SET first_name = '$first_name', last_name = '$last_name', phone_number = '$phone_number', email = '$email', address = '$address' WHERE staff_id='$id'";
+    $sql = "UPDATE inventory SET item_name='$item_name', description='$description', unit_cost='$unit_cost', quantity='$quantity', supplier_id='$supplier_id' WHERE inventory_id='$id'";
     if ($conn->query($sql) === TRUE) {
-        $data = ['message'=>'succeffully updated staff', 'status'=>200];
+        $data = ['message'=>'succeffully updated inventory', 'status'=>200];
         echo json_encode($data);
         return ;
     } else {
-        $data = ['message'=>'failed to update staff', 'status'=>404];
+        $data = ['message'=>'failed to update inventory', 'status'=>404];
         echo json_encode($data);
         return ;
     }

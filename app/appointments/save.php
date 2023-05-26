@@ -24,7 +24,6 @@
    
     if($id==""){
     $query=mysqli_query($conn,"insert into appointments values(null,'Walk-in', '$status','$start_datetime','$end_datetime', '$patients', '$dentist','$service')");
-    echo $query;
     if($query){
             $data = ['message'=>'Success', 'status'=>200];
             echo json_encode($data);

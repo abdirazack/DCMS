@@ -63,7 +63,7 @@ $result = mysqli_query($conn, $sql);
 
 
     <!-- Modal -->
-    <div class="modal fade" id="ExpenseModal"  aria-labelledby="ExpenseModalLabel" aria-hidden="true">
+    <div class="modal fade" id="ExpenseModal" aria-labelledby="ExpenseModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -76,7 +76,7 @@ $result = mysqli_query($conn, $sql);
                         <input type="hidden" name="id" id="id">
 
                         <div class="mb-3">
-                            <label for="name" class="form-label text-primary ">Expenses Type</label>
+                            <label for="name" class="form-label text-primary ">Expenses Type</label> <br>
                             <?php
                             // Get the list of possible enum values for the user_type column
                             $result = mysqli_query($conn, "SHOW COLUMNS FROM expenses WHERE Field='expense_type'");
@@ -88,7 +88,7 @@ $result = mysqli_query($conn, $sql);
                             $enum_values = $matches[1];
 
                             // Output the HTML select element
-                            echo '<select name="expense_type" id="expense_type" class="form-control border border-1 border-primary">';
+                            echo '<select name="expense_type" id="expense_type" class="form-control select2 border border-1 border-primary">';
                             echo '<option value="">Select Expense Type</option>';
                             foreach ($enum_values as $value) {
                                 echo '<option value="' . $value . '">' . $value . '</option>';
@@ -98,7 +98,7 @@ $result = mysqli_query($conn, $sql);
                         </div>
                         <div class="mb-3">
                             <label for="drug_id" class="form-label text-primary ">Select Drug</label> <br>
-                            <select class="form-control select2 border border-1 border-primary" style="width: 100%; border: 1px solid blue;" data-container="#ExpenseModal" id="drug_id" name="drug_id" REQUIRED>
+                            <select class="form-control select2 " id="drug_id" name="drug_id" REQUIRED>
                                 <option value="">Select Drug</option>
                                 <?php
                                 $query = "SELECT * FROM `drugs`";
@@ -195,13 +195,23 @@ $result = mysqli_query($conn, $sql);
 
     $(document).ready(function() {
 
-        $("#drug_id").select2({
-            placeholder: "Select a Drug",
-            allowClear: true
-        });
+        $(".select2").select2();
+
+        //make the width of the select2 100%
+        $('.select2').css('width', '100%');
+
+
+    $('#drug_id').select2({
+        dropdownParent: $('#ExpenseModal')
+    });
+    $('#expense_type').select2({
+        dropdownParent: $('#ExpenseModal')
+    });
+
 
 
         $('#dataTable').DataTable();
+        
     });
 
     function insertUpdate() {
@@ -226,6 +236,7 @@ $result = mysqli_query($conn, $sql);
                 drug_id: drug_id
             },
             success: function(response) {
+                // alert(response);
                 var obj = jQuery.parseJSON(response);
                 if (obj.status == 200) {
                     location.reload();
