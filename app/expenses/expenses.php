@@ -195,22 +195,21 @@ $result = mysqli_query($conn, $sql);
 
     $(document).ready(function() {
 
-        $(".select2").select2();
+    $(".select2").select2();
 
         //make the width of the select2 100%
-        $('.select2').css('width', '100%');
+    $('.select2').css('width', '100%');
 
 
     $('#drug_id').select2({
         dropdownParent: $('#ExpenseModal')
     });
+
     $('#expense_type').select2({
         dropdownParent: $('#ExpenseModal')
     });
 
-
-
-        $('#dataTable').DataTable();
+    $('#dataTable').DataTable();
         
     });
 

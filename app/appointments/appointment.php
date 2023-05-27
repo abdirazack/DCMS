@@ -31,6 +31,11 @@
             border-style: solid;
             border-width: 1px !important;
         }
+        #gg{
+            color: green;
+            background-color: chocolate;
+
+        }
     </style>
 </head>
 
@@ -67,7 +72,7 @@
                                 <div class="form-group mt-2 mb-3">
                                     <label for="patients" class="control-label">Patients</label><br>
                                     <select class="form-control select2 " id="patients" name="patients" REQUIRED>
-                                        <option value="">Select Patients</option>
+                                        <option  id="gg" value="">Select Patients</option>
                                         <?php
                                         $query = "SELECT * FROM `patients`";
                                         $result = mysqli_query($conn, $query);
@@ -81,14 +86,24 @@
                                 <div class="form-group mb-2">
                                     <label for="service" class="control-label">Service</label><br>
                                     <select class="form-control select2" id="service" name="service" REQUIRED>
-                                        <option value="">Select service</option>
+                                        <option value="">Select service or procedure</option>
+                                        <optgroup label="Services">
                                         <?php
                                         $query = "SELECT * FROM `services`";
                                         $result = mysqli_query($conn, $query);
+                                        $res = mysqli_query($conn, $query);
                                         while ($row = mysqli_fetch_array($result)) {
                                             echo "<option value='" . $row['service_id'] . "'>" . $row['name'] . "</option>";
                                         }
                                         ?>
+                                        </optgroup>
+                                        <optgroup label="procedures">
+                                        <?php
+                                        while($rows = mysqli_fetch_array($res)) {
+                                            echo "<option value='" . $rows['service_id'] . "'>" . $rows['fee'] . "</option>";
+                                        }
+                                        ?>
+                                        </optgroup>
                                     </select>
                                 </div>
                                 <div class="form-group mb-2">
