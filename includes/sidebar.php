@@ -186,6 +186,54 @@
     </li>
     <!-- ------------------------------------------------------------------------------------------------ -->
 
+     <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
+    <li class="nav-item">
+
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEquipment" aria-expanded="true" aria-controls="collapseUtilities">
+            <i class="fas fa-fw fa-wrench"></i>
+            <span>Equipment</span>
+        </a>
+        <div id="collapseEquipment" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Equipment:</h6>
+                <a class="collapse-item" href="index.php?page=equipment">Equipment</a>
+            </div>
+        </div>
+    </li>
+
+    <!-- ------------------------------------------------------------------------------------------------ -->
+     <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
+    <li class="nav-item">
+
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProdcedure" aria-expanded="true" aria-controls="collapseUtilities">
+            <i class="fas fa-fw fa-clipboard"></i>
+            <span>Prodcedure</span>
+        </a>
+        <div id="collapseProdcedure" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Prodcedure:</h6>
+                <a class="collapse-item" href="index.php?page=Prodcedure">Prodcedure</a>
+            </div>
+        </div>
+    </li>
+
+    <!-- ------------------------------------------------------------------------------------------------ -->
+     <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
+     <li class="nav-item">
+
+<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTreatmentPlans" aria-expanded="true" aria-controls="collapseUtilities">
+    <i class="fas fa-fw fa-medkit"></i>
+    <span>Treatment Plans</span>
+</a>
+<div id="collapseTreatmentPlans" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+    <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Treatment Plans:</h6>
+        <a class="collapse-item" href="index.php?page=TreatmentPlans">Treatment Plans</a>
+    </div>
+</div>
+</li>
+
+<!-- ------------------------------------------------------------------------------------------------ -->
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

@@ -25,6 +25,12 @@ $titles = [
         'supplier'    => ["title" => 'Suppliers',                                        "path" => './app/supplier'],
     //inventory 
         'inventory'    => ["title" => 'Inventory',                                        "path" => './app/inventory'],
+    //Equipment 
+        'equipment'    => ["title" => 'Equipment',                                         "path" => './app/Equipment'],
+    //TreatmentPlans 
+        'TreatmentPlans'    => ["title" => 'TreatmentPlans',                                "path" => './app/TreatmentPlans'],
+    //Procedure 
+     'Procedure'    => ["title" => 'Procedure',                                         "path" => './app/Procedure'],
 
     // payments                             
         'pay_member'  => ["title" => 'Add New Payment',                                  "path" => './payments'],
