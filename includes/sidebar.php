@@ -205,14 +205,14 @@
      <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
     <li class="nav-item">
 
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProdcedure" aria-expanded="true" aria-controls="collapseUtilities">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseprocedure" aria-expanded="true" aria-controls="collapseUtilities">
             <i class="fas fa-fw fa-clipboard"></i>
-            <span>Prodcedure</span>
+            <span>procedure</span>
         </a>
-        <div id="collapseProdcedure" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+        <div id="collapseprocedure" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Prodcedure:</h6>
-                <a class="collapse-item" href="index.php?page=Prodcedure">Prodcedure</a>
+                <h6 class="collapse-header">procedure:</h6>
+                <a class="collapse-item" href="index.php?page=procedure">procedure</a>
             </div>
         </div>
     </li>
