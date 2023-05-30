@@ -28,9 +28,9 @@ $titles = [
     //Equipment 
         'equipment'    => ["title" => 'Equipment',                                         "path" => './app/Equipment'],
     //TreatmentPlans 
-        'TreatmentPlans'    => ["title" => 'TreatmentPlans',                                "path" => './app/TreatmentPlans'],
+        'TreatmentPlans'    => ["title" => 'Treatment Plans',                                "path" => './app/TreatmentPlans'],
     //procedure 
-        'procedure'    => ["title" => 'procedure',                                         "path" => './app/procedure'],
+        'procedure'    => ["title" => 'Procedure',                                         "path" => './app/procedure'],
 
     // payments                             
         'pay_member'  => ["title" => 'Add New Payment',                                  "path" => './payments'],
