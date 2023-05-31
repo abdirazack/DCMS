@@ -3,7 +3,7 @@
 
     if(isset($_POST['updateid'])){
         $id = $_POST['updateid'];
-        $sql = "SELECT * FROM staff WHERE employee_id='$id'";
+        $sql = "SELECT * FROM dentists WHERE employee_id='$id'";
         $result = $conn->query($sql);
         $row = $result->fetch_assoc();
         echo json_encode($row);

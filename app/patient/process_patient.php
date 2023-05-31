@@ -1,9 +1,10 @@
 <?php
   // Connect to the database
-  require_once('./app/database/conn.php');
+  include_once('../database/conn.php');
 
 
-    $id = @$_POST["id"];
+
+    $id = @$_POST["id"]; 
     $first_name = mysqli_real_escape_string($conn, $_POST["first_name"]);
     $last_name = mysqli_real_escape_string($conn,$_POST["last_name"]);
     $phone_number = mysqli_real_escape_string($conn,$_POST["phone_number"]);

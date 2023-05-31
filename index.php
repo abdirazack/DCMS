@@ -3,14 +3,15 @@
 // require('app/util/auth.php');
 $titles = [
     'dashboard' => 'Home',
-    // books
+    // Employees
+        'employee'   => ["title" => 'Employees',                                       "path" => './app/employees/'],
         'staff'       => ["title" => 'Staff',                                           "path" => './app/staff/'],
+        'dentist'    => ["title" => 'Dentists',                                        "path" => './app/dentists/'],
+        'role'       => ["title" => 'Roles',                                           "path" => './app/roles/'],
+
+    // Patients
         'patients'    => ["title" => 'Patients',                                        "path" => './app/patient/'],
 
-    // users and members                                
-        'new_member'   => ["title" => 'Add New Member',                                 "path" => './app/members'],
-        'add_user'   =>   ["title" => 'Add New User',                                     "path" => './app/users'],
-        'view_members' => ["title" => 'View Members',                                   "path" => './app/members'],
     // appointments                               
         'appointment' => ["title" => 'Appointment',                                     "path" => './app/appointments'],
     //services

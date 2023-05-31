@@ -1,5 +1,6 @@
 <?php
-include_once('../conn.php');
+     include_once('../database/conn.php');
+
 
 if(isset($_POST['deleteid'])){
     //delete service
@@ -18,3 +19,4 @@ if(isset($_POST['deleteid'])){
         return ;
     }
 }
+?>

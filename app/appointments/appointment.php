@@ -72,12 +72,25 @@
                                 <div class="form-group mt-2 mb-3">
                                     <label for="patients" class="control-label">Patients</label><br>
                                     <select class="form-control select2 " id="patients" name="patients" REQUIRED>
-                                        <option  id="gg" value="">Select Patients</option>
+                                        <option   value="">Select Patients</option>
                                         <?php
                                         $query = "SELECT * FROM `patients`";
                                         $result = mysqli_query($conn, $query);
                                         while ($row = mysqli_fetch_array($result)) {
                                             echo "<option value='" . $row['patient_id'] . "'>" . $row['first_name'] . "</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="form-group mt-2 mb-3">
+                                    <label for="dentist" class="control-label">Dentist:</label><br>
+                                    <select class="form-control select2 " id="dentist" name="dentist" REQUIRED>
+                                        <option  value="">Select Dentist</option>
+                                        <?php
+                                        $query = "SELECT * FROM `employee_dentist_view`";
+                                        $result = mysqli_query($conn, $query);
+                                        while ($row = mysqli_fetch_array($result)) {
+                                            echo "<option value='" . $row['employee_id'] . "'>" . $row['first_name'] . ' '. $row['last_name'] . "</option>";
                                         }
                                         ?>
                                     </select>
@@ -185,8 +198,6 @@
 <script>
     var scheds = $.parseJSON('<?= json_encode($sched_res) ?>');
 
-    
-
     //document ready
     $(document).ready(function() {
         $('.select2').select2();
@@ -198,7 +209,7 @@
                 method: 'POST',
                 data: $(this).serialize(),
                 success: function(resp) {
-                    alert(resp);
+                    // alert(resp);
                     var obj = jQuery.parseJSON(resp);
                     if (obj.status == 200) {
                         //reload calendar
@@ -216,9 +227,11 @@
         $("#edit").click(function() {
             var id = $(this).attr('data-id');
             var sched = scheds[id];
+            alert(JSON.stringify(sched));
             $('#schedule-form input[name="id"]').val(sched.appointment_id);
             $('#schedule-form select[name="status"]').val(sched.status).trigger('change');
             $('#schedule-form select[name="patients"]').val(sched.patient_id).trigger('change');
+            $('#schedule-form select[name="dentist"]').val(sched.dentists_id).trigger('change');
             $('#schedule-form select[name="service"]').val(sched.service_id).trigger('change');
             $('#schedule-form input[name="start_datetime"]').val(sched.start_date);
             $('#schedule-form input[name="end_datetime"]').val(sched.end_date);

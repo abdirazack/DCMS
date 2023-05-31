@@ -4,17 +4,15 @@ include_once('../database/conn.php');
 
 
     $id = @$_POST["id"];
-    $first_name = $_POST["first_name"];
-    $last_name = $_POST["last_name"];
-    $phone_number = $_POST["phone_number"];
-    $email = $_POST["email"];
-    $address = $_POST["address"];
+    $employee_id = mysqli_real_escape_string($conn, $_POST["employee"]);
+    $role_id = mysqli_real_escape_string($conn, $_POST["role"]);
+    $experience = mysqli_real_escape_string($conn,$_POST["experience"]);
 
   // Check if the ID field is set (if set, it's an update)
   if ($id == "") {
 
     // Insert a new staff
-    $sql = "INSERT INTO staff (first_name, last_name, phone_number, email, address) VALUES ('$first_name', '$last_name', '$phone_number', '$email', '$address')";
+    $sql = "INSERT INTO staff (employee_id, role_id, Experience) VALUES ('$employee_id', '$role_id', '$experience')";
     if ($conn->query($sql) === TRUE) {
         $data = ['message'=>'Succeesully added staff', 'status'=>200];
         echo json_encode($data);
@@ -31,7 +29,7 @@ include_once('../database/conn.php');
 
         // Update the staff
 
-    $sql = "UPDATE staff SET first_name = '$first_name', last_name = '$last_name', phone_number = '$phone_number', email = '$email', address = '$address' WHERE staff_id='$id'";
+    $sql = "UPDATE staff SET  role_id = '$role_id', Experience = '$experience' WHERE employee_id = '$id'";
     if ($conn->query($sql) === TRUE) {
         $data = ['message'=>'succeffully updated staff', 'status'=>200];
         echo json_encode($data);

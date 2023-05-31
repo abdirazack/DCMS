@@ -7,10 +7,10 @@ include_once('./app/database/conn.php')
     <div class=" mt-1 p-3 shadow-lg rounded">
         <div class='small' id='small'></div>
         <div class='d-flex justify-content-between mb-4'>
-            <h2 class="text-center text-primary">Staff List</h2>
+            <h2 class="text-center text-primary">Dentists List</h2>
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staffModal">
-                ADD NEW STUFF
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dentistModal">
+                ADD NEW DENTIST
             </button>
         </div>
 
@@ -20,7 +20,8 @@ include_once('./app/database/conn.php')
                     <th>Employee ID</th>
                     <th>First Name</th>
                     <th>Last Name</th>
-                    <th>Role</th>
+                    <th>Specialty</th>
+                    <th>Qualification</th>
                     <th>Experience</th>
                     <th> Action</th>
                 </tr>
@@ -29,7 +30,7 @@ include_once('./app/database/conn.php')
                 <?php
 
                 // Select all staff from the database
-                $result = mysqli_query($conn, "SELECT * FROM employee_stuff_view ");
+                $result = mysqli_query($conn, "SELECT * FROM employee_dentist_view ");
 
                 // Loop through the results and output each staff member as a table row
                 while ($row = mysqli_fetch_assoc($result)) {
@@ -37,11 +38,12 @@ include_once('./app/database/conn.php')
                     echo "<td>" . $row['employee_id'] . "</td>";
                     echo "<td>" . $row['first_name'] . "</td>";
                     echo "<td>" . $row['last_name'] . "</>";
-                    echo "<td>" . $row['role_name'] . "</td>";
+                    echo "<td>" . $row['Specialty'] . "</td>";
+                    echo "<td>" . $row['Qualification'] . "</td>";
                     echo "<td>" . $row['Experience'] . "</td>";
                     echo "<td class='text-center'> 
-                                    <button  class='btn btn-primary' onclick='editStaff(" . $row['employee_id'] . ")'> <i class='fa fa-edit'></i> </button> 
-                                    <a href='#' class='btn btn-danger ms-2 mt-1' onclick='deleteStaff(" . $row['employee_id'] . ")'> <i class='fa fa-trash'></i> </a> 
+                                    <button  class='btn btn-primary' onclick='editDentist(" . $row['employee_id'] . ")'> <i class='fa fa-edit'></i> </button> 
+                                    <a href='#' class='btn btn-danger ms-2 mt-1' onclick='deleteDentist(" . $row['employee_id'] . ")'> <i class='fa fa-trash'></i> </a> 
                                   </td>";
                     echo "</tr>";
                 }
@@ -53,11 +55,11 @@ include_once('./app/database/conn.php')
 
 
 <!-- Modal -->
-<div class="modal fade" id="staffModal" tabindex="-1" aria-labelledby="staffModalLabel" aria-hidden="true">
+<div class="modal fade" id="dentistModal" tabindex="-1" aria-labelledby="dentistModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content rounded shadow">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staffModalLabel">ADD NEW STAFF</h1>
+                <h1 class="modal-title fs-5" id="dentistModalLabel">ADD NEW DENTIST</h1>
             </div>
             <form action="./app/staff/process_staff.php" method="post" id="formInsertUpdate">
                 <div class="modal-body">
@@ -65,7 +67,7 @@ include_once('./app/database/conn.php')
                     <div class="row">
                         <div class="mb-3">
                             <!-- select   first_name and last_name from  employees table -->
-                            <label for="employee" class="form-label">First Name:</label>
+                            <label for="employee" class="form-label">Name:</label>
                             <select class="form-control select2 border border-1 border-primary" id="employee" name="employee" required>
                                 <option value="">Select Employee</option>
                                 <?php
@@ -79,17 +81,18 @@ include_once('./app/database/conn.php')
                     </div>
                     <div class="row">
                         <div class="mb-3 ">
-                            <label for="role" class="form-label">Role:</label>
-                            <select class="form-control select2 border border-1 border-primary" id="role" name="role" required>
-                                <option value="">Select Role</option>
-                                <?php
-                                $result = mysqli_query($conn, "SELECT * FROM roles");
-                                while ($row = mysqli_fetch_assoc($result)) {
-                                    echo "<option value='" . $row['role_id'] . "'>" . $row['role_name'] . "</option>";
-                                }
-                                ?>
-                            </select>
+                            <label for="Specialty" class="form-label">Specialty:</label>
+                            <input type="text" class="form-control border border-1 border-primary" id="Specialty" name="Specialty" required>
+                            
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 ">
+                            <label for="Qualification" class="form-label">Qualification:</label>
+                            <input type="text" class="form-control border border-1 border-primary" id="Qualification" name="Qualification" required>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="mb-3 ">
                             <label for="experience" class="form-label">Experience:</label>
                             <input type="text" class="form-control border border-1 border-primary" id="experience" name="experience" required>
@@ -98,7 +101,7 @@ include_once('./app/database/conn.php')
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" id='submit' class="btn btn-outline-primary">Add Staff</button>
+                    <button type="submit" id='submit' class="btn btn-outline-primary">Add Dentist</button>
                 </div>
             </form>
         </div>
@@ -107,12 +110,12 @@ include_once('./app/database/conn.php')
 
 
 <script>
-    function editStaff(ids) {
+    function editDentist(ids) {
 
         var id = ids;
         $('#id').val(id);
         $.ajax({
-            url: './app/staff/getStaff.php',
+            url: './app/dentists/getDentist.php',
             type: 'POST',
             data: {
                 updateid: id
@@ -120,21 +123,22 @@ include_once('./app/database/conn.php')
             success: function(response) {
                 alert(response);
                 var data = JSON.parse(response);
-                $('#formInsertUpdate select[name="employee"]').val(data.employee_id).trigger('change');;
-                $('#formInsertUpdate select[name="role"]').val(data.role_id);
+                $('#formInsertUpdate select[name="employee"]').val(data.employee_id).trigger('change');
+                $('#Specialty').val(data.Specialty);
+                $('#Qualification').val(data.Qualification);
                 $('#experience').val(data.Experience);
             }
         });
 
         $("#submit").text('Update');
         //toggle modal
-        $('#staffModal').modal('show');
+        $('#dentistModal').modal('show');
     }
 
-    function deleteStaff(id) {
+    function deleteDentist(id) {
         var id = id;
         $.ajax({
-            url: './app/staff/deleteStaff.php',
+            url: './app/dentists/deleteDentist.php',
             type: 'POST',
             data: {
                 deleteid: id
@@ -159,12 +163,10 @@ include_once('./app/database/conn.php')
 
 
         
-        $('#role').select2({
-            dropdownParent: $('#staffModal')
-        });
         $('#employee').select2({
-            dropdownParent: $('#staffModal')
+            dropdownParent: $('#dentistModal')
         });
+
         $('#dataTable').DataTable({
             pagingType: 'full_numbers',
             "aLengthMenu": [
@@ -179,7 +181,7 @@ include_once('./app/database/conn.php')
             e.preventDefault();
             var formData = new FormData(this);
             $.ajax({
-                url: './app/staff/process_staff.php',
+                url: './app/dentists/process_dentist.php',
                 type: 'POST',
                 data: formData,
                 success: function(response) {
@@ -187,7 +189,7 @@ include_once('./app/database/conn.php')
                     var obj = jQuery.parseJSON(response);
                     if (obj.status == 200) {
                         //hide modal
-                        $('#staffModal').modal('hide');
+                        $('#dentistModal').modal('hide');
                         location.reload();
                     } else {
                         //show error on div with id small

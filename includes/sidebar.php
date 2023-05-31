@@ -62,11 +62,18 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStaff" aria-expanded="true" aria-controls="collapseUtilities">
             <i class="fas fa-fw fa-user"></i>
-            <span>Staff</span>
+            <span>Employees</span>
         </a>
         <div id="collapseStaff" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="index.php?page=staff">Staff</a>
+                <h6 class="collapse-header">All Employees:</h6>
+                <a class="collapse-item" href="index.php?page=employee">Employees</a>
+                <h6 class="collapse-header">Dentist:</h6>
+                <a class="collapse-item" href="index.php?page=dentist">Dentist</a>
+                <h6 class="collapse-header">Stuff:</h6>
+                <a class="collapse-item" href="index.php?page=staff">Stuff</a>
+                <h6 class="collapse-header">Employee Roles:</h6>
+                <a class="collapse-item" href="index.php?page=role">Roles</a>
             </div>
         </div>
     </li>
