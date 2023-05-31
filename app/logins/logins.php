@@ -7,10 +7,10 @@ include_once('./app/database/conn.php')
     <div class=" mt-1 p-3 shadow-lg rounded">
         <div class='small' id='small'></div>
         <div class='d-flex justify-content-between mb-4'>
-            <h2 class="text-center text-primary">Staff List</h2>
+            <h2 class="text-center text-primary">Employees Login Login Credentials</h2>
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staffModal">
-                ADD NEW STUFF
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">
+                ADD NEW LOGIN
             </button>
         </div>
 
@@ -21,7 +21,8 @@ include_once('./app/database/conn.php')
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Role</th>
-                    <th>Experience</th>
+                    <th>Username</th>
+                    <th>Password</th>
                     <th> Action</th>
                 </tr>
             </thead>
@@ -29,7 +30,7 @@ include_once('./app/database/conn.php')
                 <?php
 
                 // Select all staff from the database
-                $result = mysqli_query($conn, "SELECT * FROM employee_stuff_view ");
+                $result = mysqli_query($conn, "SELECT * FROM employee_login_view ");
 
                 // Loop through the results and output each staff member as a table row
                 while ($row = mysqli_fetch_assoc($result)) {
@@ -37,11 +38,12 @@ include_once('./app/database/conn.php')
                     echo "<td>" . $row['employee_id'] . "</td>";
                     echo "<td>" . $row['first_name'] . "</td>";
                     echo "<td>" . $row['last_name'] . "</>";
-                    echo "<td>" . $row['role_name'] . "</td>";
-                    echo "<td>" . $row['Experience'] . "</td>";
+                    echo "<td>" . $row['role'] . "</>";
+                    echo "<td>" . $row['Username'] . "</td>";
+                    echo "<td>" . $row['Password'] . "</td>";
                     echo "<td class='text-center'> 
-                                    <button  class='btn btn-primary' onclick='editStaff(" . $row['employee_id'] . ")'> <i class='fa fa-edit'></i> </button> 
-                                    <a href='#' class='btn btn-danger ms-2 mt-1' onclick='deleteStaff(" . $row['employee_id'] . ")'> <i class='fa fa-trash'></i> </a> 
+                                    <button  class='btn btn-primary' onclick='editLogin(" . $row['employee_id'] . ")'> <i class='fa fa-edit'></i> </button> 
+                                    <a href='#' class='btn btn-danger ms-2 mt-1' onclick='deleteLogin(" . $row['employee_id'] . ")'> <i class='fa fa-trash'></i> </a> 
                                   </td>";
                     echo "</tr>";
                 }
@@ -53,13 +55,13 @@ include_once('./app/database/conn.php')
 
 
 <!-- Modal -->
-<div class="modal fade" id="staffModal" tabindex="-1" aria-labelledby="staffModalLabel" aria-hidden="true">
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content rounded shadow">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staffModalLabel">ADD NEW STAFF</h1>
+                <h1 class="modal-title fs-5" id="loginModalLabel">ADD NEW LOGIN</h1>
             </div>
-            <form action="./app/staff/process_staff.php" method="post" id="formInsertUpdate">
+            <form action="./app/logins/process_login.php" method="post" id="formInsertUpdate">
                 <div class="modal-body">
                     <input type="hidden" name="id" id="id">
                     <div class="row">
@@ -79,26 +81,18 @@ include_once('./app/database/conn.php')
                     </div>
                     <div class="row">
                         <div class="mb-3 ">
-                            <label for="role" class="form-label">Role:</label>
-                            <select class="form-control select2 border border-1 border-primary" id="role" name="role" required>
-                                <option value="">Select Role</option>
-                                <?php
-                                $result = mysqli_query($conn, "SELECT * FROM roles");
-                                while ($row = mysqli_fetch_assoc($result)) {
-                                    echo "<option value='" . $row['role_id'] . "'>" . $row['role_name'] . "</option>";
-                                }
-                                ?>
-                            </select>
+                            <label for="Username" >Username:</label>
+                            <input type="text" class="form-control border border-1 border-primary" id="Username" name="Username" required>
                         </div>
                         <div class="mb-3 ">
-                            <label for="experience" class="form-label">Experience:</label>
-                            <input type="text" class="form-control border border-1 border-primary" id="experience" name="experience" required>
+                            <label for="Password" >Password:</label>
+                            <input type="text" class="form-control border border-1 border-primary" id="Password" name="Password" required>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" id='submit' class="btn btn-outline-primary">Add Staff</button>
+                    <button type="submit" id='submit' class="btn btn-outline-primary">Add Login</button>
                 </div>
             </form>
         </div>
@@ -107,12 +101,12 @@ include_once('./app/database/conn.php')
 
 
 <script>
-    function editStaff(ids) {
+    function editLogin(ids) {
 
         var id = ids;
         $('#id').val(id);
         $.ajax({
-            url: './app/staff/getStaff.php',
+            url: './app/logins/getLogin.php',
             type: 'POST',
             data: {
                 updateid: id
@@ -121,20 +115,21 @@ include_once('./app/database/conn.php')
                 // alert(response);
                 var data = JSON.parse(response);
                 $('#formInsertUpdate select[name="employee"]').val(data.employee_id).trigger('change');;
-                $('#formInsertUpdate select[name="role"]').val(data.role_id);
-                $('#experience').val(data.Experience);
+                $('#Username').val(data.Username);
+                $('#Password').val(data.Password);
+
             }
         });
 
         $("#submit").text('Update');
         //toggle modal
-        $('#staffModal').modal('show');
+        $('#loginModal').modal('show');
     }
 
-    function deleteStaff(id) {
+    function deleteLogin(id) {
         var id = id;
         $.ajax({
-            url: './app/staff/deleteStaff.php',
+            url: './app/logins/deleteLogin.php',
             type: 'POST',
             data: {
                 deleteid: id
@@ -160,10 +155,10 @@ include_once('./app/database/conn.php')
 
         
         $('#role').select2({
-            dropdownParent: $('#staffModal')
+            dropdownParent: $('#loginModal')
         });
         $('#employee').select2({
-            dropdownParent: $('#staffModal')
+            dropdownParent: $('#loginModal')
         });
         $('#dataTable').DataTable({
             pagingType: 'full_numbers',
@@ -179,7 +174,7 @@ include_once('./app/database/conn.php')
             e.preventDefault();
             var formData = new FormData(this);
             $.ajax({
-                url: './app/staff/process_staff.php',
+                url: './app/logins/process_login.php',
                 type: 'POST',
                 data: formData,
                 success: function(response) {
@@ -187,7 +182,7 @@ include_once('./app/database/conn.php')
                     var obj = jQuery.parseJSON(response);
                     if (obj.status == 200) {
                         //hide modal
-                        $('#staffModal').modal('hide');
+                        $('#loginModal').modal('hide');
                         location.reload();
                     } else {
                         //show error on div with id small

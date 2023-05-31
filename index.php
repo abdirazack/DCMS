@@ -5,10 +5,11 @@ $titles = [
     'dashboard' => 'Home',
     // Employees
         'employee'   => ["title" => 'Employees',                                       "path" => './app/employees/'],
-        'staff'       => ["title" => 'Staff',                                           "path" => './app/staff/'],
+        'staff'      => ["title" => 'Staff',                                           "path" => './app/staff/'],
         'dentist'    => ["title" => 'Dentists',                                        "path" => './app/dentists/'],
         'role'       => ["title" => 'Roles',                                           "path" => './app/roles/'],
-
+        'logins'     => ["title" => 'Login Credentials',                               "path" => './app/logins/'], // 'auth' => 'Auth
+    
     // Patients
         'patients'    => ["title" => 'Patients',                                        "path" => './app/patient/'],
 

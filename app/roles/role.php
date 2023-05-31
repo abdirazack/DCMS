@@ -55,7 +55,7 @@ include_once('./app/database/conn.php')
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="roleModalLabel">ADD NEW Role</h1>
             </div>
-            <form action="./app/staff/process_staff.php" method="post" id="formInsertUpdate">
+            <form action="./app/roles/process_role.php" method="post" id="formInsertUpdate">
                 <div class="modal-body">
                     <input type="hidden" name="id" id="id">
                     <div class="row">

@@ -80,7 +80,7 @@
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="employeeModalLabel">ADD NEW Employee</h1>
             </div>
-            <form action="./app/patient/process_patient.php" method="post" id="formInsertUpdate">
+            <form action="./app/employees/process_employee.php" method="post" id="formInsertUpdate">
                 <div class="modal-body">
                     <p class='small text-danger' id='small'></p>
                     <input type="hidden" name="id" id="id">
