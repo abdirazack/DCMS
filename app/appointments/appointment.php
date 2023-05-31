@@ -97,14 +97,15 @@
                                 </div>
 
                                 <div class="form-group mb-2">
-                                    <label for="service" class="control-label">Service</label><br>
+                                    <label for="service" class="control-label">Service or Procedure</label><br>
                                     <select class="form-control select2" id="service" name="service" REQUIRED>
                                         <option value="">Select service or procedure</option>
                                         <optgroup label="Services">
                                         <?php
                                         $query = "SELECT * FROM `services`";
+                                        $query2 = "SELECT * FROM `procedures`";
                                         $result = mysqli_query($conn, $query);
-                                        $res = mysqli_query($conn, $query);
+                                        $res = mysqli_query($conn, $query2);
                                         while ($row = mysqli_fetch_array($result)) {
                                             echo "<option value='" . $row['service_id'] . "'>" . $row['name'] . "</option>";
                                         }
@@ -113,7 +114,7 @@
                                         <optgroup label="procedures">
                                         <?php
                                         while($rows = mysqli_fetch_array($res)) {
-                                            echo "<option value='" . $rows['service_id'] . "'>" . $rows['fee'] . "</option>";
+                                            echo "<option value='" . $rows['procedure_id'] . "'>" . $rows['procedure_name'] . "</option>";
                                         }
                                         ?>
                                         </optgroup>

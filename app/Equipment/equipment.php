@@ -54,6 +54,54 @@
     </div>
 
 
+<!-- Modal -->
+<div class="modal fade" id="equipmentModal" tabindex="-1" aria-labelledby="equipmentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content rounded shadow">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staffModalLabel">ADD NEW EQUIPMENT</h1>
+            </div>
+            <form action="./app/Equipment/process_equipment.php" method="post" id="formInsertUpdate">
+            <div class="modal-body">
+                    <input type="hidden" name="id" id="id">
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
+                            <label for="equipment_type" class="form-label">Equipment type:</label>
+                            <input type="text" class="form-control border border-1 border-primary" id="equipment_type" name="equipment_type" required>
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label for="manufacturer" class="form-label">Manufacturer:</label>
+                            <input type="text" class="form-control border border-1 border-primary" id="manufacturer" name="manufacturer" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
+                            <label for="model" class="form-label">Model:</label>
+                            <input type="text" class="form-control border border-1 border-primary" id="model" name="model" required>
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label for="purchase_date" class="form-label">Purchase date:</label>
+                            <input type="date" class="form-control border border-1 border-primary" id="purchase_date" name="purchase_date" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="warranty_information" class="form-label">Warranty information:</label>
+                        <textarea class="form-control border border-1 border-primary" id="warranty_information" name="warranty_information" required> </textarea>
+                    </div>
+               
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" id='submit' class="btn btn-outline-primary">Add Equipment</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
 
 <script>
     function editEquipment(ids) {
@@ -141,51 +189,3 @@
 
     });
 </script>
-
-
-
-
-<!-- Modal -->
-<div class="modal fade" id="equipmentModal" tabindex="-1" aria-labelledby="equipmentModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content rounded shadow">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staffModalLabel">ADD NEW EQUIPMENT</h1>
-            </div>
-            <form action="./app/Equipment/process_equipment.php" method="post" id="formInsertUpdate">
-            <div class="modal-body">
-                    <input type="hidden" name="id" id="id">
-                    <div class="row">
-                        <div class="mb-3 col-md-6">
-                            <label for="equipment_type" class="form-label">Equipment type:</label>
-                            <input type="text" class="form-control border border-1 border-primary" id="equipment_type" name="equipment_type" required>
-                        </div>
-                        <div class="mb-3 col-md-6">
-                            <label for="manufacturer" class="form-label">Manufacturer:</label>
-                            <input type="text" class="form-control border border-1 border-primary" id="manufacturer" name="manufacturer" required>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="mb-3 col-md-6">
-                            <label for="model" class="form-label">Model:</label>
-                            <input type="text" class="form-control border border-1 border-primary" id="model" name="model" required>
-                        </div>
-                        <div class="mb-3 col-md-6">
-                            <label for="purchase_date" class="form-label">Purchase date:</label>
-                            <input type="date" class="form-control border border-1 border-primary" id="purchase_date" name="purchase_date" required>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="warranty_information" class="form-label">Warranty information:</label>
-                        <textarea class="form-control border border-1 border-primary" id="warranty_information" name="warranty_information" required> </textarea>
-                    </div>
-               
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" id='submit' class="btn btn-outline-primary">Add Equipment</button>
-            </div>
-            </form>
-        </div>
-    </div>
-</div>

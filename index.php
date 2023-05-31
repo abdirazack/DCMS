@@ -22,7 +22,10 @@ $titles = [
         'expenses'    => ["title" => 'Expenses',                                        "path" => './app/expenses'],
     
     //medication
-        'medication'  => ["title" => 'Medication',                                       "path" => './app/medication'],
+        'drug'          => ["title" => 'Drugs',                                            "path" => './app/drugs'],
+        'medication'    => ["title" => 'Medication',                                       "path" => './app/medication'],
+        'prescription'  => ["title" => 'Prescriptions',                                    "path" => './app/prescriptions'],
+
     //Supplier 
         'supplier'    => ["title" => 'Suppliers',                                        "path" => './app/supplier'],
     //inventory 
@@ -33,11 +36,6 @@ $titles = [
         'TreatmentPlans'    => ["title" => 'Treatment Plans',                                "path" => './app/TreatmentPlans'],
     //procedure 
         'procedure'    => ["title" => 'Procedure',                                         "path" => './app/procedure'],
-
-    // payments                             
-        'pay_member'  => ["title" => 'Add New Payment',                                  "path" => './payments'],
-        'pay_all'     => ["title" => 'Pay All Members',                                  "path" => './payments']
-        //'expenses'   => ["title" => 'New Expenses',                                     "path" => './payments'],
 ];
 $is404 = false;
 $page = '';

@@ -53,6 +53,50 @@
 
 
 
+
+<!-- Modal -->
+<div class="modal fade" id="procedureModal" tabindex="-1" aria-labelledby="procedureModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content rounded shadow">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staffModalLabel">ADD NEW PROCEDURE</h1>
+            </div>
+            <form action="./app/procedure/process_procedure.php" method="post" id="formInsertUpdate">
+            <div class="modal-body">
+                    <input type="hidden" name="id" id="id">
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
+                            <label for="procedure_code" class="form-label">Code:</label>
+                            <input type="text" class="form-control border border-1 border-primary" id="procedure_code" name="procedure_code" required>
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label for="procedure_name" class="form-label">Name:</label>
+                            <input type="text" class="form-control border border-1 border-primary" id="procedure_name" name="procedure_name" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
+                            <label for="procedure_price" class="form-label">Price:</label>
+                            <input type="number" class="form-control border border-1 border-primary" id="procedure_price" name="procedure_price" required>
+                        </div>
+                        
+                    </div>
+                    <div class="mb-3">
+                        <label for="procedure_description" class="form-label">Description:</label>
+                        <textarea class="form-control border border-1 border-primary" id="procedure_description" name="procedure_description" required> </textarea>
+                    </div>
+               
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" id='submit' class="btn btn-outline-primary">Add Procedure</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 <script>
     function editProcedure(ids) {
 
@@ -140,46 +184,3 @@
 </script>
 
 
-
-
-<!-- Modal -->
-<div class="modal fade" id="procedureModal" tabindex="-1" aria-labelledby="procedureModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content rounded shadow">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staffModalLabel">ADD NEW PROCEDURE</h1>
-            </div>
-            <form action="./app/procedure/process_procedure.php" method="post" id="formInsertUpdate">
-            <div class="modal-body">
-                    <input type="hidden" name="id" id="id">
-                    <div class="row">
-                        <div class="mb-3 col-md-6">
-                            <label for="procedure_code" class="form-label">Code:</label>
-                            <input type="text" class="form-control border border-1 border-primary" id="procedure_code" name="procedure_code" required>
-                        </div>
-                        <div class="mb-3 col-md-6">
-                            <label for="procedure_name" class="form-label">Name:</label>
-                            <input type="text" class="form-control border border-1 border-primary" id="procedure_name" name="procedure_name" required>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="mb-3 col-md-6">
-                            <label for="procedure_price" class="form-label">Price:</label>
-                            <input type="number" class="form-control border border-1 border-primary" id="procedure_price" name="procedure_price" required>
-                        </div>
-                        
-                    </div>
-                    <div class="mb-3">
-                        <label for="procedure_description" class="form-label">Description:</label>
-                        <textarea class="form-control border border-1 border-primary" id="procedure_description" name="procedure_description" required> </textarea>
-                    </div>
-               
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" id='submit' class="btn btn-outline-primary">Add Procedure</button>
-            </div>
-            </form>
-        </div>
-    </div>
-</div>
