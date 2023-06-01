@@ -112,7 +112,7 @@
                                         ?>
                                         </optgroup>
                                         <optgroup label="procedures">
-                                        <?php
+                                        <?php 
                                         while($rows = mysqli_fetch_array($res)) {
                                             echo "<option value='" . $rows['procedure_id'] . "'>" . $rows['procedure_name'] . "</option>";
                                         }
