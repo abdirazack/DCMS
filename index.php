@@ -17,6 +17,7 @@ $titles = [
         'appointment' => ["title" => 'Appointment',                                     "path" => './app/appointments'],
     //services
         'services'    => ["title" => 'Services',                                        "path" => './app/services'],
+        'payments'    => ["title" => 'Payments',                                        "path" => './app/payments'],
 
     //expenses
         'expenses'    => ["title" => 'Expenses',                                        "path" => './app/expenses'],
@@ -28,13 +29,15 @@ $titles = [
 
     //Supplier 
         'supplier'    => ["title" => 'Suppliers',                                        "path" => './app/supplier'],
+    
     //inventory 
         'inventory'    => ["title" => 'Inventory',                                        "path" => './app/inventory'],
+    
     //Equipment 
         'equipment'    => ["title" => 'Equipment',                                         "path" => './app/Equipment'],
-    //TreatmentPlans 
+    
+    //TreatmentPlans & procedure 
         'TreatmentPlans'    => ["title" => 'Treatment Plans',                                "path" => './app/TreatmentPlans'],
-    //procedure 
         'procedure'    => ["title" => 'Procedure',                                         "path" => './app/procedure'],
 ];
 $is404 = false;
