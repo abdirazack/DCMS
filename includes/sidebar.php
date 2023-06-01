@@ -239,7 +239,7 @@
 
             <!-- Topbar Navbar -->
             <ul class="navbar-nav ml-auto">
-                <li class="mt-3 text-center me-5 fs-4"><?php echo $title; ?></li>
+                <li class="mt-3 text-center me-5 fs-4"><?php if(isset($title)){ echo $title;} ?></li>
                 <div class="topbar-divider d-none d-sm-block"></div>
 
 

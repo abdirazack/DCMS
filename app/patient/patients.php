@@ -162,7 +162,7 @@
                 $('#birth_date').val(data.birth_date);
                 $('#address').val(data.address);
 
-                $('#submit').text('update staff')
+                // $('#submit').text('update staff')
             }
 
         });
