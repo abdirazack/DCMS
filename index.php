@@ -8,6 +8,7 @@ $titles = [
         'staff'      => ["title" => 'Staff',                                           "path" => './app/staff/'],
         'dentist'    => ["title" => 'Dentists',                                        "path" => './app/dentists/'],
         'role'       => ["title" => 'Roles',                                           "path" => './app/roles/'],
+        'salary'     => ["title" => 'Salary',                                          "path" => './app/salary/'],
         'logins'     => ["title" => 'Login Credentials',                               "path" => './app/logins/'], // 'auth' => 'Auth
     
     // Patients

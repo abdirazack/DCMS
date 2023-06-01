@@ -74,6 +74,8 @@
                 <a class="collapse-item" href="index.php?page=staff">Staff</a>
                 <h6 class="collapse-header">Employee Roles:</h6>
                 <a class="collapse-item" href="index.php?page=role">Roles</a>
+                <h6 class="collapse-header">Employee Salaries:</h6>
+                <a class="collapse-item" href="index.php?page=salary">Salaries</a>
                 <h6 class="collapse-header">Employee Logins:</h6>
                 <a class="collapse-item" href="index.php?page=logins">LoginCredentials</a>
             </div>
