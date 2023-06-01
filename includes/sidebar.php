@@ -110,7 +110,7 @@
                 <h6 class="collapse-header">Expenses:</h6>
                 <a class="collapse-item" href="index.php?page=expenses">Expense</a>
                 <h6 class="collapse-header">Payments:</h6>
-                <a class="collapse-item" href="index.php?page=payments">Expense</a>
+                <a class="collapse-item" href="index.php?page=payments">Payments</a>
             </div>
         </div>
     </li>

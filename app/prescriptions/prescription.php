@@ -62,7 +62,7 @@ include_once('./app/database/conn.php')
     <div class="modal-dialog">
         <div class="modal-content rounded shadow">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="prescriptionModalLabel">ADD NEW DENTIST</h1>
+                <h1 class="modal-title fs-5" id="prescriptionModalLabel">ADD NEW PRESCRIPTIONS</h1>
             </div>
             <form action="./app/prescriptions/process_prescription.php" method="post" id="formInsertUpdate">
                 <div class="modal-body">
@@ -72,7 +72,7 @@ include_once('./app/database/conn.php')
                             <!-- select   first_name and last_name from  Patient table -->
                             <label for="patient" class="form-label">Name:</label>
                             <select class="form-control select2 border border-1 border-primary" id="patient" name="patient" required>
-                                <option value="">Select Employee</option>
+                                <option value="">Select Patient</option>
                                 <?php
                                 $result = mysqli_query($conn, "SELECT * FROM patients");
                                 while ($row = mysqli_fetch_assoc($result)) {

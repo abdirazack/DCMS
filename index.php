@@ -2,7 +2,7 @@
 
 // require('app/util/auth.php');
 $titles = [
-    'dashboard' => 'Home',
+        'dashboard'  => ["title" => 'Dashboard',                                       "path" => ''],
     // Employees
         'employee'   => ["title" => 'Employees',                                       "path" => './app/employees/'],
         'staff'      => ["title" => 'Staff',                                           "path" => './app/staff/'],
@@ -61,7 +61,7 @@ else{
 }
 require_once('./includes/header.php');
 require_once('./includes/sidebar.php');
-require_once($is404 ? 'dashboard.php' : $file );
+require_once($is404 ? './includes/404.php' : $file );
 
 ECHO '<div class="mb-2"></div>';
 require_once('./includes/footer.php');

@@ -83,7 +83,7 @@ $result = mysqli_query($conn, $sql);
                             <!-- Select2 for patient -->
                             <Label for="employee_id" class="form-label text-primary">Select Patient</Label> <br>
                             <select class="form-control select2" id="employee_id" name="employee_id" REQUIRED>
-                                <option value="">Select Patient</option>
+                                <option value="">Select Employee</option>
                                 <?php
                                 $query = "SELECT * FROM `employees`";
                                 $result = mysqli_query($conn, $query);
