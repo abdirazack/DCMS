@@ -148,7 +148,7 @@ CREATE TABLE `dentalcharts` (
 --
 
 CREATE TABLE Dentists (
-    employee_id INT PRIMARY KEY ,
+    employee_id INT PRIMARY KEY,
     Specialty VARCHAR(255),
     Qualification VARCHAR(255),
     Experience VARCHAR(50),
@@ -182,7 +182,7 @@ CREATE TABLE Payments (
 --
 
 CREATE TABLE Prescriptions (
-  prescription_id INT PRIMARY KEY,
+  prescription_id INT PRIMARY KEY AUTO_INCREMENT,
   patient_id INT,
   medication_id INT,
   dosage VARCHAR(100),
@@ -199,7 +199,7 @@ CREATE TABLE Prescriptions (
 --
 
 CREATE TABLE Staff (
-    employee_id INT PRIMARY KEY,
+    employee_id INT PRIMARY KEY ,
     role_id INT,
     Experience VARCHAR(50),
     FOREIGN KEY (employee_id) REFERENCES Employees(employee_id),
