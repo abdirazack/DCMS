@@ -15,7 +15,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
-        <a class="nav-link" href="index.php">
+        <a class="nav-link" href="index.php?page=dashboard">
             <i class="fas fa-fw fa-house"></i>
             <span>Dashboard</span></a>
     </li>
@@ -87,12 +87,14 @@
 
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseServices" aria-expanded="true" aria-controls="collapseUtilities">
             <i class="fas fa-fw fa-gear"></i>
-            <span>Services</span>
+            <span>Services & Procedure</span>
         </a>
         <div id="collapseServices" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Users:</h6>
+                <h6 class="collapse-header">Services:</h6>
                 <a class="collapse-item" href="index.php?page=services">Services</a>
+                <h6 class="collapse-header">Procedure:</h6>
+                <a class="collapse-item" href="index.php?page=procedure">Procedue</a>
             </div>
         </div>
     </li>
@@ -166,10 +168,10 @@
         </div>
     </li>
 
-    
+
     <!-- ------------------------------------------------------------------------------------------------ -->
 
-     <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
+    <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
     <li class="nav-item">
 
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEquipment" aria-expanded="true" aria-controls="collapseUtilities">
@@ -185,38 +187,22 @@
     </li>
 
     <!-- ------------------------------------------------------------------------------------------------ -->
-     <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
-    <li class="nav-item">
 
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseprocedure" aria-expanded="true" aria-controls="collapseUtilities">
-            <i class="fas fa-fw fa-clipboard"></i>
-            <span>procedure</span>
+    <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTreatmentPlans" aria-expanded="true" aria-controls="collapseUtilities">
+            <i class="fas fa-fw fa-medkit"></i>
+            <span>Treatment Plans</span>
         </a>
-        <div id="collapseprocedure" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+        <div id="collapseTreatmentPlans" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">procedure:</h6>
-                <a class="collapse-item" href="index.php?page=procedure">procedure</a>
+                <h6 class="collapse-header">Treatment Plans:</h6>
+                <a class="collapse-item" href="index.php?page=TreatmentPlans">Treatment Plans</a>
             </div>
         </div>
     </li>
 
     <!-- ------------------------------------------------------------------------------------------------ -->
-     <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
-     <li class="nav-item">
-
-<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTreatmentPlans" aria-expanded="true" aria-controls="collapseUtilities">
-    <i class="fas fa-fw fa-medkit"></i>
-    <span>Treatment Plans</span>
-</a>
-<div id="collapseTreatmentPlans" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-    <div class="bg-white py-2 collapse-inner rounded">
-        <h6 class="collapse-header">Treatment Plans:</h6>
-        <a class="collapse-item" href="index.php?page=TreatmentPlans">Treatment Plans</a>
-    </div>
-</div>
-</li>
-
-<!-- ------------------------------------------------------------------------------------------------ -->
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
@@ -239,7 +225,9 @@
 
             <!-- Topbar Navbar -->
             <ul class="navbar-nav ml-auto">
-                <li class="mt-3 text-center me-5 fs-4"><?php if(isset($title)){ echo $title;} ?></li>
+                <li class="mt-3 text-center me-5 fs-4"><?php if (isset($title)) {
+                                                            echo $title;
+                                                        } ?></li>
                 <div class="topbar-divider d-none d-sm-block"></div>
 
 
@@ -253,7 +241,7 @@
                     </a>
                     <!-- Dropdown - User Information -->
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" href="index.php?page=profile">
                             <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                             Profile
                         </a>

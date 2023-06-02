@@ -1,9 +1,11 @@
 <?php
-
+    session_start();
+    $_SESSION["employee_id"] = "1";
 // require('app/util/auth.php');
 $titles = [
-        'dashboard'  => ["title" => 'Dashboard',                                       "path" => ''],
-    // Employees
+        'dashboard'  => ["title" => 'Dashboard',                                       "path" => './app/dashboard/'],
+        'profile'   => ["title" => 'Profile',                                         "path" => './app/dashboard/'],    
+   // Employees
         'employee'   => ["title" => 'Employees',                                       "path" => './app/employees/'],
         'staff'      => ["title" => 'Staff',                                           "path" => './app/staff/'],
         'dentist'    => ["title" => 'Dentists',                                        "path" => './app/dentists/'],

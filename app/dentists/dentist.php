@@ -71,7 +71,7 @@ include_once('./app/database/conn.php')
                             <select class="form-control select2 border border-1 border-primary" id="employee" name="employee" required>
                                 <option value="">Select Employee</option>
                                 <?php
-                                $result = mysqli_query($conn, "SELECT * FROM employees");
+                                $result = mysqli_query($conn, "SELECT * FROM employees  WHERE employee_id NOT IN ( SELECT employee_id FROM Staff)");
                                 while ($row = mysqli_fetch_assoc($result)) {
                                     echo "<option value='" . $row['employee_id'] . "'>" . $row['first_name'] . ' '. $row['last_name']  . "</option>";
                                 }
