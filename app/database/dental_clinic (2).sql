@@ -52,6 +52,7 @@ CREATE TABLE Employees (
     Email VARCHAR(255),
     Phone VARCHAR(255),
     Address VARCHAR(255),
+    profile VARCHAR(255),
     HireDate DATE
 );
 
