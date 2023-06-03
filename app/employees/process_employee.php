@@ -12,12 +12,32 @@
     $address = mysqli_real_escape_string($conn,$_POST["address"]);
     $hire_date = mysqli_real_escape_string($conn,$_POST["hire_date"]);
     $email = mysqli_real_escape_string($conn,$_POST["email"]);
+    $profile = '';
+
+
+    if(isset($_FILES['profile'])){
+      $now = new DateTime();
+      $name=  $now->getTimestamp(); 
+      $filename = $_FILES["profile"]["name"];
+      $tempname = $_FILES["profile"]["tmp_name"];
+      $ext = strtolower(pathinfo($filename,PATHINFO_EXTENSION));
+      $folder = "../img/employee/" . $name.'.'.$ext;
+   
+      // Now let's move the uploaded image into the folder: image
+      if (move_uploaded_file($tempname, $folder)) {
+          $profile = $folder;
+      } else {
+
+      }
+
+
+    }
 
   // Check if the ID field is set (if set, it's an update)
   if ($id == "") {
 
     // Insert a new employess
-    $sql = "INSERT INTO employees (first_name, last_name, email, phone, address,  gender, hire_date) VALUES ('$first_name', '$last_name', '$email', '$phone_number', '$address',  '$gender', '$hire_date')";
+    $sql = "INSERT INTO employees (first_name, last_name, email, phone, address,  gender, profile, hire_date) VALUES ('$first_name', '$last_name', '$email', '$phone_number', '$address',  '$gender', '$profile','$hire_date')";
     if ($conn->query($sql) === TRUE) {
         $data = ['message'=>'Succeesully added employees', 'status'=>200];
         echo json_encode($data);
@@ -33,7 +53,7 @@
   } else {
 
         // Update the employess
-    $sql = "UPDATE employees SET first_name = '$first_name', last_name = '$last_name', hire_date = '$hire_date', phone = '$phone_number',  gender = '$gender', address = '$address', email = '$email' WHERE employee_id='$id'";
+    $sql = "UPDATE employees SET first_name = '$first_name', last_name = '$last_name', hire_date = '$hire_date', phone = '$phone_number',  gender = '$gender', profile= '$profile', address = '$address', email = '$email' WHERE employee_id='$id'";
     if ($conn->query($sql) === TRUE) {
         $data = ['message'=>'succeffully updated employess', 'status'=>200];
         echo json_encode($data);

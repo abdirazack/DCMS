@@ -80,7 +80,7 @@
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="employeeModalLabel">ADD NEW Employee</h1>
             </div>
-            <form action="./app/employees/process_employee.php" method="post" id="formInsertUpdate">
+            <form action="./app/employees/process_employee.php"   method="post" id="formInsertUpdate" enctype="multipart/form-data">
                 <div class="modal-body">
                     <p class='small text-danger' id='small'></p>
                     <input type="hidden" name="id" id="id">
@@ -116,6 +116,13 @@
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
                             </select>
+                        </div>
+                    </div>
+                    <!-- Upload profile picture -->
+                    <div class="row">
+                        <div>
+                            <label class="form-label" for='profile'>Upload Profile</label>
+                            <input class="form-control" type="file" name="profile" id="profile">
                         </div>
                     </div>
                     <div class="row">
@@ -208,7 +215,7 @@
                 type: 'POST',
                 data: formData,
                 success: function(response) {
-                    // alert(response)
+                    alert(response)
                     var obj = jQuery.parseJSON(response);
                     if (obj.status == 200) {
                         //hide modal

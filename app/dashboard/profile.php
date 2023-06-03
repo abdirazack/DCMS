@@ -57,7 +57,7 @@
             <form class="file-upload">
                 <div class="row mb-5 gx-5">
                     <!-- Contact detail -->
-                    <div class="col-xxl-8 mb-5 mb-xxl-0">
+                    <div class="col-xl-8 mb-5 mb-xxl-0">
                         <div class="bg-secondary-soft px-4 py-5 rounded">
                             <!-- hidden id input -->
                             <input type="hidden" name="id" id="id">
@@ -93,7 +93,7 @@
                         </div>
                     </div>
                     <!-- Upload profile -->
-                    <div class="col-xxl-4">
+                    <div class="col-xl-4">
                         <div class="bg-secondary-soft px-4 py-5 rounded">
                             <div class="row g-3">
                                 <h4 class="mb-4 mt-0">Upload your profile photo</h4>
@@ -115,7 +115,7 @@
 
 
                     <!-- change password -->
-                    <div class="col-xxl-6">
+                    <div class="col-xxl-6 mt-4">
                         <div class="bg-secondary-soft px-4 py-5 rounded">
                             <div class="row g-3">
                                 <h4 class="my-4">Change Password</h4>
