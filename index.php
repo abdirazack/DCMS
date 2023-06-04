@@ -1,6 +1,8 @@
 <?php
     session_start();
     $_SESSION["employee_id"] = "1";
+    $_SESSION["employee_name"] = "Abdi Omar";
+    $_SESSION["profile"] = "app/img/employee/1685804001.jpg";
 // require('app/util/auth.php');
 $titles = [
         'dashboard'  => ["title" => 'Dashboard',                                       "path" => './app/dashboard/'],

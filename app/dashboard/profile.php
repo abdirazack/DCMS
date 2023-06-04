@@ -60,7 +60,7 @@
                     <div class="col-xl-8 mb-5 mb-xxl-0">
                         <div class="bg-secondary-soft px-4 py-5 rounded">
                             <!-- hidden id input -->
-                            <input type="hidden" name="id" id="id">
+                            <input type="hidden" name="id" id="id" value='<?php echo $row['employee_id'];   ?>'>
                             <div class="row g-3">
                                 <h4 class="mb-4 mt-0">Contact detail</h4>
                                 <!-- First Name -->
@@ -119,11 +119,6 @@
                         <div class="bg-secondary-soft px-4 py-5 rounded">
                             <div class="row g-3">
                                 <h4 class="my-4">Change Password</h4>
-                                <!-- Old password -->
-                                <div class="col-md-6">
-                                    <label for="oldPassword" class="form-label">Old password *</label>
-                                    <input type="password" class="form-control" id="oldPassword">
-                                </div>
                                 <!-- New password -->
                                 <div class="col-md-6">
                                     <label for="newPassword" class="form-label">New password *</label>
@@ -147,3 +142,39 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    $(document).ready(function() {
+        $('#update').click(function() {
+            var id = $('#id').val();
+            var firstName = $('#firstName').val();
+            var lastName = $('#lastName').val();
+            var phoneNumber = $('#phoneNumber').val();
+            var email = $('#email').val();
+            var address = $('#address').val();
+            var oldPassword = $('#oldPassword').val();
+            var newPassword = $('#newPassword').val();
+            var confirmNewPassword = $('#confirmNewPassword').val();
+
+            $.ajax({
+                url: "./app/dashboard/profile_process.php",
+                method: "POST",
+                data: {
+                    id: id,
+                    firstName: firstName,
+                    lastName: lastName,
+                    phoneNumber: phoneNumber,
+                    email: email,
+                    address: address,
+                    newPassword: newPassword,
+                    confirmNewPassword: confirmNewPassword
+                },
+                success: function(data) {
+                    alert(data);
+                    // $('#update').html(data);
+                }
+            });
+        });
+    });
+</script>
