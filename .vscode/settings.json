@@ -1,0 +1,61 @@
+{
+    "gitlens.views.repositories.includeWorkingTree": true,
+    "gitlens.menus": {
+        "editor": {
+            "blame": true,
+            "clipboard": true,
+            "compare": true,
+            "history": true,
+            "remote": true
+        },
+        "editorGroup": {
+            "blame": true,
+            "compare": true
+        },
+        "editorGutter": {
+            "compare": true,
+            "remote": true,
+            "share": true
+        },
+        "editorTab": {
+            "clipboard": true,
+            "compare": true,
+            "history": true,
+            "remote": true
+        },
+        "explorer": {
+            "clipboard": true,
+            "compare": true,
+            "history": true,
+            "remote": true
+        },
+        "ghpr": {
+            "worktree": true
+        },
+        "scm": {
+            "graph": true
+        },
+        "scmRepositoryInline": {
+            "graph": true
+        },
+        "scmRepository": {
+            "authors": true,
+            "generateCommitMessage": true,
+            "graph": false
+        },
+        "scmGroupInline": {
+            "stash": true
+        },
+        "scmItemInline": {
+            "stash": false
+        },
+        "scmItem": {
+            "clipboard": true,
+            "compare": true,
+            "history": true,
+            "remote": true,
+            "share": true,
+            "stash": true
+        }
+    }
+}
