@@ -12,10 +12,46 @@
     $address = mysqli_real_escape_string($conn, $_POST['address']);
     $newPassword = mysqli_real_escape_string($conn, $_POST['newPassword']);
     $confirmNewPassword = mysqli_real_escape_string($conn, $_POST['confirmNewPassword']);
+    $profile = '';
 
+    if(isset($_FILES['profile'])) {
+        echo 'not empty';
+    }
+    else
+    {
+        echo 'empty';
+    } 
+
+    // get the previouse profile picture
+    $sql = "SELECT profile FROM employees WHERE employee_id='$id'";
+    $res = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($res);
+    $oldProfile = $row['profile'];
+
+
+    if(isset($_FILES['profile'])){
+        $now = new DateTime();
+        $name=  $now->getTimestamp(); 
+        $filename = $_FILES["profile"]["name"];
+        $tempname = $_FILES["profile"]["tmp_name"];
+        $ext = strtolower(pathinfo($filename,PATHINFO_EXTENSION));
+        $folder = "../img/employee/" . $name.'.'.$ext;
+
+        // Now let's move the uploaded image into the folder: image
+        if (move_uploaded_file($tempname, $folder)) {
+            $profile = $name.'.'.$ext;
+            // delete the previouse profile picture
+            unlink("../img/employee/".$oldProfile);
+            echo $profile;
+        } else {
+                echo "Failed to upload image";
+        }
+    }
+
+    echo $profile;
 
     //update the record
-    $sql = "UPDATE employees SET first_name='$firstName', last_name='$lastName', phone='$phoneNumber', email='$email', address='$address' WHERE employee_id='$id'";
+    $sql = "UPDATE employees SET first_name='$firstName', last_name='$lastName', phone='$phoneNumber', profile = '$profile',email='$email', address='$address' WHERE employee_id='$id'";
     $result = mysqli_query($conn, $sql);
 
     if ($result) {
@@ -41,5 +77,3 @@
         $data = ['message'=>"Paasword Don't match", 'status'=>004];
         echo json_encode($data);
     }
-
-?>
