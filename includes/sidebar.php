@@ -254,7 +254,7 @@
                             Activity Log
                         </a>
                         <div class="dropdown-divider"></div>
-                        <form action="login_folder/form_login.php" method="post">
+                        <form action="./app/login/login.php" method="post">
                             <input type="submit" class="form-control btn btn-outline-primary" name="logout" id="logout" value="Logout">
                         </form>
                     </div>
