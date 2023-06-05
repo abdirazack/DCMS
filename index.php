@@ -13,7 +13,7 @@ $titles = [
         'dentist'    => ["title" => 'Dentists',                                        "path" => './app/dentists/'],
         'role'       => ["title" => 'Roles',                                           "path" => './app/roles/'],
         'salary'     => ["title" => 'Salary',                                          "path" => './app/salary/'],
-        'logins'     => ["title" => 'Login Credentials',                               "path" => './app/logins/'], // 'auth' => 'Auth
+        'logins'     => ["title" => 'Login Credentials',                               "path" => './app/loginsCredentials/'], // 'auth' => 'Auth
     
     // Patients
         'patients'    => ["title" => 'Patients',                                        "path" => './app/patient/'],

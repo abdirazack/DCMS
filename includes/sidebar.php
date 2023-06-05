@@ -79,7 +79,7 @@
                 <h6 class="collapse-header">Employee Salaries:</h6>
                 <a class="collapse-item" href="index.php?page=salary">Salaries</a>
                 <h6 class="collapse-header">Employee Logins:</h6>
-                <a class="collapse-item" href="index.php?page=logins">LoginCredentials</a>
+                <a class="collapse-item" href="index.php?page=logins">Employee Login Credentials</a>
             </div>
         </div>
     </li>
