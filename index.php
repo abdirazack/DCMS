@@ -1,6 +1,8 @@
 <?php
     session_start();
     $_SESSION["employee_id"] = "1";
+    $_SESSION["employee_name"] = "Abdi Omar";
+    $_SESSION["profile"] = "app/img/employee/1685930334.jpg";
 // require('app/util/auth.php');
 $titles = [
         'dashboard'  => ["title" => 'Dashboard',                                       "path" => './app/dashboard/'],
@@ -11,7 +13,7 @@ $titles = [
         'dentist'    => ["title" => 'Dentists',                                        "path" => './app/dentists/'],
         'role'       => ["title" => 'Roles',                                           "path" => './app/roles/'],
         'salary'     => ["title" => 'Salary',                                          "path" => './app/salary/'],
-        'logins'     => ["title" => 'Login Credentials',                               "path" => './app/logins/'], // 'auth' => 'Auth
+        'logins'     => ["title" => 'Login Credentials',                               "path" => './app/loginsCredentials/'], // 'auth' => 'Auth
     
     // Patients
         'patients'    => ["title" => 'Patients',                                        "path" => './app/patient/'],

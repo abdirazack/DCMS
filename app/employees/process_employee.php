@@ -14,6 +14,12 @@
     $email = mysqli_real_escape_string($conn,$_POST["email"]);
     $profile = '';
 
+        // get the previouse profile picture
+        $sql = "SELECT profile FROM employees WHERE employee_id='$id'";
+        $result = mysqli_query($conn, $sql);
+        $row = mysqli_fetch_assoc($result);
+        $oldProfile = $row['profile'];
+
 
     if(isset($_FILES['profile'])){
       $now = new DateTime();
@@ -25,7 +31,9 @@
    
       // Now let's move the uploaded image into the folder: image
       if (move_uploaded_file($tempname, $folder)) {
-          $profile = $folder;
+          $profile = $name.'.'.$ext;
+          // delete the previouse profile picture
+          unlink("../img/employee/".$oldProfile);
       } else {
 
       }

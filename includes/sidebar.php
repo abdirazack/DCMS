@@ -1,3 +1,5 @@
+
+
 <!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -77,7 +79,7 @@
                 <h6 class="collapse-header">Employee Salaries:</h6>
                 <a class="collapse-item" href="index.php?page=salary">Salaries</a>
                 <h6 class="collapse-header">Employee Logins:</h6>
-                <a class="collapse-item" href="index.php?page=logins">LoginCredentials</a>
+                <a class="collapse-item" href="index.php?page=logins">Employee Login Credentials</a>
             </div>
         </div>
     </li>
@@ -234,9 +236,9 @@
                 <!-- Nav Item - User Information -->
                 <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="mr-2 d-none d-lg-inline text-gray-600 small">Patient-Zero</span>
+                        <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php  echo $_SESSION["employee_name"];  ?></span>
                         <div class="rounded-circle btn-warning">
-                            <img class="img-profile rounded-circle" src="./app/img/undraw_profile.svg">
+                            <img class="img-profile rounded-circle" src="<?php  echo $_SESSION["profile"];  ?>">
                         </div>
                     </a>
                     <!-- Dropdown - User Information -->

@@ -1,11 +1,12 @@
 <?php
-    include_once('./app/database/conn.php');
+include_once('./app/database/conn.php');
 
-    $id = $_SESSION["employee_id"];
-    $sql = "SELECT * FROM employees WHERE employee_id='$id'";
-    $result = $conn->query($sql);
-    $row = $result->fetch_assoc();
+$id = $_SESSION["employee_id"];
+$sql = "SELECT * FROM employees WHERE employee_id='$id'";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
 
+$profile = './app/img/employee/' . $row['profile'];
 
 ?>
 
@@ -40,8 +41,6 @@
         color: #dc3545;
         background-color: rgba(220, 53, 69, 0.1);
     }
-
-    
 </style>
 
 
@@ -54,13 +53,13 @@
                 <hr>
             </div>
             <!-- Form START -->
-            <form class="file-upload">
+            <form class="file-upload" id='profileUpdate' enctype="multipart/form-data">
                 <div class="row mb-5 gx-5">
                     <!-- Contact detail -->
                     <div class="col-xl-8 mb-5 mb-xxl-0">
                         <div class="bg-secondary-soft px-4 py-5 rounded">
                             <!-- hidden id input -->
-                            <input type="hidden" name="id" id="id">
+                            <input type="hidden" name="id" id="id" value='<?php echo $row['employee_id'];   ?>'>
                             <div class="row g-3">
                                 <h4 class="mb-4 mt-0">Contact detail</h4>
                                 <!-- First Name -->
@@ -76,7 +75,7 @@
                                 <!-- Phone number -->
                                 <div class="col-md-6">
                                     <label class="form-label" for="phoneNumber">Phone number *</label>
-                                    <input type="text" class="form-control" id="phoneNumber" name="phoneNumber"  value="<?php echo $row['phone']; ?>">
+                                    <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" value="<?php echo $row['phone']; ?>">
                                 </div>
 
                                 <!-- Email -->
@@ -100,12 +99,12 @@
                                 <div class="text-center">
                                     <!-- Image upload -->
                                     <div class="square position-relative display-2 mb-3">
-                                        <i class="fas fa-fw fa-user position-absolute top-50 start-50 translate-middle text-secondary"></i>
+                                        <img src="<?php echo $profile; ?>" class="img-thumbnail" alt="User Profile Picture Is not available" />
                                     </div>
                                     <!-- Button -->
-                                    <input type="file" id="customFile" name="file" hidden="">
-                                    <label class="btn btn-success-soft btn-block" for="customFile">Upload</label>
-                                    <button type="button" class="btn btn-danger-soft">Remove</button>
+                                    <input class="form-control" type="file" name="profile" id="profile" hidden="">
+                                    <label class="btn btn-success-soft btn-block" for="profile">Upload</label>
+                                    <button type="button" class="btn btn-danger-soft btn-block">Remove</button>
                                     <!-- Content -->
                                     <p class="text-muted mt-3 mb-0"><span class="me-1">Note:</span>Minimum size 300px x 300px</p>
                                 </div>
@@ -117,33 +116,91 @@
                     <!-- change password -->
                     <div class="col-xxl-6 mt-4">
                         <div class="bg-secondary-soft px-4 py-5 rounded">
+                            
                             <div class="row g-3">
                                 <h4 class="my-4">Change Password</h4>
-                                <!-- Old password -->
-                                <div class="col-md-6">
-                                    <label for="oldPassword" class="form-label">Old password *</label>
-                                    <input type="password" class="form-control" id="oldPassword">
-                                </div>
+                                <div id="small" class="text-danger mt-0"></div>
                                 <!-- New password -->
                                 <div class="col-md-6">
                                     <label for="newPassword" class="form-label">New password *</label>
-                                    <input type="password" class="form-control" id="newPassword">
+                                    <input type="password" class="form-control" id="newPassword" name="newPassword" >
                                 </div>
                                 <!-- Confirm password -->
                                 <div class="col-md-12">
                                     <label for="confirmNewPassword" class="form-label">Confirm Password *</label>
-                                    <input type="password" class="form-control" id="confirmNewPassword">
+                                    <input type="password" class="form-control" id="confirmNewPassword" name="confirmNewPassword">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div> <!-- Row END -->
-            </form> <!-- Form END -->
-            <!-- button -->
-            <div class="gap-3 d-md-flex justify-content-md-end text-center">
-                <button type="button" class="btn btn-primary btn-lg" name='update' id='update' >Update Profile</button>
-            </div>
+                <!-- button -->
+                <div class="gap-3 d-md-flex justify-content-md-end text-center">
+                    <button type="submit" class="btn btn-primary btn-lg" name='update' id='update'>Update Profile</button>
+                </div>
             </form> <!-- Form END -->
         </div>
     </div>
 </div>
+
+
+<script>
+    $(document).ready(function() {
+
+        $('#profileUpdate').submit(function(e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+            $.ajax({
+                url: './app/dashboard/profile_process.php',
+                type: 'POST',
+                data: formData,
+                success: function(response) {
+                    alert(response)
+                    var obj = jQuery.parseJSON(response);
+                    if (obj.status == 200) {
+                        //hide modal
+                        $('#staffModal').modal('hide');
+                        location.reload();
+                    } else {
+                        //show error on div with id small
+                        $('#small').text(obj.message);
+                        alert(obj.message);
+                    }
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            });
+        });
+       
+
+
+        // preview image before upload
+        $('#profile').change(function(e) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('.img-thumbnail').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(e.target.files[0]);
+        });
+
+        // remove image from preview  and reset src to default
+        $('.btn-danger-soft').click(function() {
+            $('.img-thumbnail').attr('src', '<?php echo $profile; ?>');
+        });
+
+        //confirm password validation
+        $('#confirmNewPassword').keyup(function() {
+            var newPassword = $('#newPassword').val();
+            var confirmNewPassword = $('#confirmNewPassword').val();
+            if (newPassword != confirmNewPassword) {
+                $('#small').text('Password does not match');
+                $('#update').attr('disabled', true);
+            } else {
+                $('#small').text('');
+                $('#update').attr('disabled', false);
+            }
+        });
+
+    });
+</script>

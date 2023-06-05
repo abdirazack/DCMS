@@ -1,5 +1,9 @@
 <?php
-require_once '../database/conn.php';
+
+$file1 = '../../database/conn.php';
+$file2 = './app/database/conn.php';
+
+require_file($file1, $file2);
 
 class DatabaseManager {
     public function insert($tableName, $columnValues) {
@@ -48,11 +52,11 @@ class DatabaseManager {
         return $stmt->execute();
     }
     
-    public function delete($tableName, $id) {
+    public function delete($tableName, $columnName, $id) {
         global $conn;
         
         // Create your SQL query and prepare the statement
-        $stmt = $conn->prepare("DELETE FROM $tableName WHERE id = :id");
+        $stmt = $conn->prepare("DELETE FROM $tableName WHERE $columnName = :id");
         
         // Bind the ID value to the placeholder
         $stmt->bindParam(':id', $id);
@@ -62,26 +66,25 @@ class DatabaseManager {
     }
 }
 
-// Example usage of the DatabaseManager class
-$manager = new DatabaseManager();
-$tableName = 'your_table_name';
-$id = 123; // Example ID to update
-$columnValues = [
-    'column1' => $value1,
-    'column2' => $value2,
-    // Add more columns and values as needed
-];
-$success = $manager->update($tableName, $id, $columnValues);
-if ($success) {
-    // Update was successful
-} else {
-    // Update failed
-}
+// $manager = new DatabaseManager();
+// $tableName = 'your_table_name';
+// $id = 123; // Example ID to update
+// $columnValues = [
+//     'column1' => $value1,
+//     'column2' => $value2,
+//     // Add more columns and values as needed
+// ];
+// $success = $manager->update($tableName, $id, $columnValues);
+// if ($success) {
+//     // Update was successful
+// } else {
+//     // Update failed
+// }
 
-$success = $manager->delete($tableName, $id);
-if ($success) {
-    // Delete was successful
-} else {
-    // Delete failed
-}
+// $success = $manager->delete($tableName, $id);
+// if ($success) {
+//     // Delete was successful
+// } else {
+//     // Delete failed
+// }
 ?>

@@ -61,7 +61,7 @@ include_once('./app/database/conn.php')
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="loginModalLabel">ADD NEW LOGIN</h1>
             </div>
-            <form action="./app/logins/process_login.php" method="post" id="formInsertUpdate">
+            <form action="./app/loginsCredentials/process_login.php" method="post" id="formInsertUpdate">
                 <div class="modal-body">
                     <input type="hidden" name="id" id="id">
                     <div class="row">
@@ -106,7 +106,7 @@ include_once('./app/database/conn.php')
         var id = ids;
         $('#id').val(id);
         $.ajax({
-            url: './app/logins/getLogin.php',
+            url: './app/loginsCredentials/getLogin.php',
             type: 'POST',
             data: {
                 updateid: id
@@ -129,7 +129,7 @@ include_once('./app/database/conn.php')
     function deleteLogin(id) {
         var id = id;
         $.ajax({
-            url: './app/logins/deleteLogin.php',
+            url: './app/loginsCredentials/deleteLogin.php',
             type: 'POST',
             data: {
                 deleteid: id
@@ -174,7 +174,7 @@ include_once('./app/database/conn.php')
             e.preventDefault();
             var formData = new FormData(this);
             $.ajax({
-                url: './app/logins/process_login.php',
+                url: './app/loginsCredentials/process_login.php',
                 type: 'POST',
                 data: formData,
                 success: function(response) {
