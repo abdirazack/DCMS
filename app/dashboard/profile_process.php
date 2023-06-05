@@ -3,6 +3,8 @@
     //connect to database
     include('../database/conn.php');
 
+
+
     //get the id of the record to be updated
     $id = mysqli_real_escape_string($conn, $_POST['id']);
     $firstName = mysqli_real_escape_string($conn, $_POST['firstName']);
@@ -14,19 +16,15 @@
     $confirmNewPassword = mysqli_real_escape_string($conn, $_POST['confirmNewPassword']);
     $profile = '';
 
-    if(isset($_FILES['profile'])) {
-        echo 'not empty';
-    }
-    else
-    {
-        echo 'empty';
-    } 
+
 
     // get the previouse profile picture
-    $sql = "SELECT profile FROM employees WHERE employee_id='$id'";
+    $sql = "SELECT * FROM employees WHERE employee_id='$id'";
     $res = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($res);
     $oldProfile = $row['profile'];
+    $gender = $row['gender'];
+    $hire_date = $row['hire_date'];
 
 
     if(isset($_FILES['profile'])){
@@ -41,8 +39,8 @@
         if (move_uploaded_file($tempname, $folder)) {
             $profile = $name.'.'.$ext;
             // delete the previouse profile picture
-            unlink("../img/employee/".$oldProfile);
-            echo $profile;
+            $return = unlink("../img/employee/".$oldProfile);
+            echo $return;
         } else {
                 echo "Failed to upload image";
         }
@@ -51,7 +49,7 @@
     echo $profile;
 
     //update the record
-    $sql = "UPDATE employees SET first_name='$firstName', last_name='$lastName', phone='$phoneNumber', profile = '$profile',email='$email', address='$address' WHERE employee_id='$id'";
+    $sql = "UPDATE employees SET first_name='$firstName', gender='$gender', hire_date = '$hire_date', last_name='$lastName', phone='$phoneNumber', profile = '$profile',email='$email', address='$address' WHERE employee_id='$id'";
     $result = mysqli_query($conn, $sql);
 
     if ($result) {
