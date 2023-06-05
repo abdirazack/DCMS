@@ -492,3 +492,22 @@ FROM
 
 
 -- --------------------------------------------------------
+
+--
+-- Structure for view `Invoice_Patients_View`
+--
+
+CREATE VIEW `Invoice_Patients_View` AS
+SELECT
+  i.invoice_id AS `invoice_id`,
+  pt.patient_id AS `patient_id`,
+  pt.first_name AS `first_name`,
+  pt.last_name AS `last_name`,
+  i.total_cost AS `total_cost`,
+  i.invoice_date AS `invoice_date`,
+  i.paid AS `paid`
+FROM
+  Invoices i
+  INNER JOIN Patients pt ON i.patient_id = pt.patient_id;
+
+-- --------------------------------------------------------

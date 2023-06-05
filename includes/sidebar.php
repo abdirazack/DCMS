@@ -158,6 +158,21 @@
     <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
     <li class="nav-item">
 
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInvoice" aria-expanded="true" aria-controls="collapseUtilities">
+            <i class="fas fa-fw fa-invoice"></i>
+            <span>Invoice</span>
+        </a>
+        <div id="collapseInvoice" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Invoice:</h6>
+                <a class="collapse-item" href="index.php?page=invoice">Invoice</a>
+            </div>
+        </div>
+    </li>
+    <!-- ------------------------------------------------------------------------------------------------ -->
+    <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
+    <li class="nav-item">
+
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInventory" aria-expanded="true" aria-controls="collapseUtilities">
             <i class="fas fa-fw fa-industry"></i>
             <span>Inventory</span>
