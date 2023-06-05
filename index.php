@@ -23,7 +23,7 @@ $titles = [
     //services
         'services'    => ["title" => 'Services',                                        "path" => './app/services'],
         'payments'    => ["title" => 'Payments',                                        "path" => './app/payments'],
-
+        'invoice'     => ["title" => 'Invoice',                                         "path" => './app/invoice'],
     //expenses
         'expenses'    => ["title" => 'Expenses',                                        "path" => './app/expenses'],
     
