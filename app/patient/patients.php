@@ -145,7 +145,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeButton">Close</button>
                         <button type="submit" id='submit' class="btn btn-outline-primary">Add Patient</button>
                     </div>
                 </div>
@@ -185,8 +185,14 @@
         });
 
         $("#submit").text('Update');
-        //toggle modal
-        $('#patientModal').modal('show');
+        $(document).ready(function() {
+            $('#closeButton').on('click', function() {
+                // Close the modal
+                $('#patientModal').modal('hide');
+            });
+            // Show the modal
+            $('#patientModal').modal('show');
+        });
     }
 
     function deletePatient(id) {

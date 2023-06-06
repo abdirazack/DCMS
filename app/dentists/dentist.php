@@ -9,7 +9,7 @@ include_once('./app/database/conn.php')
         <div class='d-flex justify-content-between mb-4'>
             <h2 class="text-center text-primary">Dentists List</h2>
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dentistModal">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dentistModal" id="addButton" >
                 ADD NEW DENTIST
             </button>
         </div>
@@ -100,7 +100,7 @@ include_once('./app/database/conn.php')
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeButton">Close</button>
                     <button type="submit" id='submit' class="btn btn-outline-primary">Add Dentist</button>
                 </div>
             </form>
@@ -110,30 +110,33 @@ include_once('./app/database/conn.php')
 
 
 <script>
-    function editDentist(ids) {
+   function editDentist(ids) {
+    var id = ids;
+    $('#id').val(id);
 
-        var id = ids;
-        $('#id').val(id);
-        $.ajax({
-            url: './app/dentists/getDentist.php',
-            type: 'POST',
-            data: {
-                updateid: id
-            },
-            success: function(response) {
-                alert(response);
-                var data = JSON.parse(response);
-                $('#formInsertUpdate select[name="employee"]').val(data.employee_id).trigger('change');
-                $('#Specialty').val(data.Specialty);
-                $('#Qualification').val(data.Qualification);
-                $('#experience').val(data.Experience);
-            }
-        });
+    $.ajax({
+        url: './app/dentists/getDentist.php',
+        type: 'POST',
+        data: {
+            updateid: id
+        },
+        success: function(response) {
+            var data = JSON.parse(response);
+            $('#formInsertUpdate select[name="employee"]').val(data.employee_id).trigger('change');
+            $('#Specialty').val(data.Specialty);
+            $('#Qualification').val(data.Qualification);
+            $('#experience').val(data.Experience);
+        }
+    });
 
-        $("#submit").text('Update');
-        //toggle modal
-        $('#dentistModal').modal('show');
-    }
+    // Update the button text and modal title
+    $('#submit').text('Update Dentist');
+    $('#dentistModalLabel').text('UPDATE DENTIST');
+
+    // Show the modal
+    $('#dentistModal').modal('show');
+}
+    
 
     function deleteDentist(id) {
         var id = id;
@@ -204,4 +207,5 @@ include_once('./app/database/conn.php')
         });
 
     });
+   
 </script>

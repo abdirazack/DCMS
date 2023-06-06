@@ -110,7 +110,7 @@ include_once('./app/database/conn.php');
 
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeButton">Close</button>
                     <button type="submit" id='submit' class="btn btn-outline-primary">Add Inventory</button>
                 </div>
             </form>
@@ -143,8 +143,14 @@ include_once('./app/database/conn.php');
         });
 
         $("#submit").text('Update');
-        //toggle modal
-        $('#inventoryModal').modal('show');
+        $(document).ready(function() {
+            $('#closeButton').on('click', function() {
+                // Close the modal
+                $('#inventoryModal').modal('hide');
+            });
+            // Show the modal
+            $('#inventoryModal').modal('show');
+        });
     }
 
     function deleteInventory(id) {
