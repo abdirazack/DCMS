@@ -120,7 +120,7 @@ include_once('./app/database/conn.php')
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeButton">Close</button>
                     <button type="submit" id='submit' class="btn btn-outline-primary">Add Prescronton</button>
                 </div>
             </form>
@@ -153,8 +153,14 @@ include_once('./app/database/conn.php')
         });
 
         $("#submit").text('Update');
-        //toggle modal
-        $('#prescriptionModal').modal('show');
+        $(document).ready(function() {
+            $('#closeButton').on('click', function() {
+                // Close the modal
+                $('#prescriptionModal').modal('hide');
+            });
+            // Show the modal
+            $('#prescriptionModal').modal('show');
+        });
     }
 
     function deletePrescription(id) {

@@ -118,7 +118,7 @@ $result = mysqli_query($conn, $sql);
                     </div>
                     <!-- modal footer -->
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeButton">Close</button>
                         <button type="submit" class="btn btn-outline-primary" onclick="insertUpdate()" id="submit">Save</button>
                     </div>
                 </form>
@@ -151,8 +151,14 @@ $result = mysqli_query($conn, $sql);
         });
 
         $("#submit").text('Update');
-        //toggle modal
-        $('#InvoiceModal').modal('show');
+        $(document).ready(function() {
+            $('#closeButton').on('click', function() {
+                // Close the modal
+                $('#InvoiceModal').modal('hide');
+            });
+            // Show the modal
+            $('#InvoiceModal').modal('show');
+        });
     }
 
     function deleteInvoice(id) {

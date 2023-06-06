@@ -132,7 +132,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeButton">Close</button>
                         <button type="submit" id='submit' class="btn btn-outline-primary">Add Employee</button>
                     </div>
                 </div>
@@ -171,8 +171,14 @@
         });
 
         $("#submit").text('Update');
-        //toggle modal
-        $('#employeeModal').modal('show');
+        $(document).ready(function() {
+            $('#closeButton').on('click', function() {
+                // Close the modal
+                $('#employeeModal').modal('hide');
+            });
+            // Show the modal
+            $('#employeeModal').modal('show');
+        });
     }
 
     function deleteEmployee(id) {

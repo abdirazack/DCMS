@@ -91,7 +91,7 @@
                
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeButton">Close</button>
                 <button type="submit" id='submit' class="btn btn-outline-primary">Add Equipment</button>
             </div>
             </form>
@@ -128,8 +128,14 @@
         });
 
         $("#submit").text('Update');
-        //toggle modal
-        $('#equipmentModal').modal('show');
+        $(document).ready(function() {
+            $('#closeButton').on('click', function() {
+                // Close the modal
+                $('#equipmentModal').modal('hide');
+            });
+            // Show the modal
+            $('#equipmentModal').modal('show');
+        });
     }
 
     function deleteEquipment(id) {

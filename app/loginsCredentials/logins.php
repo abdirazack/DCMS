@@ -91,7 +91,7 @@ include_once('./app/database/conn.php')
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeButton">Close</button>
                     <button type="submit" id='submit' class="btn btn-outline-primary">Add Login</button>
                 </div>
             </form>
@@ -122,8 +122,14 @@ include_once('./app/database/conn.php')
         });
 
         $("#submit").text('Update');
-        //toggle modal
-        $('#loginModal').modal('show');
+        $(document).ready(function() {
+            $('#closeButton').on('click', function() {
+                // Close the modal
+                $('#loginModal').modal('hide');
+            });
+            // Show the modal
+            $('#loginModal').modal('show');
+        });
     }
 
     function deleteLogin(id) {
