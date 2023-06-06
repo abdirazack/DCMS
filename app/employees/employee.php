@@ -80,7 +80,7 @@
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="employeeModalLabel">ADD NEW Employee</h1>
             </div>
-            <form action="./app/employees/process_employee.php"   method="post" id="formInsertUpdate" enctype="multipart/form-data">
+            <form action="./app/employees/process_employee.php" method="post" id="formInsertUpdate" enctype="multipart/form-data">
                 <div class="modal-body">
                     <p class='small text-danger' id='small'></p>
                     <input type="hidden" name="id" id="id">
@@ -105,12 +105,27 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="mb-3">
-                            <label for="address" class="form-label">Address:</label>
-                            <textarea class="form-control border border-1 border-primary" id="address" name="address" required> </textarea>
+                        <label for="address" class="form-label">Address:</label>
+                        <div class="mb-3 input-group">
+                            <!-- select2 address from addresses table  -->
+                            <select style="width: 90%;" class="form-control border border-1 border-primary select2" id="address" name="address">
+                                <option value="">Select Address</option>
+                                <?php
+                                $result = mysqli_query($conn, "SELECT * FROM Addresses");
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    echo "<option value='" . $row['address_id'] . "'>" . $row['street'] . $row['city'] . $row['state'] . "</option>";
+                                }
+                                ?>
+                            </select>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-primary mt-2 d-inline" data-toggle="modal" data-target="#addressModal">
+                                    <!-- Add a plus icon with tooltip that says 'add new address' -->
+                                    <icon class="fa fa-plus"></icon>
+                                </button>
+                            </span>
                         </div>
                         <div class="mb-3">
-                            <label for='gender'class="form-label">Select a Gender</label>
+                            <label for='gender' class="form-label">Select a Gender</label>
                             <select class="form-control border border-1 border-primary" id="gender" name="gender">
                                 <option value="">Select Gender</option>
                                 <option value="Male">Male</option>
@@ -197,6 +212,16 @@
     }
 
     $(document).ready(function() {
+
+        // select2
+        $(".select2").select2();
+        $('#address').select2({
+            dropdownParent: $('#employeeModal')
+        });
+
+
+
+
         $('#dataTable').DataTable({
             pagingType: 'full_numbers',
             "aLengthMenu": [
@@ -204,7 +229,10 @@
                 [5, 10, 20, 50, 75, "All"]
             ],
             "iDisplayLength": 5,
-            "bDestroy": true
+            "bDestroy": true,
+            "buttons": [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
         });
 
         $('#formInsertUpdate').submit(function(e) {
@@ -235,3 +263,41 @@
 
     });
 </script>
+
+<!-- Handle Address  -->
+<script>
+    $(document).ready(function() {
+        $('#formInsertUpdateAddress').submit(function(e) {
+            // var page = 'employee';
+            e.preventDefault();
+            var formData = new FormData(this);
+            $.ajax({
+                url: './app/address/process_address.php',
+                type: 'POST',
+                data: formData,
+                success: function(response) {
+                    alert(response)
+                    var obj = jQuery.parseJSON(response);
+                    if (obj.status == 200) {
+                        //hide modal
+                        $('#addressModal').modal('hide');
+                        // location.reload();
+                    } else {
+                        //show error on div with id small
+                        $('#small').text(obj.message);
+                        alert(obj.message);
+                    }
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            });
+        });
+    });
+</script>
+
+<?php
+include_once('./app/address/modal_address.php');
+// include_once('./app/address/process_address.php');
+?>
+
