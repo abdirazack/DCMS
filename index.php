@@ -6,8 +6,12 @@
 // require('app/util/auth.php');
 $titles = [
         'dashboard'  => ["title" => 'Dashboard',                                       "path" => './app/dashboard/'],
-        'profile'   => ["title" => 'Profile',                                         "path" => './app/dashboard/'],    
-   // Employees
+        'profile'   =>  ["title" => 'Profile',                                         "path" => './app/dashboard/'],    
+   
+    //Address
+        'address'    => ["title" => 'Address',                                         "path" => './app/address/'],
+
+     // Employees
         'employee'   => ["title" => 'Employees',                                       "path" => './app/employees/'],
         'staff'      => ["title" => 'Staff',                                           "path" => './app/staff/'],
         'dentist'    => ["title" => 'Dentists',                                        "path" => './app/dentists/'],
@@ -16,7 +20,7 @@ $titles = [
         'logins'     => ["title" => 'Login Credentials',                               "path" => './app/loginsCredentials/'], // 'auth' => 'Auth
     
     // Patients
-        'patients'    => ["title" => 'Patients',                                        "path" => './app/patient/'],
+        'patients'   => ["title" => 'Patients',                                        "path" => './app/patient/'],
 
     // appointments                               
         'appointment' => ["title" => 'Appointment',                                     "path" => './app/appointments'],
@@ -44,6 +48,9 @@ $titles = [
     //TreatmentPlans & procedure 
         'TreatmentPlans'    => ["title" => 'Treatment Plans',                                "path" => './app/TreatmentPlans'],
         'procedure'    => ["title" => 'Procedure',                                         "path" => './app/procedure'],
+
+    //Login Page
+        'login'     =>  ["title" => 'Login',                                           "path" => './app/login/'],
 ];
 $is404 = false;
 $page = '';

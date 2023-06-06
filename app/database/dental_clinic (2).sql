@@ -1,17 +1,4 @@
 --
--- Table structure for table `Roles`
---
-
-CREATE TABLE Roles (
-    role_id INT PRIMARY KEY AUTO_INCREMENT,
-    role_name VARCHAR(255),
-    role_description TEXT
-);
-
--- --------------------------------------------------------
-
-
---
 -- Table structure for table `patients`
 --
 
@@ -38,24 +25,6 @@ CREATE TABLE `suppliers` (
   `phone_number` varchar(20) DEFAULT NULL,
   `address` varchar(200) DEFAULT NULL
 );
-
-
--- --------------------------------------------------------
---
--- Table structure for table `Employees`
---
-
-CREATE TABLE Employees (
-    employee_id INT PRIMARY KEY AUTO_INCREMENT,
-    first_name VARCHAR(255),
-    last_name VARCHAR(255),
-    Email VARCHAR(255),
-    Phone VARCHAR(255),
-    Address VARCHAR(255),
-    profile VARCHAR(255),
-    HireDate DATE
-);
-
 
 -- --------------------------------------------------------
 --
@@ -126,20 +95,50 @@ CREATE TABLE `services` (
   `fee` decimal(10,2) NOT NULL
 );
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Addresses`
+--
+
+CREATE TABLE Addresses (
+    address_id INT PRIMARY KEY AUTO_INCREMENT,
+    street VARCHAR(255),
+    city VARCHAR(255),
+    state VARCHAR(255),
+    country VARCHAR(255),
+    zip VARCHAR(255)
+);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dentalcharts`
+-- Table structure for table `Roles`
 --
 
-CREATE TABLE `dentalcharts` (
-  `dental_chart_id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  `patient_id` int(11) DEFAULT NULL,
-  `chart_image` varchar(200) DEFAULT NULL,
-  `date_created` date DEFAULT NULL,
-  `date_modified` date DEFAULT NULL,
-  FOREIGN KEY (patient_id) REFERENCES patients(patient_id)
+CREATE TABLE Roles (
+    role_id INT PRIMARY KEY AUTO_INCREMENT,
+    role_name VARCHAR(255),
+    role_description TEXT
+);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Employees`
+--
+
+CREATE TABLE Employees (
+    employee_id INT PRIMARY KEY AUTO_INCREMENT,
+    first_name VARCHAR(255),
+    last_name VARCHAR(255),
+    email VARCHAR(255),
+    phone VARCHAR(255),
+    address INT,
+    gender VARCHAR(20),
+    profile VARCHAR(255),
+    hire_date DATE,
+    FOREIGN KEY (Address) REFERENCES Addresses(address_id)
 );
 
 -- --------------------------------------------------------
@@ -156,7 +155,32 @@ CREATE TABLE Dentists (
     FOREIGN KEY (employee_id) REFERENCES Employees(employee_id)
 );
 
+-- --------------------------------------------------------
 
+--
+-- Table structure for table `Stuff`
+--
+
+CREATE TABLE Staff (
+    employee_id INT PRIMARY KEY ,
+    role_id INT,
+    Experience VARCHAR(50),
+    FOREIGN KEY (employee_id) REFERENCES Employees(employee_id),
+    FOREIGN KEY (role_id) REFERENCES Roles(role_id)
+);
+
+
+-- --------------------------------------------------------
+--
+-- Table structure for table `LoginCredentials`
+
+
+CREATE TABLE LoginCredentials (
+    employee_id INT PRIMARY KEY,
+    Username VARCHAR(255),
+    Password VARCHAR(255),
+    FOREIGN KEY (employee_id) REFERENCES Employees(employee_id)
+);
 
 -- --------------------------------------------------------
 
@@ -191,33 +215,6 @@ CREATE TABLE Prescriptions (
   date_prescribed DATE,
   FOREIGN KEY (patient_id) REFERENCES Patients(patient_id),
   FOREIGN KEY (medication_id) REFERENCES Medications(medication_id)
-);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `Stuff`
---
-
-CREATE TABLE Staff (
-    employee_id INT PRIMARY KEY ,
-    role_id INT,
-    Experience VARCHAR(50),
-    FOREIGN KEY (employee_id) REFERENCES Employees(employee_id),
-    FOREIGN KEY (role_id) REFERENCES Roles(role_id)
-);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `LoginCredentials`
-
-
-CREATE TABLE LoginCredentials (
-    employee_id INT PRIMARY KEY,
-    Username VARCHAR(255),
-    Password VARCHAR(255),
-    FOREIGN KEY (employee_id) REFERENCES Employees(employee_id)
 );
 
 -- --------------------------------------------------------

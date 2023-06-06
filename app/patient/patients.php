@@ -125,7 +125,24 @@
                     </div>
                     <div class="mb-3">
                         <label for="address" class="form-label">Address:</label>
-                        <textarea class="form-control border border-1 border-primary" id="address" name="address" required> </textarea>
+                        <div class="mb-3 input-group">
+                            <!-- select2 address from addresses table  -->
+                            <select style="width: 90%;" class="form-control border border-1 border-primary select2" id="address" name="address">
+                                <option value="">Select Address</option>
+                                <?php
+                                $result = mysqli_query($conn, "SELECT * FROM Addresses");
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    echo "<option value='" . $row['address_id'] . "'>" .' '. $row['street'] .' '. $row['city'] .' '. $row['state'] . "</option>";
+                                }
+                                ?>
+                            </select>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-primary mt-2 d-inline" data-toggle="modal" data-target="#addressModal">
+                                    <!-- Add a plus icon with tooltip that says 'add new address' -->
+                                    <icon class="fa fa-plus"></icon>
+                                </button>
+                            </span>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeButton">Close</button>
@@ -209,6 +226,14 @@
             "bDestroy": true
         });
 
+        // select2
+        $(".select2").select2();
+        $('#address').select2({
+            dropdownParent: $('#patientModal')
+        });
+
+
+
         $('#formInsertUpdate').submit(function(e) {
             e.preventDefault();
             var formData = new FormData(this);
@@ -237,3 +262,38 @@
 
     });
 </script>
+<script>
+    $(document).ready(function() {
+        $('#formInsertUpdateAddress').submit(function(e) {
+            // var page = 'patient';
+            e.preventDefault();
+            var formData = new FormData(this);
+            $.ajax({
+                url: './app/address/process_address.php',
+                type: 'POST',
+                data: formData,
+                success: function(response) {
+                    // alert(response)
+                    var obj = jQuery.parseJSON(response);
+                    if (obj.status == 200) {
+                        //hide modal
+                        $('#addressModal').modal('hide');
+                        location.reload();
+                    } else {
+                        //show error on div with id small
+                        $('#small').text(obj.message);
+                        alert(obj.message);
+                    }
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            });
+        });
+    });
+</script>
+<?php
+    include_once('./app/address/modal_address.php');
+    // include_once('./app/address/process_address.php');
+?>
+
