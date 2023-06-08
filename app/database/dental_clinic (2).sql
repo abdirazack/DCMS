@@ -508,3 +508,81 @@ FROM
   INNER JOIN Patients pt ON i.patient_id = pt.patient_id;
 
 -- --------------------------------------------------------
+
+--
+-- Structure for view `Addresses_Patients_View`
+--
+
+CREATE VIEW `Addresses_Patients_View` AS
+SELECT
+  pt.patient_id AS `patient_id`,
+  pt.first_name AS `first_name`,
+  pt.last_name AS `last_name`,
+  pt.phone_number AS `phone_number`,
+  pt.gender AS `gender`,
+  pt.birth_date AS `birth_date`,
+  a.street AS `street`,
+  a.city AS `city`,
+  a.state AS `state`
+FROM
+  Patients pt INNER JOIN Addresses a ON pt.address = a.address_id;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `Addresses_Employees_View`
+--
+
+CREATE VIEW `Addresses_Employees_View` AS
+SELECT
+  e.employee_id AS `employee_id`,
+  e.first_name AS `first_name`,
+  e.last_name AS `last_name`,
+  e.email AS `email`,
+  e.phone AS `phone`,
+  e.gender AS `gender`,
+  e.hire_date AS `hire_date`,
+  a.street AS `street`,
+  a.city AS `city`,
+  a.state AS `state`
+FROM
+  employees e INNER JOIN Addresses a ON e.address = a.address_id;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `Addresses_Supplier_View`
+--
+
+CREATE VIEW `Addresses_Supplier_View` AS
+SELECT
+  s.supplier_id AS `supplier_id`,
+  s.supplier_name AS `supplier_name`,
+  s.email AS `email`,
+  s.phone_number AS `phone_number`,
+  a.street AS `street`,
+  a.city AS `city`,
+  a.state AS `state`
+FROM
+  Suppliers s INNER JOIN Addresses a ON s.address = a.address_id;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `TreatmentPlan_Patients_View`
+--
+
+CREATE VIEW `TreatmentPlan_Patients_View` AS
+SELECT
+  tp.treatment_plan_id AS `treatment_plan_id`,
+  pt.first_name AS `first_name`,
+  pt.last_name AS `last_name`,
+  tp.start_date AS `start_date`,
+  tp.end_date AS `end_date`,
+  tp.total_cost AS `total_cost`,
+  tp.status AS `status`
+
+FROM
+  Treatment_plans  tp INNER JOIN Patients pt ON tp.patient_id = pt.patient_id;
+
+-- --------------------------------------------------------

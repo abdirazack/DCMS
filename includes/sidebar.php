@@ -7,9 +7,8 @@
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-tooth"></i>
-            <div class="sidebar-brand-text mx-3">Amina Dental</div>
+            <div class="sidebar-brand-text mx-3">Emirates Dental</div>
         </div>
-
     </a>
 
     <!-- Divider -->
@@ -17,7 +16,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
-        <a class="nav-link" href="index.php?page=login">
+        <a class="nav-link" href="index.php?page=dashboard">
             <i class="fas fa-fw fa-house"></i>
             <span>Dashboard</span></a>
     </li>
@@ -55,6 +54,10 @@
 
                 <h6 class="collapse-header">Patients:</h6>
                 <a class="collapse-item" href="index.php?page=patients">Patients</a>
+                <h6 class="collapse-header">Prescriptions:</h6>
+                <a class="collapse-item" href="index.php?page=prescription">Prescriptions</a>
+                <h6 class="collapse-header">Treatment Plans:</h6>
+                <a class="collapse-item" href="index.php?page=TreatmentPlans">Treatment Plans</a>
 
             </div>
         </div>
@@ -133,8 +136,7 @@
                 <a class="collapse-item" href="index.php?page=medication">Medication</a>
                 <h6 class="collapse-header">Drugs:</h6>
                 <a class="collapse-item" href="index.php?page=drug">Drugs</a>
-                <h6 class="collapse-header">Medication:</h6>
-                <a class="collapse-item" href="index.php?page=prescription">Prescriptions</a>
+
             </div>
         </div>
     </li>
@@ -145,12 +147,14 @@
 
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSupplier" aria-expanded="true" aria-controls="collapseUtilities">
             <i class="fas fa-fw fa-industry"></i>
-            <span>Supplier</span>
+            <span>Supplier & Inventory</span>
         </a>
         <div id="collapseSupplier" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Suppliers:</h6>
                 <a class="collapse-item" href="index.php?page=supplier">Suppliers</a>
+                <h6 class="collapse-header">Inventory:</h6>
+                <a class="collapse-item" href="index.php?page=inventory">Inventory</a>
             </div>
         </div>
     </li>
@@ -169,22 +173,6 @@
             </div>
         </div>
     </li>
-    <!-- ------------------------------------------------------------------------------------------------ -->
-    <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
-    <li class="nav-item">
-
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInventory" aria-expanded="true" aria-controls="collapseUtilities">
-            <i class="fas fa-fw fa-industry"></i>
-            <span>Inventory</span>
-        </a>
-        <div id="collapseInventory" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Inventory:</h6>
-                <a class="collapse-item" href="index.php?page=inventory">Inventory</a>
-            </div>
-        </div>
-    </li>
-
 
     <!-- ------------------------------------------------------------------------------------------------ -->
 
@@ -204,22 +192,6 @@
     </li>
 
     <!-- ------------------------------------------------------------------------------------------------ -->
-
-    <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTreatmentPlans" aria-expanded="true" aria-controls="collapseUtilities">
-            <i class="fas fa-fw fa-medkit"></i>
-            <span>Treatment Plans</span>
-        </a>
-        <div id="collapseTreatmentPlans" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Treatment Plans:</h6>
-                <a class="collapse-item" href="index.php?page=TreatmentPlans">Treatment Plans</a>
-            </div>
-        </div>
-    </li>
-    <!-- ------------------------------------------------------------------------------------------------ -->
-
     <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAddress" aria-expanded="true" aria-controls="collapseUtilities">
@@ -268,7 +240,7 @@
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php  echo $_SESSION["employee_name"];  ?></span>
                         <div class="rounded-circle btn-warning">
-                            <img class="img-profile rounded-circle" src="<?php  echo $_SESSION["profile"];  ?>">
+                            <img class="img-profile rounded-circle" src="<?php  echo './app/img/employee/'.$_SESSION["profile"];  ?>">
                         </div>
                     </a>
                     <!-- Dropdown - User Information -->
@@ -286,7 +258,7 @@
                             Activity Log
                         </a>
                         <div class="dropdown-divider"></div>
-                        <form action="./app/login/login.php" method="post">
+                        <form action="./app/login/logout.php" method="post">
                             <input type="submit" class="form-control btn btn-outline-primary" name="logout" id="logout" value="Logout">
                         </form>
                     </div>

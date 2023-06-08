@@ -41,7 +41,7 @@
                     <?php
 
                     // Select all staff from the database
-                    $result = mysqli_query($conn, "SELECT * FROM patients");
+                    $result = mysqli_query($conn, "SELECT * FROM Addresses_Patients_View");
 
                     // Loop through the results and output each patients member as a table row
                     while ($row = mysqli_fetch_assoc($result)) {
@@ -51,7 +51,7 @@
                         echo "<td>" . $row['last_name'] . "</>";
                         echo "<td>" . $row['phone_number'] . "</td>";
                         echo "<td>" . $row['gender'] . "</td>";
-                        echo "<td>" . $row['address'] . "</td>";
+                        echo "<td>" . $row['street'] .' '. $row['city'].' ' . $row['state']. "</td>";
                         echo "<td>" . $row['birth_date'] . "</td>";
                         echo "<td class='text-center'> 
                                     <button  class='btn btn-primary' onclick='editPatient(" . $row['patient_id'] . ")'> <icon class='fa fa-edit'></icon> </button> 

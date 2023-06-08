@@ -42,7 +42,7 @@
                     <?php
 
                     // Select all staff from the database
-                    $result = mysqli_query($conn, "SELECT * FROM Employees");
+                    $result = mysqli_query($conn, "SELECT * FROM Addresses_Employees_View");
 
                     // Loop through the results and output each patients member as a table row
                     while ($row = mysqli_fetch_assoc($result)) {
@@ -52,7 +52,7 @@
                         echo "<td>" . $row['last_name'] . "</>";
                         echo "<td>" . $row['email'] . "</td>";
                         echo "<td>" . $row['phone'] . "</td>";
-                        echo "<td>" . $row['address'] . "</td>";
+                        echo "<td>" . $row['street'] .' '. $row['city'].' ' . $row['state']. "</td>";
                         echo "<td>" . $row['gender'] . "</td>";
                         echo "<td>" . $row['hire_date'] . "</td>";
                         echo "<td class='text-center'> 
@@ -225,9 +225,6 @@
             dropdownParent: $('#employeeModal')
         });
 
-
-
-
         $('#dataTable').DataTable({
             pagingType: 'full_numbers',
             "aLengthMenu": [
@@ -237,8 +234,8 @@
             "iDisplayLength": 5,
             "bDestroy": true,
             "buttons": [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-        ]
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
         });
 
         $('#formInsertUpdate').submit(function(e) {
@@ -306,4 +303,3 @@
 include_once('./app/address/modal_address.php');
 // include_once('./app/address/process_address.php');
 ?>
-

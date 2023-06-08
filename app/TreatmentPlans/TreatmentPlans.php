@@ -17,7 +17,8 @@
                 <thead>
                     <tr>
                         <th>Treatment Plan ID</th>
-                        <th>Patient ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
                         <th>Start Date</th>
                         <th>End Date</th>
                         <th>Total total_Cost</th>
@@ -30,13 +31,14 @@
                     <?php  
 
                     // Select all treatment plans from the database
-                    $result = mysqli_query($conn, "SELECT * FROM treatment_plans");
+                    $result = mysqli_query($conn, "SELECT * FROM TreatmentPlan_Patients_View");
 
                     // Loop through the results and output each Plan as a table row
                     while ($row = mysqli_fetch_assoc($result)) {
                         echo "<tr>";
                         echo "<td>" . $row['treatment_plan_id'] . "</td>";
-                        echo "<td>" . $row['patient_id'] . "</td>";
+                        echo "<td>" . $row['first_name'] . "</td>";
+                        echo "<td>" . $row['last_name'] . "</td>";
                         echo "<td>" . $row['start_date'] . "</td>";
                         echo "<td>" . $row['end_date'] . "</td>";
                         echo "<td>" . $row['total_cost'] . "</td>";
@@ -138,7 +140,7 @@
                 $('#start_date').val(data.start_date);
                 $('#end_date').val(data.end_date);
                 $('#total_cost').val(data.total_cost);
-                $('#status').val(data.status);
+                $('#formInsertUpdate select[name="status"').val(data.status).trigger('change');
 
                 $('#submit').text('update treatment')
             }

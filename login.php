@@ -52,7 +52,7 @@
 
           <h3 class="signin-text mb-3"> Login</h3>
         </div>
-        <form action="process_login.php" method="post">
+        <form action="./app/login/process_login.php" method="post">
           <div class="form-group">
             <label for="user">User Name</label>
             <input id="username" type="text" name="username" id="username" class="form-control">

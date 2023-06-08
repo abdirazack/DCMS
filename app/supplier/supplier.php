@@ -29,7 +29,7 @@ include_once('./app/database/conn.php')
                 <?php
 
                 // Select all staff from the database
-                $result = mysqli_query($conn, "SELECT * FROM suppliers");
+                $result = mysqli_query($conn, "SELECT * FROM Addresses_Supplier_View");
 
                 // Loop through the results and output each staff member as a table row
                 while ($row = mysqli_fetch_assoc($result)) {
@@ -38,7 +38,7 @@ include_once('./app/database/conn.php')
                     echo "<td>" . $row['supplier_name'] . "</td>";
                     echo "<td>" . $row['email'] . "</>";
                     echo "<td>" . $row['phone_number'] . "</td>";
-                    echo "<td>" . $row['address'] . "</td>";
+                    echo "<td>" . $row['street'] .' '. $row['city'].' ' . $row['state']. "</td>";
                     echo "<td class='text-center'> 
                                     <button  class='btn btn-primary' onclick='editSupplier(" . $row['supplier_id'] . ")'> <i class='fa fa-edit'></i> </button> 
                                     <a href='#' class='btn btn-danger ms-2 mt-1' onclick='deleteSupplier(" . $row['supplier_id'] . ")'> <i class='fa fa-trash'></i> </a> 
@@ -70,29 +70,47 @@ include_once('./app/database/conn.php')
                             <input type="text" class="form-control border border-1 border-primary" id="name" name="name" required>
                         </div>
                         <div class="mb-3 col-md-6">
+                            <label for="phone_number" class="form-label">Phone Number:</label>
+                            <input type="text" class="form-control border border-1 border-primary" id="phone_number" name="phone_number" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3">
                             <label for="email" class="form-label">Email:</label>
                             <input type="email" class="form-control border border-1 border-primary" id="email" name="email" required>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="mb-3 col-md-6">
-                            <label for="phone_number" class="form-label">Phone Number:</label>
-                            <input type="text" class="form-control border border-1 border-primary" id="phone_number" name="phone_number" required>
-                        </div>
 
-                        <div class="mb-3 col-md-6">
-                            <label for="adress" class="form-label">Address:</label>
-                            <input type="text" class="form-control border border-1 border-primary" id="address" name="address" required>
+                    <div class="row mb-3">
+                        <label for="address" class="form-label">Address:</label>
+                        <div class="mb-3 input-group">
+                            <!-- select2 address from addresses table  -->
+                            <select style="width: 90%;" class="form-control border border-1 border-primary select2" id="address" name="address">
+                                <option value="">Select Address</option>
+                                <?php
+                                $result = mysqli_query($conn, "SELECT * FROM Addresses");
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    echo "<option value='" . $row['address_id'] . "'>" .' '. $row['street'] .' '.  $row['city'] .' ' . $row['state'] . "</option>";
+                                }
+                                ?>
+                            </select>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-primary ms-1 d-inline" data-toggle="modal" data-target="#addressModal">
+                                    <!-- Add a plus icon with tooltip that says 'add new address' -->
+                                    <icon class="fa fa-plus"></icon>
+                                </button>
+                            </span>
                         </div>
                     </div>
                 </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeButton">Close</button>
-                        <button type="submit" id='submit' class="btn btn-outline-primary">Add Supplier</button>
-                    </div>
-            </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeButton">Close</button>
+                    <button type="submit" id='submit' class="btn btn-outline-primary">Add Supplier</button>
+                </div>
         </div>
+        </form>
     </div>
+</div>
 </div>
 
 
@@ -113,7 +131,8 @@ include_once('./app/database/conn.php')
                 $('#name').val(data.supplier_name);
                 $('#email').val(data.email);
                 $('#phone_number').val(data.phone_number);
-                $('#address').val(data.address);
+                $('#formInsertUpdate select[name = "address"]').val(data.address).trigger('change');
+                
             }
 
         });
@@ -158,6 +177,11 @@ include_once('./app/database/conn.php')
             "iDisplayLength": 5,
             "bDestroy": true
         });
+        // select2
+        $(".select2").select2();
+        $('#address').select2({
+            dropdownParent: $('#supplierModal')
+        });
 
         $('#formInsertUpdate').submit(function(e) {
             e.preventDefault();
@@ -187,3 +211,41 @@ include_once('./app/database/conn.php')
 
     });
 </script>
+
+
+<!-- Handle Address  -->
+<script>
+    $(document).ready(function() {
+        $('#formInsertUpdateAddress').submit(function(e) {
+            // var page = 'employee';
+            e.preventDefault();
+            var formData = new FormData(this);
+            $.ajax({
+                url: './app/address/process_address.php',
+                type: 'POST',
+                data: formData,
+                success: function(response) {
+                    alert(response)
+                    var obj = jQuery.parseJSON(response);
+                    if (obj.status == 200) {
+                        //hide modal
+                        $('#addressModal').modal('hide');
+                        // location.reload();
+                    } else {
+                        //show error on div with id small
+                        $('#small').text(obj.message);
+                        alert(obj.message);
+                    }
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            });
+        });
+    });
+</script>
+
+<?php
+include_once('./app/address/modal_address.php');
+// include_once('./app/address/process_address.php');
+?>

@@ -1,8 +1,8 @@
 <?php
     session_start();
-    $_SESSION["employee_id"] = "1";
-    $_SESSION["employee_name"] = "Abdi Omar";
-    $_SESSION["profile"] = "app/img/employee/1685930334.jpg";
+    if (!isset($_SESSION['empid'])) {
+        header('Location: ./login.php');
+    }
 // require('app/util/auth.php');
 $titles = [
         'dashboard'  => ["title" => 'Dashboard',                                       "path" => './app/dashboard/'],
@@ -74,7 +74,7 @@ require_once('./includes/header.php');
 require_once('./includes/sidebar.php');
 require_once($is404 ? './includes/404.php' : $file );
 
-ECHO '<div class="mb-2"></div>';
+// ECHO '<div class="mb-2"></div>';
 require_once('./includes/footer.php');
 ?>
     <!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> -->

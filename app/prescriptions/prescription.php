@@ -71,7 +71,7 @@ include_once('./app/database/conn.php')
                         <div class="mb-3">
                             <!-- select   first_name and last_name from  Patient table -->
                             <label for="patient" class="form-label">Name:</label>
-                            <select class="form-control select2 border border-1 border-primary" id="patient" name="patient" required>
+                            <select class="form-control select2 border border-1 border-primary " id="patient" name="patient" required>
                                 <option value="">Select Patient</option>
                                 <?php
                                 $result = mysqli_query($conn, "SELECT * FROM patients");
@@ -184,17 +184,18 @@ include_once('./app/database/conn.php')
 
     $(document).ready(function() {
 
-        $(".select2").select2();
+        $("#medication").select2({
+            
+            multiple: true,
+        });
 
         //make the width of the select2 100%
         $('.select2').css('width', '100%');
 
 
 
-        $('#patient').select2({
-            dropdownParent: $('#prescriptionModal')
-        });
-        $('#medication').select2({
+
+        $('.select2').select2({
             dropdownParent: $('#prescriptionModal')
         });
 
