@@ -1,7 +1,7 @@
 <?php
 include_once('./app/database/conn.php');
 
-$id = $_SESSION["employee_id"];
+$id = $_SESSION["empid"];
 $sql = "SELECT * FROM employees WHERE employee_id='$id'";
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();

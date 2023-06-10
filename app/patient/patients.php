@@ -64,10 +64,6 @@
             </table>
         </div>
     </div>
-</body>
-
-
-</html>
 
 
 
@@ -278,7 +274,7 @@
                     if (obj.status == 200) {
                         //hide modal
                         $('#addressModal').modal('hide');
-                        location.reload();
+                        // location.reload();
                     } else {
                         //show error on div with id small
                         $('#small').text(obj.message);

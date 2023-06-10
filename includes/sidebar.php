@@ -58,6 +58,8 @@
                 <a class="collapse-item" href="index.php?page=prescription">Prescriptions</a>
                 <h6 class="collapse-header">Treatment Plans:</h6>
                 <a class="collapse-item" href="index.php?page=TreatmentPlans">Treatment Plans</a>
+                <h6 class="collapse-header">Patient_Service:</h6>
+                <a class="collapse-item" href="index.php?page=patient_service">Patient_Service</a>
 
             </div>
         </div>
