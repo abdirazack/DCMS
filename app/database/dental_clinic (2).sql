@@ -134,41 +134,18 @@ CREATE TABLE Employees (
     last_name VARCHAR(255),
     email VARCHAR(255),
     phone VARCHAR(255),
+    role_id INT,
+    qualification VARCHAR(255),
+    experience VARCHAR(50),
     address INT,
     gender VARCHAR(20),
     profile VARCHAR(255),
     hire_date DATE,
-    FOREIGN KEY (Address) REFERENCES Addresses(address_id)
-);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `Dentists`
---
-
-CREATE TABLE Dentists (
-    employee_id INT PRIMARY KEY,
-    Specialty VARCHAR(255),
-    Qualification VARCHAR(255),
-    Experience VARCHAR(50),
-    FOREIGN KEY (employee_id) REFERENCES Employees(employee_id)
-);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `Stuff`
---
-
-CREATE TABLE Staff (
-    employee_id INT PRIMARY KEY ,
-    role_id INT,
-    Experience VARCHAR(50),
-    FOREIGN KEY (employee_id) REFERENCES Employees(employee_id),
+    FOREIGN KEY (Address) REFERENCES Addresses(address_id),
     FOREIGN KEY (role_id) REFERENCES Roles(role_id)
 );
 
+-- --------------------------------------------------------
 
 -- --------------------------------------------------------
 --
@@ -179,6 +156,7 @@ CREATE TABLE LoginCredentials (
     employee_id INT PRIMARY KEY,
     Username VARCHAR(255),
     Password VARCHAR(255),
+    isAdmin BOOLEAN,
     FOREIGN KEY (employee_id) REFERENCES Employees(employee_id)
 );
 
@@ -368,35 +346,7 @@ SELECT
 
 -- --------------------------------------------------------
 
---
--- Structure for view `expenses_inventory_view`
---
-CREATE VIEW `employee_stuff_view`
-AS
-SELECT 
-    `e`.`employee_id` AS `employee_id`, 
-    `e`.`first_name` AS `first_name`, 
-    `e`.`last_name` AS `last_name`, 
-    `R`.`role_name` AS `role_name`,
-    `s`.`Experience` AS `Experience` 
-    FROM (`Employees` `e` join `Staff` `s` on(`e`.`employee_id` = `s`.`employee_id`) join `Roles` `R` on(`s`.`role_id` = `R`.`role_id`))  ;
 
--- --------------------------------------------------------
-
---
--- Structure for view `employee_dentist_view`
---
-
-CREATE VIEW `employee_dentist_view`
-AS
-SELECT 
-    `e`.`employee_id` AS `employee_id`, 
-    `e`.`first_name` AS `first_name`, 
-    `e`.`last_name` AS `last_name`, 
-    `d`.`Specialty` AS `Specialty`, 
-    `d`.`Qualification` AS `Qualification`, 
-    `d`.`Experience` AS `Experience` 
-    FROM (`Employees` `e` join `Dentists` `d` on(`e`.`employee_id` = `d`.`employee_id`))  ;
 
 -- --------------------------------------------------------
 --
@@ -408,21 +358,14 @@ SELECT
     Employees.employee_id,
     Employees.first_name,
     Employees.last_name,
-    CASE
-        WHEN Dentists.employee_id IS NOT NULL THEN 'Dentist'
-        WHEN Staff.employee_id IS NOT NULL THEN 'Staff'
-        ELSE NULL
-    END AS role,
+    Roles.role_name,
     LoginCredentials.Username,
-    LoginCredentials.Password
+    LoginCredentials.Password,
+    LoginCredentials.isAdmin
 FROM
     Employees
-LEFT JOIN
-    Dentists ON Employees.employee_id = Dentists.employee_id
-LEFT JOIN
-    Staff ON Employees.employee_id = Staff.employee_id
-JOIN
-    LoginCredentials ON Employees.employee_id = LoginCredentials.employee_id;
+    INNER JOIN LoginCredentials ON Employees.employee_id = LoginCredentials.employee_id
+    INNER JOIN Roles ON Employees.role_id = Roles.role_id;
 
 -- --------------------------------------------------------
 
@@ -538,15 +481,19 @@ SELECT
   e.employee_id AS `employee_id`,
   e.first_name AS `first_name`,
   e.last_name AS `last_name`,
-  e.email AS `email`,
   e.phone AS `phone`,
+  e.email AS `email`,
+  r.role_name AS `role_name`,
+  e.experience AS `Experience`,
+  e.qualification AS `Qualification`,
   e.gender AS `gender`,
   e.hire_date AS `hire_date`,
   a.street AS `street`,
   a.city AS `city`,
   a.state AS `state`
 FROM
-  employees e INNER JOIN Addresses a ON e.address = a.address_id;
+  Employees e INNER JOIN Addresses a ON e.address = a.address_id
+  INNER JOIN Roles r ON e.role_id = r.role_id;
 
 -- --------------------------------------------------------
 

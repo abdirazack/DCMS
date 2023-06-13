@@ -165,7 +165,7 @@
     <li class="nav-item">
 
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInvoice" aria-expanded="true" aria-controls="collapseUtilities">
-            <i class="fas fa-fw fa-invoice"></i>
+        <i class="fa-solid fa-file-invoice-dollar"></i>
             <span>Invoice</span>
         </a>
         <div id="collapseInvoice" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
@@ -197,7 +197,7 @@
     <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAddress" aria-expanded="true" aria-controls="collapseUtilities">
-            <i class="fas fa-fw fa-address"></i>
+        <i class="fa-solid fa-location-dot"></i>
             <span>Address</span>
         </a>
         <div id="collapseAddress" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">

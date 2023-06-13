@@ -19,8 +19,8 @@
             <div class='d-flex justify-content-between mb-4'>
                 <h2 class="text-center text-primary">Employees List</h2>
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#employeeModal">
-                    ADD Employees
+                <button type="button" class="btn btn-primary me-5" data-toggle="modal" data-target="#employeeModal">
+                    <i class="fa-solid fa-plus "></i>
                 </button>
             </div>
 
@@ -33,6 +33,9 @@
                         <th scope="col">Last Name</th>
                         <th scope="col">Email</th>
                         <th scope="col">Phone Number</th>
+                        <th scope="col">Role</th>
+                        <th scope="col">Experience</th>
+                        <th scope="col">Qualification</th>
                         <th scope="col">Address</th>
                         <th scope="col">Gender</th>
                         <th scope="col">Hire Date</th>
@@ -56,7 +59,10 @@
                         echo "<td>" . $row['last_name'] . "</>";
                         echo "<td>" . $row['email'] . "</td>";
                         echo "<td>" . $row['phone'] . "</td>";
-                        echo "<td>" . $row['street'] .' '. $row['city'].' ' . $row['state']. "</td>";
+                        echo "<td>" . $row['role_name'] . "</td>";
+                        echo "<td>" . $row['Experience'] . "</td>";
+                        echo "<td>" . $row['Qualification'] . "</td>";
+                        echo "<td>" . $row['street'] . ' ' . $row['city'] . ' ' . $row['state'] . "</td>";
                         echo "<td>" . $row['gender'] . "</td>";
                         echo "<td>" . $row['hire_date'] . "</td>";
                         echo "<td class='text-center'> 
@@ -109,6 +115,31 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="mb-3 col-md-6">
+                            <label for="experience" class="form-label">Experience:</label>
+                            <input type="text" class="form-control border border-1 border-primary" id="experience" name="experience" required>
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label for="qualification" class="form-label">Qualification:</label>
+                            <input type="text" class="form-control border border-1 border-primary" id="qualification" name="qualification" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3">
+                            <!-- select role from database -->
+                            <label for="role" class="form-label">Role:</label> <br>
+                            <select style="width: 100%;"  class="form-control select2 border border-1 border-primary" id="role" name="role" required>
+                                <option value="">Select Role</option>
+                                <?php
+                                $result = mysqli_query($conn, "SELECT * FROM Roles");
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    echo "<option value='" . $row['role_id'] . "'>" . $row['role_name'] . "</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
                         <label for="address" class="form-label">Address:</label>
                         <div class="mb-3 input-group">
                             <!-- select2 address from addresses table  -->
@@ -128,6 +159,8 @@
                                 </button>
                             </span>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="mb-3">
                             <label for='gender' class="form-label">Select a Gender</label>
                             <select class="form-control border border-1 border-primary" id="gender" name="gender">
@@ -137,6 +170,7 @@
                             </select>
                         </div>
                     </div>
+                    
                     <!-- Upload profile picture -->
                     <div class="row">
                         <div>
@@ -181,9 +215,12 @@
                 $('#first_name').val(data.first_name);
                 $('#last_name').val(data.last_name);
                 $('#phone_number').val(data.phone);
+                $('#experience').val(data.experience);
+                $('#qualification').val(data.qualification);
+                $('#formInsertUpdate select[name="role"]').val(data.role_id).trigger('change');
                 $('#gender').val(data.gender);
                 $('#email').val(data.email);
-                $('#address').val(data.address);
+                $('#formInsertUpdate  select[name="address"').val(data.address).trigger('change');
                 $('#hire_date').val(data.hire_date);
             }
 
@@ -226,6 +263,9 @@
         // select2
         $(".select2").select2();
         $('#address').select2({
+            dropdownParent: $('#employeeModal')
+        });
+        $('#role').select2({
             dropdownParent: $('#employeeModal')
         });
 
