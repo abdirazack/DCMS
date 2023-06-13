@@ -17,7 +17,9 @@ include_once('./app/database/conn.php');
         <table class="table table-hover" id="dataTable">
             <thead>
                 <tr>
-                    <th>Inventory ID</th>
+                <th scope="col">#NO</th>
+
+                    <!-- <th>Inventory ID</th> -->
                     <th>Item Name</th>
                     <th>Unit Cost</th>
                     <th>Quantity</th>
@@ -28,14 +30,17 @@ include_once('./app/database/conn.php');
             </thead>
             <tbody>
                 <?php
+                $count=0;
 
                 // Select all Inventory from the database
                 $result = mysqli_query($conn, "SELECT * FROM inventory");
 
                 // Loop through the results and output each Inventory item as a table row
                 while ($row = mysqli_fetch_assoc($result)) {
+                    $count++;
                     echo "<tr>";
-                    echo "<td>" . $row['inventory_id'] . "</td>";
+                    echo "<td>" . $count . "</td>";
+                    // echo "<td>" . $row['inventory_id'] . "</td>";
                     echo "<td>" . $row['item_name'] . "</td>";
                     echo "<td>" . $row['unit_cost'] . "</>";
                     echo "<td>" . $row['quantity'] . "</td>";

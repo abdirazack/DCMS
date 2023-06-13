@@ -27,6 +27,8 @@ $result = mysqli_query($conn, $sql);
             <table class="table table-hover" id="dataTable">
                 <thead>
                     <tr>
+                    <th scope="col">#NO</th>
+
                         <th>Employee ID</th>
                         <th>First Name</th>
                         <th>Last Name</th>
@@ -40,10 +42,13 @@ $result = mysqli_query($conn, $sql);
                 </thead>
                 <tbody>
                     <?php
+                    $count=0;
                     // Loop through each row and display the data in the table
                     while ($row = mysqli_fetch_assoc($result)) {
+                        $count++;
                     ?>
                         <tr>
+                            <td><?php echo $count; ?></td>
                             <td><?php echo  $row["employee_id"]; ?></td>
                             <td><?php echo  $row["first_name"]; ?></td>
                             <td><?php echo  $row["last_name"]; ?></td>

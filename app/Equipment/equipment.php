@@ -17,7 +17,8 @@
             <table class="table table-hover" id="dataTable">
                 <thead>
                     <tr>
-                        <th>Equipment ID</th>
+                    <th scope="col">#NO</th>
+                        <!-- <th>Equipment ID</th> -->
                         <th>Equipment type</th>
                         <th>Manu Facturer</th>
                         <th>Model</th>
@@ -28,14 +29,17 @@
                 </thead>
                 <tbody>
                     <?php  
+                    $count=0;
 
                     // Select all Equipment from the database
                     $result = mysqli_query($conn, "SELECT * FROM Equipment");
 
                     // Loop through the results and output each Equipment as a table row
                     while ($row = mysqli_fetch_assoc($result)) {
+                        $count++;
                         echo "<tr>";
-                        echo "<td>" . $row['equipment_id'] . "</td>";
+                        echo "<td>" . $count . "</td>";
+                        // echo "<td>" . $row['equipment_id'] . "</td>";
                         echo "<td>" . $row['equipment_type'] . "</td>";
                         echo "<td>" . $row['manufacturer'] . "</>";
                         echo "<td>" . $row['model'] . "</td>";

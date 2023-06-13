@@ -17,7 +17,9 @@ include_once('./app/database/conn.php')
         <table class="table table-hover" id="dataTable">
             <thead>
                 <tr>
-                    <th>Medication ID</th>
+                <th scope="col">#NO</th>
+
+                    <!-- <th>Medication ID</th> -->
                     <th>Medication Name</th>
                     <th>Dosage</th>
                     <th>Description</th>
@@ -26,14 +28,18 @@ include_once('./app/database/conn.php')
             </thead>
             <tbody>
                 <?php
+                $count=0;
 
                 // Select all staff from the database
                 $result = mysqli_query($conn, "SELECT * FROM medications");
 
                 // Loop through the results and output each staff member as a table row
                 while ($row = mysqli_fetch_assoc($result)) {
+                    $count++;
                     echo "<tr>";
-                    echo "<td>" . $row['medication_id'] . "</td>";
+                    echo "<td>" . $count . "</td>";
+
+                    // echo "<td>" . $row['medication_id'] . "</td>";
                     echo "<td>" . $row['medication_name'] . "</td>";
                     echo "<td>" . $row['medication_dosage'] . "</>";
                     echo "<td>" . $row['medication_description'] . "</td>";
