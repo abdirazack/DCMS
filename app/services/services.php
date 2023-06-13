@@ -18,6 +18,8 @@
                 <table class="table table-hover" id="dataTable">
                     <thead>
                         <tr>
+                        <th scope="col">#NO</th>
+
                             <th>Name</th>
                             <th>Description</th>
                             <th>Fee</th>
@@ -26,6 +28,7 @@
                     </thead>
                     <tbody>
                         <?php
+                        $count=0;
 
                         // Select all services from the database
                         $sql = "SELECT * FROM services";
@@ -33,7 +36,9 @@
 
                         // Loop through each row and display the data in the table
                         while ($row = mysqli_fetch_assoc($result)) {
+                            $count++;
                             echo "<tr>";
+                            echo "<td>" . $count . "</td>";
                             echo "<td>" . $row["name"] . "</td>";
                             echo "<td>" . $row["description"] . "</td>";
                             echo "<td>" . $row["fee"] . "</td>";

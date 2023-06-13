@@ -27,7 +27,10 @@ $result = mysqli_query($conn, $sql);
             <table class="table table-hover" id="dataTable">
                 <thead>
                     <tr>
-                        <th>Invoice ID</th>
+                    <th scope="col">#NO</th>
+
+                        
+                        <!-- <th>Invoice ID</th> -->
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Total Cost</th>
@@ -38,12 +41,16 @@ $result = mysqli_query($conn, $sql);
                 </thead>
                 <tbody>
                     <?php
+                    $count=0;
+
+
                     // Loop through each row and display the data in the table
                     while ($row = mysqli_fetch_assoc($result)) {
                         $status = ($row["paid"] == 1) ? "Paid" : "Unpaid";
+                        $count++;
                     ?>
                         <tr>
-                            <td><?php echo  $row["invoice_id"]; ?></td>
+                            <td><?php echo  $count ?> </td>";
                             <td><?php echo  $row["first_name"]; ?></td>
                             <td><?php echo  $row["last_name"]; ?></td>
                             <td><?php echo  $row["total_cost"]; ?></td>

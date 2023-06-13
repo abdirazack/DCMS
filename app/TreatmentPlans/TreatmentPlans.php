@@ -16,7 +16,8 @@
                 <table class="table table-hover" id="dataTable">
                 <thead>
                     <tr>
-                        <th>Treatment Plan ID</th>
+                        <th scope="col">#NO</th>
+                        <!-- <th>Treatment Plan ID</th> -->
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Start Date</th>
@@ -29,14 +30,17 @@
                 </thead>
                 <tbody>
                     <?php  
+                    $count=0;
 
                     // Select all treatment plans from the database
                     $result = mysqli_query($conn, "SELECT * FROM TreatmentPlan_Patients_View");
 
                     // Loop through the results and output each Plan as a table row
                     while ($row = mysqli_fetch_assoc($result)) {
+                        $count++;
                         echo "<tr>";
-                        echo "<td>" . $row['treatment_plan_id'] . "</td>";
+                        echo "<td>" . $count . "</td>";
+                        // echo "<td>" . $row['treatment_plan_id'] . "</td>";
                         echo "<td>" . $row['first_name'] . "</td>";
                         echo "<td>" . $row['last_name'] . "</td>";
                         echo "<td>" . $row['start_date'] . "</td>";

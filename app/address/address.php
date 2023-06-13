@@ -15,7 +15,8 @@ include_once('./app/database/conn.php');
         <table class="table table-hover" id="dataTable">
             <thead>
                 <tr>
-                    <th>Address ID</th>
+                    <th scope="col">#NO</th>
+                    <!-- <th>Address ID</th> -->
                     <th>Street</th>
                     <th>City</th>
                     <th>State</th>
@@ -24,14 +25,17 @@ include_once('./app/database/conn.php');
             </thead>
             <tbody>
                 <?php
+                $count=0;
 
                 // Select all treatment plans from the database
                 $result = mysqli_query($conn, "SELECT * FROM addresses");
 
                 // Loop through the results and output each Plan as a table row
                 while ($row = mysqli_fetch_assoc($result)) {
+                    $count++;
                     echo "<tr>";
-                    echo "<td>" . $row['address_id'] . "</td>";
+                    echo "<td>" . $count . "</td>";
+                    // echo "<td>" . $row['address_id'] . "</td>";
                     echo "<td>" . $row['street'] . "</td>";
                     echo "<td>" . $row['city'] . "</td>";
                     echo "<td>" . $row['state'] . "</td>";
