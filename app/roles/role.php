@@ -17,7 +17,9 @@ include_once('./app/database/conn.php')
         <table class="table table-hover" id="dataTable">
             <thead>
                 <tr>
-                    <th>Role ID</th>
+                <th scope="col">#NO</th>
+
+                    <!-- <th>Role ID</th> -->
                     <th>Role Name</th>
                     <th>Role Description</th>
                     <th> Action</th>
@@ -25,14 +27,17 @@ include_once('./app/database/conn.php')
             </thead>
             <tbody>
                 <?php
+                $count=0;
 
                 // Select all staff from the database
                 $result = mysqli_query($conn, "SELECT * FROM roles");
 
                 // Loop through the results and output each staff member as a table row
                 while ($row = mysqli_fetch_assoc($result)) {
+                    $count++;
                     echo "<tr>";
-                    echo "<td>" . $row['role_id'] . "</td>";
+                    echo "<td>" . $count . "</td>";
+                    // echo "<td>" . $row['role_id'] . "</td>";
                     echo "<td>" . $row['role_name'] . "</td>";
                     echo "<td>" . $row['role_description'] . "</>";
                     echo "<td class='text-center'> 

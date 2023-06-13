@@ -27,6 +27,7 @@ $result = mysqli_query($conn, $sql);
             <table class="table table-hover" id="dataTable">
                 <thead>
                     <tr>
+                    <th scope="col">#NO</th>
                         <th>Expense Type</th>
                         <th>Description</th>
                         <th>Amount</th>
@@ -38,10 +39,14 @@ $result = mysqli_query($conn, $sql);
                 </thead>
                 <tbody>
                     <?php
+                    $count=0;
                     // Loop through each row and display the data in the table
                     while ($row = mysqli_fetch_assoc($result)) {
+                        $count++;
                     ?>
+                    
                         <tr>
+                            <td><?php echo  $count ?> </td>";
                             <td><?php echo  $row["expense_type"]; ?></td>
                             <td><?php echo  $row["description"]; ?></td>
                             <td><?php echo  $row["amount"]; ?></td>

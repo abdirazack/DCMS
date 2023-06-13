@@ -17,7 +17,9 @@
             <table class="table table-hover" id="dataTable">
                 <thead>
                     <tr>
-                        <th>Procedure ID</th>
+                    <th scope="col">#NO</th>
+
+                        <!-- <th>Procedure ID</th> -->
                         <th>Code</th>
                         <th>Name</th>
                         <th>Price</th>
@@ -27,14 +29,17 @@
                 </thead>
                 <tbody>
                     <?php  
+                    $count=0;
 
                     // Select all Procedures from the database
                     $result = mysqli_query($conn, "SELECT * FROM Procedures");
                    
                     // Loop through the results and output each Procedure as a table row
                     while ($row = mysqli_fetch_assoc($result)) {
+                        $count++;
                         echo "<tr>";
-                        echo "<td>" . $row['procedure_id'] . "</td>";
+                        echo "<td>" . $count . "</td>";
+                        // echo "<td>" . $row['procedure_id'] . "</td>";
                         echo "<td>" . $row['procedure_code'] . "</td>";
                         echo "<td>" . $row['procedure_name'] . "</>";
                         echo "<td>" . $row['procedure_price'] . "</td>";
