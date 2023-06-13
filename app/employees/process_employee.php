@@ -12,13 +12,21 @@
     $address = mysqli_real_escape_string($conn,$_POST["address"]);
     $hire_date = mysqli_real_escape_string($conn,$_POST["hire_date"]);
     $email = mysqli_real_escape_string($conn,$_POST["email"]);
+    $role_id = mysqli_real_escape_string($conn,$_POST["role"]);
+    $qualification = mysqli_real_escape_string($conn,$_POST["qualification"]);
+    $experience = mysqli_real_escape_string($conn,$_POST["experience"]);
     $profile = '';
 
         // get the previouse profile picture
         $sql = "SELECT profile FROM employees WHERE employee_id='$id'";
         $result = mysqli_query($conn, $sql);
         $row = mysqli_fetch_assoc($result);
-        $oldProfile = $row['profile'];
+        // check if the profile picture is not empty
+        if($row['profile'] != ''){
+          $oldProfile = $row['profile'];
+        }else{
+          $oldProfile = '';
+        }
 
 
     if(isset($_FILES['profile'])){
@@ -45,7 +53,7 @@
   if ($id == "") {
 
     // Insert a new employess
-    $sql = "INSERT INTO employees (first_name, last_name, email, phone, address,  gender, profile, hire_date) VALUES ('$first_name', '$last_name', '$email', '$phone_number', '$address',  '$gender', '$profile','$hire_date')";
+    $sql = "INSERT INTO employees (first_name, last_name, email, phone, role_id, qualification, experience, address,  gender, profile, hire_date) VALUES ('$first_name', '$last_name', '$email', '$phone_number', '$role_id', '$qualification', '$experience', '$address',  '$gender', '$profile','$hire_date')";
     if ($conn->query($sql) === TRUE) {
         $data = ['message'=>'Succeesully added employees', 'status'=>200];
         echo json_encode($data);
@@ -61,7 +69,7 @@
   } else {
 
         // Update the employess
-    $sql = "UPDATE employees SET first_name = '$first_name', last_name = '$last_name', hire_date = '$hire_date', phone = '$phone_number',  gender = '$gender', profile= '$profile', address = '$address', email = '$email' WHERE employee_id='$id'";
+    $sql = "UPDATE employees SET first_name = '$first_name', last_name = '$last_name', hire_date = '$hire_date', phone = '$phone_number', role_id= '$role_id', qualification='$qualification', experience='$experience', gender = '$gender', profile= '$profile', address = '$address', email = '$email' WHERE employee_id='$id'";
     if ($conn->query($sql) === TRUE) {
         $data = ['message'=>'succeffully updated employess', 'status'=>200];
         echo json_encode($data);

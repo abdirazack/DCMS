@@ -9,8 +9,8 @@ include_once('./app/database/conn.php')
         <div class='d-flex justify-content-between mb-4'>
             <h2 class="text-center text-primary">Employees Login Login Credentials</h2>
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">
-                ADD NEW LOGIN
+            <button type="button" class="btn btn-primary me-2" data-toggle="modal" data-target="#loginModal">
+            <i class="fa-solid fa-plus"></i>
             </button>
         </div>
 
@@ -25,6 +25,7 @@ include_once('./app/database/conn.php')
                     <th>Role</th>
                     <th>Username</th>
                     <th>Password</th>
+                    <th>IS ADMIN</th>
                     <th> Action</th>
                 </tr>
             </thead>
@@ -33,20 +34,30 @@ include_once('./app/database/conn.php')
                 $count=0;
 
                 // Select all staff from the database
-                $result = mysqli_query($conn, "SELECT * FROM employee_login_view ");
+                $result = mysqli_query($conn, "SELECT * FROM LoginCredentialsView ");
 
                 // Loop through the results and output each staff member as a table row
                 while ($row = mysqli_fetch_assoc($result)) {
+
                     $count++;
+
+                    $chb =  $row['isAdmin'];
+                    if ($chb == 1) {
+                        $chb = "YES";
+                    } else {
+                        $chb = "NO";
+                    }
+
                     echo "<tr>";
                     echo "<td>" . $count . "</td>";
 
                     echo "<td>" . $row['employee_id'] . "</td>";
                     echo "<td>" . $row['first_name'] . "</td>";
                     echo "<td>" . $row['last_name'] . "</>";
-                    echo "<td>" . $row['role'] . "</>";
+                    echo "<td>" . $row['role_name'] . "</>";
                     echo "<td>" . $row['Username'] . "</td>";
                     echo "<td>" . $row['Password'] . "</td>";
+                    echo "<td>" . $chb . "</td>";
                     echo "<td class='text-center'> 
                                     <button  class='btn btn-primary' onclick='editLogin(" . $row['employee_id'] . ")'> <i class='fa fa-edit'></i> </button> 
                                     <a href='#' class='btn btn-danger ms-2 mt-1' onclick='deleteLogin(" . $row['employee_id'] . ")'> <i class='fa fa-trash'></i> </a> 
@@ -94,6 +105,11 @@ include_once('./app/database/conn.php')
                             <label for="Password" >Password:</label>
                             <input type="text" class="form-control border border-1 border-primary" id="Password" name="Password" required>
                         </div>
+                        <div class="mb-3 mx-3 form-check">
+                            <!-- add a checkbox for isAdmin -->
+                            <input class="form-check-input" type="checkbox" value="1"  id="isAdmin" name="isAdmin">
+                            <label for="isAdmin" class="form-label">Is Admin </label>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -123,7 +139,12 @@ include_once('./app/database/conn.php')
                 $('#formInsertUpdate select[name="employee"]').val(data.employee_id).trigger('change');;
                 $('#Username').val(data.Username);
                 $('#Password').val(data.Password);
-
+               var chb =  data.isAdmin;
+                if (chb == true) {
+                    $('#isAdmin').prop('checked', true);
+                } else {
+                    $('#isAdmin').prop('checked', false);
+                }
             }
         });
 
