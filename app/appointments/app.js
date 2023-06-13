@@ -40,7 +40,7 @@ $(function () {
             var id = info.event.id
             if (!!scheds[id]) {
                 _details.find('#patient').text(scheds[id].patient_first_name + ' ' + scheds[id].patient_last_name)
-                _details.find('#employee_id').text(scheds[id].employee_first_name + ' ' + scheds[id].employee_last_name)
+                _details.find('#e_dentist').text(scheds[id].employee_first_name + ' ' + scheds[id].employee_last_name)
                 _details.find('#start').text(scheds[id].start_date)
                 _details.find('#end').text(scheds[id].end_date)
                 _details.find('#edit,#delete').attr('data-id', id)
@@ -88,13 +88,5 @@ $(function () {
     });
 
     calendar.render();
-
-    // Form reset listener
-    $('#schedule-form').on('reset', function () {
-        $(this).find('input:hidden').val('')
-        $(this).find('input:visible').first().focus()
-    })
-
-
 
 })

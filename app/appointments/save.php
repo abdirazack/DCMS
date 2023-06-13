@@ -4,7 +4,7 @@
         include_once('../database/conn.php') ;
         $patients= mysqli_real_escape_string($conn, $_POST['patients']);
         $service=mysqli_real_escape_string($conn, $_POST['service']);
-        $employee_id=mysqli_real_escape_string($conn, $_POST['employee_id']);
+        $employee_id=mysqli_real_escape_string($conn, $_POST['dentist']);
         $start_datetime=mysqli_real_escape_string($conn, $_POST['start_datetime']);
         $end_datetime=mysqli_real_escape_string($conn, $_POST['end_datetime']);
         $status = mysqli_real_escape_string($conn, $_POST['status']);

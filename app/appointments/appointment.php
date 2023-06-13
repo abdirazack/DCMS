@@ -46,7 +46,7 @@
                 <div id="calendar"></div>
             </div>
             <div class="col-md-4">
-                <div class="card rounded shadow">
+                <div class="cardt rounded shadow">
                     <div class="card-header bg-gradient bg-primary text-light">
                         <h5 class="card-title p-2">appointments Form</h5>
                     </div>
@@ -56,7 +56,7 @@
                                 <input type="hidden" name="id" value="">
 
                                 <div class="form-group mb-2">
-                                    <label for="status" class="control-label">Status</label> <br>
+                                    <label for="title" class="control-label">Status</label> <br>
                                     <!-- select appointment status  -->
                                     <select class="form-control select2"  name="status" id="status" REQUIRED>
                                         <option value="">Select Status</option>
@@ -83,11 +83,11 @@
                                     </select>
                                 </div>
                                 <div class="form-group mt-2 mb-3">
-                                    <label for="employee_id" class="control-label">Dentist:</label><br>
-                                    <select class="form-control select2 " id="employee_id" name="employee_id" REQUIRED>
+                                    <label for="dentist" class="control-label">Dentist:</label><br>
+                                    <select class="form-control select2 " id="dentist" name="dentist" REQUIRED>
                                         <option  value="">Select Dentist</option>
                                         <?php
-                                        $query = "SELECT * FROM `addresses_employees_view` WHERE role_name = 'Dentist';";
+                                        $query = "SELECT * FROM `addresses_employees_view` WHERE role_name = 'Dentist';                                        ";
                                         $result = mysqli_query($conn, $query);
                                         while ($row = mysqli_fetch_array($result)) {
                                             echo "<option value='" . $row['employee_id'] . "'>" . $row['first_name'] . ' '. $row['last_name'] . "</option>";
@@ -103,12 +103,10 @@
                                         <?php
                                         $query = "SELECT * FROM `services`";
                                         $result = mysqli_query($conn, $query);
-                                        $res = mysqli_query($conn, $query2);
                                         while ($row = mysqli_fetch_array($result)) {
                                             echo "<option value='" . $row['service_id'] . "'>" . $row['name'] . "</option>";
                                         }
                                         ?>
-                                        
                                     </select>
                                 </div>
                                 <div class="form-group mb-2">
@@ -147,7 +145,7 @@
                             <dt class="text-muted">Patient</dt>
                             <dd id="patient" class=""></dd>
                             <dt class="text-muted">Dentist</dt>
-                            <dd id="employee_id" class=""></dd>
+                            <dd id="e_dentist" class=""></dd>
                             <dt class="text-muted">Start</dt>
                             <dd id="start" class=""></dd>
                             <dt class="text-muted">End</dt>
@@ -172,8 +170,8 @@
     // Get all appointments
     $schedules = $conn->query("SELECT * FROM `appointmentdetails`");
     if (!$schedules) {
-        echo "Error: " . $conn->error;
-        $sched_res = [];
+        // echo "Error: " . $conn->error;
+        echo "no appointment found";
     } else {
         foreach ($schedules->fetch_all(MYSQLI_ASSOC) as $row) {
             // Format the start and end dates
@@ -187,13 +185,16 @@
     ?>
     <?php
     ?>
-</body>
+
 <script>
     var scheds = $.parseJSON('<?= json_encode($sched_res) ?>');
-
+    if (scheds == null) {
+        alert('no appointment found');
+    }
     //document ready
     $(document).ready(function() {
         $('.select2').select2();
+        console.log('JSON.stringify(scheds)'); 
 
         $('#schedule-form').submit(function(e) {
             e.preventDefault();
@@ -220,11 +221,11 @@
         $("#edit").click(function() {
             var id = $(this).attr('data-id');
             var sched = scheds[id];
-            alert(JSON.stringify(sched));
+            // alert(JSON.stringify(sched));
             $('#schedule-form input[name="id"]').val(sched.appointment_id);
             $('#schedule-form select[name="status"]').val(sched.status).trigger('change');
             $('#schedule-form select[name="patients"]').val(sched.patient_id).trigger('change');
-            $('#schedule-form select[name="employee_id"]').val(sched.employee_id).trigger('change');
+            $('#schedule-form select[name="dentist"]').val(sched.employee_id).trigger('change');
             $('#schedule-form select[name="service"]').val(sched.service_id).trigger('change');
             $('#schedule-form input[name="start_datetime"]').val(sched.start_date);
             $('#schedule-form input[name="end_datetime"]').val(sched.end_date);
@@ -268,8 +269,20 @@
             }
         });
 
+        // on reset
+        $('#schedule-form').on('reset', function() {
+            $('#schedule-form').attr('action', './app/appointments/save.php');
+            $('#schedule-form input[name="id"]').val('');
+            $('#schedule-form select[name="status"]').val('').trigger('change');
+            $('#schedule-form select[name="patients"]').val('').trigger('change');
+            $('#schedule-form select[name="dentist"]').val('').trigger('change');
+            $('#schedule-form select[name="service"]').val('').trigger('change');
+            $('#schedule-form input[name="start_datetime"]').val('');
+            $('#schedule-form input[name="end_datetime"]').val('');
+        });
+
     });
     //onsubmit schedule-form 
 </script>
 <script src="./app/appointments/app.js"></script>
-
+</body>

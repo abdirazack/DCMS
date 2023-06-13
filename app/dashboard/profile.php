@@ -65,17 +65,17 @@ $profile = './app/img/employee/' . $row['profile'];
                                 <!-- First Name -->
                                 <div class="col-md-6">
                                     <label class="form-label" for="firstName">First Name *</label>
-                                    <input type="text" class="form-control" id="firstName" name="firstName" value="<?php echo $row['first_name']; ?>">
+                                    <input type="text" class="form-control" id="first_Name" name="firstName" value="<?php echo $row['first_name']; ?>">
                                 </div>
                                 <!-- Last name -->
                                 <div class="col-md-6">
                                     <label class="form-label" for="lastName">Last Name *</label>
-                                    <input type="text" class="form-control" id="lastName" name="lastName" value="<?php echo $row['last_name']; ?>">
+                                    <input type="text" class="form-control" id="last_Name" name="lastName" value="<?php echo $row['last_name']; ?>">
                                 </div>
                                 <!-- Phone number -->
                                 <div class="col-md-6">
                                     <label class="form-label" for="phoneNumber">Phone number *</label>
-                                    <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" value="<?php echo $row['phone']; ?>">
+                                    <input type="text" class="form-control" id="phone" name="phoneNumber" value="<?php echo $row['phone']; ?>">
                                 </div>
 
                                 <!-- Email -->
