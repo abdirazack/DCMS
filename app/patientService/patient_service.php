@@ -6,14 +6,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php
-    include_once('./app/database/conn.php');
+        include_once('./app/database/conn.php');
     ?>
 </head>
 
 <body>
 
-    <div class="container  border border-secondary rounded m-1">
-        <form action="">
+    <div class="container  border border-secondary rounded">
+        <form action="" id="formPS" class="m-2">
             <div class="row">
                 <div class="card p-5">
                     <h3>Patients List</h3>
@@ -97,6 +97,32 @@
             $('#display').on('click', '#removeRec', function() {
                 $(this).closest('.row').remove();
             });
-
         });
+
+        $(document).ready(function() {
+        // Listen for form submit event
+        $('#formPS').submit(function(event) {
+            // Prevent the default form submission
+            event.preventDefault();
+
+            // Serialize the form data
+            var formData = $(this).serialize();
+            alert(formData);
+            // Send an AJAX request to the PHP file
+            $.ajax({
+                url: './app/patientService/test.php', // Replace 'process.php' with the actual path to your PHP file
+                type: 'POST',
+                data: formData,
+                success: function(response) {
+                    // Handle the response from the PHP file
+                    alert(response);
+                    console.log(response); // You can do something with the response if needed
+                },
+                error: function(xhr, status, error) {
+                    // Handle any error that occurs during the AJAX request
+                    // console.log(error);
+                }
+            });
+        });
+    });
     </script>
