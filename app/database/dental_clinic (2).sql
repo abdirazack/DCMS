@@ -319,9 +319,9 @@ SELECT
     `p`.`patient_id` AS `patient_id`, 
     `p`.`first_name` AS `patient_first_name`, 
     `p`.`last_name` AS `patient_last_name`, 
-    `d`.`employee_id` AS `dentists_id`, 
-    `d`.`first_name` AS `dentist_first_name`, 
-    `d`.`last_name` AS `dentist_last_name`, 
+    `d`.`employee_id` AS `employee_id`, 
+    `d`.`first_name` AS `employee_first_name`, 
+    `d`.`last_name` AS `employee_last_name`, 
     `s`.`service_id` AS `service_id`, 
     `s`.`name` AS `services_name` 
     FROM (((`appointments` `a` join `patients` `p` on(`a`.`patient_id` = `p`.`patient_id`)) join `Employees` `d` on(`a`.`employee_id` = `d`.`employee_id`)) join `services` `s` on(`a`.`service_id` = `s`.`service_id`))  ;
