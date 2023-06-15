@@ -5,8 +5,7 @@
     // Define an array of table names and their identifiers
     $tables = [
         "patients" => "patientNumber",
-        "dentists" => "dentistNumber",
-        "staff" => "staffNumber"
+        "employees" => "dentistNumber", 
     ];
 
     // Initialize an empty array to store the counts

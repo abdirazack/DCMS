@@ -25,7 +25,7 @@
                     <div class="col-md-8 p-4">
                         <div class="card-body">
                             <h5 class="card-title fs-1" id="dentist_number">4</h5>
-                            <p class="card-text">Dentist.</p>
+                            <p class="card-text">Employees.</p>
                         </div>
                     </div>
                 </div>
@@ -37,12 +37,12 @@
             <div class="card mb-3 border-info rounded">
                 <div class="row g-0">
                     <div class="col-md-4 p-4">
-                        <i class="fa fa-fw fa-users img-fluid rounded-start" style="font-size: 120px; color: teal"></i>
+                        <i class="fa fa-money-bill-wave img-fluid rounded-start" style="font-size: 120px; color: teal"></i>
                     </div>
                     <div class="col-md-8 p-4">
                         <div class="card-body">
-                            <h5 class="card-title fs-1" id="staff_number"></h5>
-                            <p class="card-text">Staff.</p>
+                            <h5 class="card-title fs-1" id="staff_number">6744</h5>
+                            <p class="card-text">Income.</p>
                         </div>
                     </div>
                 </div>
@@ -151,8 +151,6 @@
                 // Populate the dentist_number h5 tag with the dentist number
                 $('#dentist_number').text(data.dentistNumber);
 
-                // Populate the staff_number h5 tag with the staff number
-                $('#staff_number').text(data.staffNumber);
             },
             error: function(xhr, status, error) {
                 console.log(error); // Handle the error gracefully
