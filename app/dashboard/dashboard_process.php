@@ -24,5 +24,7 @@
 
     // Convert the counts array to JSON format and send it to the client-side
     echo json_encode($counts);
+
+
 ?>
 
