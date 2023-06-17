@@ -9,8 +9,8 @@
             <div class='d-flex justify-content-between mb-4'>
                 <h2 class="text-center text-primary">Treatment Plans List</h2>
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#treatmentModal">
-                    ADD NEW Treatment Plan
+                <button type="button" class="btn btn-primary me-5" data-toggle="modal" data-target="#treatmentModal">
+                <i class="fa-solid fa-plus "></i>
                 </button>
             </div>
                 <table class="table table-hover" id="dataTable">

@@ -9,8 +9,8 @@
             <div class='d-flex justify-content-between mb-4'>
                 <h2 class="text-center text-primary">Procedures List</h2>
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#procedureModal">
-                    ADD NEW PROCEDURE
+                <button type="button" class="btn btn-primary me-5" data-toggle="modal" data-target="#procedureModal">
+                <i class="fa-solid fa-plus "></i>
                 </button>
             </div>
 

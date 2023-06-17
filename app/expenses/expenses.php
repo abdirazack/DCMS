@@ -22,7 +22,9 @@ $result = mysqli_query($conn, $sql);
             <div class='d-flex justify-content-between mb-4'>
                 <h2 class="text-center text-primary">Expenses</h2>
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ExpenseModal"> ADD NEW EXPENSE</button>
+                <button type="button" class="btn btn-primary me-5" data-toggle="modal" data-target="#ExpenseModal"> 
+                <i class="fa-solid fa-plus "></i>
+                </button>
             </div>
             <table class="table table-hover" id="dataTable">
                 <thead>
