@@ -9,8 +9,8 @@ include_once('./app/database/conn.php')
         <div class='d-flex justify-content-between mb-4'>
             <h2 class="text-center text-primary">Roles List</h2>
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#roleModal">
-                ADD NEW Role
+            <button type="button" class="btn btn-primary me-5" data-toggle="modal" data-target="#roleModal">
+            <i class="fa-solid fa-plus "></i>
             </button>
         </div>
 

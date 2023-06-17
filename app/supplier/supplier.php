@@ -9,8 +9,8 @@ include_once('./app/database/conn.php')
         <div class='d-flex justify-content-between mb-4'>
             <h2 class="text-center text-primary">Suppliers</h2>
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#supplierModal">
-                ADD NEW Suppplier
+            <button type="button" class="btn btn-primary me-5" data-toggle="modal" data-target="#supplierModal">
+            <i class="fa-solid fa-plus "></i>
             </button>
         </div>
 
