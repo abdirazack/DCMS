@@ -1,4 +1,3 @@
-
 <div class="container">
     <div class="row animated fadeIn">
         <div class="col-md-6">
@@ -65,8 +64,8 @@
         </div>
     </div>
     <div class="row mt-5">
-        <div class="col-md-4">
-            <h3 class="text-success">Upcoming Appointments</h3>
+        <div class="col-md-6">
+            <h3 class="text-success">TOP 5 Upcoming Appointments</h3>
             <div>
                 <table class="table table-success table-striped table-hover">
                     <thead>
@@ -76,39 +75,15 @@
                             <th scope="col">Time</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>Mark</td>
-                            <td>12/12/2021</td>
-                            <td>12:00</td>
-                        </tr>
+                    <tbody id="upcoming">
+
                     </tbody>
                 </table>
             </div>
         </div>
-        <div class="col-md-4">
-            <h3 class="text-secondary ">Past Due Appointments</h3>
-            <div>
-                <table class="table table-secondary table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">Patient Name</th>
-                            <th scope="col">Date</th>
-                            <th scope="col">Time</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Mark</td>
-                            <td>12/12/2021</td>
-                            <td>12:00</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <h3 class="text-danger">Cancelled Appointments</h3>
+       
+        <div class="col-md-6">
+            <h3 class="text-danger">TOP 5 Past/Cancelled Appointments</h3>
             <div>
                 <table class="table table-danger table-striped table-hover">
                     <thead>
@@ -118,12 +93,8 @@
                             <th scope="col">Time</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>Mark</td>
-                            <td>12/12/2021</td>
-                            <td>12:00</td>
-                        </tr>
+                    <tbody id="cancelled">
+                        
                     </tbody>
                 </table>
             </div>
@@ -156,7 +127,84 @@
                 console.log(error); // Handle the error gracefully
             }
         });
+
+        loadCancelledAppointments();
+        loadAppointments();
     });
 
-   
+    function loadAppointments() {
+        fetch('./app/dashboard/upcoming.php')
+            .then(response => response.json())
+            .then(data => {
+                // Call a function to handle the received JSON data
+                handleAppointments(data);
+                
+            })
+            .catch(error => {
+                console.log('An error occurred:', error);
+            });
+    }
+    function loadCancelledAppointments() {
+        fetch('./app/dashboard/cancelled.php')
+            .then(response => response.json())
+            .then(data => {
+                // Call a function to handle the received JSON data
+                handleCancelledAppointments(data);
+            })
+            .catch(error => {
+                console.log('An error occurred:', error);
+            });
+    }
+
+    
+    function handleAppointments(data) {
+        const appointmentsBody = document.getElementById('upcoming');
+
+        // Clear existing rows
+        appointmentsBody.innerHTML = '';
+
+        // Iterate over each appointment and create a new row
+        data.forEach(appointment => {
+            const row = document.createElement('tr');
+
+            const nameCell = document.createElement('td');
+            nameCell.textContent = appointment.name;
+            row.appendChild(nameCell);
+
+            const dateCell = document.createElement('td');
+            dateCell.textContent = appointment.date;
+            row.appendChild(dateCell);
+
+            const timeCell = document.createElement('td');
+            timeCell.textContent = appointment.time;
+            row.appendChild(timeCell);
+
+            appointmentsBody.appendChild(row);
+        });
+    }
+    function handleCancelledAppointments(data) {
+        const appointmentsBody = document.getElementById('cancelled');
+
+        // Clear existing rows
+        appointmentsBody.innerHTML = '';
+
+        // Iterate over each appointment and create a new row
+        data.forEach(appointment => {
+            const row = document.createElement('tr');
+
+            const nameCell = document.createElement('td');
+            nameCell.textContent = appointment.name;
+            row.appendChild(nameCell);
+
+            const dateCell = document.createElement('td');
+            dateCell.textContent = appointment.date;
+            row.appendChild(dateCell);
+
+            const timeCell = document.createElement('td');
+            timeCell.textContent = appointment.time;
+            row.appendChild(timeCell);
+
+            appointmentsBody.appendChild(row);
+        });
+    }
 </script>
