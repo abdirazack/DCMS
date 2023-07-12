@@ -3,7 +3,7 @@ include_once('../database/conn.php');
 
 if(isset($_POST['deleteid'])){
     //delete expense
-    $id = $_POST['deleteid'];
+    $id = $_POST['deleteid']; 
     $sql = mysqli_query($conn,"DELETE FROM expenses WHERE expense_id='$id'");
 
     if($sql){

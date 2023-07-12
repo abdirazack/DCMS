@@ -8,14 +8,14 @@
     $description = $_POST["description"];
     $amount = $_POST["amount"];
     $quantity = $_POST['Quantity'];
-    $drug_id = $_POST["drug_id"];
+    // $drug_id = $_POST["drug_id"];
     $expense_type = $_POST["expense_type"];
 
   // Check if the ID field is set (if set, it's an update)
   if ($id == "") {
 
     // Insert a new expense
-    $sql = "INSERT INTO expenses (date, description,  amount, Quantity, expense_type, drug_id) VALUES ( '$date','$description', '$amount', '$quantity ','$expense_type', '$drug_id')";
+    $sql = "INSERT INTO expenses ( amount, quantity, description,expense_type, date) VALUES (  '$amount', '$quantity ','$description', '$expense_type','$date' )";
     if ($conn->query($sql) === TRUE) {
         $data = ['message'=>'Succeesully added expense', 'status'=>200];
         echo json_encode($data);
@@ -31,7 +31,7 @@
   } else {
 
         // Update the expense
-    $sql = "UPDATE expenses SET date='$date', description='$description', amount='$amount', Quantity = '$quantity', expense_type = '$expense_type', drug_id = '$drug_id' WHERE expense_id='$id'";
+    $sql = "UPDATE expenses SET date='$date', description='$description', amount='$amount', quantity = '$quantity', expense_type = '$expense_type'WHERE expense_id='$id'";
     if ($conn->query($sql) === TRUE) {
         $data = ['message'=>'succeffully updated Expense', 'status'=>200];
         echo json_encode($data);

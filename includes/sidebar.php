@@ -118,6 +118,8 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Expenses:</h6>
                 <a class="collapse-item" href="index.php?page=expenses">Expense</a>
+                <h6 class="collapse-header">Expenses Types:</h6>
+                <a class="collapse-item" href="index.php?page=expense_type">Expense Type</a>
                 <h6 class="collapse-header">Payments:</h6>
                 <a class="collapse-item" href="index.php?page=payments">Payments</a>
             </div>

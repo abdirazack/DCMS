@@ -31,7 +31,7 @@ $titles = [
         'invoice'     => ["title" => 'Invoice',                                         "path" => './app/invoice'],
     //expenses
         'expenses'    => ["title" => 'Expenses',                                        "path" => './app/expenses'],
-    
+        'expense_type'=> ["title" => 'Expense Type',                                    "path" => './app/expense_types'],
     //medication
         'drug'          => ["title" => 'Drugs',                                            "path" => './app/drugs'],
         'medication'    => ["title" => 'Medication',                                       "path" => './app/medication'],

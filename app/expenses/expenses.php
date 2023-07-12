@@ -1,9 +1,7 @@
 <?php
-// Connect to the database
-include_once('./app/database/conn.php');
-// Select all services from the database
-$sql = "SELECT * FROM expenses_drug_view ";
-$result = mysqli_query($conn, $sql);
+    // Connect to the database
+    include_once('./app/database/conn.php');
+
 ?>
 
 <!DOCTYPE html>
@@ -34,7 +32,6 @@ $result = mysqli_query($conn, $sql);
                         <th>Description</th>
                         <th>Amount</th>
                         <th>Quantity</th>
-                        <th>Drug Name </th>
                         <th>Date</th>
                         <th class="text-center">Action</th>
                     </tr>
@@ -42,18 +39,20 @@ $result = mysqli_query($conn, $sql);
                 <tbody>
                     <?php
                     $count=0;
+                    // Select all services from the database
+                    $sql = "SELECT * FROM expenses_expense_types_view";
+                    $result = mysqli_query($conn, $sql);
                     // Loop through each row and display the data in the table
                     while ($row = mysqli_fetch_assoc($result)) {
                         $count++;
                     ?>
                     
                         <tr>
-                            <td><?php echo  $count ?> </td>";
+                            <td><?php echo  $count; ?> </td>
                             <td><?php echo  $row["expense_type"]; ?></td>
                             <td><?php echo  $row["description"]; ?></td>
                             <td><?php echo  $row["amount"]; ?></td>
-                            <td><?php echo  $row["Quantity"]; ?></td>
-                            <td><?php echo  $row["drug_name"]; ?></td>
+                            <td><?php echo  $row["quantity"]; ?></td>
                             <td><?php echo  $row["date"]; ?></td>
                             <td class='text-center'>
                                 <button class='btn btn-primary' onclick='editExpenses(<?php echo  $row["expense_id"]; ?>)'> <i class='fa fa-edit'></i> </button>
@@ -84,34 +83,13 @@ $result = mysqli_query($conn, $sql);
 
                         <div class="mb-3">
                             <label for="name" class="form-label text-primary ">Expenses Type</label> <br>
-                            <?php
-                            // Get the list of possible enum values for the user_type column
-                            $result = mysqli_query($conn, "SHOW COLUMNS FROM expenses WHERE Field='expense_type'");
-                            $row = mysqli_fetch_array($result);
-                            $enum_list = $row['Type'];
-
-                            // Parse the enum list to extract the individual values
-                            preg_match_all("/'([^']+)'/", $enum_list, $matches);
-                            $enum_values = $matches[1];
-
-                            // Output the HTML select element
-                            echo '<select name="expense_type" id="expense_type" class="form-control select2 border border-1 border-primary">';
-                            echo '<option value="">Select Expense Type</option>';
-                            foreach ($enum_values as $value) {
-                                echo '<option value="' . $value . '">' . $value . '</option>';
-                            }
-                            echo '</select>';
-                            ?>
-                        </div>
-                        <div class="mb-3">
-                            <label for="drug_id" class="form-label text-primary ">Select Drug</label> <br>
-                            <select class="form-control select2 " id="drug_id" name="drug_id" REQUIRED>
-                                <option value="">Select Drug</option>
+                            <select class="form-control select2 " id="expense_type" name="expense_type" REQUIRED>
+                                <option value="">Select Expense Type</option>
                                 <?php
-                                $query = "SELECT * FROM `drugs`";
+                                $query = "SELECT * FROM `expense_types`";
                                 $result = mysqli_query($conn, $query);
                                 while ($row = mysqli_fetch_array($result)) {
-                                    echo "<option value='" . $row['drug_id'] . "'>" . $row['drug_name'] . "</option>";
+                                    echo "<option value='" . $row['expense_type_id'] . "'>" . $row['expense_type'] . "</option>";
                                 }
                                 ?>
                             </select>
@@ -166,9 +144,9 @@ $result = mysqli_query($conn, $sql);
                 $('#date').val(data.date);
                 $('#description').val(data.description);
                 $('#amount').val(data.amount);
-                $('#Quantity').val(data.Quantity);
+                $('#Quantity').val(data.quantity);
                 $('#expense_type').val(data.expense_type);
-                $('#formInsertUpdate select[name="drug_id"]').val(data.drug_id).trigger('change');
+                $('#formInsertUpdate select[name="expense_type"]').val(data.expense_type).trigger('change');
 
 
             }
@@ -214,7 +192,7 @@ $result = mysqli_query($conn, $sql);
     $('.select2').css('width', '100%');
 
 
-    $('#drug_id').select2({
+    $('#expense_type').select2({
         dropdownParent: $('#ExpenseModal')
     });
 
@@ -234,7 +212,7 @@ $result = mysqli_query($conn, $sql);
         var amount = $('#amount').val();
         var Quantity = $('#Quantity').val();
         var expense_type = $('#expense_type').val();
-        var drug_id = $('#drug_id').val();
+        // var expense_type = $('#expense_type').val();
         $.ajax({
             url: './app/expenses/process_expense.php',
             type: 'POST',
@@ -244,8 +222,8 @@ $result = mysqli_query($conn, $sql);
                 description: description,
                 amount: amount,
                 Quantity: Quantity,
-                expense_type: expense_type,
-                drug_id: drug_id
+                // expense_type: expense_type,
+                expense_type: expense_type
             },
             success: function(response) {
                 // alert(response);

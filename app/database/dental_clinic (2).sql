@@ -210,32 +210,17 @@ CREATE TABLE `equipment` (
 
 CREATE TABLE `expenses` (
   `expense_id` int(11) NOT NULL,
-  `date` date NOT NULL,
-  `description` varchar(100) NOT NULL,
   `amount` decimal(10,2) NOT NULL,
-  `Quantity` double NOT NULL,
-  `expense_type` enum('purchasing','selling','other') NOT NULL,
-  `drug_id` int(11) DEFAULT NULL
+  `quantity` double NOT NULL,
+  `description` varchar(100) NOT NULL,
+  `expense_type` int,
+  `date` date NOT NULL,
+  FOREIGN KEY (`expense_type`) REFERENCES `expense_types` (`expense_type_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
---
--- Stand-in structure for view `expenses_drug_view`
--- (See below for the actual view)
---
-CREATE TABLE `expenses_drug_view` (
-`expense_id` int(11)
-,`date` date
-,`description` varchar(100)
-,`amount` decimal(10,2)
-,`Quantity` double
-,`expense_type` enum('purchasing','selling','other')
-,`drug_id` int(11)
-,`drug_name` varchar(50)
-);
 
--- --------------------------------------------------------
 
 --
 -- Table structure for table `inventory`
@@ -650,6 +635,39 @@ CREATE TABLE `treatment_plans` (
   `total_cost` decimal(10,2) DEFAULT NULL,
   `status` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Expense_types`
+--
+
+CREATE TABLE `Expense_types` (
+  `expense_type_id` int(11) NOT NULL,
+  `expense_type` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `expenses_expense_types_view`
+--
+
+CREATE VIEW `expenses_expense_types_view` AS
+SELECT
+  `e`.`expense_id` AS `expense_id`,
+  `et`.`expense_type_id` AS `expense_type_id`,
+  `e`.`description` AS `description`,
+  `e`.`amount` AS `amount`,
+  `e`.`quantity` AS `quantity`,
+  `e`.`date` AS `date`,
+  `et`.`expense_type` AS `expense_type`
+FROM
+  `expenses` `e` join `Expense_types` `et` on `e`.`expense_type` = `et`.`expense_type_id`;
+
+
 
 -- --------------------------------------------------------
 
