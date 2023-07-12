@@ -82,15 +82,17 @@
                 </thead>
                 <tbody>
                     <?php
-                    $query = 'SELECT * FROM `patientServicesView`';
+                    $query = 'SELECT * FROM `patient_service_view`';
                     $result = mysqli_query($conn, $query);
                     while ($row = mysqli_fetch_array($result)) {
+
                         echo '<tr>';
                         echo '<td>' . $row['first_name'] . ' ' . $row['last_name'] . '</td>';
-                        echo '<td>' . $row['service_name'] . '</td>';
-                        echo '<td>' . $row['quantity'] . '</td>';
-                        echo '<td>' . $row['cost'] . '</td>';
-                        echo '<td class="text-center"><button class="btn btn-primary me-2" onclick="EditpatientService(' . $row["patientService_id"] . ')" name="edit" id="edit"><i class="fas fa-edit"></i></button>';
+                        echo '<td>' . $row['Services'] . '</td>';
+                        echo '<td>' . $row['Quantity'] . '</td>';
+                        echo '<td>' . $row['Total'] . '</td>';
+                        echo '<td class="text-center"><button class="btn btn-primary me-2" onclick="ViewpatientService(' . $row["patient_id"] . ')" name="view" id="edit"><i class="fas fa-eye"></i></button>';
+                        echo '<button class="btn btn-primary me-2" onclick="EditpatientService(' . $row["patientService_id"] . ')" name="edit" id="edit"><i class="fas fa-edit"></i></button>';
                         echo '<button class="btn btn-danger me-1" onclick="DeletepatientService(' . $row["patientService_id"] . ')" name="delete" id="delete"><i class="fas fa-trash"></i></button></td>';
                         echo '</tr>';
                     }
@@ -150,9 +152,9 @@
                     data: $(this).serialize(),
                     success: function(data) {
                         // alert(data);
-                            location.reload();
+                        location.reload();
 
-                        
+
                     },
                     error: function(data) {
                         alert(data);
@@ -195,16 +197,38 @@
                 },
                 success: function(data) {
                     // alert(data);
-                        var obj = JSON.parse(data); 
-                        $('#id').val(obj.patientService_id);                
-                        $('#formPS  select[name="patient_id"]').val(obj.patient_id).trigger('change');
-                        $('#formPS  select[name="service_id[]"]').val(obj.service_id).trigger('change');
-                        $('#quantity').val(obj.quantity);
-                        $('#cost').val(obj.cost);
-                        $('#submit').html('Update');
-                    }
-                });
-        
-        }
+                    var obj = JSON.parse(data);
+                    $('#id').val(obj.patientService_id);
+                    $('#formPS  select[name="patient_id"]').val(obj.patient_id).trigger('change');
+                    $('#formPS  select[name="service_id[]"]').val(obj.service_id).trigger('change');
+                    $('#quantity').val(obj.quantity);
+                    $('#cost').val(obj.cost);
+                    $('#submit').html('Update');
+                }
+            });
 
+        }
+        //on view
+        function ViewpatientService(id) {
+            id = id;
+            // create a small pop up modal to show the details of the patientService
+            $.ajax({
+                url: "./app/patientService/view.php",
+                method: "POST",
+                data: {
+                    id: id
+                },
+                success: function(data) {
+                    // alert(data);
+                    // to show the modal
+                    $('#modalDisplay').html(data);
+                    $('#viewModal').modal('show');
+                }
+            });
+
+        }
     </script>
+
+<div id='modalDisplay'>
+
+</div>

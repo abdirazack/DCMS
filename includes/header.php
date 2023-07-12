@@ -40,8 +40,9 @@
     <!-- <script src="./vendor/select2/js/select2.js"></script> -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
 
-
+    <!-- <script src = "https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script> -->
     <link rel="stylesheet" href="./vendor/css/bootstrap.min.css">
+    <script  src="./vendor/css/popper.min.js"> </script>
     <link rel="stylesheet" href="./vendor/fullcalendar/lib/main.min.css">
     <!-- <script src="./vendor/js/jquery-3.6.0.min.js"></script> -->
     <script src="./vendor/js/bootstrap.min.js"></script>

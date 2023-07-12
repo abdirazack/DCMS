@@ -4,7 +4,7 @@ include_once('../database/conn.php');
 if(isset($_POST['deleteid'])){
     //delete payments
     $id = $_POST['deleteid'];
-    $sql = mysqli_query($conn,"DELETE FROM payments WHERE payment_id='$id'");
+    $sql = mysqli_query($conn,"DELETE FROM incometable WHERE IncomeID='$id'");
 
     if($sql){
         $data = ['message'=>'success', 'status'=>200];

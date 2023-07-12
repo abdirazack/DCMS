@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container shadow p-3">
     <div class="row animated fadeIn">
         <div class="col-md-6">
             <div class="card mb-3 border-primary rounded">

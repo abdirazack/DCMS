@@ -582,6 +582,63 @@ CREATE TABLE `treatmentplan_patients_view` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `IncomeTable`
+--
+
+CREATE TABLE `IncomeTable` (
+  `IncomeID` int(11) NOT NULL,
+  `patient_id` int(11) DEFAULT NULL,
+  `IncomeType` varchar(255) DEFAULT NULL,
+  `IncomeAmount` double DEFAULT NULL,
+  `IncomeAmountPaid` double DEFAULT NULL,
+  `createdAt` timestamp DEFAULT current_timestamp(),
+  `IncomeDate` date DEFAULT NULL,
+  FOREIGN KEY (`patient_id`) REFERENCES `patients` (`patient_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `patient_service_view`
+--
+
+CREATE view `patient_service_view` as
+SELECT
+  `patientServices`.`patientService_id` AS `patientService_id`,
+  `patientServices`.`patient_id` AS `patient_id`,
+   COUNT(`patientServices`.`service_id`) AS `Services`,
+   COUNT(`patientServices`.`quantity`)  AS `Quantity`,
+   SUM(`patientServices`.`cost`) AS `Total`,
+   p.`first_name` AS `first_name`,
+    p.`last_name` AS `last_name`
+
+FROM
+  `patientServices` inner join `patients` p on `patientServices`.`patient_id` = `p`.`patient_id`
+GROUP BY
+  `patientServices`.`patient_id`;
+
+-- --------------------------------------------------------
+--
+-- Table structure for table `Patient_IncomeTable_view`
+--
+
+CREATE view `Patient_IncomeTable_view` as
+SELECT
+  `i`.`IncomeID` AS `IncomeID`,
+  `i`.`patient_id` AS `patient_id`,
+  `i`.`IncomeType` AS `IncomeType`,
+  `i`.`IncomeAmount` AS `IncomeAmount`,
+  `i`.`IncomeAmountPaid` AS `IncomeAmountPaid`,
+  `i`.`IncomeDate` AS `IncomeDate`,
+  `p`.`first_name` AS `first_name`,
+  `p`.`last_name` AS `last_name`
+FROM
+  `patients` p  inner join `IncomeTable`i   on `p`.`patient_id` =  `i`.`patient_id`;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `treatment_plans`
 --
 

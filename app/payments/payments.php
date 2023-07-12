@@ -2,7 +2,7 @@
 // Connect to the database
 include_once('./app/database/conn.php');
 // Select all services from the database
-$sql = "SELECT * FROM Payments_Patients_View ";
+$sql = "SELECT * FROM Patient_IncomeTable_view ";
 $result = mysqli_query($conn, $sql);
 ?>
 
@@ -23,46 +23,46 @@ $result = mysqli_query($conn, $sql);
                 <h2 class="text-center text-primary">Payments</h2>
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-primary me-5" data-toggle="modal" data-target="#PaymentsModal">
-                <i class="fa-solid fa-plus "></i>
-                    </button>
+                    <i class="fa-solid fa-plus "></i>
+                </button>
             </div>
             <table class="table table-hover" id="dataTable">
                 <thead>
                     <tr>
-                    <th scope="col">#NO</th>
+                        <th scope="col">#NO</th>
 
                         <!-- <th>Payments ID</th> -->
                         <th>First Name</th>
                         <th>Last Name</th>
+                        <th>Income Type</th>
                         <th>Amount</th>
                         <th>Amount Paid</th>
                         <th>Amount Due</th>
-                        <th>Description</th>
-                        <th>Payment Method</th>
                         <th>Date Paid</th>
                         <th class="text-center">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    $count=0;
+                    $count = 0;
+                    $amount_due = 0;
                     // Loop through each row and display the data in the table
                     while ($row = mysqli_fetch_assoc($result)) {
                         $count++;
+                        $amount_due = $row["IncomeAmount"] - $row["IncomeAmountPaid"];
                     ?>
                         <tr>
                             <td><?php echo $count; ?></td>
                             <td><?php echo  $row["first_name"]; ?></td>
                             <td><?php echo  $row["last_name"]; ?></td>
-                            <td><?php echo  $row["amount"]; ?></td>
-                            <td><?php echo  $row["amount_paid"]; ?></td>
-                            <td><?php echo  $row["amount_due"]; ?></td>
-                            <td><?php echo  $row["description"]; ?></td>
-                            <td><?php echo  $row["payment_method"]; ?></td>
-                            <td><?php echo  $row["date_paid"]; ?></td>
+                            <td><?php echo  $row["IncomeType"]; ?></td>
+                            <td><?php echo  $row["IncomeAmount"]; ?></td>
+                            <td><?php echo  $row["IncomeAmountPaid"]; ?></td>
+                            <td><?php echo   $amount_due; ?></td>
+                            <td><?php echo  $row["IncomeDate"]; ?></td>
                             <td class='text-center'>
-                                <button class='btn btn-primary' onclick='editPayment(<?php echo  $row["payment_id"]; ?>)'> <i class='fa fa-edit'></i> </button>
-                                <a href='#' class='btn btn-danger ms-2' onclick='deletePayment( <?php echo  $row["payment_id"]; ?> )'> <i class='fa fa-trash'></i> </a>
+                                <button class='btn btn-primary' onclick='editPayment(<?php echo  $row["IncomeID"]; ?>)'> <i class='fa fa-edit'></i> </button>
+                                <a href='#' class='btn btn-danger ms-2' onclick='deletePayment( <?php echo  $row["IncomeID"]; ?> )'> <i class='fa fa-trash'></i> </a>
                             </td>
                         </tr>
                     <?php } ?>
@@ -70,7 +70,6 @@ $result = mysqli_query($conn, $sql);
             </table>
         </div>
     </div>
-
 
 
 
@@ -106,17 +105,23 @@ $result = mysqli_query($conn, $sql);
                             <label for="amount" class="form-label text-primary">Amount</label>
                             <input type="number" class="form-control border border-1 border-primary" id="amount" name="amount" required>
                         </div>
+                        <div class="mb-3">
+                            <!-- discount -->
+                            <label for="discount" class="form-label text-primary">Discount *in dollars*</label>
+                            <input type="text" class="form-control border border-1 border-primary" id="discount" name="discount" required>
+                        </div>
+                        <div class="mb-3">
+                            <!-- amountDue -->
+                            <label for="amountDue" class="form-label text-primary">Amount Due</label>
+                            <input type="number" class="form-control border border-1 border-primary" id="amountDue" name="amountDue" required>
+                        </div>
 
                         <div class="mb-3">
                             <!-- amount_paid -->
                             <label for="amount_paid" class="form-label text-primary">Amount Paid</label>
                             <input type="number" class="form-control border border-1 border-primary" id="amount_paid" name="amount_paid" required>
                         </div>
-                        <div class="mb-3">
-                            <!-- description -->
-                            <label for="description" class="form-label text-primary">Description</label>
-                            <input type="text" class="form-control border border-1 border-primary" id="description" name="description" required>
-                        </div>
+
                         <div class="mb-3">
                             <!-- payment_method -->
                             <label for="payment_method" class="form-label text-primary">Payment Method</label>
@@ -158,11 +163,10 @@ $result = mysqli_query($conn, $sql);
             success: function(response) {
                 var data = JSON.parse(response);
                 $('#formInsertUpdate select[name="patient_id"]').val(data.patient_id).trigger('change');
-                $('#amount').val(data.amount);
-                $('#amount_paid').val(data.amount_paid);
-                $('#description').val(data.description);
-                $('#payment_method').val(data.payment_method);
-                $('#date_paid').val(data.date_paid);
+                $('#amount').val(data.IncomeAmount);
+                // $('#amount_paid').val(data.IncomeAmountPaid);
+                $('#amountDue').val(data.IncomeAmountDue);
+                $('#date_paid').val(data.IncomeDate);
 
             }
 
@@ -222,10 +226,10 @@ $result = mysqli_query($conn, $sql);
         var patient_id = $('#patient_id').val();
         var amount = $('#amount').val();
         var amount_paid = $('#amount_paid').val();
-        var description = $('#description').val();
+        var discount = $('#discount').val();
+        var amountDue = $('#amountDue').val();
         var payment_method = $('#payment_method').val();
         var date_paid = $('#date_paid').val();
-
 
         $.ajax({
             url: './app/payments/process_payment.php',
@@ -235,11 +239,14 @@ $result = mysqli_query($conn, $sql);
                 patient_id: patient_id,
                 amount: amount,
                 amount_paid: amount_paid,
-                description: description,
+                discount: discount,
+                amountDue: amountDue,
                 payment_method: payment_method,
                 date_paid: date_paid
+
             },
             success: function(response) {
+                alert(response);
                 var obj = jQuery.parseJSON(response);
                 if (obj.status == 200) {
                     location.reload();
@@ -249,4 +256,17 @@ $result = mysqli_query($conn, $sql);
             }
         });
     }
+</script>
+
+<script>
+    $(document).ready(function() {
+        // when the discount field changes calculate the amount due on keyup
+        $('#discount').on('keyup', function() {
+            var amount = $('#amount').val();
+            var discount = $('#discount').val();
+            var amountDue = amount - discount;
+            $('#amountDue').val(amountDue);
+        });
+
+    });
 </script>
