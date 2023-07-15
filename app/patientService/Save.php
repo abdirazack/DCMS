@@ -23,7 +23,7 @@ if ($id == "") {
             if ($result) {
                 
                 $patientExistsInIncome = False ;
-                $queryToCheck = "SELECT * FROM IncomeTable WHERE patient_id = '$patient_id'";
+                $queryToCheck = "SELECT * FROM incometable WHERE patient_id = '$patient_id'";
                 $res = mysqli_query($conn, $queryToCheck);
                 if (mysqli_num_rows($res) > 0) {
                     $patientExistsInIncome = True;

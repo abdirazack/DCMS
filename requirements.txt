@@ -1,4 +1,7 @@
 Notifications
 Reports
 Charts
-Expenses
+[X]Expenses
+medical files
+Duration (Treatment Plan)
+Approve appointment
