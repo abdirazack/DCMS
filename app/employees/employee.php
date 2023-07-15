@@ -8,6 +8,19 @@
     <?php
     include_once('./app/database/conn.php');
     ?>
+    <style>
+        body {
+            font-family: nunito;
+        }
+
+        .modal,
+        .form-control,
+        .form-select,
+        .btn {
+
+            border-radius: 12px;
+        }
+    </style>
 </head>
 
 <body>
@@ -25,7 +38,7 @@
             </div>
 
             <table class="table table-hover" id="dataTable">
-                <thead>
+                <thead class='text-truncate' style='max-width: 10px;'>
                     <tr>
                         <th scope="col">#NO</th>
                         <!-- <th scope="col">Employee ID</th> -->
@@ -57,17 +70,17 @@
                         // echo "<td>" . $row['employee_id'] . "</td>";
                         echo "<td>" . $row['first_name'] . "</td>";
                         echo "<td>" . $row['last_name'] . "</>";
-                        echo "<td>" . $row['email'] . "</td>";
+                        echo "<td class='text-truncate' style='max-width: 10px;'>" . $row['email'] . "</td>";
                         echo "<td>" . $row['phone'] . "</td>";
                         echo "<td>" . $row['role_name'] . "</td>";
                         echo "<td>" . $row['Experience'] . "</td>";
                         echo "<td>" . $row['Qualification'] . "</td>";
-                        echo "<td>" . $row['street'] . ' ' . $row['city'] . ' ' . $row['state'] . "</td>";
+                        echo "<td class='text-truncate' style='max-width: 10px;'>" . $row['street'] . ' ' . $row['city'] . ' ' . $row['state'] . "</td>";
                         echo "<td>" . $row['gender'] . "</td>";
                         echo "<td>" . $row['hire_date'] . "</td>";
                         echo "<td class='text-center'> 
-                                    <button  class='btn btn-primary' onclick='editEmployee(" . $row['employee_id'] . ")'> <icon class='fa fa-edit'></icon> </button> 
-                                    <a href='#' class='btn btn-danger ms-2 mt-1' onclick='deleteEmployee(" . $row['employee_id'] . ")'> <icon class='fa fa-trash'></icon> </a> 
+                                    <a  class='btn btn-primary' onclick='editEmployee(" . $row['employee_id'] . ")'> <icon class='fa fa-edit'></icon> </a> 
+                                    <a href='#' class='ms-2 mt-1' style='color: red;' onclick='deleteEmployee(" . $row['employee_id'] . ")'> <icon class='fa fa-trash'></icon> </a> 
                                   </td>";
                     }
 
@@ -90,45 +103,46 @@
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="employeeModalLabel">ADD NEW Employee</h1>
             </div>
-            <form action="./app/employees/process_employee.php" method="post" id="formInsertUpdate" enctype="multipart/form-data">
+            <form action="./app/employees/process_employee.php" method="post" id="formInsertUpdate"
+                enctype="multipart/form-data">
                 <div class="modal-body">
                     <p class='small text-danger' id='small'></p>
                     <input type="hidden" name="id" id="id">
                     <div class="row">
                         <div class="mb-3 col-md-6">
                             <label for="first_name" class="form-label">First Name:</label>
-                            <input type="text" class="form-control border border-1 border-primary" id="first_name" name="first_name" required>
+                            <input type="text" class="form-control" id="first_name" name="first_name" required>
                         </div>
                         <div class="mb-3 col-md-6">
                             <label for="last_name" class="form-label">Last Name:</label>
-                            <input type="text" class="form-control border border-1 border-primary" id="last_name" name="last_name" required>
+                            <input type="text" class="form-control" id="last_name" name="last_name" required>
                         </div>
                     </div>
                     <div class="row">
                         <div class="mb-3 col-md-6">
                             <label for="email" class="form-label">Email:</label>
-                            <input type="email" class="form-control border border-1 border-primary" id="email" name="email" required>
+                            <input type="email" class="form-control" id="email" name="email" required>
                         </div>
                         <div class="mb-3 col-md-6">
                             <label for="phone_number" class="form-label">Phone Number:</label>
-                            <input type="text" class="form-control border border-1 border-primary" id="phone_number" name="phone_number" required>
+                            <input type="text" class="form-control" id="phone_number" name="phone_number" required>
                         </div>
                     </div>
                     <div class="row">
                         <div class="mb-3 col-md-6">
                             <label for="experience" class="form-label">Experience:</label>
-                            <input type="text" class="form-control border border-1 border-primary" id="experience" name="experience" required>
+                            <input type="text" class="form-control" id="experience" name="experience" required>
                         </div>
                         <div class="mb-3 col-md-6">
                             <label for="qualification" class="form-label">Qualification:</label>
-                            <input type="text" class="form-control border border-1 border-primary" id="qualification" name="qualification" required>
+                            <input type="text" class="form-control" id="qualification" name="qualification" required>
                         </div>
                     </div>
                     <div class="row">
                         <div class="mb-3">
                             <!-- select role from database -->
                             <label for="role" class="form-label">Role:</label> <br>
-                            <select style="width: 100%;"  class="form-control select2 border border-1 border-primary" id="role" name="role" required>
+                            <select style="width: 100%;" class="form-select selecjkt2" id="role" name="role" required>
                                 <option value="">Select Role</option>
                                 <?php
                                 $result = mysqli_query($conn, "SELECT * FROM Roles");
@@ -143,17 +157,18 @@
                         <label for="address" class="form-label">Address:</label>
                         <div class="mb-3 input-group">
                             <!-- select2 address from addresses table  -->
-                            <select style="width: 90%;" class="form-control border border-1 border-primary select2" id="address" name="address">
+                            <select style="width: 90%;" class="form-select select2" id="address" name="address">
                                 <option value="">Select Address</option>
                                 <?php
                                 $result = mysqli_query($conn, "SELECT * FROM Addresses");
                                 while ($row = mysqli_fetch_assoc($result)) {
-                                    echo "<option value='" . $row['address_id'] . "'>" . $row['street'] . $row['city'] . $row['state'] . "</option>";
+                                    echo "<option value='" . $row['address_id'] . "'>" . $row['street'] . ', ' . $row['city'] . ', ' . $row['state'] . "</option>";
                                 }
                                 ?>
                             </select>
                             <span class="input-group-btn">
-                                <button type="button" class="btn btn-primary mt-2 d-inline" data-toggle="modal" data-target="#addressModal">
+                                <button type="button" class="btn btn-primary mt-2 d-inline" data-toggle="modal"
+                                    data-target="#addressModal">
                                     <!-- Add a plus icon with tooltip that says 'add new address' -->
                                     <icon class="fa fa-plus"></icon>
                                 </button>
@@ -163,14 +178,14 @@
                     <div class="row">
                         <div class="mb-3">
                             <label for='gender' class="form-label">Select a Gender</label>
-                            <select class="form-control border border-1 border-primary" id="gender" name="gender">
+                            <select class="form-select" id="gender" name="gender">
                                 <option value="">Select Gender</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
                             </select>
                         </div>
                     </div>
-                    
+
                     <!-- Upload profile picture -->
                     <div class="row">
                         <div>
@@ -181,13 +196,14 @@
                     <div class="row">
                         <div>
                             <label for="Hire Date" class='form-label'>Hire Date</label>
-                            <input type="date" class="form-control border border-1 border-primary" id="hire_date" name="hire_date" required>
+                            <input type="date" class="form-control" id="hire_date" name="hire_date" required>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeButton">Close</button>
-                        <button type="submit" id='submit' class="btn btn-outline-primary">Add Employee</button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal"
+                        id="closeButton">Close</button>
+                    <button type="submit" id='submit' class="btn btn-outline-primary">Add Employee</button>
                 </div>
             </form>
 
@@ -209,7 +225,7 @@
             data: {
                 updateid: id
             },
-            success: function(response) {
+            success: function (response) {
                 // alert(response)
                 var data = JSON.parse(response);
                 $('#first_name').val(data.first_name);
@@ -227,8 +243,8 @@
         });
 
         $("#submit").text('Update');
-        $(document).ready(function() {
-            $('#closeButton').on('click', function() {
+        $(document).ready(function () {
+            $('#closeButton').on('click', function () {
                 // Close the modal
                 $('#employeeModal').modal('hide');
             });
@@ -245,7 +261,7 @@
             data: {
                 deleteid: id
             },
-            success: function(response) {
+            success: function (response) {
                 // alert(response)
                 $('#small').text(response);
                 var obj = jQuery.parseJSON(response);
@@ -258,7 +274,7 @@
         });
     }
 
-    $(document).ready(function() {
+    $(document).ready(function () {
 
         // select2
         $(".select2").select2();
@@ -277,19 +293,16 @@
             ],
             "iDisplayLength": 5,
             "bDestroy": true,
-            "buttons": [
-                'copy', 'csv', 'excel', 'pdf', 'print'
-            ]
         });
 
-        $('#formInsertUpdate').submit(function(e) {
+        $('#formInsertUpdate').submit(function (e) {
             e.preventDefault();
             var formData = new FormData(this);
             $.ajax({
                 url: './app/employees/process_employee.php',
                 type: 'POST',
                 data: formData,
-                success: function(response) {
+                success: function (response) {
                     alert(response)
                     var obj = jQuery.parseJSON(response);
                     if (obj.status == 200) {
@@ -313,8 +326,8 @@
 
 <!-- Handle Address  -->
 <script>
-    $(document).ready(function() {
-        $('#formInsertUpdateAddress').submit(function(e) {
+    $(document).ready(function () {
+        $('#formInsertUpdateAddress').submit(function (e) {
             // var page = 'employee';
             e.preventDefault();
             var formData = new FormData(this);
@@ -322,7 +335,7 @@
                 url: './app/address/process_address.php',
                 type: 'POST',
                 data: formData,
-                success: function(response) {
+                success: function (response) {
                     alert(response)
                     var obj = jQuery.parseJSON(response);
                     if (obj.status == 200) {
