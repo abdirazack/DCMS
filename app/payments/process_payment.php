@@ -12,7 +12,7 @@
     $date_paid = mysqli_real_escape_string($conn,$_POST["date_paid"]);
     $payment_method = mysqli_real_escape_string($conn,$_POST["payment_method"]);
 
-   $amountPaid = $amount_paid + $discount;
+   
 
   // Check if the ID field is set (if set, it's an update)
   if ($id == "") {
@@ -22,10 +22,10 @@
         echo json_encode($data);
         return ;
     
-  }
+  } 
   else {
         // Update the payments
-   $sql = "UPDATE incometable SET patient_id='$patient_id', IncomeAmount='$amount', IncomeAmountPaid='$amountPaid',  IncomeDate='$date_paid'  WHERE IncomeID='$id'";
+   $sql = "UPDATE incometable SET patient_id='$patient_id', discount= discount+ '$discount', IncomeAmountPaid= IncomeAmountPaid + '$amount_paid',  IncomeDate='$date_paid'  WHERE IncomeID='$id'";
     if ($conn->query($sql) === TRUE) {
         $data = ['message'=>'succeffully updated payments', 'status'=>200];
         echo json_encode($data);

@@ -35,9 +35,10 @@ $result = mysqli_query($conn, $sql);
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Income Type</th>
-                        <th>Amount</th>
+                        <th>Total Amount</th>
                         <th>Amount Paid</th>
                         <th>Amount Due</th>
+                        <th>Total Discount</th>
                         <th>Date Paid</th>
                         <th class="text-center">Action</th>
                     </tr>
@@ -49,7 +50,7 @@ $result = mysqli_query($conn, $sql);
                     // Loop through each row and display the data in the table
                     while ($row = mysqli_fetch_assoc($result)) {
                         $count++;
-                        $amount_due = $row["IncomeAmount"] - $row["IncomeAmountPaid"];
+                        $amount_due = ($row["IncomeAmount"] - $row["discount"]) - $row["IncomeAmountPaid"];
                     ?>
                         <tr>
                             <td><?php echo $count; ?></td>
@@ -58,7 +59,8 @@ $result = mysqli_query($conn, $sql);
                             <td><?php echo  $row["IncomeType"]; ?></td>
                             <td><?php echo  $row["IncomeAmount"]; ?></td>
                             <td><?php echo  $row["IncomeAmountPaid"]; ?></td>
-                            <td><?php echo   $amount_due; ?></td>
+                            <td><?php echo  $amount_due; ?></td>
+                            <td><?php echo  $row["discount"]; ?></td>
                             <td><?php echo  $row["IncomeDate"]; ?></td>
                             <td class='text-center'>
                                 <button class='btn btn-primary' onclick='editPayment(<?php echo  $row["IncomeID"]; ?>)'> <i class='fa fa-edit'></i> </button>
@@ -150,6 +152,14 @@ $result = mysqli_query($conn, $sql);
 
 </html>
 <script>
+    $(document).ready(function() {
+        $('#closeButton').on('click', function() {
+            // Close the modal
+            $('#PaymentsModal').modal('hide');
+        });
+        
+    });
+
     function editPayment(ids) {
         var id = ids;
 
@@ -162,25 +172,21 @@ $result = mysqli_query($conn, $sql);
             },
             success: function(response) {
                 var data = JSON.parse(response);
+                var amount_due = (data.IncomeAmount - data.discount) - data.IncomeAmountPaid
                 $('#formInsertUpdate select[name="patient_id"]').val(data.patient_id).trigger('change');
                 $('#amount').val(data.IncomeAmount);
                 // $('#amount_paid').val(data.IncomeAmountPaid);
-                $('#amountDue').val(data.IncomeAmountDue);
+                $('#amountDue').val(amount_due);
                 $('#date_paid').val(data.IncomeDate);
+                // Show the modal
+                $('#PaymentsModal').modal('show');
 
             }
 
         });
 
         $("#submit").text('Update');
-        $(document).ready(function() {
-            $('#closeButton').on('click', function() {
-                // Close the modal
-                $('#PaymentsModal').modal('hide');
-            });
-            // Show the modal
-            $('#PaymentsModal').modal('show');
-        });
+
     }
 
     function deletePayment(id) {
@@ -261,10 +267,17 @@ $result = mysqli_query($conn, $sql);
 <script>
     $(document).ready(function() {
         // when the discount field changes calculate the amount due on keyup
-        $('#discount').on('keyup', function() {
-            var amount = $('#amount').val();
+        $('#discount').on('change', function() {
+            var amount = $('#amountDue').val();
             var discount = $('#discount').val();
             var amountDue = amount - discount;
+            $('#amountDue').val(amountDue);
+        });
+
+        $("#amount_paid").on('change', function() {
+            var amountDue = $('#amountDue').val();
+            var amount_paid = $('#amount_paid').val();
+            var amountDue = amountDue - amount_paid;
             $('#amountDue').val(amountDue);
         });
 

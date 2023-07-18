@@ -6,6 +6,7 @@ $id = @$_POST['id'];
 $patient_id = $_POST['patient_id'];
 $service_ids = $_POST['service_id'];
 $quantities = $_POST['quantity'];
+// $discounts = $_POST['discount'];
 $costs = $_POST['cost'];
 
 if ($id == "") {
@@ -37,20 +38,27 @@ if ($id == "") {
                     // include_once("../database/conn.php");
                     $updateIncome = "UPDATE IncomeTable SET IncomeAmount = IncomeAmount + '$cost' WHERE patient_id = '$patient_id'";
                     $result = mysqli_query($conn, $updateIncome);
-                    $data = ['message' => 'Succeesully added patient_Service', 'status' => 200];
-                    echo json_encode($data);
+                    if ($result) {
+                        $data = ['message' => 'Succeesully updated IncomeTable', 'status' => 200];
+                        echo json_encode($data);
+                    } else {
+                        $data = ['message' => 'Failed to update  IncomeTable', 'status' => 404];
+                        echo json_encode($data);
+                    }
                 } else {
                     // open connection
                     // include_once("../database/conn.php");
-                    $insertIntoIncome = "INSERT INTO `IncomeTable` (`patient_id`, `IncomeType`, `IncomeAmount`, 'IncomeAmountPaid', `IncomeDate`)  VALUES ('$patient_id', 'Services', '$cost', IncomeAmountPaid + 0 ,NOW())";
+                    $insertIntoIncome = "INSERT INTO `IncomeTable` (`patient_id`, `IncomeType`, `IncomeAmount`,  `IncomeDate`) VALUES ('$patient_id', 'Services', '$cost', NOW())";
                     $result = mysqli_query($conn, $insertIntoIncome);
-                    $data = ['message' => 'Succeesully added patient_Service', 'status' => 200];
-                    echo json_encode($data);
+                    if ($result) {
+                        $data = ['message' => 'Succeesully added IncomeTable', 'status' => 200];
+                        echo json_encode($data);
+                    } else {
+                        $data = ['message' => 'Failed to add  IncomeTable', 'status' => 404];
+                        echo json_encode($data);
+                    }
+                    
                 }
-
-
-                $data = ['message' => 'Succeesully added patient_Service', 'status' => 200];
-                echo json_encode($data);
             } else {
                 $data = ['message' => 'Failed to add  patient_Service', 'status' => 404];
                 echo json_encode($data);

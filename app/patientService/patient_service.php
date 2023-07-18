@@ -151,7 +151,7 @@
                     method: "POST",
                     data: $(this).serialize(),
                     success: function(data) {
-                        // alert(data);
+                        alert(data);
                         location.reload();
 
 

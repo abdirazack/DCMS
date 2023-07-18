@@ -7,7 +7,7 @@
 $titles = [
         'dashboard'  => ["title" => 'Dashboard',                                       "path" => './app/dashboard/'],
         'profile'   =>  ["title" => 'Profile',                                         "path" => './app/dashboard/'],    
-   
+
     //Address
         'address'    => ["title" => 'Address',                                         "path" => './app/address/'],
 
@@ -52,6 +52,10 @@ $titles = [
 
     //Login Page
         'login'     =>  ["title" => 'Login',                                           "path" => './app/login/'],
+
+    //Reports
+        'reports'    => ["title" => 'Reports',                                         "path" => './app/reports/'],
+
 ];
 $is404 = false;
 $page = '';

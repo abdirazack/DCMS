@@ -163,22 +163,6 @@
         </div>
     </li>
     <!-- ------------------------------------------------------------------------------------------------ -->
-    <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
-    <li class="nav-item">
-
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInvoice" aria-expanded="true" aria-controls="collapseUtilities">
-        <i class="fa-solid fa-file-invoice-dollar"></i>
-            <span>Invoice</span>
-        </a>
-        <div id="collapseInvoice" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Invoice:</h6>
-                <a class="collapse-item" href="index.php?page=invoice">Invoice</a>
-            </div>
-        </div>
-    </li>
-
-    <!-- ------------------------------------------------------------------------------------------------ -->
 
     <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
     <li class="nav-item">
@@ -206,6 +190,19 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">ADDRESS:</h6>
                 <a class="collapse-item" href="index.php?page=address">Address</a>
+            </div>
+        </div>
+    </li>
+    <!-- Nav Item - Reports Collapse Menu ---------------------------------------------------------------- -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReports" aria-expanded="true" aria-controls="collapseUtilities">
+        <i class="fa-solid fa-location-dot"></i>
+            <span>Reports</span>
+        </a>
+        <div id="collapseReports" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Reports:</h6>
+                <a class="collapse-item" href="index.php?page=reports">Report</a>
             </div>
         </div>
     </li>
