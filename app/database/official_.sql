@@ -159,11 +159,13 @@ CREATE TABLE `employees` (
  `email` varchar(255) DEFAULT NULL,
  `phone` varchar(255) DEFAULT NULL,
  `role_id` int(11) DEFAULT NULL,
- `qualification` varchar(255) DEFAULT NULL,
  `experience` varchar(50) DEFAULT NULL,
  `address` int(11) DEFAULT NULL,
  `gender` varchar(20) DEFAULT NULL,
  `profile` varchar(255) DEFAULT NULL,
+ `salary_type` varchar(50) DEFAULT NULL,
+ `currency` varchar(50) DEFAULT NULL,
+ `amount` double DEFAULT 0,
  `hire_date` date DEFAULT NULL,
  PRIMARY KEY (`employee_id`),
  KEY `address` (`address`),
@@ -281,11 +283,8 @@ CREATE TABLE `prescriptions` (
 CREATE TABLE `salary` (
  `salary_id` int(11) NOT NULL AUTO_INCREMENT,
  `employee_id` int(11) DEFAULT NULL,
- `Amount` double DEFAULT 0,
+ `paid_in_full`  boolean ,
  `datePaid` date DEFAULT NULL,
- `SalaryType` varchar(255) DEFAULT NULL,
- `Currency` varchar(50) DEFAULT NULL,
- `PaymentFrequency` varchar(50) DEFAULT NULL,
  PRIMARY KEY (`salary_id`),
  KEY `employee_id` (`employee_id`),
  CONSTRAINT `salary_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`)
@@ -326,13 +325,16 @@ select
     `e`.`email` AS `email`,
     `r`.`role_name` AS `role_name`,
     `e`.`experience` AS `Experience`,
-    `e`.`qualification` AS `Qualification`,
     `e`.`gender` AS `gender`,
+    `e`.`salary_type` AS `salary_type`,
+    `e`.`currency` AS `currency`,
+    `e`.`amount` AS `amount`,
     `e`.`hire_date` AS `hire_date`,
     `a`.`street` AS `street`,
     `a`.`city` AS `city`,
     `a`.`state` AS `state` 
-from ((`employees` `e` join `addresses` `a` on(`e`.`address` = `a`.`address_id`)) join `roles` `r` on(`e`.`role_id` = `r`.`role_id`))
+from ((`dental_clinic`.`employees` `e` join `dental_clinic`.`addresses` `a` on(`e`.`address` = `a`.`address_id`)) join `dental_clinic`.`roles` `r` on(`e`.`role_id` = `r`.`role_id`))
+
 
 /* addresses_patients_view	 */
 
@@ -495,10 +497,9 @@ select
     `s`.`employee_id` AS `employee_id`,
     `e`.`first_name` AS `first_name`,
     `e`.`last_name` AS `last_name`,
-    `s`.`SalaryType` AS `SalaryType`,
-    `s`.`Currency` AS `Currency`,
-    `s`.`PaymentFrequency` AS `PaymentFrequency`,
-    `s`.`Amount` AS `Amount`,
+    `e`.`SalaryType` AS `SalaryType`,
+    `e`.`Currency` AS `Currency`,
+    `s`.`smount` AS `amount`,
     `s`.`datePaid` AS `datePaid` 
 from (`salary` `s` join `employees` `e` on(`s`.`employee_id` = `e`.`employee_id`))
 

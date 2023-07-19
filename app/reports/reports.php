@@ -33,7 +33,7 @@
           <h2>Dental Record Reports</h2>
         </div>
 
-        <div class="fresh-table full-color-blue p-3 ">
+        <div class="fresh-table full-color-blue p-3 shadow">
           <div class="toolbar col-md-3 mb-5">
             <select class="form-control  full-color-azure" id="reports">
               <option value="">Select Report</option>

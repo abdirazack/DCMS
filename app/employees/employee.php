@@ -20,6 +20,10 @@
 
             border-radius: 12px;
         }
+
+        .myelement{
+            overflow: visible;
+        }
     </style>
 </head>
 
@@ -27,7 +31,7 @@
 
     <div class="container-fluid ">
 
-        <div class=" mt-1 p-3 shadow-lg rounded">
+        <div class=" mt-1 p-3 shadow-lg rounded myelement">
             <div class='small' id='small'></div>
             <div class='d-flex justify-content-between mb-4'>
                 <h2 class="text-center text-primary">Employees List</h2>
@@ -48,9 +52,11 @@
                         <th scope="col">Phone Number</th>
                         <th scope="col">Role</th>
                         <th scope="col">Experience</th>
-                        <th scope="col">Qualification</th>
                         <th scope="col">Address</th>
                         <th scope="col">Gender</th>
+                        <th scope="col">Salary Type </th>
+                        <th scope="col">Currency</th>
+                        <th scope="col">Amount</th>
                         <th scope="col">Hire Date</th>
                         <th scope="col" class="text-center">Action</th>
                     </tr>
@@ -74,9 +80,11 @@
                         echo "<td>" . $row['phone'] . "</td>";
                         echo "<td>" . $row['role_name'] . "</td>";
                         echo "<td>" . $row['Experience'] . "</td>";
-                        echo "<td>" . $row['Qualification'] . "</td>";
                         echo "<td class='text-truncate' style='max-width: 10px;'>" . $row['street'] . ' ' . $row['city'] . ' ' . $row['state'] . "</td>";
                         echo "<td>" . $row['gender'] . "</td>";
+                        echo "<td>" . $row['salary_type'] . "</td>";
+                        echo "<td>" . $row['currency'] . "</td>";
+                        echo "<td>" . $row['amount'] . "</td>";
                         echo "<td>" . $row['hire_date'] . "</td>";
                         echo "<td class='text-center'> 
                                     <a  class='btn btn-primary' onclick='editEmployee(" . $row['employee_id'] . ")'> <icon class='fa fa-edit'></icon> </a> 
@@ -98,45 +106,64 @@
 
 <!-- Modal -->
 <div class="modal fade" id="employeeModal" tabindex="-1" aria-labelledby="employeeModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content rounded shadow">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="employeeModalLabel">ADD NEW Employee</h1>
+                <h1 class="modal-title fs-5" id="employeeModalLabel">ADD NEW EMPLOYEE</h1>
             </div>
-            <form action="./app/employees/process_employee.php" method="post" id="formInsertUpdate"
-                enctype="multipart/form-data">
+            <form action="./app/employees/process_employee.php" method="post" id="formInsertUpdate" enctype="multipart/form-data">
                 <div class="modal-body">
                     <p class='small text-danger' id='small'></p>
                     <input type="hidden" name="id" id="id">
                     <div class="row">
-                        <div class="mb-3 col-md-6">
+                        <div class="mb-3 col-md-4">
                             <label for="first_name" class="form-label">First Name:</label>
                             <input type="text" class="form-control" id="first_name" name="first_name" required>
                         </div>
-                        <div class="mb-3 col-md-6">
+                        <div class="mb-3 col-md-4">
                             <label for="last_name" class="form-label">Last Name:</label>
                             <input type="text" class="form-control" id="last_name" name="last_name" required>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="mb-3 col-md-6">
+                        <div class="mb-3 col-md-4">
                             <label for="email" class="form-label">Email:</label>
                             <input type="email" class="form-control" id="email" name="email" required>
                         </div>
-                        <div class="mb-3 col-md-6">
+                    </div>
+
+                    <div class="row">
+                        <div class="mb-3 col-md-4">
                             <label for="phone_number" class="form-label">Phone Number:</label>
                             <input type="text" class="form-control" id="phone_number" name="phone_number" required>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="mb-3 col-md-6">
+                        <div class="mb-3 col-md-4">
                             <label for="experience" class="form-label">Experience:</label>
                             <input type="text" class="form-control" id="experience" name="experience" required>
                         </div>
-                        <div class="mb-3 col-md-6">
-                            <label for="qualification" class="form-label">Qualification:</label>
-                            <input type="text" class="form-control" id="qualification" name="qualification" required>
+                        <div class="mb-3 col-md-4">
+                            <label for="salary_type" class="form-label">Salary Type:</label>
+                            <input type="text" class="form-control" id="salary_type" name="salary_type" required>
                         </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="mb-3 col-md-4">
+                            <label for="currency" class="form-label">Currency:</label>
+                            <input type="text" class="form-control" id="currency" name="currency" required>
+                        </div>
+                        <div class="mb-3 col-md-4">
+                            <label for="amount" class="form-label">Amount:</label>
+                            <input type="number" class="form-control" id="amount" name="amount" required>
+                        </div>
+
+                        <div class="mb-3 col-md-4">
+                            <label for='gender' class="form-label">Select a Gender</label>
+                            <select class="form-select" id="gender" name="gender">
+                                <option value="">Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+
                     </div>
                     <div class="row">
                         <div class="mb-3">
@@ -167,8 +194,7 @@
                                 ?>
                             </select>
                             <span class="input-group-btn">
-                                <button type="button" class="btn btn-primary mt-2 d-inline" data-toggle="modal"
-                                    data-target="#addressModal">
+                                <button type="button" class="btn btn-primary mt-2 d-inline" data-toggle="modal" data-target="#addressModal">
                                     <!-- Add a plus icon with tooltip that says 'add new address' -->
                                     <icon class="fa fa-plus"></icon>
                                 </button>
@@ -176,14 +202,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="mb-3">
-                            <label for='gender' class="form-label">Select a Gender</label>
-                            <select class="form-select" id="gender" name="gender">
-                                <option value="">Select Gender</option>
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
-                            </select>
-                        </div>
+
                     </div>
 
                     <!-- Upload profile picture -->
@@ -201,8 +220,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal"
-                        id="closeButton">Close</button>
+                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal" id="closeButton">Close</button>
                     <button type="submit" id='submit' class="btn btn-outline-primary">Add Employee</button>
                 </div>
             </form>
@@ -225,14 +243,16 @@
             data: {
                 updateid: id
             },
-            success: function (response) {
+            success: function(response) {
                 // alert(response)
                 var data = JSON.parse(response);
                 $('#first_name').val(data.first_name);
                 $('#last_name').val(data.last_name);
                 $('#phone_number').val(data.phone);
                 $('#experience').val(data.experience);
-                $('#qualification').val(data.qualification);
+                $('#salary_type').val(data.salary_type);
+                $('#currency').val(data.currency);
+                $('#amount').val(data.amount);
                 $('#formInsertUpdate select[name="role"]').val(data.role_id).trigger('change');
                 $('#gender').val(data.gender);
                 $('#email').val(data.email);
@@ -243,8 +263,8 @@
         });
 
         $("#submit").text('Update');
-        $(document).ready(function () {
-            $('#closeButton').on('click', function () {
+        $(document).ready(function() {
+            $('#closeButton').on('click', function() {
                 // Close the modal
                 $('#employeeModal').modal('hide');
             });
@@ -261,7 +281,7 @@
             data: {
                 deleteid: id
             },
-            success: function (response) {
+            success: function(response) {
                 // alert(response)
                 $('#small').text(response);
                 var obj = jQuery.parseJSON(response);
@@ -274,7 +294,7 @@
         });
     }
 
-    $(document).ready(function () {
+    $(document).ready(function() {
 
         // select2
         $(".select2").select2();
@@ -295,14 +315,14 @@
             "bDestroy": true,
         });
 
-        $('#formInsertUpdate').submit(function (e) {
+        $('#formInsertUpdate').submit(function(e) {
             e.preventDefault();
             var formData = new FormData(this);
             $.ajax({
                 url: './app/employees/process_employee.php',
                 type: 'POST',
                 data: formData,
-                success: function (response) {
+                success: function(response) {
                     alert(response)
                     var obj = jQuery.parseJSON(response);
                     if (obj.status == 200) {
@@ -326,8 +346,8 @@
 
 <!-- Handle Address  -->
 <script>
-    $(document).ready(function () {
-        $('#formInsertUpdateAddress').submit(function (e) {
+    $(document).ready(function() {
+        $('#formInsertUpdateAddress').submit(function(e) {
             // var page = 'employee';
             e.preventDefault();
             var formData = new FormData(this);
@@ -335,7 +355,7 @@
                 url: './app/address/process_address.php',
                 type: 'POST',
                 data: formData,
-                success: function (response) {
+                success: function(response) {
                     alert(response)
                     var obj = jQuery.parseJSON(response);
                     if (obj.status == 200) {

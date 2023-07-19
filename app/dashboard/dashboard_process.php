@@ -19,8 +19,14 @@
         $counts[$identifier] = $row["total"];
     }
 
+    //get total amount_paid from income
+    $query = "SELECT SUM(IncomeAmountPaid) AS total FROM incometable";
+    $result = $conn->query($query);
+    $row = $result->fetch_assoc();
+    $counts["income"] = $row["total"];
+
     // Close the database connection
-    $conn->close();
+    
 
     // Convert the counts array to JSON format and send it to the client-side
     echo json_encode($counts);

@@ -22,43 +22,48 @@ $result = mysqli_query($conn, $sql);
             <div class='d-flex justify-content-between mb-4'>
                 <h2 class="text-center text-primary">Salary</h2>
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary me-5" data-toggle="modal" data-target="#SalaryModal"> 
-                    
-                <i class="fa-solid fa-plus "></i>
+                <button type="button" class="btn btn-primary me-5" data-toggle="modal" data-target="#SalaryModal">
+
+                    <i class="fa-solid fa-plus "></i>
                 </button>
             </div>
             <table class="table table-hover" id="dataTable">
                 <thead>
                     <tr>
-                    <th scope="col">#NO</th>
+                        <th scope="col">#NO</th>
 
                         <th>Employee ID</th>
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Salary Type</th>
                         <th>Currency</th>
-                        <th>Payment Frequency</th>
                         <th>Amount</th>
+                        <th>Paid In Full</th>
                         <th>Date Paid</th>
                         <th class="text-center">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    $count=0;
+                    $count = 0;
                     // Loop through each row and display the data in the table
                     while ($row = mysqli_fetch_assoc($result)) {
                         $count++;
+                        if ($row["paid_in_full"] == 1) {
+                            $paid_in_full = 'Yes';
+                        } else {
+                            $paid_in_full = 'No';
+                        }
                     ?>
                         <tr>
                             <td><?php echo $count; ?></td>
                             <td><?php echo  $row["employee_id"]; ?></td>
                             <td><?php echo  $row["first_name"]; ?></td>
                             <td><?php echo  $row["last_name"]; ?></td>
-                            <td><?php echo  $row["SalaryType"]; ?></td>
-                            <td><?php echo  $row["Currency"]; ?></td>
-                            <td><?php echo  $row["PaymentFrequency"]; ?></td>
-                            <td><?php echo  $row["Amount"]; ?></td>
+                            <td><?php echo  $row["salary_type"]; ?></td>
+                            <td><?php echo  $row["currency"]; ?></td>
+                            <td><?php echo  $row["amount"]; ?></td>
+                            <td><?php echo  $paid_in_full; ?></td>
                             <td><?php echo  $row["datePaid"]; ?></td>
                             <td class='text-center'>
                                 <button class='btn btn-primary' onclick='editSalary(<?php echo  $row["salary_id"]; ?>)'> <i class='fa fa-edit'></i> </button>
@@ -101,27 +106,19 @@ $result = mysqli_query($conn, $sql);
                                 ?>
                             </select>
                         </div>
+                        <!-- amount -->
                         <div class="mb-3">
-                            <!-- amount -->
                             <label for="amount" class="form-label text-primary">Amount</label>
                             <input type="number" class="form-control border border-1 border-primary" id="amount" name="amount" required>
                         </div>
 
-                        <div class="mb-3">
-                            <!-- SalaryType -->
-                            <label for="SalaryType" class="form-label text-primary">Salary Type</label>
-                            <input type="text" class="form-control border border-1 border-primary" id="SalaryType" name="SalaryType" required>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="1" id="paid_in_full" name="paid_in_full">
+                            <label class="form-check-label" for="paid_in_full">
+                                Paid In Full
+                            </label>
                         </div>
-                        <div class="mb-3">
-                            <!-- Currency -->
-                            <label for="Currency" class="form-label text-primary">Currency</label>
-                            <input type="text" class="form-control border border-1 border-primary" id="Currency" name="Currency" required>
-                        </div>
-                        <div class="mb-3">
-                            <!-- PaymentFrequency -->
-                            <label for="PaymentFrequency" class="form-label text-primary">Payment Frequency</label>
-                            <input type="text" class="form-control border border-1 border-primary" id="PaymentFrequency" name="PaymentFrequency" required>
-                        </div>
+
                         <div class="mb-3">
                             <!-- date_paid -->
                             <label for="date_paid" class="form-label text-primary">Date Paid</label>
@@ -157,12 +154,11 @@ $result = mysqli_query($conn, $sql);
             },
             success: function(response) {
                 var data = JSON.parse(response);
-                // alert(response)
+                alert(response)
                 $('#formInsertUpdate select[name="employee_id"]').val(data.employee_id).trigger('change');
                 $('#amount').val(data.Amount);
                 $('#SalaryType').val(data.SalaryType);
                 $('#Currency').val(data.Currency);
-                $('#PaymentFrequency').val(data.PaymentFrequency);
                 $('#date_paid').val(data.date_paid);
 
             }
@@ -214,6 +210,22 @@ $result = mysqli_query($conn, $sql);
 
         $('#dataTable').DataTable();
 
+        //onchange employee_id get the employee salary and put it in the amount input
+        $('#employee_id').on('change', function() {
+            var employee_id = $(this).val();
+            $.ajax({
+                url: './app/salary/getSalary.php',
+                type: 'POST',
+                data: {
+                    employee_id: employee_id
+                },
+                success: function(response) {
+                    var data = JSON.parse(response);
+                    $('#amount').val(data.amount);
+                }
+            });
+        });
+
     });
 
     function insertUpdate() {
@@ -221,9 +233,7 @@ $result = mysqli_query($conn, $sql);
         var id = $('#id').val();
         var employee_id = $('#employee_id').val();
         var amount = $('#amount').val();
-        var SalaryType = $('#SalaryType').val();
-        var Currency = $('#Currency').val();
-        var PaymentFrequency = $('#PaymentFrequency').val();
+        var paid_in_full = $('#paid_in_full').val();
         var date_paid = $('#date_paid').val();
 
 
@@ -234,13 +244,12 @@ $result = mysqli_query($conn, $sql);
                 id: id,
                 employee_id: employee_id,
                 Amount: amount,
-                SalaryType: SalaryType,
-                Currency: Currency,
-                PaymentFrequency: PaymentFrequency,
-                date_paid: date_paid
+                paid_in_full: paid_in_full,
+                date_paid: date_paid,
+
             },
             success: function(response) {
-                // alert(response);
+                alert(response);
                 var obj = jQuery.parseJSON(response);
                 if (obj.status == 200) {
                     location.reload();

@@ -40,7 +40,7 @@
                     </div>
                     <div class="col-md-8 p-4">
                         <div class="card-body">
-                            <h5 class="card-title fs-1" id="staff_number">6744</h5>
+                            <h5 class="card-title fs-1" id="income">6744</h5>
                             <p class="card-text">Income.</p>
                         </div>
                     </div>
@@ -121,6 +121,9 @@
 
                 // Populate the dentist_number h5 tag with the dentist number
                 $('#dentist_number').text(data.dentistNumber);
+
+                //populate income number h5 tag with the income number
+                $('#income').text(data.income);
 
             },
             error: function(xhr, status, error) {
