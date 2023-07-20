@@ -33,7 +33,7 @@
           <h2>Dental Record Reports</h2>
         </div>
 
-        <div class="fresh-table full-color-blue p-3 shadow">
+        <div class="fresh-table full-color-azure p-3 shadow">
           <div class="toolbar col-md-3 mb-5">
             <select class="form-control  full-color-azure" id="reports">
               <option value="">Select Report</option>
@@ -59,15 +59,6 @@
 <script type="text/javascript">
   $(document).ready(function() {
 
-    $('#dataTable').DataTable({
-      pagingType: 'full_numbers',
-      "aLengthMenu": [
-        [5, 10, , 20, 50, 75, -1],
-        [5, 10, 20, 50, 75, "All"]
-      ],
-      "iDisplayLength": 5,
-      "bDestroy": true
-    });
 
     $('#reports').change(function() {
       var report = $(this).val();

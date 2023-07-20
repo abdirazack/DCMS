@@ -8,7 +8,6 @@
         <th data-field="Phone" data-sortable="true">Phone</th>
         <th data-field="Phone" data-sortable="true">Salary Type</th>
         <th data-field="Phone" data-sortable="true">Amount</th>
-        <th data-field="Phone" data-sortable="true">Payment Frequency</th>
         <th data-field="Role">Role</th>
     </thead>
     <tbody>
@@ -21,9 +20,8 @@
         e.email,
         e.phone,
         r.role_name,
-        s.SalaryType,
-        s.Amount,
-        s.PaymentFrequency
+        e.salary_type,
+        e.amount
       FROM employees e
       JOIN roles r ON e.role_id = r.role_id
       LEFT JOIN salary s ON e.employee_id = s.employee_id";
@@ -36,11 +34,23 @@
                 <td><?php echo $row['last_name'] ;?></td>
                 <td><?php echo $row['email'] ;?></td>
                 <td><?php echo $row['phone'] ;?></td>
-                <td><?php echo $row['SalaryType'] ;?></td>
-                <td><?php echo $row['Amount'] ;?></td>
-                <td><?php echo $row['PaymentFrequency'] ;?></td>
+                <td><?php echo $row['salary_type'] ;?></td>
+                <td><?php echo $row['amount'] ;?></td>
                 <td><?php echo $row['role_name'] ;?></td>
             </tr>
         <?php } ?>
     </tbody>
 </table>
+
+<script>
+    $(document).ready(function() {
+        // Initialize DataTable
+        $('#dataTable').DataTable({
+            dom: 'Bfrtip', // Add buttons to the DataTables' DOM
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print' // Add export buttons
+            ],
+            // You can add other DataTable options here
+        });
+    });
+</script>
