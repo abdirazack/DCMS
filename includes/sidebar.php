@@ -31,14 +31,14 @@
 
     <!-- Nav Item - Books Collapse Menu ---------------------------------------------------------------- -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAppointment" aria-expanded="true" aria-controls="collapseUtilities">
+        <a class="nav-link" href="index.php?page=appointment">
             <i class="fa fa-fw fa-calendar"></i>
             <span>Appointments</span>
         </a>
         <div id="collapseAppointment" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Appointments:</h6>
-                <a class="collapse-item" href="index.php?page=appointment">Add New Appointment</a>
+                <a class="collapse-item" >Add New Appointment</a>
             </div>
         </div>
     </li>
@@ -54,12 +54,12 @@
 
                 <h6 class="collapse-header">Patients:</h6>
                 <a class="collapse-item" href="index.php?page=patients">Patients</a>
+                <h6 class="collapse-header">Patient_Service:</h6>
+                <a class="collapse-item" href="index.php?page=patient_service">Patient_Service</a>
                 <h6 class="collapse-header">Prescriptions:</h6>
                 <a class="collapse-item" href="index.php?page=prescription">Prescriptions</a>
                 <h6 class="collapse-header">Treatment Plans:</h6>
                 <a class="collapse-item" href="index.php?page=TreatmentPlans">Treatment Plans</a>
-                <h6 class="collapse-header">Patient_Service:</h6>
-                <a class="collapse-item" href="index.php?page=patient_service">Patient_Service</a>
 
             </div>
         </div>
@@ -75,10 +75,6 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">All Employees:</h6>
                 <a class="collapse-item" href="index.php?page=employee">Employees</a>
-                <h6 class="collapse-header">Dentist:</h6>
-                <a class="collapse-item" href="index.php?page=dentist">Dentist</a>
-                <h6 class="collapse-header">Staff:</h6>
-                <a class="collapse-item" href="index.php?page=staff">Staff</a>
                 <h6 class="collapse-header">Employee Roles:</h6>
                 <a class="collapse-item" href="index.php?page=role">Roles</a>
                 <h6 class="collapse-header">Employee Salaries:</h6>
@@ -167,44 +163,26 @@
     <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
     <li class="nav-item">
 
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEquipment" aria-expanded="true" aria-controls="collapseUtilities">
+        <a class="nav-link" href="index.php?page=equipment">
             <i class="fas fa-fw fa-wrench"></i>
             <span>Equipment</span>
         </a>
-        <div id="collapseEquipment" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Equipment:</h6>
-                <a class="collapse-item" href="index.php?page=equipment">Equipment</a>
-            </div>
-        </div>
     </li>
 
     <!-- ------------------------------------------------------------------------------------------------ -->
     <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAddress" aria-expanded="true" aria-controls="collapseUtilities">
+        <a class="nav-link " href="index.php?page=address" >
         <i class="fa-solid fa-location-dot"></i>
             <span>Address</span>
         </a>
-        <div id="collapseAddress" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">ADDRESS:</h6>
-                <a class="collapse-item" href="index.php?page=address">Address</a>
-            </div>
-        </div>
     </li>
     <!-- Nav Item - Reports Collapse Menu ---------------------------------------------------------------- -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReports" aria-expanded="true" aria-controls="collapseUtilities">
-        <i class="fa-solid fa-location-dot"></i>
+        <a class="nav-link " href="index.php?page=reports" >
+        <i class="fa-solid fa-file"></i>
             <span>Reports</span>
         </a>
-        <div id="collapseReports" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Reports:</h6>
-                <a class="collapse-item" href="index.php?page=reports">Report</a>
-            </div>
-        </div>
     </li>
 
     <!-- ------------------------------------------------------------------------------------------------ -->

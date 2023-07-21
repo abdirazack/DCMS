@@ -256,6 +256,7 @@
                 "searching": true,
                 "ordering": true,
                 "info": true,
+                'pagingType': 'full_numbers',
 
                 // Add the Buttons extension options
                 "dom": 'Bfrtip', // B for buttons

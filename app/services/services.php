@@ -1,5 +1,5 @@
 <?php
-    include_once('./app/database/conn.php')
+include_once('./app/database/conn.php')
 ?>
 
 <!DOCTYPE html>
@@ -9,81 +9,99 @@
     <meta charset="UTF-8">
     <title>Services</title>
 </head>
+<div class="container-fluid ">
 
-<body>
-    <div class="container-fluid mx-auto">
-        <div class="row shadow-lg rounded p-2">
-            <div class="col-md-8">
-                <h1 class="text-primary">Services</h1>
-                <table class="table table-hover" id="dataTable">
-                    <thead>
-                        <tr>
+        <div class=" mt-1 p-3 rounded" style="border: 0.1px solid grey;">
+            <div class='small' id='small'></div>
+            <div class='d-flex justify-content-between mb-4'>
+                <h2 class="text-center text-white bg-primary px-2">Services List</h2>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary me-5" data-toggle="modal" data-target="#serviceModal">
+                    <i class="fa-solid fa-plus "></i>
+                </button>
+            </div>
+            <table class="table table-hover" id="dataTable">
+                <thead>
+                    <tr>
                         <th scope="col">#NO</th>
 
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Fee</th>
-                            <th class="text-center">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $count=0;
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Fee</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $count = 0;
 
-                        // Select all services from the database
-                        $sql = "SELECT * FROM services";
-                        $result = mysqli_query($conn, $sql);
+                    // Select all services from the database
+                    $sql = "SELECT * FROM services";
+                    $result = mysqli_query($conn, $sql);
 
-                        // Loop through each row and display the data in the table
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            $count++;
-                            echo "<tr>";
-                            echo "<td>" . $count . "</td>";
-                            echo "<td>" . $row["name"] . "</td>";
-                            echo "<td>" . $row["description"] . "</td>";
-                            echo "<td>" . $row["fee"] . "</td>";
-                            echo "<td class='text-center'> 
+                    // Loop through each row and display the data in the table
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        $count++;
+                        echo "<tr>";
+                        echo "<td>" . $count . "</td>";
+                        echo "<td>" . $row["name"] . "</td>";
+                        echo "<td>" . $row["description"] . "</td>";
+                        echo "<td>" . $row["fee"] . "</td>";
+                        echo "<td class='text-center'> 
                             <button  class='btn btn-primary' onclick='editServices(" . $row['service_id'] . ")'> <i class='fa fa-edit'></i> </button> 
                             <a href='#' class='btn btn-danger ms-2 mt-1' onclick='deleteServices(" . $row['service_id'] . ")'> <i class='fa fa-trash'></i> </a> 
                           </td>";
-                            echo "</tr>";
-                        }
+                        echo "</tr>";
+                    }
 
-                        // Close the database connection
-                        mysqli_close($conn);
-                        ?>
-                    </tbody>
-                </table>
+                    // Close the database connection
+                    mysqli_close($conn);
+                    ?>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="serviceModal" tabindex="-1" role="dialog" aria-labelledby="serviceModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="serviceModalLabel">New Service</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            <div class="col-md-4">
-                <div class="card p-3 rounded">
-                    <div class="card-body shadow rounded p-3">
-                        <h1 class="card-title text-center text-primary fs-5">New Service</h1>
-                        <form>
-                            <!-- hidden input -->
-                            <input type="hidden" name="id" id="id">
-                            <div class="mb-3">
-                                <label for="name" class="form-label text-primary ">Service Name</label>
-                                <input type="text" class="form-control border border-1 border-primary" id="name" name="name" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="description" class="form-label text-primary">Description</label>
-                                <textarea class="form-control border border-1 border-primary" id="description" name="description" required></textarea>
-                            </div>
-                            <div class="mb-3">
-                                <label for="fee" class="form-label text-primary">Fee</label>
-                                <input type="number" class="form-control border border-1 border-primary" id="fee" name="fee" required>
-                            </div>
-                            <div class="text-center">
-                                <button type="Button" class="btn btn-outline-primary" id="submit" onclick="insertUpdate()">Submit</button>
-                            </div>
-                        </form>
+            <div class="modal-body">
+                <form>
+                    <!-- hidden input -->
+                    <input type="hidden" name="id" id="id">
+                    <div class="mb-3">
+                        <label for="name" class="form-label text-primary ">Service Name</label>
+                        <input type="text" class="form-control border border-1 border-primary" id="name" name="name" required>
                     </div>
-                </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label text-primary">Description</label>
+                        <textarea class="form-control border border-1 border-primary" id="description" name="description" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="fee" class="form-label text-primary">Fee</label>
+                        <input type="number" class="form-control border border-1 border-primary" id="fee" name="fee" required>
+                    </div>
+                    <div class="text-center">
+                        <button type="Button" class="btn btn-outline-primary" id="submit" onclick="insertUpdate()">Submit</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
-</body>
+</div>
+
 
 </html>
 <script>
@@ -105,6 +123,8 @@
                 $('#name').val(data.name);
                 $('#description').val(data.description);
                 $('#fee').val(data.fee);
+                // show modal
+                $('#serviceModal').modal('show');
             }
 
         });
@@ -141,7 +161,8 @@
             language: {
                 search: "_INPUT_",
                 searchPlaceholder: "Search records",
-            }});
+            }
+        });
         //$('#dataTable').DataTable();
 
 

@@ -3,14 +3,8 @@
 
 <head>
   <meta charset="utf-8" />
-
-
-
   <link href="./app/reports/assets/css/fresh-bootstrap-table.css" rel="stylesheet" />
   <!-- <link href="./app/reports/assets/css/demo.css" rel="stylesheet" /> -->
-
-
-
   <style>
     #reports {
       background: rgba(0, 0, 0, 0.3);
@@ -24,16 +18,14 @@
 </head>
 
 <body>
-
-
-  <div class="container-fluid">
+  <div class="container">
     <div class="row">
-      <div>
+      <div class="container-fluid">
         <div class="description text-center">
           <h2>Dental Record Reports</h2>
         </div>
 
-        <div class="fresh-table full-color-azure p-3 shadow">
+        <div class="fresh-table full-color-azure p-3 shadow ">
           <div class="toolbar col-md-3 mb-5">
             <select class="form-control  full-color-azure" id="reports">
               <option value="">Select Report</option>
