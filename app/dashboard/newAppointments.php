@@ -1,25 +1,30 @@
 <?php
-    // Connect to the database
-    include_once('../database/conn.php');
+    // Replace with your database credentials
+    $host = 'localhost';
+    $dbname = 'dental_clinic';
+    $username = 'root';
+    $password = '';
+
+    $conn = new mysqli($host, $username, $password, $dbname);
 
     $query = "SELECT 
     CONCAT(patients.first_name, ' ', patients.last_name) AS patient_name,
     DATE(appointments.start_date) AS appointment_date,
     TIME(appointments.start_date) AS appointment_time,
     appointments.status
-FROM 
-    appointments
-INNER JOIN 
-    patients ON appointments.patient_id = patients.patient_id
-WHERE 
-    appointments.status = 'pending';
-";
+    FROM 
+        appointments
+    INNER JOIN 
+        patients ON appointments.patient_id = patients.patient_id
+    WHERE 
+        appointments.status = 'pending';
+    ";
 
     $result = $conn->query($query);
 
     // Check if the query was successful
     if (!$result) {
-        die("Could not query the database: <br />" . $conn->error);
+        die("Could not query the database: <br /> . $conn->connect_error");
     }
 
     $rows = array(); // Array to store rows
