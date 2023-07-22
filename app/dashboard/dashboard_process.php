@@ -25,6 +25,22 @@
     $row = $result->fetch_assoc();
     $counts["income"] = $row["total"];
 
+    // get total expenses 
+    $query = "SELECT SUM(total_amount) AS total_expenses
+    FROM (
+        SELECT SUM(amount) AS total_amount
+        FROM expenses
+    
+        UNION ALL
+    
+        SELECT SUM(amount) AS total_amount
+        FROM salary
+    ) AS combined_expenses;
+    ";
+    $result = $conn->query($query);
+    $row = $result->fetch_assoc();
+    $counts["expenses"] = $row["total_expenses"];
+
     // Close the database connection
     
 

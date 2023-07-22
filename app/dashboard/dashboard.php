@@ -64,8 +64,29 @@
         </div>
     </div>
     <div class="row mt-5">
-        <div class="col-md-6">
-            <h3 class="text-success">TOP 5 Upcoming Appointments</h3>
+        <!-- new column for new appointme waiting to be approved -->
+        <div class="col-md-4">
+            <h3 class="text-primary">New Appointments</h3>
+            <div>
+                <table class="table table-primary table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Patient Name</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Time</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="newAppointments">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <div class="col-md-4">
+            <h3 class="text-success">Upcoming Appointments</h3>
             <div>
                 <table class="table table-success table-striped table-hover">
                     <thead>
@@ -82,8 +103,8 @@
             </div>
         </div>
        
-        <div class="col-md-6">
-            <h3 class="text-danger">TOP 5 Past/Cancelled Appointments</h3>
+        <div class="col-md-4">
+            <h3 class="text-danger">Cancelled Appointments</h3>
             <div>
                 <table class="table table-danger table-striped table-hover">
                     <thead>
@@ -124,6 +145,9 @@
 
                 //populate income number h5 tag with the income number
                 $('#income').text(data.income);
+
+                //populate expense number h5 tag with the expense number
+                $('#expense_number').text(data.expenses);
 
             },
             error: function(xhr, status, error) {
@@ -206,6 +230,56 @@
             const timeCell = document.createElement('td');
             timeCell.textContent = appointment.time;
             row.appendChild(timeCell);
+
+            appointmentsBody.appendChild(row);
+        });
+    }
+
+    // function to load new appointments
+    function loadNewAppointments() {
+        fetch('./app/dashboard/newAppointments.php')
+            .then(response => response.json())
+            .then(data => {
+                // Call a function to handle the received JSON data
+                handleNewAppointments(data);
+            })
+            .catch(error => {
+                console.log('An error occurred:', error);
+            });
+    }
+
+    function handleNewAppointments(data) {
+        const appointmentsBody = document.getElementById('newAppointments');
+
+        // Clear existing rows
+        appointmentsBody.innerHTML = '';
+
+        // Iterate over each appointment and create a new row
+        data.forEach(appointment => {
+            const row = document.createElement('tr');
+
+            const nameCell = document.createElement('td');
+            nameCell.textContent = appointment.name;
+            row.appendChild(nameCell);
+
+            const dateCell = document.createElement('td');
+            dateCell.textContent = appointment.date;
+            row.appendChild(dateCell);
+
+            const timeCell = document.createElement('td');
+            timeCell.textContent = appointment.time;
+            row.appendChild(timeCell);
+
+            const actionCell = document.createElement('td');
+            const actionButton = document.createElement('button');
+            actionButton.textContent = 'Approve';
+            actionButton.classList.add('btn', 'btn-sm', 'btn-primary');
+            actionButton.addEventListener('click', () => {
+                // Call a function to approve the appointment
+                approveAppointment(appointment.id);
+            });
+            actionCell.appendChild(actionButton);
+            row.appendChild(actionCell);
 
             appointmentsBody.appendChild(row);
         });
