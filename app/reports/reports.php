@@ -18,16 +18,16 @@
 </head>
 
 <body>
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">
-      <div class="container-fluid">
+      <div class="container">
         <div class="description text-center">
           <h2>Dental Record Reports</h2>
         </div>
 
-        <div class="fresh-table full-color-azure p-3 shadow ">
-          <div class="toolbar col-md-3 mb-5">
-            <select class="form-control  full-color-azure" id="reports">
+        <div class="fresh-table  p-3 shadow ">
+          <div class=" col-md-3 mb-5">
+            <select class="form-control  bg-white text-secondary" id="reports">
               <option value="">Select Report</option>
               <option value="patients">Patients Report</option>
               <option value="employees">Employees Report</option>

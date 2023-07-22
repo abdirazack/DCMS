@@ -1,6 +1,6 @@
-<table class="table table-hover text-white" id="dataTable">
-    <caption class="text-white fs-3">Employees Report</caption>
-    <thead class="thead-dark">
+<table class="table table-hover " id="dataTable">
+    <caption class=" fs-3">Employees Report</caption>
+    <thead class="thead-dark text-truncate">
         <th data-field="id">Employee ID</th>
         <th data-field="first name" data-sortable="true">First Name</th>
         <th data-field="last name" data-sortable="true">Last Name</th>
