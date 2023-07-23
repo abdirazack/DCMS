@@ -5,6 +5,9 @@ $dbname = 'dental_clinic';
 $username = 'root';
 $password = '';
 
+
+if($_SERVER['REQUEST_METHOD'] === 'GET'){
+  
 try {
   $conn = new mysqli($host, $username, $password, $dbname);
 
@@ -13,7 +16,7 @@ try {
   }
 
   // Fetch appointments data from the database
-  $sql = 'SELECT appointment_id, Type AS title, date AS date, time as time FROM appointments where status != "Cancelled" AND status != "Approved"';
+  $sql = 'SELECT appointment_id, Type AS title, date AS date, time as time FROM appointments ';
   $result = $conn->query($sql);
 
   $appointments = array();
@@ -28,4 +31,12 @@ try {
   $conn->close();
 } catch (Exception $e) {
   echo 'Error fetching appointments data: ' . $e->getMessage();
+}
+} else{
+  $response = [
+    "statusCode" => 405,
+    "message" => "Invalid parameters passed"
+  ];
+
+  echo json_encode($response);
 }

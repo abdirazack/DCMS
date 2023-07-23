@@ -1,3 +1,20 @@
+<?php
+$host = 'localhost';
+$dbname = 'dental_clinic';
+$username = 'root';
+$password = '';
+
+// Connect to the database
+$conn = new mysqli($host, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+
+?>
+
+
 <!DOCTYPE html>
 <html>
 
@@ -64,26 +81,14 @@
                                 <select class="form-select" id="appointmentPatient" name="appointmentPatient" required>
                                     <option value="">Select Patient</option>
                                     <?php
-                                    // Replace with your database credentials
-                                    $host = 'localhost';
-                                    $dbname = 'dental_clinic';
-                                    $username = 'root';
-                                    $password = '';
-
-                                    // Connect to the database
-                                    $conn = new mysqli($host, $username, $password, $dbname);
-
-                                    if ($conn->connect_error) {
-                                        die("Connection failed: " . $conn->connect_error);
-                                    }
 
                                     // Fetch patients from the database
-                                    $patientsSql = "SELECT patient_id, first_name, last_name FROM patients";
+                                    $patientsSql = "SELECT patient_id, CONCAT(first_name,' ',middle_name,' ',last_name ) as pt_name  FROM patients";
                                     $patientsResult = $conn->query($patientsSql);
 
                                     if ($patientsResult->num_rows > 0) {
                                         while ($patient = $patientsResult->fetch_assoc()) {
-                                            echo '<option value="' . $patient['patient_id'] . '">' . $patient['first_name'] . ' ' . $patient['last_name'] . '</option>';
+                                            echo '<option value="' . $patient['patient_id'] . '">' . $patient['pt_name'] . '</option>';
                                         }
                                     }
 
@@ -104,12 +109,12 @@
                                     }
 
                                     // Fetch dentists (employees with role_id = 2) from the database
-                                    $dentistsSql = "SELECT employee_id, first_name, last_name FROM employees WHERE role = 2";
+                                    $dentistsSql = "SELECT employee_id, CONCAT(first_name,' ',middle_name,' ',last_name ) as dt_name  FROM employees WHERE role = 2";
                                     $dentistsResult = $conn->query($dentistsSql);
 
                                     if ($dentistsResult->num_rows > 0) {
                                         while ($dentist = $dentistsResult->fetch_assoc()) {
-                                            echo '<option value="' . $dentist['employee_id'] . '">' . $dentist['first_name'] . ' ' . $dentist['last_name'] . '</option>';
+                                            echo '<option value="' . $dentist['employee_id'] . '">' . $dentist['dt_name'] . '</option>';
                                         }
                                     }
 
@@ -131,58 +136,6 @@
     </div>
     <br>
     <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <div class="container">
-        <?php
-        // Assuming you have established the database connection with $conn
-        $sql = "SELECT 
-        appointments.*, 
-        CONCAT(patients.first_name, ' ', patients.middle_name, ' ', patients.last_name) AS patient_name, 
-        CONCAT(employees.first_name, ' ', employees.middle_name, ' ', employees.last_name) AS dentist_name
-    FROM appointments 
-    INNER JOIN patients ON appointments.patient_id = patients.patient_id
-    INNER JOIN employees ON appointments.employee_id = employees.employee_id";
-
-        $stmt = mysqli_query($conn, $sql);
-        ?>
-        <table id="dataTable" class="table table-bordered">
-            <thead>
-                <tr>
-                    <td hidden>ID</td>
-                    <td>type</td>
-                    <td>status</td>
-                    <td>date</td>
-                    <td>time</td>
-                    <td>patient</td>
-                    <td>dentist</td>
-                    <td>action</td>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                foreach ($stmt as $row) {
-                    // Convert the date string to a DateTime object for formatting
-                    $dateObj = new DateTime($row['date']);
-                    $formattedDate = $dateObj->format("d-M-Y");
-                ?>
-                    <tr>
-                        <td hidden><?php echo $row['appointment_id']; ?></td>
-                        <td><?php echo $row['Type']; ?></td>
-                        <td><?php echo $row['status']; ?></td>
-                        <td><?php echo $formattedDate; ?></td>
-                        <td><?php echo $row['time']; ?></td>
-                        <td><?php echo $row['patient_name']; ?></td>
-                        <td><?php echo $row['dentist_name']; ?></td>
-                        <td><a href="">edit</a></td>
-                    </tr>
-                <?php } ?>
-            </tbody>
-        </table>
-    </div>
-
     <br>
     <br>
     <br>
@@ -281,30 +234,18 @@
                             <select class="form-select" id="editAppointmentPatient" name="editAppointmentPatient" required>
                                 <option value="">Select Patient</option>
                                 <?php
-                                // Replace with your database credentials
-                                $host = 'localhost';
-                                $dbname = 'dental_clinic';
-                                $username = 'root';
-                                $password = '';
-
-                                // Connect to the database
-                                $conn = new mysqli($host, $username, $password, $dbname);
-
-                                if ($conn->connect_error) {
-                                    die("Connection failed: " . $conn->connect_error);
-                                }
 
                                 // Fetch patients from the database
-                                $patientsSql = "SELECT patient_id, first_name, last_name FROM patients";
+                                $patientsSql = "SELECT patient_id, CONCAT(first_name,' ',middle_name,' ',last_name) as p_name  FROM patients";
                                 $patientsResult = $conn->query($patientsSql);
 
                                 if ($patientsResult->num_rows > 0) {
                                     while ($patient = $patientsResult->fetch_assoc()) {
-                                        echo '<option value="' . $patient['patient_id'] . '">' . $patient['first_name'] . ' ' . $patient['last_name'] . '</option>';
+                                        echo '<option value="' . $patient['patient_id'] . '">' . $patient['p_name'] . '</option>';
                                     }
                                 }
 
-                                $conn->close();
+
                                 ?>
                             </select>
                         </div>
@@ -313,31 +254,30 @@
                             <select class="form-select" id="editAppointmentDentist" name="editAppointmentDentist" required>
                                 <option value="">Select Dentist</option>
                                 <?php
-                                // Connect to the database (if not already connected)
-                                $conn = new mysqli($host, $username, $password, $dbname);
-
-                                if ($conn->connect_error) {
-                                    die("Connection failed: " . $conn->connect_error);
-                                }
 
                                 // Fetch dentists (employees with role_id = 2) from the database
-                                $dentistsSql = "SELECT employee_id, first_name, last_name FROM employees WHERE role = 2";
+                                $dentistsSql = "SELECT employee_id, CONCAT(first_name, ' ', middle_name, ' ', last_name) AS d_name
+                                FROM employees
+                                INNER JOIN roles ON roles.role_id = employees.role
+                                WHERE roles.role_name = 'Dentist';
+                                ";
                                 $dentistsResult = $conn->query($dentistsSql);
 
                                 if ($dentistsResult->num_rows > 0) {
                                     while ($dentist = $dentistsResult->fetch_assoc()) {
-                                        echo '<option value="' . $dentist['employee_id'] . '">' . $dentist['first_name'] . ' ' . $dentist['last_name'] . '</option>';
+                                        echo '<option value="' . $dentist['employee_id'] . '">' . $dentist['d_name'] . '</option>';
                                     }
                                 }
-
+                                $conn->close();
                                 ?>
                             </select>
+
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" data-bs-target="#appointmentModal" data-bs-toggle="modal">Back to details</button>
-                    <button type="submit" form="updateAppointmentButton" class="btn btn-primary">Update</button>
+                    <button class="btn btn-primary" data-bs-target="#appointmentModal" data-bs-toggle="modal">&#8592;Back to details</button>
+                    <button type="submit" form="updateAppointmentForm" class="btn btn-primary" name="updateAppointmentButton" id="updateAppointmentButton">Update</button>
                 </div>
             </div>
         </div>
@@ -416,27 +356,31 @@
 
                                 // Fetch the appointment data using the appointment ID
                                 $.ajax({
-                                    url: 'fetch_appointment_data.php', // Replace with the PHP script that fetches appointment data
+                                    url: 'edit_appt.php', // Replace with the PHP script that fetches appointment data
                                     type: 'POST',
                                     data: {
                                         appointment_id: appointmentId
                                     },
                                     dataType: 'json',
                                     success: function(response) {
+                                        console.log(response);
+                                        // Show the editModal
+                                        $('#appointmentModal').modal('hide');
+                                        $('#editModal').modal('show');
+
                                         // Update the form fields in the editModal with the fetched data
-                                        $('#editAppointmentId').val(response.appointment_id);
+                                        $('#editAppointmentId').text(response.appointment_id);
                                         $('#editAppointmentType').val(response.type);
                                         $('#editAppointmentStatus').val(response.status);
                                         $('#editAppointmentDate').val(response.date);
                                         $('#editAppointmentTime').val(response.time);
-                                        $('#editAppointmentPatient').val(response.patient_id);
-                                        $('#editAppointmentDentist').val(response.employee_id);
+                                        $('#editAppointmentPatient').val(response.p_id);
+                                        $('#editAppointmentDentist').val(parseInt(response.employee_id));
 
-                                        // Show the editModal
-                                        $('#appointmentModal').modal('hide');
-                                        $('#editModal').modal('show');
+
                                     },
                                     error: function(xhr, status, error) {
+                                        console.log(error);
                                         console.error('Error fetching appointment data:', error);
                                     }
                                 });
@@ -449,7 +393,7 @@
 
                                 // Perform the update operation using the appointment ID
                                 $.ajax({
-                                    url: 'update_appointment.php', // Replace with the PHP script that performs the appointment update
+                                    url: 'edit_appt.php', // Replace with the PHP script that performs the appointment update
                                     type: 'POST',
                                     data: formData,
                                     dataType: 'json',

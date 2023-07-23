@@ -69,9 +69,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Handle the case when the query fails
                 echo json_encode(['error' => 'Failed to update appointment status']);
             }
-        } else if (isset($_POST['editButton'])) {
+        } else if (isset($_POST['updateAppointmentButton'])) {
             // Perform the appointment update based on the edited data
             // Assuming you have form fields for edited appointment data with names like 'editAppointmentDate' and 'editAppointmentTime'
+            $newDate = $_POST['editAppointmentDate'];
+            $newDate = $_POST['editAppointmentDate'];
+            $newDate = $_POST['editAppointmentDate'];
             $newDate = $_POST['editAppointmentDate'];
             $newTime = $_POST['editAppointmentTime'];
             // You can get more edited appointment data as needed
