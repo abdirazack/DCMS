@@ -17,9 +17,9 @@ $result = mysqli_query($conn, $sql);
 <body>
     <div class="container-fluid ">
 
-        <div class=" mt-1 p-3 shadow-lg rounded">
+        <div class=" mt-1 p-3 shadow-lg rounded overflow-auto">
             <div class='small' id='small'></div>
-            <div class='d-flex justify-content-between mb-4'>
+            <div class='d-flex justify-content-between mb-4 '>
                 <h2 class="text-center text-primary">Salary</h2>
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-primary me-5" data-toggle="modal" data-target="#SalaryModal">
@@ -27,7 +27,7 @@ $result = mysqli_query($conn, $sql);
                     <i class="fa-solid fa-plus "></i>
                 </button>
             </div>
-            <table class="table table-hover" id="dataTable">
+            <table class="table table-hover text-truncate" id="dataTable">
                 <thead>
                     <tr>
                         <th scope="col">#NO</th>

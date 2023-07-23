@@ -28,7 +28,7 @@
 
     <div class="container-fluid ">
 
-        <div class=" mt-1 p-3 rounded" style="border: 0.1px solid grey;">
+        <div class=" mt-1 p-3 rounded overflow-auto" style="border: 0.1px solid grey;">
             <div class='small' id='small'></div>
             <div class='d-flex justify-content-between mb-4'>
                 <h2 class="text-center text-white bg-primary px-2">Patients List</h2>

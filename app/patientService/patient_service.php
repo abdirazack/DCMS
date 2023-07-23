@@ -12,7 +12,7 @@
 
 <body>
 
-    <div class="container p-3 rounded shadow">
+    <div class="container p-3 rounded shadow overflow-auto">
         <form id="formPS" class="m-2">
             <div>
                 <h3 class="text-center">Patient Service</h3>
@@ -85,16 +85,25 @@
                     $query = 'SELECT * FROM `patient_service_view`';
                     $result = mysqli_query($conn, $query);
                     while ($row = mysqli_fetch_array($result)) {
-
-                        echo '<tr>';
-                        echo '<td>' . $row['first_name'] . ' ' . $row['last_name'] . '</td>';
-                        echo '<td>' . $row['Services'] . '</td>';
-                        echo '<td>' . $row['Quantity'] . '</td>';
-                        echo '<td>' . $row['Total'] . '</td>';
-                        echo '<td class="text-center"><button class="btn btn-primary me-2" onclick="ViewpatientService(' . $row["patient_id"] . ')" name="view" id="edit"><i class="fas fa-eye"></i></button>';
-                        echo '<button class="btn btn-primary me-2" onclick="EditpatientService(' . $row["patientService_id"] . ')" name="edit" id="edit"><i class="fas fa-edit"></i></button>';
-                        echo '<button class="btn btn-danger me-1" onclick="DeletepatientService(' . $row["patientService_id"] . ')" name="delete" id="delete"><i class="fas fa-trash"></i></button></td>';
-                        echo '</tr>';
+?>
+                        <tr>
+                        <td> <?php echo $row['first_name'] . ' ' . $row['last_name']?> </td>
+                        <td> <?php echo $row['Services'] ?></td>
+                        <td> <?php echo $row['Quantity'] ?></td>
+                        <td> <?php echo $row['Total'] ?></td>
+                        <td class="text-center">
+                            <button class="btn btn-primary" onclick="ViewpatientService(<?php echo $row['patient_id']; ?>)" name='view' id='view'>
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn btn-primary " onclick="EditpatientService(<?php echo $row['patientService_id']; ?>)" name="edit" id="edit">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-danger" onclick="DeletepatientService(<?php echo $row['patientService_id']; ?>)" name="delete" id="delete">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                        </tr>
+                        <?php
                     }
                     ?>
                 </tbody>
@@ -232,3 +241,5 @@
 <div id='modalDisplay'>
 
 </div>
+
+<!-- Q: Do you see any unclosed brackets? -->

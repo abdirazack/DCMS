@@ -21,9 +21,7 @@
             border-radius: 12px;
         }
 
-        .myelement{
-            overflow: visible;
-        }
+
     </style>
 </head>
 
@@ -31,7 +29,7 @@
 
     <div class="container-fluid ">
 
-        <div class=" mt-1 p-3 shadow-lg rounded myelement">
+        <div class=" mt-1 p-3 shadow-lg rounded overflow-auto">
             <div class='small' id='small'></div>
             <div class='d-flex justify-content-between mb-4'>
                 <h2 class="text-center text-primary">Employees List</h2>
@@ -313,6 +311,7 @@
             ],
             "iDisplayLength": 5,
             "bDestroy": true,
+
         });
 
         $('#formInsertUpdate').submit(function(e) {

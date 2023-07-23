@@ -41,7 +41,7 @@
 
 <body>
     <div class="container py-1 mx-auto" id="page-container">
-        <div class="row">
+        <div class="row overflow-auto shadow p-3 rounded">
             <div class="col-md-8">
                 <div id="calendar"></div>
             </div>
@@ -137,7 +137,9 @@
             <div class="modal-content rounded">
                 <div class="modal-header rounded">
                     <h5 class="modal-title">appointments Details</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body rounded">
                     <div class="container-fluid">
@@ -157,7 +159,6 @@
                     <div class="text-end">
                         <button type="button" class="btn btn-primary btn-sm rounded" id="edit" data-id="">Edit</button>
                         <button type="button" class="btn btn-danger btn-sm rounded" id="delete" data-id="">Delete</button>
-                        <button type="button" class="btn btn-secondary btn-sm rounded" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
