@@ -276,7 +276,8 @@ CREATE TABLE `logincredentials` (
   `Username` varchar(255) DEFAULT NULL,
   `Password` varchar(255) DEFAULT NULL,
   `isAdmin` tinyint(1) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  FOREIGN KEY (`employee_id`) REFERENCES `employees`(`employee_id`)
+)
 
 --
 -- Dumping data for table `logincredentials`

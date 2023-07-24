@@ -1,288 +1,494 @@
 <?php
-    //connect to database
-    include_once('./app/database/conn.php');
-    // include_once('../../includes/header.php')
+$host = 'localhost';
+$dbname = 'dental_clinic';
+$username = 'root';
+$password = '';
+
+// Connect to the database
+$conn = new mysqli($host, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+
 ?>
+
+
+<!DOCTYPE html>
+<html>
+
 <head>
+    <meta charset="UTF-8">
     <style>
-        :root {
-            --bs-success-rgb: 71, 222, 152 !important;
-        }
+        @import url('https://fonts.cdnfonts.com/css/nunito');
+        @import url('https://fonts.cdnfonts.com/css/poppins');
 
-        html,
-        body {
-            height: 100%;
-            width: 100%;
-        }
-
-        .btn-info.text-light:hover,
-        .btn-info.text-light:focus {
-            background: #000;
-        }
-
-        table,
-        tbody,
-        td,
-        tfoot,
-        th,
-        thead,
-        tr {
-            border-color: #ededed !important;
-            border-style: solid;
-            border-width: 1px !important;
-        }
-        #gg{
-            color: green;
-            background-color: chocolate;
-
+        .container {
+            font-family: poppins;
+            font-size: small;
         }
     </style>
+    <title>Dental Clinic Management System - Appointments</title>
+    <!-- Include necessary CDNs -->
+    <!-- Example CDNs, make sure to update them with the correct versions if needed -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.css"> -->
+    
 </head>
 
 <body>
-    <div class="container py-1 mx-auto" id="page-container">
+    <div class="container">
         <div class="row">
-            <div class="col-md-8">
-                <div id="calendar"></div>
+            <!-- Column for FullCalendar -->
+            <div class="col-md-6" style="border: 1px solid grey;">
+                <h2>Appointments Calendar</h2>
+                <div id="appointmentsCalendar"></div>
             </div>
-            <div class="col-md-4">
-                <div class="cardt rounded shadow">
-                    <div class="card-header bg-gradient bg-primary text-light">
-                        <h5 class="card-title p-2">appointments Form</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="container-fluid">
-                            <form action="./app/appointments/save.php" method="post" id="schedule-form">
-                                <input type="hidden" name="id" value="">
-
-                                <div class="form-group mb-2">
-                                    <label for="title" class="control-label">Status</label> <br>
-                                    <!-- select appointment status  -->
-                                    <select class="form-control select2"  name="status" id="status" REQUIRED>
-                                        <option value="">Select Status</option>
-                                        <option value="Arrived">Arrived</option>
-                                        <option value="In Room">In Room</option>
-                                        <option value="Finished">Finished</option>
-                                        <option value="Pending">Pending</option>
-                                        <option value="No Show">No Show</option>
-                                        <option value="LWBS">Left Without Being Seen</option>
-                                        <option value="Cancelled">Cancelled</option>
-                                    </select>
-                                </div>
-                                <div class="form-group mt-2 mb-3">
-                                    <label for="patients" class="control-label">Patients</label><br>
-                                    <select class="form-control select2 " id="patients" name="patients" REQUIRED>
-                                        <option   value="">Select Patients</option>
-                                        <?php
-                                        $query = "SELECT * FROM `patients`";
-                                        $result = mysqli_query($conn, $query);
-                                        while ($row = mysqli_fetch_array($result)) {
-                                            echo "<option value='" . $row['patient_id'] . "'>" . $row['first_name'] . "</option>";
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                                <div class="form-group mt-2 mb-3">
-                                    <label for="dentist" class="control-label">Dentist:</label><br>
-                                    <select class="form-control select2 " id="dentist" name="dentist" REQUIRED>
-                                        <option  value="">Select Dentist</option>
-                                        <?php
-                                        $query = "SELECT * FROM `addresses_employees_view` WHERE role_name = 'Dentist';                                        ";
-                                        $result = mysqli_query($conn, $query);
-                                        while ($row = mysqli_fetch_array($result)) {
-                                            echo "<option value='" . $row['employee_id'] . "'>" . $row['first_name'] . ' '. $row['last_name'] . "</option>";
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-
-                                <div class="form-group mb-2">
-                                    <label for="service" class="control-label">Service </label><br>
-                                    <select class="form-control select2" id="service" name="service" REQUIRED>
-                                        <option value="">Select service </option>
-                                        <?php
-                                        $query = "SELECT * FROM `services`";
-                                        $result = mysqli_query($conn, $query);
-                                        while ($row = mysqli_fetch_array($result)) {
-                                            echo "<option value='" . $row['service_id'] . "'>" . $row['name'] . "</option>";
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                                <div class="form-group mb-2">
-                                    <label for="start_datetime" class="control-label">Start</label>
-                                    <input type="datetime-local" class="form-control form-control-sm rounded-0" name="start_datetime" id="start_datetime" required>
-                                </div>
-                                <div class="form-group mb-2">
-                                    <label for="end_datetime" class="control-label">End</label>
-                                    <input type="datetime-local" class="form-control form-control-sm rounded-0" name="end_datetime" id="end_datetime" required>
-                                </div>
-                            </form>
+            <!-- Column for Appointment Form -->
+            <div class="col-md-6 p-2" style="border: 1px solid grey;">
+                <form id="appointmentForm" method="POST">
+                    <div class="card" style="width: 25rem;">
+                        <div class="card-header">
+                            <h2>New Appointment</h2>
                         </div>
-                    </div>
-                    <div class="card-footer p-2">
-                        <div class="text-center">
-                            <button class="btn btn-primary btn-sm rounded" type="submit" form="schedule-form"><i class="fa fa-save"></i> Save</button>
-                            <button class="btn btn-default border btn-sm rounded" type="reset" form="schedule-form"><i class="fa fa-reset"></i> Cancel</button>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <select class="form-select" name="appointmentType" id="appointmentType" required>
+                                    <option value="">Select type of appointment</option>
+                                    <option value="Online">Online</option>
+                                    <option value="Walk-in">Walk-in</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <select class="form-select" name="appointmentStatus" id="appointmentStatus" required>
+                                    <option value="">Select Status</option>
+                                    <option value="Pending">Pending</option>
+                                    <option value="Approved">Approved</option>
+                                    <option value="Completed">Completed</option>
+                                    <option value="Cancelled">Cancelled</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="appointmentDate" class="form-label">Date</label>
+                                <input type="date" class="form-control" id="appointmentDate" name="appointmentDate" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="appointmentTime" class="form-label">Time</label>
+                                <input type="time" class="form-control" id="appointmentTime" name="appointmentTime" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="appointmentPatient" class="form-label">Patient</label>
+                                <select class="form-select" id="appointmentPatient" name="appointmentPatient" required>
+                                    <option value="">Select Patient</option>
+                                    <?php
+
+                                    // Fetch patients from the database
+                                    $patientsSql = "SELECT patient_id, CONCAT(first_name,' ',middle_name,' ',last_name ) as pt_name  FROM patients";
+                                    $patientsResult = $conn->query($patientsSql);
+
+                                    if ($patientsResult->num_rows > 0) {
+                                        while ($patient = $patientsResult->fetch_assoc()) {
+                                            echo '<option value="' . $patient['patient_id'] . '">' . $patient['pt_name'] . '</option>';
+                                        }
+                                    }
+
+                                    $conn->close();
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="appointmentDentist" class="form-label">Dentist</label>
+                                <select class="form-select" id="appointmentDentist" name="appointmentDentist" required>
+                                    <option value="">Select Dentist</option>
+                                    <?php
+                                    // Connect to the database (if not already connected)
+                                    $conn = new mysqli($host, $username, $password, $dbname);
+
+                                    if ($conn->connect_error) {
+                                        die("Connection failed: " . $conn->connect_error);
+                                    }
+
+                                    // Fetch dentists (employees with role_id = 2) from the database
+                                    $dentistsSql = "SELECT employee_id, CONCAT(first_name,' ',middle_name,' ',last_name ) as dt_name  FROM employees WHERE role = 2";
+                                    $dentistsResult = $conn->query($dentistsSql);
+
+                                    if ($dentistsResult->num_rows > 0) {
+                                        while ($dentist = $dentistsResult->fetch_assoc()) {
+                                            echo '<option value="' . $dentist['employee_id'] . '">' . $dentist['dt_name'] . '</option>';
+                                        }
+                                    }
+
+
+                                    ?>
+                                </select>
+                            </div>
                         </div>
+                        <div class="card-footer"><button type="submit" class="btn btn-outline-primary w-100">Create Appointment</button></div>
                     </div>
-                </div>
+
+
+
+                </form>
             </div>
+
+            <!-- =============================== -->
         </div>
     </div>
-
-    <!-- Event Details Modal -->
-    <div class="modal fade" tabindex="-1" data-bs-backdrop="static" id="event-details-modal">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content rounded">
-                <div class="modal-header rounded">
-                    <h5 class="modal-title">appointments Details</h5>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <!-- Bootstrap modal for displaying appointment details -->
+    <div class="modal fade" id="appointmentModal" tabindex="-1" aria-labelledby="appointmentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content rounded-0">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="modalTitle">Appointment Details</h6>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body rounded">
-                    <div class="container-fluid">
-                        <dl>
-                            <dt class="text-muted">Patient</dt>
-                            <dd id="patient" class=""></dd>
-                            <dt class="text-muted">Dentist</dt>
-                            <dd id="e_dentist" class=""></dd>
-                            <dt class="text-muted">Start</dt>
-                            <dd id="start" class=""></dd>
-                            <dt class="text-muted">End</dt>
-                            <dd id="end" class=""></dd>
-                        </dl>
+                <div class="modal-body">
+                    <div class="row mb-3">
+                        <div class="col-md-4" hidden><strong>Appointment ID:</strong></div>
+                        <div class="col-md-8" hidden id="modalAppointmentId"></div>
                     </div>
+                    <div class="row mb-3">
+                        <div class="col-md-4"><strong>Patient Name:</strong></div>
+                        <div class="col-md-8" id="modalPatientName"></div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-4"><strong>Dentist Name:</strong></div>
+                        <div class="col-md-8" id="modalDentistName"></div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-4"><strong>Date:</strong></div>
+                        <div class="col-md-8" id="modalDate"></div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-4"><strong>Time:</strong></div>
+                        <div class="col-md-8" id="modalTime"></div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-4"><strong>Services:</strong></div>
+                        <div class="col-md-8" id="modalServices"></div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-4"><strong>Type:</strong></div>
+                        <div class="col-md-8" id="modalType"></div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-4"><strong>Status:</strong></div>
+                        <div class="col-md-8" id="modalStatus"></div>
+                    </div>
+                    <!-- Add more appointment details here as needed -->
                 </div>
-                <div class="modal-footer rounded">
-                    <div class="text-end">
-                        <button type="button" class="btn btn-primary btn-sm rounded" id="edit" data-id="">Edit</button>
-                        <button type="button" class="btn btn-danger btn-sm rounded" id="delete" data-id="">Delete</button>
-                        <button type="button" class="btn btn-secondary btn-sm rounded" data-bs-dismiss="modal">Close</button>
-                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary " id="editButton">Edit Appointment</button>
+                    <button type="button" class="btn btn-outline-danger  " id="cancelButton">Cancel Appointment</button>
+                    <button type="button" class="btn btn-secondary       " data-bs-dismiss="modal" id="closeModalButton">Close</button>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Event Details Modal -->
 
 
-    <?php
-    // Get all appointments
-    $schedules = $conn->query("SELECT * FROM `appointmentdetails`");
-    if (!$schedules) {
-        // echo "Error: " . $conn->error;
-        echo "no appointment found";
-    } else {
-        foreach ($schedules->fetch_all(MYSQLI_ASSOC) as $row) {
-            // Format the start and end dates
-            $row['sdate'] = date("F d, Y h:i A", strtotime($row['start_date']));
-            $row['edate'] = date("F d, Y h:i A", strtotime($row['end_date']));
+    <!-- Bootstrap modal for editing appointment details -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="editModalLabel">Edit Appointment</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="updateAppointmentForm" method="POST">
+                        <!-- Add your form fields and content for editing appointment details here -->
+                        <input type="hidden" id="editAppointmentId" name="editAppointmentId">
+                        <div class="mb-3">
+                            <select class="form-select" name="editAppointmentType" id="editAppointmentType" required>
+                                <option value="">Select type of appointment</option>
+                                <option value="Online">Online</option>
+                                <option value="Walk-in">Walk-in</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <select class="form-select" name="editAppointmentStatus" id="editAppointmentStatus" required>
+                                <option value="">Select Status</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Approved">Approved</option>
+                                <option value="Completed">Completed</option>
+                                <option value="Cancelled">Cancelled</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editAppointmentDate" class="form-label">Date</label>
+                            <input type="date" class="form-control" id="editAppointmentDate" name="editAppointmentDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editAppointmentTime" class="form-label">Time</label>
+                            <input type="time" class="form-control" id="editAppointmentTime" name="editAppointmentTime" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editAppointmentPatient" class="form-label">Patient</label>
+                            <select class="form-select" id="editAppointmentPatient" name="editAppointmentPatient" required>
+                                <option value="">Select Patient</option>
+                                <?php
 
-            // Add the appointment to the array
-            $sched_res[$row['appointment_id']] = $row;
-        }
-    }
-    ?>
-    <?php
-    ?>
+                                // Fetch patients from the database
+                                $patientsSql = "SELECT patient_id, CONCAT(first_name,' ',middle_name,' ',last_name) as p_name  FROM patients";
+                                $patientsResult = $conn->query($patientsSql);
 
-<script>
-    var scheds = $.parseJSON('<?= json_encode($sched_res) ?>');
-    if (scheds == null) {
-        alert('no appointment found');
-    }
-    //document ready
-    $(document).ready(function() {
-        $('.select2').select2();
-        console.log('JSON.stringify(scheds)'); 
+                                if ($patientsResult->num_rows > 0) {
+                                    while ($patient = $patientsResult->fetch_assoc()) {
+                                        echo '<option value="' . $patient['patient_id'] . '">' . $patient['p_name'] . '</option>';
+                                    }
+                                }
 
-        $('#schedule-form').submit(function(e) {
-            e.preventDefault();
+
+                                ?>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editAppointmentDentist" class="form-label">Dentist</label>
+                            <select class="form-select" id="editAppointmentDentist" name="editAppointmentDentist" required>
+                                <option value="">Select Dentist</option>
+                                <?php
+
+                                // Fetch dentists (employees with role_id = 2) from the database
+                                $dentistsSql = "SELECT employee_id, CONCAT(first_name, ' ', middle_name, ' ', last_name) AS d_name
+FROM employees
+INNER JOIN roles ON roles.role_id = employees.role
+WHERE roles.role_name = 'Dentist';
+";
+                                $dentistsResult = $conn->query($dentistsSql);
+
+                                if ($dentistsResult->num_rows > 0) {
+                                    while ($dentist = $dentistsResult->fetch_assoc()) {
+                                        echo '<option value="' . $dentist['employee_id'] . '">' . $dentist['d_name'] . '</option>';
+                                    }
+                                }
+                                $conn->close();
+                                ?>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-bs-target="#appointmentModal" data-bs-toggle="modal">&#8592;Back to details</button>
+                    <button type="submit" form="updateAppointmentForm" class="btn btn-primary" name="updateAppointmentButton" id="updateAppointmentButton">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- Include necessary scripts -->
+    <!-- Example scripts, make sure to update them with the correct versions if needed -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // Fetch appointments data from the database using PHP and populate the FullCalendar
+            // Assuming you have a PHP script to fetch appointments data in JSON format
             $.ajax({
-                url: $(this).attr('action'),
-                method: 'POST',
-                data: $(this).serialize(),
-                success: function(resp) {
-                    // alert(resp);
-                    var obj = jQuery.parseJSON(resp);
-                    if (obj.status == 200) {
-                        //reload calendar
-                        calendar.refetchEvents();
-                        //reload page
-                        location.reload();
-                    }
-                    if (obj.status == 404) {
-                        alert(obj.message);
-                    }
-                }
-            });
-        });
-
-        $("#edit").click(function() {
-            var id = $(this).attr('data-id');
-            var sched = scheds[id];
-            // alert(JSON.stringify(sched));
-            $('#schedule-form input[name="id"]').val(sched.appointment_id);
-            $('#schedule-form select[name="status"]').val(sched.status).trigger('change');
-            $('#schedule-form select[name="patients"]').val(sched.patient_id).trigger('change');
-            $('#schedule-form select[name="dentist"]').val(sched.employee_id).trigger('change');
-            $('#schedule-form select[name="service"]').val(sched.service_id).trigger('change');
-            $('#schedule-form input[name="start_datetime"]').val(sched.start_date);
-            $('#schedule-form input[name="end_datetime"]').val(sched.end_date);
-            $('#schedule-form').attr('action', './app/appointments/save.php');
-            $('#event-details-modal').modal('hide');
-        });
-
-        $("#delete").click(function() {
-            var id = $(this).attr('data-id')
-            if (!!scheds[id]) {
-                var _conf = confirm("Are you sure to delete this scheduled event?");
-                if (_conf === true) {
-                    //location.href = "appointments/delete.php?id=" + scheds[id].appointment_id;
-
-                    $.ajax({
-                        url: "./app/appointments/delete.php",
-                        type: "post",
-                        data: {
-                            id: scheds[id].appointment_id
+                url: './app/appointments/fetch_appt.php', // Replace with the actual path to the PHP file
+                type: 'GET',
+                dataType: 'json',
+                success: function(appointments) {
+                    // Initialize FullCalendar
+                    $('#appointmentsCalendar').fullCalendar({
+                        // FullCalendar options and configurations
+                        // For example:
+                        header: {
+                            left: 'prev,next today',
+                            center: 'title',
+                            right: 'month,agendaWeek,agendaDay,listMonth'
                         },
-                        success: function(data) {
-                            var obj = jQuery.parseJSON(data);
-                            if (obj.status == 200) {
-                                //close modal 
-                                $('#event-details-modal').modal('hide');
-                                //reload calendar
-                                calendar.refetchEvents();
-                                //reload page
-                                location.reload();
-                            }
-                            if (obj.status == 404) {
-                                // $("#state").text(obj.message);
-                                alert(obj.message);
-                            }
+                        events: appointments, // Pass the fetched appointments data here
+                        eventClick: function(calEvent, jsEvent, view) {
+                            // Show a Bootstrap modal with the appointment details when an event is clicked
+                            $('#appointmentModal').modal('show');
+
+                            // Update the modal content with the appointment details
+                            $('#modalTitle').text("Appointment Details " + moment(calEvent.date).format('DD-MMM-YYYY') + ' - ' + moment(calEvent.time, 'HH:mm:ss').format('hh:mm A'));
+
+                            // Submit the appointment_id using jQuery AJAX
+                            $.ajax({
+                                url: './app/appointments/appt_proc.php',
+                                type: 'POST',
+                                data: {
+                                    appointment_id: calEvent.appointment_id
+                                },
+                                dataType: 'json', // Explicitly set the data type to JSON
+                                success: function(response) {
+                                    // console.log(response);
+                                    // Update the modal content with the fetched appointment data
+                                    $('#modalAppointmentId').text(response.appointment_id);
+                                    $('#modalPatientName').text(response.p_name);
+                                    $('#modalDentistName').text(response.e_name);
+                                    $('#modalDate').text(moment(response.date).format('DD-MMM-YYYY'));
+                                    $('#modalTime').text(moment(response.time, 'HH:mm:ss').format('hh:mm A'));
+                                    $('#modalServices').text(response.services);
+                                    $('#modalType').text(response.type);
+                                    $('#modalStatus').text(response.status);
+                                    // You can add more appointment details as needed
+                                },
+                                error: function(xhr, status, error) {
+                                    console.error('Error fetching appointment data:', error);
+                                }
+                            });
+                            // You can add more appointment details as needed
+
+                            // Add event listeners for the edit, cancel, and close buttons in the modal
+                            // Replace these with your own logic to handle the buttons' functionality
+                            $('#editButton').on('click', function() {
+                                // Logic for editing the appointment
+                                console.log('Edit button clicked');
+
+                                // Fetch the appointment ID from the modal
+                                var appointmentId = $('#modalAppointmentId').text();
+
+                                // Fetch the appointment data using the appointment ID
+                                $.ajax({
+                                    url: './app/appointments/edit_appt.php', // Replace with the PHP script that fetches appointment data
+                                    type: 'POST',
+                                    data: {
+                                        appointment_id: appointmentId
+                                    },
+                                    dataType: 'json',
+                                    success: function(response) {
+                                        console.log(response);
+                                        // Show the editModal
+
+
+                                        // Update the form fields in the editModal with the fetched data
+                                        $('#editAppointmentId').text(response.appointment_id);
+                                        $('#editAppointmentType').val(response.type);
+                                        $('#editAppointmentStatus').val(response.status);
+                                        $('#editAppointmentDate').val(response.date);
+                                        $('#editAppointmentTime').val(response.time);
+                                        $('#editAppointmentPatient').val(response.p_id);
+                                        $('#editAppointmentDentist').val(parseInt(response.employee_id));
+
+                                        $('#appointmentModal').modal('hide');
+                                        $('#editModal').modal('show');
+
+                                    },
+                                    error: function(xhr, status, error) {
+                                        console.error('Error fetching appointment data:', error);
+                                    }
+                                });
+                            });
+
+                            // Handle the update operation when the "Update" button is clicked in the editModal
+                            $('#updateAppointmentButton').on('click', function() {
+                                console.log("updateAppointmentButton clicked");
+                                // Get the form data from the editModal
+                                var formData = $('#updateAppointmentForm').serialize();
+
+                                // Perform the update operation using the appointment ID
+                                $.ajax({
+                                    url: './app/appointments/upd_appt.php', // Replace with the PHP script that performs the appointment update
+                                    type: 'POST',
+                                    data: formData,
+                                    dataType: 'json',
+                                    success: function(response) {
+                                        // Handle the success response
+                                        console.log('Update successful:', response);
+                                        // Refresh or update the appointment list if needed
+                                        // ...
+                                        // Close the editModal
+                                        $('#editModal').modal('hide');
+                                    },
+                                    error: function(xhr, status, error) {
+                                        console.log('Update failed: whaaaaat!');
+                                        // console.error('Error updating appointment:', error);
+                                    }
+                                });
+                            });
+
+                            $('#cancelButton').on('click', function() {
+                                // Logic for canceling the appointment
+                                var appointmentId = $('#modalAppointmentId').text();
+
+                                // Show a confirmation dialog to the user
+                                var confirmation = confirm('Are you sure you want to cancel this appointment?');
+
+                                // If the user confirms, proceed with canceling the appointment
+                                if (confirmation) {
+                                    $.ajax({
+                                        url: './app/appointments/appt_proc.php', // Replace with the actual path to the PHP file
+                                        type: 'POST',
+                                        data: {
+                                            cancelButton: true,
+                                            appointment_id: appointmentId
+                                        },
+                                        dataType: 'json',
+                                        success: function(response) {
+                                            // Check if the status was updated successfully
+                                            if (response.status === 'Appointment successfully cancelled') {
+                                                // Show a success message to the user
+                                                alert('Appointment successfully cancelled.');
+
+                                                // Update the appointment status in the modal
+                                                $('#modalStatus').text('Cancelled');
+                                            } else {
+                                                // Show an error message if there was an issue updating the status
+                                                console.log('Failed to cancel the appointment. Please try again.: ' + response);
+                                            }
+                                        },
+                                        error: function(xhr, status, error) {
+                                            console.error('Error updating appointment status:', error);
+                                        }
+                                    });
+                                }
+                            });
+
+
+                            $('#closeModalButton').on('click', function() {
+                                // Close the modal when the close button is clicked
+                                $('#appointmentModal').modal('hide');
+                            });
                         }
                     });
-
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching appointments data:', error);
                 }
-            } else {
-                alert("Event is undefined");
-            }
-        });
+            });
 
-        // on reset
-        $('#schedule-form').on('reset', function() {
-            $('#schedule-form').attr('action', './app/appointments/save.php');
-            $('#schedule-form input[name="id"]').val('');
-            $('#schedule-form select[name="status"]').val('').trigger('change');
-            $('#schedule-form select[name="patients"]').val('').trigger('change');
-            $('#schedule-form select[name="dentist"]').val('').trigger('change');
-            $('#schedule-form select[name="service"]').val('').trigger('change');
-            $('#schedule-form input[name="start_datetime"]').val('');
-            $('#schedule-form input[name="end_datetime"]').val('');
+            // Add form submission handling for creating new appointments
+            $('#appointmentForm').submit(function(e) {
+                e.preventDefault();
+                // Get form data and submit it to a PHP script for processing
+                var formData = $("#appointmentForm").serialize();
+                $.ajax({
+                    url: './app/appointments/appt_save.php', // Replace with the actual path to the PHP file
+                    type: 'POST',
+                    data: formData,
+                    success: function(response) {
+                        // Handle the response, such as showing a success message or updating the calendar
+                        console.log('Appointment created successfully:', response);
+                        // You can refresh the FullCalendar here or add the new appointment directly
+                        // to the FullCalendar events.
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error creating appointment:', error);
+                    }
+                });
+            });
         });
+    </script>
 
-    });
-    //onsubmit schedule-form 
-</script>
-<script src="./app/appointments/app.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.8/index.min.js" integrity="sha512-xCMh+IX6X2jqIgak2DBvsP6DNPne/t52lMbAUJSjr3+trFn14zlaryZlBcXbHKw8SbrpS0n3zlqSVmZPITRDSQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
+
+</html>

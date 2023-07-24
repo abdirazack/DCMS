@@ -144,7 +144,7 @@ if ($conn->connect_error) {
         <div class="modal-dialog">
             <div class="modal-content rounded-0">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle">Appointment Details</h5>
+                    <h6 class="modal-title" id="modalTitle">Appointment Details</h6>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -190,7 +190,6 @@ if ($conn->connect_error) {
             </div>
         </div>
     </div>
-
 
 
     <!-- Bootstrap modal for editing appointment details -->
@@ -257,10 +256,10 @@ if ($conn->connect_error) {
 
                                 // Fetch dentists (employees with role_id = 2) from the database
                                 $dentistsSql = "SELECT employee_id, CONCAT(first_name, ' ', middle_name, ' ', last_name) AS d_name
-                                FROM employees
-                                INNER JOIN roles ON roles.role_id = employees.role
-                                WHERE roles.role_name = 'Dentist';
-                                ";
+FROM employees
+INNER JOIN roles ON roles.role_id = employees.role
+WHERE roles.role_name = 'Dentist';
+";
                                 $dentistsResult = $conn->query($dentistsSql);
 
                                 if ($dentistsResult->num_rows > 0) {
@@ -271,7 +270,6 @@ if ($conn->connect_error) {
                                 $conn->close();
                                 ?>
                             </select>
-
                         </div>
                     </form>
                 </div>
@@ -282,6 +280,8 @@ if ($conn->connect_error) {
             </div>
         </div>
     </div>
+
+
 
 
     <!-- Include necessary scripts -->
@@ -316,7 +316,7 @@ if ($conn->connect_error) {
                             $('#appointmentModal').modal('show');
 
                             // Update the modal content with the appointment details
-                            $('#modalTitle').text(moment(calEvent.date).format('DD-MMM-YYYY') + ' - ' + moment(calEvent.time, 'HH:mm:ss').format('hh:mm A'));
+                            $('#modalTitle').text("Appointment Details " + moment(calEvent.date).format('DD-MMM-YYYY') + ' - ' + moment(calEvent.time, 'HH:mm:ss').format('hh:mm A'));
 
                             // Submit the appointment_id using jQuery AJAX
                             $.ajax({
@@ -330,8 +330,8 @@ if ($conn->connect_error) {
                                     // console.log(response);
                                     // Update the modal content with the fetched appointment data
                                     $('#modalAppointmentId').text(response.appointment_id);
-                                    $('#modalPatientName').text(response.patient_full_name);
-                                    $('#modalDentistName').text(response.dentist_full_name);
+                                    $('#modalPatientName').text(response.p_name);
+                                    $('#modalDentistName').text(response.e_name);
                                     $('#modalDate').text(moment(response.date).format('DD-MMM-YYYY'));
                                     $('#modalTime').text(moment(response.time, 'HH:mm:ss').format('hh:mm A'));
                                     $('#modalServices').text(response.services);
@@ -365,8 +365,7 @@ if ($conn->connect_error) {
                                     success: function(response) {
                                         console.log(response);
                                         // Show the editModal
-                                        $('#appointmentModal').modal('hide');
-                                        $('#editModal').modal('show');
+
 
                                         // Update the form fields in the editModal with the fetched data
                                         $('#editAppointmentId').text(response.appointment_id);
@@ -377,10 +376,11 @@ if ($conn->connect_error) {
                                         $('#editAppointmentPatient').val(response.p_id);
                                         $('#editAppointmentDentist').val(parseInt(response.employee_id));
 
+                                        $('#appointmentModal').modal('hide');
+                                        $('#editModal').modal('show');
 
                                     },
                                     error: function(xhr, status, error) {
-                                        console.log(error);
                                         console.error('Error fetching appointment data:', error);
                                     }
                                 });
@@ -388,12 +388,13 @@ if ($conn->connect_error) {
 
                             // Handle the update operation when the "Update" button is clicked in the editModal
                             $('#updateAppointmentButton').on('click', function() {
+                                console.log("updateAppointmentButton clicked");
                                 // Get the form data from the editModal
                                 var formData = $('#updateAppointmentForm').serialize();
 
                                 // Perform the update operation using the appointment ID
                                 $.ajax({
-                                    url: 'edit_appt.php', // Replace with the PHP script that performs the appointment update
+                                    url: 'upd_appt.php', // Replace with the PHP script that performs the appointment update
                                     type: 'POST',
                                     data: formData,
                                     dataType: 'json',
@@ -406,7 +407,8 @@ if ($conn->connect_error) {
                                         $('#editModal').modal('hide');
                                     },
                                     error: function(xhr, status, error) {
-                                        console.error('Error updating appointment:', error);
+                                        console.log('Update failed: whaaaaat!');
+                                        // console.error('Error updating appointment:', error);
                                     }
                                 });
                             });
@@ -465,7 +467,7 @@ if ($conn->connect_error) {
             $('#appointmentForm').submit(function(e) {
                 e.preventDefault();
                 // Get form data and submit it to a PHP script for processing
-                var formData = $(this).serialize();
+                var formData = $("#appointmentForm").serialize();
                 $.ajax({
                     url: 'appt_save.php', // Replace with the actual path to the PHP file
                     type: 'POST',
