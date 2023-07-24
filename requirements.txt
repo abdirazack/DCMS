@@ -5,3 +5,5 @@ medical_files [Future Works]
 Duration_(Treatment Plan)
 Approve_appointment
 Profile_Default
+Patient_Login
+Service_From_Patients_interface

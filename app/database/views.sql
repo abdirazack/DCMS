@@ -50,7 +50,7 @@ FROM
     JOIN `addresses` `a` ON(`pt`.`address` = `a`.`address_id`));
 
 -- addresses_supplier_view
-CREATE VIEW `addresses_supplier_view` AS
+CREATE VIEW `addresses_supplier_view` AS 
 SELECT 
     `s`.`supplier_id` AS `supplier_id`,
     `s`.`supplier_name` AS `supplier_name`,
@@ -68,28 +68,30 @@ FROM
     JOIN `addresses` `a` ON(`s`.`address` = `a`.`address_id`));
 
 -- appointmentdetails
-CREATE VIEW `appointmentdetails` AS
-SELECT 
-    `a`.`appointment_id` AS `appointment_id`,
-    `a`.`Type` AS `Type`,
-    `a`.`status` AS `status`,
-    `a`.`date` AS `date`,
-    `a`.`time` AS `time`,
-    `p`.`patient_id` AS `patient_id`,
-    `p`.`first_name` AS `patient_first_name`,
-    `p`.`last_name` AS `patient_last_name`,
-    `d`.`employee_id` AS `employee_id`,
-    `d`.`first_name` AS `employee_first_name`,
-    `d`.`last_name` AS `employee_last_name`,
-    `s`.`service_id` AS `service_id`,
-    `s`.`name` AS `service_name`,
-    `a`.`created_at` AS `created_at`,
-    `a`.`updated_at` AS `updated_at`
-FROM 
-    (((`appointments` `a` 
-    JOIN `patients` `p` ON(`a`.`patient_id` = `p`.`patient_id`)) 
-    JOIN `employees` `d` ON(`a`.`employee_id` = `d`.`employee_id`)) 
-    JOIN `services` `s` ON(`a`.`service_id` = `s`.`service_id`));
+CREATE VIEW appointmentdetails AS
+SELECT
+  a.appointment_id, 
+  p.patient_id,
+  e.employee_id,
+  r.role_id,
+  s.service_id,
+  a.type AS appointment_type,
+  a.status AS appointment_status,
+  CONCAT(p.first_name, ' ', p.last_name) AS patient_name,
+  CONCAT(e.first_name, ' ', e.last_name) AS employee_name,
+  r.role_name AS employee_role,
+  s.name AS service_name, 
+  s.fee AS service_fee,
+  a.date,
+  a.time,
+  a.created_at,
+  a.updated_at
+FROM appointments a
+JOIN patients p ON a.patient_id = p.patient_id
+JOIN employees e ON a.employee_id = e.employee_id
+JOIN roles r ON e.role_id = r.role_id 
+JOIN appointment_services aps ON a.appointment_id = aps.appointment_id
+JOIN services s ON aps.service = s.name;
 
 -- expenses_expense_types_view
 CREATE VIEW `expenses_expense_types_view` AS

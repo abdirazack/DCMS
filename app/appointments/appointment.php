@@ -1,44 +1,34 @@
 <?php
     //connect to database
     include_once('./app/database/conn.php');
+     // Get all appointments
+     $schedules = $conn->query("SELECT * FROM `appointmentdetails`");
+     if (!$schedules) {
+         // echo "Error: " . $conn->error;
+         echo "no appointment found";
+     } else {
+         foreach ($schedules->fetch_all(MYSQLI_ASSOC) as $row) {
+             // Format the start and end dates
+             $dateString = $row['date'];
+
+             $timestamp = strtotime($dateString);
+
+             $formattedDate = date("Y-m-d 00:00:00", $timestamp);
+
+             $row['start'] = $formattedDate;
+             $row['end'] = $formattedDate;
+
+            // Add the appointment to the array
+            $sched_res[$row['appointment_id']] = $row;
+         }
+     }
     // include_once('../../includes/header.php')
 ?>
-<head>
-    <style>
-        :root {
-            --bs-success-rgb: 71, 222, 152 !important;
-        }
-
-        html,
-        body {
-            height: 100%;
-            width: 100%;
-        }
-
-        .btn-info.text-light:hover,
-        .btn-info.text-light:focus {
-            background: #000;
-        }
-
-        table,
-        tbody,
-        td,
-        tfoot,
-        th,
-        thead,
-        tr {
-            border-color: #ededed !important;
-            border-style: solid;
-            border-width: 1px !important;
-        }
-        #gg{
-            color: green;
-            background-color: chocolate;
-
-        }
-    </style>
-</head>
-
+<style>
+    .fc-event {
+  cursor: pointer;
+}
+</style>
 <body>
     <div class="container py-1 mx-auto" id="page-container">
         <div class="row overflow-auto shadow p-3 rounded">
@@ -60,12 +50,9 @@
                                     <!-- select appointment status  -->
                                     <select class="form-control select2"  name="status" id="status" REQUIRED>
                                         <option value="">Select Status</option>
-                                        <option value="Arrived">Arrived</option>
-                                        <option value="In Room">In Room</option>
+                                        <option value="Approved">Approved</option>
                                         <option value="Finished">Finished</option>
                                         <option value="Pending">Pending</option>
-                                        <option value="No Show">No Show</option>
-                                        <option value="LWBS">Left Without Being Seen</option>
                                         <option value="Cancelled">Cancelled</option>
                                     </select>
                                 </div>
@@ -77,17 +64,17 @@
                                         $query = "SELECT * FROM `patients`";
                                         $result = mysqli_query($conn, $query);
                                         while ($row = mysqli_fetch_array($result)) {
-                                            echo "<option value='" . $row['patient_id'] . "'>" . $row['first_name'] . "</option>";
+                                            echo "<option value='" . $row['patient_id'] . "'>" . $row['first_name'] . ' ' .$row['last_name'] . "</option>";
                                         }
                                         ?>
                                     </select>
                                 </div>
                                 <div class="form-group mt-2 mb-3">
-                                    <label for="dentist" class="control-label">Dentist:</label><br>
-                                    <select class="form-control select2 " id="dentist" name="dentist" REQUIRED>
+                                    <label for="employee" class="control-label">Dentist:</label><br>
+                                    <select class="form-control select2 " id="employee" name="employee" REQUIRED>
                                         <option  value="">Select Dentist</option>
                                         <?php
-                                        $query = "SELECT * FROM `addresses_employees_view` WHERE role_name = 'Dentist';                                        ";
+                                        $query = "SELECT * FROM `addresses_employees_view` WHERE role_name = 'dentist';                                        ";
                                         $result = mysqli_query($conn, $query);
                                         while ($row = mysqli_fetch_array($result)) {
                                             echo "<option value='" . $row['employee_id'] . "'>" . $row['first_name'] . ' '. $row['last_name'] . "</option>";
@@ -110,12 +97,12 @@
                                     </select>
                                 </div>
                                 <div class="form-group mb-2">
-                                    <label for="start_datetime" class="control-label">Start</label>
-                                    <input type="datetime-local" class="form-control form-control-sm rounded-0" name="start_datetime" id="start_datetime" required>
+                                    <label for="date" class="control-label">Date</label>
+                                    <input type="date" class="form-control form-control-sm rounded-0" name="date" id="date" required>
                                 </div>
                                 <div class="form-group mb-2">
-                                    <label for="end_datetime" class="control-label">End</label>
-                                    <input type="datetime-local" class="form-control form-control-sm rounded-0" name="end_datetime" id="end_datetime" required>
+                                    <label for="time" class="control-label">Time</label>
+                                    <input type="time" step="any" class="form-control form-control-sm rounded-0" name="time" id="time" required>
                                 </div>
                             </form>
                         </div>
@@ -147,11 +134,11 @@
                             <dt class="text-muted">Patient</dt>
                             <dd id="patient" class=""></dd>
                             <dt class="text-muted">Dentist</dt>
-                            <dd id="e_dentist" class=""></dd>
+                            <dd id="employee" class=""></dd>
                             <dt class="text-muted">Start</dt>
-                            <dd id="start" class=""></dd>
+                            <dd id="date" class=""></dd>
                             <dt class="text-muted">End</dt>
-                            <dd id="end" class=""></dd>
+                            <dd id="time" class=""></dd>
                         </dl>
                     </div>
                 </div>
@@ -168,23 +155,7 @@
 
 
     <?php
-    // Get all appointments
-    $schedules = $conn->query("SELECT * FROM `appointmentdetails`");
-    if (!$schedules) {
-        // echo "Error: " . $conn->error;
-        echo "no appointment found";
-    } else {
-        foreach ($schedules->fetch_all(MYSQLI_ASSOC) as $row) {
-            // Format the start and end dates
-            $row['sdate'] = date("F d, Y h:i A", strtotime($row['start_date']));
-            $row['edate'] = date("F d, Y h:i A", strtotime($row['end_date']));
-
-            // Add the appointment to the array
-            $sched_res[$row['appointment_id']] = $row;
-        }
-    }
-    ?>
-    <?php
+   
     ?>
 
 <script>
@@ -192,10 +163,11 @@
     if (scheds == null) {
         alert('no appointment found');
     }
+    // console.log(scheds);
     //document ready
     $(document).ready(function() {
         $('.select2').select2();
-        console.log('JSON.stringify(scheds)'); 
+        // console.log('JSON.stringify(scheds)'); 
 
         $('#schedule-form').submit(function(e) {
             e.preventDefault();
@@ -204,8 +176,9 @@
                 method: 'POST',
                 data: $(this).serialize(),
                 success: function(resp) {
-                    // alert(resp);
+                    alert(resp);
                     var obj = jQuery.parseJSON(resp);
+                    console.log(obj);
                     if (obj.status == 200) {
                         //reload calendar
                         calendar.refetchEvents();
@@ -226,10 +199,10 @@
             $('#schedule-form input[name="id"]').val(sched.appointment_id);
             $('#schedule-form select[name="status"]').val(sched.status).trigger('change');
             $('#schedule-form select[name="patients"]').val(sched.patient_id).trigger('change');
-            $('#schedule-form select[name="dentist"]').val(sched.employee_id).trigger('change');
+            $('#schedule-form select[name="employee"]').val(sched.employee_id).trigger('change');
             $('#schedule-form select[name="service"]').val(sched.service_id).trigger('change');
-            $('#schedule-form input[name="start_datetime"]').val(sched.start_date);
-            $('#schedule-form input[name="end_datetime"]').val(sched.end_date);
+            $('#schedule-form input[name="date"]').val(sched.date);
+            $('#schedule-form input[name="time"]').val(sched.time);
             $('#schedule-form').attr('action', './app/appointments/save.php');
             $('#event-details-modal').modal('hide');
         });
@@ -276,10 +249,10 @@
             $('#schedule-form input[name="id"]').val('');
             $('#schedule-form select[name="status"]').val('').trigger('change');
             $('#schedule-form select[name="patients"]').val('').trigger('change');
-            $('#schedule-form select[name="dentist"]').val('').trigger('change');
+            $('#schedule-form select[name="employee"]').val('').trigger('change');
             $('#schedule-form select[name="service"]').val('').trigger('change');
-            $('#schedule-form input[name="start_datetime"]').val('');
-            $('#schedule-form input[name="end_datetime"]').val('');
+            $('#schedule-form input[name="date"]').val('');
+            $('#schedule-form input[name="time"]').val('');
         });
 
     });

@@ -4,11 +4,10 @@
         include_once('../database/conn.php') ;
         $patients= mysqli_real_escape_string($conn, $_POST['patients']);
         $service=mysqli_real_escape_string($conn, $_POST['service']);
-        $employee_id=mysqli_real_escape_string($conn, $_POST['dentist']);
-        $start_datetime=mysqli_real_escape_string($conn, $_POST['start_datetime']);
-        $end_datetime=mysqli_real_escape_string($conn, $_POST['end_datetime']);
+        $employee_id=mysqli_real_escape_string($conn, $_POST['employee']);
+        $date =mysqli_real_escape_string($conn, $_POST['date']);
+        $time =mysqli_real_escape_string($conn, $_POST['time']);
         $status = mysqli_real_escape_string($conn, $_POST['status']);
-        $type = 'Walk-in';
         $id = mysqli_real_escape_string($conn, $_POST['id']);
 
         if(empty($patients)){
@@ -23,7 +22,7 @@
         }
    
         if($id==""){
-                $query=mysqli_query($conn,"insert into appointments values(null,'Walk-in', '$status','$start_datetime','$end_datetime', '$patients', '$employee_id','$service')");
+                $query=mysqli_query($conn,"insert into appointments values(null,'Walk-in', '$status','$date','$time ', '$patients', '$employee_id','$service')");
                 if($query){
                         $data = ['message'=>'Success', 'status'=>200];
                         echo json_encode($data);
@@ -36,7 +35,7 @@
         
         }
         else{
-                $query=mysqli_query($conn,"update appointments set employee_id= '$employee_id' ,patient_id='$patients',status = '$status', service_id ='$service',start_date='$start_datetime',end_date='$end_datetime' where appointment_id='$id'");
+                $query=mysqli_query($conn,"update appointments set employee_id= '$employee_id' ,patient_id='$patients',status = '$status', date='$date', time='$time ' where appointment_id='$id'");
                 if($query){
                         $data = ['message'=>'Success', 'status'=>200];
                         echo json_encode($data);
