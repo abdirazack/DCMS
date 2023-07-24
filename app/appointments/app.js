@@ -12,7 +12,7 @@ $(function () {
                 id: row.appointment_id,
                 title: row.patient_name,
                 start: row.date,
-                end: row.date,
+                // end: row.date,
 
             });  
         })

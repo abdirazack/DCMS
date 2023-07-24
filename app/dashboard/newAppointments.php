@@ -7,7 +7,7 @@
 
     $conn = new mysqli($host, $username, $password, $dbname);
 
-    $query = "SELECT 
+    $query = "SELECT appointments.appointment_id AS appointment_id,
     CONCAT(patients.first_name, ' ', patients.last_name) AS patient_name,
     appointments.date AS appointment_date,
     appointments.time AS appointment_time,
@@ -32,7 +32,8 @@
     // if number of rows is 0, add a row to the array with a message
 if($result->num_rows == 0) {
     $rows[] = array(
-        'name' => "No upcoming appointments",
+        'appointment_id' => '0',
+        'name' => "No Pending appointments",
         'date' => "",
         'time' => ""
     );
@@ -41,11 +42,13 @@ while ($row = $result->fetch_assoc()) {
 
 
     // Split the date and time
+    $appointment_id = $row['appointment_id'];
     $date = $row['appointment_date'];
     $time = $row['appointment_time'];
     $name = $row['patient_name'];
 
     $rows[] = array(
+        'appointment_id' => $appointment_id,
         'name' => $name,
         'date' => $date,
         'time' => $time

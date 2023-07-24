@@ -16,7 +16,7 @@
              $formattedDate = date("Y-m-d 00:00:00", $timestamp);
 
              $row['start'] = $formattedDate;
-             $row['end'] = $formattedDate;
+            //  $row['end'] = $formattedDate;
 
             // Add the appointment to the array
             $sched_res[$row['appointment_id']] = $row;
@@ -85,7 +85,7 @@
 
                                 <div class="form-group mb-2">
                                     <label for="service" class="control-label">Service </label><br>
-                                    <select class="form-control select2" id="service" name="service" REQUIRED>
+                                    <select multiple class="form-control select2" id="service" name="service" REQUIRED>
                                         <option value="">Select service </option>
                                         <?php
                                         $query = "SELECT * FROM `services`";
@@ -109,7 +109,7 @@
                     </div>
                     <div class="card-footer p-2">
                         <div class="text-center">
-                            <button class="btn btn-primary btn-sm rounded" type="submit" form="schedule-form"><i class="fa fa-save"></i> Save</button>
+                            <button class="btn btn-primary btn-sm rounded" id="save" type="submit" form="schedule-form"><i class="fa fa-save"></i> Save</button>
                             <button class="btn btn-default border btn-sm rounded" type="reset" form="schedule-form"><i class="fa fa-reset"></i> Cancel</button>
                         </div>
                     </div>
@@ -203,6 +203,7 @@
             $('#schedule-form select[name="service"]').val(sched.service_id).trigger('change');
             $('#schedule-form input[name="date"]').val(sched.date);
             $('#schedule-form input[name="time"]').val(sched.time);
+            $('#save').val('Update');
             $('#schedule-form').attr('action', './app/appointments/save.php');
             $('#event-details-modal').modal('hide');
         });

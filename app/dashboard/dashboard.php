@@ -1,4 +1,4 @@
-<div class="container shadow p-3">
+<div class="container-fluid shadow p-3">
     <div class="row animated fadeIn overflow-auto">
         <div class="col-md-6">
             <div class="card mb-3 border-primary rounded">
@@ -94,6 +94,7 @@
                             <th scope="col">Patient Name</th>
                             <th scope="col">Date</th>
                             <th scope="col">Time</th>
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody id="upcoming">
@@ -125,9 +126,9 @@
 <script>
     $(document).ready(function() {
         $('.card').hover(function() {
-            $(this).addClass('shadow-lg').css('cursor', 'pointer');
+            $(this).addClass('shadow').css('cursor', 'pointer');
         }, function() {
-            $(this).removeClass('shadow-lg');
+            $(this).removeClass('shadow');
         });
 
         // Send an AJAX request to the server-side script
@@ -210,6 +211,18 @@
             timeCell.textContent = appointment.time;
             row.appendChild(timeCell);
 
+            if(appointment.appointment_id != 0){
+            const actionCell = document.createElement('td');
+            const actionButton = document.createElement('button');
+            actionButton.textContent = 'Cancel';
+            actionButton.classList.add('btn', 'btn-sm', 'btn-danger');
+            actionButton.addEventListener('click', () => {
+                processAppointment(appointment.appointment_id, 'cancel');
+            });
+            actionCell.appendChild(actionButton);
+            row.appendChild(actionCell);
+        }
+
             appointmentsBody.appendChild(row);
         });
     }
@@ -275,18 +288,53 @@
             timeCell.textContent = appointment.time;
             row.appendChild(timeCell);
 
+            if(appointment.appointment_id != 0){
             const actionCell = document.createElement('td');
             const actionButton = document.createElement('button');
             actionButton.textContent = 'Approve';
             actionButton.classList.add('btn', 'btn-sm', 'btn-primary');
             actionButton.addEventListener('click', () => {
-                // Call a function to approve the appointment
-                approveAppointment(appointment.id);
+
+                processAppointment(appointment.appointment_id, 'approve');
             });
             actionCell.appendChild(actionButton);
             row.appendChild(actionCell);
+        }
 
             appointmentsBody.appendChild(row);
         });
     }
+    
+
+    function processAppointment(id, action) {
+    // Determine the URL based on the action (approve or cancel)
+    var url = './app/dashboard/' + (action === 'approve' ? 'approveAppointment.php' : 'cancelAppointment.php');
+
+    // Send an AJAX request to the server-side script
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data: {
+            id: id,
+        },
+        dataType: 'JSON',
+        success: function (data) {
+            console.log(data);
+            // Reload the new appointments if approved or cancelled
+            if (action === 'approve') {
+                loadNewAppointments();
+            } else {
+                loadCancelledAppointments();
+            }
+            // Reload the main appointments list
+            loadAppointments();
+        },
+        error: function (xhr, status, error) {
+            console.log("Error Status:", status);
+            console.log("Error Message:", error);
+            console.log("Full Error Response:", xhr.responseText);
+        }
+    });
+}
+
 </script>
