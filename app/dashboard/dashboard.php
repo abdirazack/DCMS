@@ -158,39 +158,30 @@
                 console.log("Full Error Response:", xhr.responseText);
             }
         });
+    
+        // Load upcoming appointments
+        fetchAppointments('./app/dashboard/upcoming.php', 'upcoming', 'Cancel');
 
-        loadCancelledAppointments();
-        loadAppointments();
-        loadNewAppointments();
+        // Load new appointments
+        fetchAppointments('./app/dashboard/newAppointments.php', 'newAppointments', 'Approve');
+
+        // Load cancelled appointments
+        fetchAppointments('./app/dashboard/cancelled.php', 'cancelled', '');
     });
 
-    function loadAppointments() {
-        fetch('./app/dashboard/upcoming.php')
-            .then(response => response.json())
-            .then(data => {
-                // Call a function to handle the received JSON data
-                handleAppointments(data);
-                
-            })
-            .catch(error => {
-                console.log('An error occurred:', error);
-            });
-    }
-    function loadCancelledAppointments() {
-        fetch('./app/dashboard/cancelled.php')
-            .then(response => response.json())
-            .then(data => {
-                // Call a function to handle the received JSON data
-                handleCancelledAppointments(data);
-            })
-            .catch(error => {
-                console.log('An error occurred:', error);
-            });
+    function fetchAppointments(url, tableId, actionButton) {
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            handleAppointments(data, tableId, actionButton);
+        })
+        .catch(error => {
+            console.log('An error occurred:', error);
+        });
     }
 
-    
-    function handleAppointments(data) {
-        const appointmentsBody = document.getElementById('upcoming');
+    function handleAppointments(data, tableId, actionButton) {
+        const appointmentsBody = document.getElementById(tableId);
 
         // Clear existing rows
         appointmentsBody.innerHTML = '';
@@ -211,100 +202,29 @@
             timeCell.textContent = appointment.time;
             row.appendChild(timeCell);
 
-            if(appointment.appointment_id != 0){
-            const actionCell = document.createElement('td');
-            const actionButton = document.createElement('button');
-            actionButton.textContent = 'Cancel';
-            actionButton.classList.add('btn', 'btn-sm', 'btn-danger');
-            actionButton.addEventListener('click', () => {
-                processAppointment(appointment.appointment_id, 'cancel');
-            });
-            actionCell.appendChild(actionButton);
-            row.appendChild(actionCell);
-        }
+            if (appointment.appointment_id != 0) {
+                const actionCell = document.createElement('td');
+                const actionButtonElement = document.createElement('button');
+                actionButtonElement.textContent = actionButton;
+                actionButtonElement.classList.add('btn', 'btn-sm');
+                if (actionButton === 'Approve') {
+                    actionButtonElement.classList.add('btn-primary');
+                    actionButtonElement.addEventListener('click', () => {
+                        processAppointment(appointment.appointment_id, 'approve');
+                    });
+                } else if (actionButton === 'Cancel') {
+                    actionButtonElement.classList.add('btn-danger');
+                    actionButtonElement.addEventListener('click', () => {
+                        processAppointment(appointment.appointment_id, 'cancel');
+                    });
+                }
+                actionCell.appendChild(actionButtonElement);
+                row.appendChild(actionCell);
+            }
 
             appointmentsBody.appendChild(row);
         });
     }
-    function handleCancelledAppointments(data) {
-        const appointmentsBody = document.getElementById('cancelled');
-
-        // Clear existing rows
-        appointmentsBody.innerHTML = '';
-
-        // Iterate over each appointment and create a new row
-        data.forEach(appointment => {
-            const row = document.createElement('tr');
-
-            const nameCell = document.createElement('td');
-            nameCell.textContent = appointment.name;
-            row.appendChild(nameCell);
-
-            const dateCell = document.createElement('td');
-            dateCell.textContent = appointment.date;
-            row.appendChild(dateCell);
-
-            const timeCell = document.createElement('td');
-            timeCell.textContent = appointment.time;
-            row.appendChild(timeCell);
-
-            appointmentsBody.appendChild(row);
-        });
-    }
-
-    // function to load new appointments
-    function loadNewAppointments() {
-        fetch('./app/dashboard/newAppointments.php')
-            .then(response => response.json())
-            .then(data => {
-                // Call a function to handle the received JSON data
-                handleNewAppointments(data);
-                // console.log(data);
-            })
-            .catch(error => {
-                console.log('An error occurred:', error);
-            });
-    }
-
-    function handleNewAppointments(data) {
-        const appointmentsBody = document.getElementById('newAppointments');
-
-        // Clear existing rows
-        appointmentsBody.innerHTML = '';
-
-        // Iterate over each appointment and create a new row
-        data.forEach(appointment => {
-            const row = document.createElement('tr');
-
-            const nameCell = document.createElement('td');
-            nameCell.textContent = appointment.name;
-            row.appendChild(nameCell);
-
-            const dateCell = document.createElement('td');
-            dateCell.textContent = appointment.date;
-            row.appendChild(dateCell);
-
-            const timeCell = document.createElement('td');
-            timeCell.textContent = appointment.time;
-            row.appendChild(timeCell);
-
-            if(appointment.appointment_id != 0){
-            const actionCell = document.createElement('td');
-            const actionButton = document.createElement('button');
-            actionButton.textContent = 'Approve';
-            actionButton.classList.add('btn', 'btn-sm', 'btn-primary');
-            actionButton.addEventListener('click', () => {
-
-                processAppointment(appointment.appointment_id, 'approve');
-            });
-            actionCell.appendChild(actionButton);
-            row.appendChild(actionCell);
-        }
-
-            appointmentsBody.appendChild(row);
-        });
-    }
-    
 
     function processAppointment(id, action) {
     // Determine the URL based on the action (approve or cancel)
@@ -322,12 +242,12 @@
             console.log(data);
             // Reload the new appointments if approved or cancelled
             if (action === 'approve') {
-                loadNewAppointments();
+                fetchAppointments('./app/dashboard/newAppointments.php', 'newAppointments', 'Approve');
             } else {
-                loadCancelledAppointments();
+                fetchAppointments('./app/dashboard/cancelled.php', 'cancelled', '');
             }
             // Reload the main appointments list
-            loadAppointments();
+            fetchAppointments('./app/dashboard/upcoming.php', 'upcoming', 'Cancel');
         },
         error: function (xhr, status, error) {
             console.log("Error Status:", status);
