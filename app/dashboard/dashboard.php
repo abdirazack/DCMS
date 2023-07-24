@@ -136,7 +136,8 @@
             type: 'GET',
             dataType: 'JSON',
             success: function(data) {
-                console.log(data);
+                // console.log(data);
+                // alert(JSON.stringify(data));
                 // Populate the patient_number h5 tag with the patient number
                 $('#patient_number').text(data.patientNumber);
 
@@ -151,12 +152,15 @@
 
             },
             error: function(xhr, status, error) {
-                console.log(error); // Handle the error gracefully
+                console.log("Error Status:", status);
+                console.log("Error Message:", error);
+                console.log("Full Error Response:", xhr.responseText);
             }
         });
 
         loadCancelledAppointments();
         loadAppointments();
+        loadNewAppointments();
     });
 
     function loadAppointments() {
@@ -242,6 +246,7 @@
             .then(data => {
                 // Call a function to handle the received JSON data
                 handleNewAppointments(data);
+                // console.log(data);
             })
             .catch(error => {
                 console.log('An error occurred:', error);
