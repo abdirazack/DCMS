@@ -17,7 +17,7 @@ $result = mysqli_query($conn, $sql);
 <body>
     <div class="container-fluid ">
 
-        <div class=" mt-1 p-3 shadow-lg rounded">
+        <div class=" mt-1 p-3 shadow-lg rounded overflow-auto">
             <div class='small' id='small'></div>
             <div class='d-flex justify-content-between mb-4'>
                 <h2 class="text-center text-primary">Payments</h2>

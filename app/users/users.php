@@ -14,7 +14,7 @@ include_once('conn.php');
 
 <body>
     <div class="container d-flex justify-content-center align-items-center vh-100 rounded">
-        <div class="row shadow-lg vw-100 rounded">
+        <div class="row shadow-lg vw-100 rounded overflow-auto">
             <div class="col-md-8">
                 <h1 class="text-center text-primary">Users</h1>
                 <table class="table table-hover" id="dataTable">

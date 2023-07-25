@@ -28,7 +28,7 @@
 
     <div class="container-fluid ">
 
-        <div class=" mt-1 p-3 rounded" style="border: 0.1px solid grey;">
+        <div class=" mt-1 p-3 rounded overflow-auto" style="border: 0.1px solid grey;">
             <div class='small' id='small'></div>
             <div class='d-flex justify-content-between mb-4'>
                 <h2 class="text-center text-white bg-primary px-2">Patients List</h2>
@@ -152,8 +152,7 @@
                                     ?>
                                 </select>
                                 <span class="input-group-btn">
-                                    <button type="button" class="btn btn-primary mt-2 d-inline" data-toggle="modal"
-                                        data-target="#addressModal">
+                                    <button type="button" class="btn btn-primary mt-2 d-inline" data-toggle="modal" data-target="#addressModal">
                                         <!-- Add a plus icon with tooltip that says 'add new address' -->
                                         <icon class="fa fa-plus"></icon>
                                     </button>
@@ -163,8 +162,7 @@
 
                     </div>
                     <div class="modal-footer  m-0 bg-jh">
-                        <button type="button" class="btn btn-outline-danger py-1 px-2" data-dismiss="modal"
-                            id="closeButton">Close</button>
+                        <button type="button" class="btn btn-outline-danger py-1 px-2" data-dismiss="modal" id="closeButton">Close</button>
                         <button type="submit" id='submit' class="btn btn-outline-primary py-1 px-2">Add Patient</button>
                     </div>
                 </form>
@@ -187,7 +185,7 @@
                 data: {
                     updateid: id
                 },
-                success: function (response) {
+                success: function(response) {
                     // alert(response)
                     var data = JSON.parse(response);
                     $('#first_name').val(data.first_name);
@@ -203,8 +201,8 @@
             });
 
             $("#submit").text('Update');
-            $(document).ready(function () {
-                $('#closeButton').on('click', function () {
+            $(document).ready(function() {
+                $('#closeButton').on('click', function() {
                     // Close the modal
                     $('#patientModal').modal('hide');
                 });
@@ -221,7 +219,7 @@
                 data: {
                     deleteid: id
                 },
-                success: function (response) {
+                success: function(response) {
                     alert(response)
                     var obj = jQuery.parseJSON(response);
                     if (obj.status == 200) {
@@ -233,37 +231,49 @@
             });
         }
 
-        $(document).ready(function () {
+        $(document).ready(function() {
+            // $('#dataTable').DataTable({
+            //     pagingType: 'full_numbers',
+            //     "aLengthMenu": [
+            //         [5, 10, , 20, 50, 75, -1],
+            //         [5, 10, 20, 50, 75, "All"]
+            //     ],
+            //     "iDisplayLength": 5,
+            //     "bDestroy": true,
+            //     dom: 'Bfrtip',
+            //     buttons: [
+            //         'copy', 'csv', 'excel', 'pdf', 'print'
+            //     ]
+            // });
+
+            // // select2
+            // $(".select2").select2();
+            // $('#address').select2({
+            //     dropdownParent: $('#patientModal')
+            // });
             $('#dataTable').DataTable({
-                pagingType: 'full_numbers',
-                "aLengthMenu": [
-                    [5, 10, , 20, 50, 75, -1],
-                    [5, 10, 20, 50, 75, "All"]
+                // "paging": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                'pagingType': 'full_numbers',
+
+                // Add the Buttons extension options
+                "dom": 'Bfrtip', // B for buttons
+                "buttons": [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
                 ],
-                "iDisplayLength": 5,
-                "bDestroy": true,
-                //  dom: 'Bfrtip',
-        buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-        ]
-            });
-
-            // select2
-            $(".select2").select2();
-            $('#address').select2({
-                dropdownParent: $('#patientModal')
             });
 
 
-
-            $('#formInsertUpdate').submit(function (e) {
+            $('#formInsertUpdate').submit(function(e) {
                 e.preventDefault();
                 var formData = new FormData(this);
                 $.ajax({
                     url: './app/patient/process_patient.php',
                     type: 'POST',
                     data: formData,
-                    success: function (response) {
+                    success: function(response) {
                         // alert(response)
                         var obj = jQuery.parseJSON(response);
                         if (obj.status == 200) {
@@ -285,8 +295,8 @@
         });
     </script>
     <script>
-        $(document).ready(function () {
-            $('#formInsertUpdateAddress').submit(function (e) {
+        $(document).ready(function() {
+            $('#formInsertUpdateAddress').submit(function(e) {
                 // var page = 'patient';
                 e.preventDefault();
                 var formData = new FormData(this);
@@ -294,7 +304,7 @@
                     url: './app/address/process_address.php',
                     type: 'POST',
                     data: formData,
-                    success: function (response) {
+                    success: function(response) {
                         // alert(response)
                         var obj = jQuery.parseJSON(response);
                         if (obj.status == 200) {

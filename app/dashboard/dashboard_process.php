@@ -19,8 +19,30 @@
         $counts[$identifier] = $row["total"];
     }
 
+    //get total amount_paid from income
+    $query = "SELECT SUM(IncomeAmountPaid) AS total FROM incometable";
+    $result = $conn->query($query);
+    $row = $result->fetch_assoc();
+    $counts["income"] = $row["total"];
+
+    // get total expenses 
+    $query = "SELECT SUM(total_amount) AS total_expenses
+    FROM (
+        SELECT SUM(amount) AS total_amount
+        FROM expenses
+    
+        UNION ALL
+    
+        SELECT SUM(amount) AS total_amount
+        FROM salary
+    ) AS combined_expenses;
+    ";
+    $result = $conn->query($query);
+    $row = $result->fetch_assoc();
+    $counts["expenses"] = $row["total_expenses"];
+
     // Close the database connection
-    $conn->close();
+    
 
     // Convert the counts array to JSON format and send it to the client-side
     echo json_encode($counts);

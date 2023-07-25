@@ -32,3 +32,16 @@
         <?php } ?>
     </tbody>
 </table>
+
+<script>
+    $(document).ready(function() {
+        // Initialize DataTable
+        $('#dataTable').DataTable({
+            dom: 'Bfrtip', // Add buttons to the DataTables' DOM
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print' // Add export buttons
+            ],
+            // You can add other DataTable options here
+        });
+    });
+</script>

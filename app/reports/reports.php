@@ -3,14 +3,8 @@
 
 <head>
   <meta charset="utf-8" />
-
-
-
   <link href="./app/reports/assets/css/fresh-bootstrap-table.css" rel="stylesheet" />
   <!-- <link href="./app/reports/assets/css/demo.css" rel="stylesheet" /> -->
-
-
-
   <style>
     #reports {
       background: rgba(0, 0, 0, 0.3);
@@ -24,19 +18,17 @@
 </head>
 
 <body>
-
-
   <div class="container-fluid">
     <div class="row">
-      <div>
+      <div class="container overflow-auto">
         <div class="description text-center">
           <h2>Dental Record Reports</h2>
         </div>
 
-        <div class="fresh-table full-color-blue p-3 ">
-          <div class="toolbar col-md-3 mb-5">
-            <select class="form-control  full-color-azure" id="reports">
-              <option value="">Select Report</option>
+        <div class="fresh-table  p-3 shadow ">
+          <div class=" col-md-3 mb-5">
+            <select class="form-control  bg-white text-secondary" id="reports" style="border-radius:10px;">
+              <option value="" class="fs-5">Select Report</option>
               <option value="patients">Patients Report</option>
               <option value="employees">Employees Report</option>
               <option value="income">Income Report</option>
@@ -59,15 +51,6 @@
 <script type="text/javascript">
   $(document).ready(function() {
 
-    $('#dataTable').DataTable({
-      pagingType: 'full_numbers',
-      "aLengthMenu": [
-        [5, 10, , 20, 50, 75, -1],
-        [5, 10, 20, 50, 75, "All"]
-      ],
-      "iDisplayLength": 5,
-      "bDestroy": true
-    });
 
     $('#reports').change(function() {
       var report = $(this).val();

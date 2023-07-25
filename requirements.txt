@@ -1,7 +1,9 @@
-Notifications
-Reports
-Charts
-[X]Expenses
-medical files
-Duration (Treatment Plan)
-Approve appointment
+Notifications [Future Works]
+Dashboard_reports
+Charts [Future Works]
+medical_files [Future Works]
+Duration_(Treatment Plan)
+Approve_appointment
+Profile_Default
+Patient_Login
+Service_From_Patients_interface

@@ -1,6 +1,6 @@
 <table class="table table-hover text-white" id="dataTable">
     <caption class="text-white fs-3">Employees Report</caption>
-    <thead class="thead-dark">
+    <thead class="text-dark text-truncate">
         <th data-field="id">ID</th>
         <th data-field="first name" data-sortable="true">First Name</th>
         <th data-field="last name" data-sortable="true">Last Name</th>
@@ -35,7 +35,7 @@
             $total_amount += $row['IncomeAmount'];
             $total_amount_paid += $row['IncomeAmountPaid'];
         ?>
-            <tr>
+            <tr class="text-dark text-truncate">
                 <td><?php echo $row['IncomeID'] ;?></td>
                 <td><?php echo $row['first_name'] ;?></td>
                 <td><?php echo $row['last_name'] ;?></td>
@@ -55,3 +55,16 @@
             <th></th>
         </tr>
 </table>
+
+<script>
+    $(document).ready(function() {
+        // Initialize DataTable
+        $('#dataTable').DataTable({
+            dom: 'Bfrtip', // Add buttons to the DataTables' DOM
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print' // Add export buttons
+            ],
+            // You can add other DataTable options here
+        });
+    });
+</script>
