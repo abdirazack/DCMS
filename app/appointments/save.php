@@ -1,5 +1,6 @@
 
 <?php
+
 // Connect to the database
 include_once('../database/conn.php');
 $patients = mysqli_real_escape_string($conn, $_POST['patients']);
@@ -45,6 +46,7 @@ if ($id == "") {
 
         if ($result) {
                 $data = ['message' => 'Success', 'status' => 200];
+
                 echo json_encode($data);
                 return;
         } else {
@@ -52,6 +54,7 @@ if ($id == "") {
                 echo json_encode($data);
                 return;
         }
+
 } else {
         $query = mysqli_query($conn, "update appointments set employee_id= '$employee_id' ,patient_id='$patients',status = '$status', date='$date', time='$time ' where appointment_id='$id'");
         if ($query) {
@@ -60,6 +63,7 @@ if ($id == "") {
                 return;
         } else {
                 $data = ['message' => 'Failed to update appointment', 'status' => 404];
+
                 echo json_encode($data);
                 return;
         }

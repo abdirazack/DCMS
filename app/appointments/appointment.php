@@ -71,6 +71,7 @@ if (!$schedules) {
                                         $result = mysqli_query($conn, $query);
                                         while ($row = mysqli_fetch_array($result)) {
                                             echo "<option value='" . $row['patient_id'] . "'>" . $row['first_name'] . ' ' . $row['last_name'] . "</option>";
+
                                         }
                                         ?>
                                     </select>
@@ -78,6 +79,7 @@ if (!$schedules) {
                                 <div class="form-group mt-2 mb-3">
                                     <label for="employee" class="control-label">Dentist:</label><br>
                                     <select class="form-control select2 " id="employee" name="employee" REQUIRED>
+
                                         <option value="">Select Dentist</option>
                                         <?php
                                         $query = "SELECT * FROM `addresses_employees_view` WHERE role_name = 'dentist';                                        ";
@@ -91,6 +93,7 @@ if (!$schedules) {
 
                                 <div class="form-group mb-2">
                                     <label for="service" class="control-label">Service </label><br>
+
                                     <select class="form-control select2" id="service" name="service[]" REQUIRED multiple>
                                         <option value="">Select service </option>
                                         <?php
@@ -108,10 +111,14 @@ if (!$schedules) {
                                 </div>
                                 <div class="form-group mb-2">
                                     <label for="time" class="control-label">Time</label>
+
                                     <!-- Use a select element to generate time options -->
                                     <select class="form-control form-control-sm rounded-0" name="time" id="time" required>
                                         <!-- JavaScript will populate the options here -->
                                     </select>
+
+                                    <input type="time" step="any" class="form-control form-control-sm rounded-0" name="time" id="time" required>
+
                                 </div>
 
                             </form>
@@ -133,6 +140,7 @@ if (!$schedules) {
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content rounded">
                 <div class="modal-header rounded">
+
                     <h5 class="modal-title">Appointments Details</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -141,6 +149,7 @@ if (!$schedules) {
                 <div class="modal-body rounded">
                     <div class="container-fluid">
                         <dl>
+
                             <div class="row">
                                 <dt class="text-muted">Patient: &nbsp;&nbsp;</dt>
                                 <dd id="patient" class=""></dd>
@@ -158,6 +167,7 @@ if (!$schedules) {
                                 <dt class="text-muted">Time:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</dt>
                                 <dd id="time" class=""></dd>
                             </div>
+
                         </dl>
                     </div>
                 </div>
@@ -175,6 +185,7 @@ if (!$schedules) {
 
 
     <?php
+
 
     ?>
 
@@ -208,9 +219,11 @@ if (!$schedules) {
                         if (obj.status == 404) {
                             alert(obj.message);
                         }
+
                     }
                 });
             });
+
 
             $("#edit").click(function() {
                 var id = $(this).attr('data-id');
@@ -227,6 +240,7 @@ if (!$schedules) {
                 $('#schedule-form').attr('action', './app/appointments/save.php');
                 $('#event-details-modal').modal('hide');
             });
+
 
             $("#delete").click(function() {
                 var id = $(this).attr('data-id')
@@ -340,6 +354,7 @@ if (!$schedules) {
         document.getElementById('date').setAttribute('min', getCurrentDate());
     });
 </script>
+
 <script>
     // Function to generate time options in 15-minute intervals
     function generateTimeOptions() {
@@ -378,3 +393,4 @@ if (!$schedules) {
     // Add an event listener to update time options when the date input changes
     document.getElementById('date').addEventListener('change', generateTimeOptions);
 </script>
+

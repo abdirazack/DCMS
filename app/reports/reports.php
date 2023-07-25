@@ -27,7 +27,9 @@
 
         <div class="fresh-table  p-3 shadow ">
           <div class=" col-md-3 mb-5">
+
             <select class="form-control  bg-white text-secondary" id="reports" style="border-radius:10px;">
+
               <option value="" class="fs-5">Select Report</option>
               <option value="patients">Patients Report</option>
               <option value="employees">Employees Report</option>
