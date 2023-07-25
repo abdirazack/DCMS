@@ -33,7 +33,7 @@
         $filename = $_FILES["profile"]["name"];
         $tempname = $_FILES["profile"]["tmp_name"];
         $ext = strtolower(pathinfo($filename,PATHINFO_EXTENSION));
-        $folder = "../img/employee/" . $name.'.'.$ext;
+        $folder = "../img/employee/" . $name.'.'.$ext ?? "../img/employee/" . "default.jpg";
 
         // Now let's move the uploaded image into the folder: image
         if (move_uploaded_file($tempname, $folder)) {

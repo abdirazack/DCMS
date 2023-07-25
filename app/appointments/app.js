@@ -38,7 +38,8 @@ $(function () {
                 _details.find('#employee').text(scheds[id].employee_name)
                 _details.find('#date').text(scheds[id].date)
                 _details.find('#time').text(scheds[id].time)
-                _details.find('#edit,#delete').attr('data-id', id)
+                _details.find('#edit,#cancel,#delete').attr('data-id', id)
+
                 _details.modal('show')
             } else {
                 alert("Event is undefined");

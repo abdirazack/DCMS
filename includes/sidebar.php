@@ -208,9 +208,11 @@
 
             <!-- Topbar Navbar -->
             <ul class="navbar-nav ml-auto">
-                <li class="mt-3 text-center me-5 fs-4"><?php if (isset($title)) {
+                <li class="mt-3 text-center me-5 fs-4">
+                    <?php if (isset($title)) {
                                                             echo $title;
-                                                        } ?></li>
+                                                        } ?>
+                                                        </li>
                 <div class="topbar-divider d-none d-sm-block"></div>
 
 
@@ -218,8 +220,8 @@
                 <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php  echo $_SESSION["employee_name"];  ?></span>
-                        <div class="rounded-circle btn-warning">
-                            <img class="img-profile rounded-circle" src="<?php  echo './app/img/employee/'.$_SESSION["profile"];  ?>">
+                        <div class="rounded-circle " style="border: 1px solid grey;">
+                            <img class="img-profile rounded-circle" alt="" src="<?php  echo './app/img/employee/'.$_SESSION["profile"];  ?>">
                         </div>
                     </a>
                     <!-- Dropdown - User Information -->
