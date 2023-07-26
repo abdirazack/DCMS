@@ -22,7 +22,6 @@ if (!$schedules) {
         $sched_res[$row['appointment_id']] = $row;
     }
 }
-// include_once('../../includes/header.php')
 ?>
 <style>
     /* @import url('https://fonts.cdnfonts.com/css/poppins');
@@ -117,7 +116,7 @@ if (!$schedules) {
                                         <!-- JavaScript will populate the options here -->
                                     </select>
 
-                                    <input type="time" step="any" class="form-control form-control-sm rounded-0" name="time" id="time" required>
+                                    <!-- <input type="time" step="any" class="form-control form-control-sm rounded-0" name="time" id="time" required> -->
 
                                 </div>
 
@@ -183,11 +182,6 @@ if (!$schedules) {
     </div>
     <!-- Event Details Modal -->
 
-
-    <?php
-
-
-    ?>
 
     <script>
         var scheds = $.parseJSON('<?= json_encode($sched_res) ?>');
@@ -391,6 +385,6 @@ if (!$schedules) {
     generateTimeOptions();
 
     // Add an event listener to update time options when the date input changes
-    document.getElementById('date').addEventListener('change', generateTimeOptions);
+    document.getElementById('date').addEventListener('change', generateTimeOptions());
 </script>
 

@@ -13,11 +13,16 @@
             font-family: nunito;
         }
 
+        @media print {
+            .ignore-print {
+                display: none;
+            }
+        }
+
         .modal,
         .form-control,
         .form-select,
         .btn {
-
             border-radius: 12px;
         }
     </style>
@@ -50,7 +55,7 @@
                         <th scope="col">Gender</th>
                         <th scope="col">Address</th>
                         <th scope="col">Birth Date</th>
-                        <th scope="col" class="text-center">Action</th>
+                        <th scope="col" class="text-center ignore-print">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -72,7 +77,7 @@
                         echo "<td>" . $row['gender'] . "</td>";
                         echo "<td class='text-truncate' style='max-width: 10px;'>" . $row['street'] . ' ' . $row['city'] . ' ' . $row['state'] . "</td>";
                         echo "<td>" . $row['birth_date'] . "</td>";
-                        echo "<td class='text-center'> 
+                        echo "<td class='text-center ignore-print'> 
                                     <a  class='' onclick='editPatient(" . $row['patient_id'] . ")'> <icon class='fa fa-edit'></icon> </a> 
                                     <a style='color: red;' class=' ms-2 mt-1' onclick='deletePatient(" . $row['patient_id'] . ")'> <icon class='fa fa-trash'></icon> </a> 
                                   </td>";
@@ -91,7 +96,7 @@
         <div class="modal-dialog">
             <div class="modal-content rounded shadow">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="patientModalLabel">ADD NEW PATIENT</h1>
+                    <h4 class="modal-title fs-5" id="patientModalLabel">ADD NEW PATIENT</h4>
                 </div>
                 <form action="./app/patient/process_patient.php" method="post" id="formInsertUpdate">
                     <div class="modal-body">
@@ -130,7 +135,7 @@
                             $enum_values = $matches[1];
 
                             // Output the HTML select element
-                            echo '<select name="gender" id="gender" class="form-select ">';
+                            echo '<select name="gender" id="gender" class="form-select form-control">';
                             echo '<option value=""> Select Gender </option>';
                             foreach ($enum_values as $value) {
                                 echo '<option value="' . $value . '">' . $value . '</option>';
@@ -142,7 +147,7 @@
                             <label for="address" class="form-label">Address:</label>
                             <div class="mb-3 input-group">
                                 <!-- select2 address from addresses table  -->
-                                <select style="width: 90%;" class="form-select  select2" id="address" name="address">
+                                <select style="width: 90%;" class="form-select form-control select2" id="address" name="address">
                                     <option value="">Select Address</option>
                                     <?php
                                     $result = mysqli_query($conn, "SELECT * FROM Addresses");
@@ -261,8 +266,14 @@
                 // Add the Buttons extension options
                 "dom": 'Bfrtip', // B for buttons
                 "buttons": [
-                    'copy', 'csv', 'excel', 'pdf', 'print'
-                ],
+                    'copy', 'csv', 'excel', 'pdf',
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: ':visible:not(.ignore-print)' // Exclude columns with "ignore-print" class
+                        }
+                    }
+                ]
             });
 
 

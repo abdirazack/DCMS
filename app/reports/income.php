@@ -1,13 +1,13 @@
-<table class="table table-hover text-white" id="dataTable">
+<table class="table table-hover " id="dataTable">
     <caption class="text-white fs-3">Employees Report</caption>
-    <thead class="text-dark text-truncate">
+    <thead class="thead-dark text-truncate">
         <th data-field="id">ID</th>
         <th data-field="first name" data-sortable="true">First Name</th>
         <th data-field="last name" data-sortable="true">Last Name</th>
         <th data-field="service_name" data-sortable="true">Service Name</th>
         <th data-field="IncomeType" data-sortable="true">Income Type</th>
         <th data-field="IncomeAmount" data-sortable="true">Income Amount</th>
-        <th data-field="IncomeAmountPaid" data-sortable="true">Income Amount Paid</th>
+        <th style="max-width: 5px;" data-field="IncomeAmountPaid" data-sortable="true">Income Amount Paid</th>
         <th data-field="IncomeDate">Income Date</th>
     </thead>
     <tbody>

@@ -18,7 +18,7 @@
         $result = mysqli_query($conn, $query);
         while ($row = mysqli_fetch_array($result)) {
         ?>
-            <tr>
+            <tr class="text-dark text-truncate">
                 <td><?php echo $row['patient_id'] ;?></td>
                 <td><?php echo $row['first_name'] ;?></td>
                 <td><?php echo $row['last_name'] ;?></td>
