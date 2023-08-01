@@ -107,8 +107,9 @@ $profile = './app/img/employee/' . $row['profile'];
                 <div class="bg-secondary-soft px-4 py-5 rounded">
 
                     <h4 class="my-4">Change Password</h4>
+                    <div id="small" class="text-danger mt-0"></div>
                     <div class="row g-3">
-                        <div id="small" class="text-danger mt-0"></div>
+                        
                         <!-- New password -->
                         <div class="col-md-6">
                             <label for="newPassword" class="form-label">New password *</label>
@@ -125,8 +126,8 @@ $profile = './app/img/employee/' . $row['profile'];
 
             <!-- Upload profile -->
             <div class="col-xl-5">
-                <div class="bg-secondary-soft px-4 py-5 rounded">
-                    <div class="row g-3">
+                <div class="  px-4 py-5 rounded">
+                    <div class="row g-3 justify-content-center">
                         <h4 class="mb-4 mt-0">Upload your profile photo</h4>
                         <div class="text-center">
                             <!-- Image upload -->
