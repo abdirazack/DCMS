@@ -66,6 +66,11 @@
     </li>
     <!-- ------------------------------------------------------------------------------------------------ -->
     <!-- Nav Item - New Tab Collapse Menu ---------------------------------------------------------------- -->
+    <?php 
+
+        if($_SESSION['isAdmin']){
+
+            ?>
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStaff" aria-expanded="true" aria-controls="collapseUtilities">
             <i class="fas fa-fw fa-user"></i>
@@ -84,6 +89,8 @@
             </div>
         </div>
     </li>
+    <?php
+        }?>
     <!-- ------------------------------------------------------------------------------------------------ -->
     <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
     <li class="nav-item">

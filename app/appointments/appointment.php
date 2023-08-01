@@ -16,7 +16,7 @@ if (!$schedules) {
         $formattedDate = date("Y-m-d 00:00:00", $timestamp);
 
         $row['start'] = $formattedDate;
-        //  $row['end'] = $formattedDate;
+        $row['end'] = $formattedDate;
 
         // Add the appointment to the array
         $sched_res[$row['appointment_id']] = $row;
@@ -24,11 +24,6 @@ if (!$schedules) {
 }
 ?>
 <style>
-    /* @import url('https://fonts.cdnfonts.com/css/poppins');
-    body{
-        font-family: poppins;
-        font-size: medium;
-    } */
     .fc-event {
         cursor: pointer;
     }
