@@ -23,19 +23,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       // Start the session
       session_start();
-
+      $_SESSION['isAdmin'] = $row['isAdmin'];
       // Store the user details in session variables
       $_SESSION['empid'] = $empid;
       $query = "SELECT first_name, last_name, profile FROM employees WHERE employee_id = '$empid'";
       $result = $conn->query($query);
-      $row = $result->fetch_assoc();
-      $_SESSION['employee_name'] = $row['first_name'] . ' ' . $row['last_name'];
-      $_SESSION['profile'] = $row['profile'];
-
+      $rows = $result->fetch_assoc();
+      $_SESSION['employee_name'] = $rows['first_name'] . ' ' . $rows['last_name'];
+      $_SESSION['profile'] = $rows['profile'];
+   
   
-
-
-
       // Redirect to the dashboard
       header('Location: ../../index.php?page=dashboard');
     }
