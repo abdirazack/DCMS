@@ -157,6 +157,10 @@ $profile = './app/img/employee/' . $row['profile'];
     $(document).ready(function() {
 
         $("#address").val('<?php echo $row['address']; ?>').trigger('change');
+
+        // change the height of the select2
+        $('.select2').css('height', '100%');
+
         $('#profileUpdate').submit(function(e) {
             e.preventDefault();
             var formData = new FormData(this);
