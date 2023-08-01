@@ -2,7 +2,7 @@
     // Connect to the database
     include_once('../database/conn.php');
 
-    $query = "SELECT * FROM appointmentdetails WHERE appointment_status = 'Approved' AND date > NOW() ORDER BY date ASC LIMIT 5;";
+    $query = "SELECT * FROM appointmentdetails WHERE  date >= CURRENT_DATE ORDER BY date ASC LIMIT 5;";
     $result = $conn->query($query);
 
     $rows = array(); // Array to store rows
