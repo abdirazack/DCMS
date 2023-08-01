@@ -39,7 +39,7 @@
           <div id="tableHolder">
 
             <center>
-              <h2 class="text-white">Please Select Report</h2>
+              <h2 class="text-secondary">Please Select Report</h2>
             </center>
 
           </div>
