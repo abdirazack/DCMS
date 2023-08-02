@@ -1,6 +1,6 @@
 <?php
 
-$conn = mysqli_connect('localhost', 'root', '', 'dental_clinic');
+$conn = mysqli_connect('localhost', 'root', '', 'clinic');
 
 if (!$conn) {
     $response = ['status' => 'error', 'data' => 'Error connecting to the database.'];
