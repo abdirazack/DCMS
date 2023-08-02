@@ -2,7 +2,21 @@
     // Connect to the database
     include_once('../database/conn.php');
 
-    $query = "SELECT * FROM appointmentdetails WHERE  date >= CURRENT_DATE ORDER BY date ASC LIMIT 5;";
+    $query = "SELECT
+    a.appointment_id,
+    CONCAT(p.first_name, ' ', p.last_name) AS patient_name,
+    a.date,
+    a.time
+FROM
+    appointments a
+JOIN
+    patients p ON a.patient_id = p.patient_id
+WHERE
+    a.status = 'Approved'
+    AND (a.date > CURDATE() OR (a.date = CURDATE() AND a.time > CURTIME()))
+ORDER BY
+    a.date, a.time;
+";
     $result = $conn->query($query);
 
     $rows = array(); // Array to store rows

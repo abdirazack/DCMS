@@ -1,5 +1,5 @@
 <?php
-$database = 'clinic';
+$database = 'dental_clinic';
 $username = 'root';
 $host = 'localhost';
 $password = '';
