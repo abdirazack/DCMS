@@ -30,7 +30,7 @@ if (!$schedules) {
 </style>
 
 <body>
-    <div class="container py-1 mx-auto" id="page-container">
+    <div class="container-fluid py-1 mx-auto mb-5" id="page-container">
         <div class="row overflow-auto shadow p-3 rounded">
             <div class="col-md-8">
                 <div id="calendar"></div>
@@ -44,18 +44,6 @@ if (!$schedules) {
                         <div class="container-fluid">
                             <form action="./app/appointments/save.php" method="post" id="schedule-form">
                                 <input type="hidden" name="id" value="">
-
-                                <div class="form-group mb-2">
-                                    <label for="title" class="control-label">Status</label> <br>
-                                    <!-- select appointment status  -->
-                                    <select class="form-control select2" name="status" id="status" REQUIRED>
-                                        <option value="">Select Status</option>
-                                        <option value="Approved">Approved</option>
-                                        <option value="Finished">Finished</option>
-                                        <option value="Pending">Pending</option>
-                                        <option value="Cancelled">Cancelled</option>
-                                    </select>
-                                </div>
                                 <div class="form-group mt-2 mb-3">
                                     <label for="patients" class="control-label">Patients</label><br>
                                     <select class="form-control select2 " id="patients" name="patients" REQUIRED>
@@ -65,11 +53,12 @@ if (!$schedules) {
                                         $result = mysqli_query($conn, $query);
                                         while ($row = mysqli_fetch_array($result)) {
                                             echo "<option value='" . $row['patient_id'] . "'>" . $row['first_name'] . ' ' . $row['last_name'] . "</option>";
-
                                         }
                                         ?>
                                     </select>
                                 </div>
+                               
+
                                 <div class="form-group mt-2 mb-3">
                                     <label for="employee" class="control-label">Dentist:</label><br>
                                     <select class="form-control select2 " id="employee" name="employee" REQUIRED>
@@ -99,6 +88,19 @@ if (!$schedules) {
                                         ?>
                                     </select>
                                 </div>
+
+                                <div class="form-group mb-2">
+                                    <label for="title" class="control-label">Status</label> <br>
+                                    <!-- select appointment status  -->
+                                    <select class="form-control select2" name="status" id="status" REQUIRED>
+                                        <option value="">Select Status</option>
+                                        <option value="Approved">Approved</option>
+                                        <option value="Finished">Finished</option>
+                                        <option value="Pending">Pending</option>
+                                        <option value="Cancelled">Cancelled</option>
+                                    </select>
+                                </div>
+
                                 <div class="form-group mb-2">
                                     <label for="date" class="control-label">Date</label>
                                     <input type="date" class="form-control form-control-sm rounded-0" name="date" id="date" required>
@@ -382,4 +384,3 @@ if (!$schedules) {
     // Add an event listener to update time options when the date input changes
     document.getElementById('date').addEventListener('change', generateTimeOptions());
 </script>
-

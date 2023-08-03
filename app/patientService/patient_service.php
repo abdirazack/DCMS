@@ -12,7 +12,7 @@
 
 <body>
 
-    <div class="container p-3 rounded shadow overflow-auto">
+    <div class="container p-3 rounded shadow bg-white overflow-auto">
         <form id="formPS" class="m-2">
             <div>
                 <h3 class="text-center">Patient Service</h3>

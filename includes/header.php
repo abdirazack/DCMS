@@ -25,7 +25,7 @@
     <link href="./vendor/select2/css/select2.css" rel="stylesheet">
 </head>
 
-<body id="page-top">
+<body id="page-top" class="bg-light">
     <!-- Page Wrapper -->
     <div id="wrapper">
 
