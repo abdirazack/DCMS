@@ -63,9 +63,9 @@
             </div>
         </div>
     </div>
-    <div class="row mt-5">
+    <div class="row mt-5 ">
         <!-- new column for new appointme waiting to be approved -->
-        <div class="col-md-4">
+        <div class="col-md-4 shadow-sm p-2">
             <h3 class="text-primary">New Appointments</h3>
             <div>
                 <table class="table table-primary table-striped table-hover">
@@ -85,7 +85,7 @@
         </div>
 
 
-        <div class="col-md-4">
+        <div class="col-md-4 shadow-sm p-2">
             <h3 class="text-success">Upcoming Appointments</h3>
             <div>
                 <table class="table table-success table-striped table-hover">
@@ -104,7 +104,7 @@
             </div>
         </div>
        
-        <div class="col-md-4">
+        <div class="col-md-4 shadow-sm p-2">
             <h3 class="text-danger">Cancelled Appointments</h3>
             <div>
                 <table class="table table-danger table-striped table-hover">

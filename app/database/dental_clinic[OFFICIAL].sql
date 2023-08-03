@@ -1,3 +1,28 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.0
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Aug 03, 2023 at 03:33 PM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 8.0.25
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `dental_clinic`
+--
+
+-- --------------------------------------------------------
+
 --
 -- Table structure for table `addresses`
 --
@@ -91,16 +116,9 @@ CREATE TABLE `addresses_supplier_view` (
 CREATE TABLE `appointmentdetails` (
 `appointment_id` int(11)
 ,`patient_id` int(11)
-,`employee_id` int(11)
-,`role_id` int(11)
-,`service_id` int(11)
-,`appointment_type` varchar(50)
-,`appointment_status` varchar(20)
 ,`patient_name` varchar(101)
-,`employee_name` varchar(511)
-,`employee_role` varchar(255)
+,`service_id` int(11)
 ,`service_name` varchar(50)
-,`service_fee` decimal(10,2)
 ,`date` date
 ,`time` time
 ,`created_at` timestamp
@@ -131,11 +149,13 @@ CREATE TABLE `appointments` (
 --
 
 INSERT INTO `appointments` (`appointment_id`, `Type`, `status`, `date`, `time`, `patient_id`, `employee_id`, `created_at`, `updated_at`, `note`) VALUES
-(1, 'walk-in', 'Cancelled', '2023-07-25', '18:17:10', 3, 2, '2023-07-24 06:17:47', '2023-07-26 07:45:23', 'Bro don\'t forget your card'),
-(2, 'Walk-in', 'Approved', '2023-08-28', '11:15:00', 3, 2, '2023-07-27 10:38:59', '2023-07-31 13:45:48', NULL),
-(3, 'Walki-In', 'Pending', '2023-07-31', '14:15:00', 3, 1, '2023-07-29 11:27:23', '2023-07-29 11:27:23', 'Brudha'),
-(4, 'Online', 'Cancelled', '2023-08-02', '11:45:00', 3, 2, '2023-07-29 11:27:23', '2023-07-29 11:27:37', 'WHat!!!'),
-(5, 'Online', 'Pending', '2023-08-05', '09:30:00', 3, 3, '2023-07-29 11:27:23', '2023-07-29 11:27:42', 'HEHEHEHEHE');
+(1, 'walk-in', 'Pending', '2023-07-25', '18:17:10', 3, 2, '2023-07-24 03:17:47', '2023-08-02 14:10:32', 'Bro don\'t forget your card'),
+(2, 'Walk-in', 'Pending', '2023-08-28', '11:15:00', 3, 2, '2023-07-27 07:38:59', '2023-08-02 14:10:49', NULL),
+(3, 'Walki-In', 'Approved', '2023-08-15', '14:15:00', 3, 1, '2023-07-29 08:27:23', '2023-08-02 14:15:55', 'Brudha'),
+(4, 'Online', 'Pending', '2023-08-02', '11:45:00', 3, 2, '2023-07-29 08:27:23', '2023-08-02 14:10:38', 'WHat!!!'),
+(5, 'Online', 'Approved', '2023-08-05', '09:30:00', 3, 3, '2023-07-29 08:27:23', '2023-08-02 14:15:52', 'HEHEHEHEHE'),
+(6, 'Walk-in', 'Pending', '2023-08-21', '10:30:00', 5, 1, '2023-08-02 07:45:04', '2023-08-02 14:10:36', NULL),
+(7, 'Walk-in', 'Approved', '2023-08-30', '11:00:00', 2, 1, '2023-08-03 12:51:02', '2023-08-03 12:51:02', NULL);
 
 -- --------------------------------------------------------
 
@@ -155,8 +175,12 @@ CREATE TABLE `appointment_services` (
 --
 
 INSERT INTO `appointment_services` (`appointment_id`, `service`, `created_at`, `updated_at`) VALUES
-(1, 'Dental Cleaning', '2023-07-24 06:18:34', '2023-07-24 06:18:34'),
-(1, '2,3,4', '2023-07-27 08:49:42', '2023-07-27 08:49:42');
+(1, 'Dental Cleaning', '2023-07-24 03:18:34', '2023-07-24 03:18:34'),
+(1, '2,3,4', '2023-07-27 05:49:42', '2023-07-27 05:49:42'),
+(6, '2,3', '2023-08-02 07:45:04', '2023-08-02 07:45:04'),
+(1, 'Dental Cleaning', '2023-08-02 13:51:54', '2023-08-02 13:51:54'),
+(2, 'Dental Cleaning', '2023-08-02 13:51:54', '2023-08-02 13:51:54'),
+(7, '2', '2023-08-03 12:51:02', '2023-08-03 12:51:02');
 
 -- --------------------------------------------------------
 
@@ -198,11 +222,12 @@ CREATE TABLE `employees` (
 --
 -- Dumping data for table `employees`
 --
-INSERT INTO `employees` (`employee_id`,`first_name`, `middle_name`, `last_name`, `email`, `phone`, `role_id`, `experience`, `address`, `gender`, `profile`, `salary_type`, `currency`, `amount`, `hire_date`) 
-VALUES 
-  (1,'Abdirizak', 'omar', 'Abdi', 'abdirizakomar65@gmail.com', '613324221', 1, '2 years', 3, 'Male', '1690877422.svg', 'Monthly', 'Dollar', 1200, '2023-06-12'),
-  (2,'farhan', 'omar', 'ali', 'farxan@gmail.com', '614546598', 4, '2 years', 1, 'Male', '1690875501.svg', 'Monthly', 'Dollar', 800, '2023-07-20'),
-  (3,'Ahmed', 'Mukhtar', '', 'ahmedez@hotmail.com', '0707868481', 2, '2 years', 1, 'Male', '1689748947.php', 'Fixed', 'Dollar', 1000, '2023-07-18');
+
+INSERT INTO `employees` (`employee_id`, `first_name`, `middle_name`, `last_name`, `email`, `phone`, `role_id`, `experience`, `address`, `gender`, `profile`, `salary_type`, `currency`, `amount`, `hire_date`) VALUES
+(1, 'Abdirizak', 'omar', 'Abdi', 'abdirizakomar65@gmail.com', '613324221', 1, '2 years', 3, 'Male', '1690877422.svg', 'Monthly', 'Dollar', 1200, '2023-06-12'),
+(2, 'farhan', 'omar', 'ali', 'farxan@gmail.com', '614546598', 4, '2 years', 1, 'Male', '1690875501.svg', 'Monthly', 'Dollar', 800, '2023-07-20'),
+(3, 'Ahmed', 'Mukhtar', '', 'ahmedez@hotmail.com', '0707868481', 2, '2 years', 1, 'Male', '1689748947.php', 'Fixed', 'Dollar', 1000, '2023-07-18');
+
 -- --------------------------------------------------------
 
 --
@@ -301,9 +326,10 @@ CREATE TABLE `incometable` (
 --
 
 INSERT INTO `incometable` (`IncomeID`, `patient_id`, `IncomeType`, `IncomeAmount`, `IncomeAmountPaid`, `discount`, `createdAt`, `IncomeDate`) VALUES
-(12, 1, 'Services', 50, 19, 1, '2023-07-17 05:31:35', '2023-07-17'),
-(13, 3, 'Services', 20, 10, 0, '2023-07-18 08:24:14', '2023-07-18'),
-(14, 2, 'Services', 10, 10, 0, '2023-07-22 06:33:39', '2023-07-22');
+(12, 1, 'Services', 60, 39, 1, '2023-07-17 02:31:35', '2023-07-17'),
+(13, 3, 'Services', 20, 10, 0, '2023-07-18 05:24:14', '2023-07-18'),
+(14, 2, 'Services', 20, 10, 0, '2023-07-22 03:33:39', '2023-07-22'),
+(15, 5, 'Services', 10, 10, 0, '2023-08-02 07:32:09', '2023-08-02');
 
 -- --------------------------------------------------------
 
@@ -374,7 +400,6 @@ CREATE TABLE `logincredentialsview` (
 ,`isAdmin` tinyint(1)
 );
 
-
 -- --------------------------------------------------------
 
 --
@@ -414,10 +439,11 @@ CREATE TABLE `patients` (
 --
 
 INSERT INTO `patients` (`patient_id`, `first_name`, `middle_name`, `last_name`, `birth_date`, `gender`, `phone_number`, `address`, `username`, `password`, `created_at`, `updated_at`) VALUES
-(1, 'Kamaal', 'Abdirahman', 'Yussuf', '2005-01-01', 'Male', '616347481', '1', 'kool12', 'kool12', '2023-08-01 08:24:34', '2023-08-01 08:32:50'),
-(2, 'Stick', 'Abdirahman', 'Man', '2010-06-06', 'Male', '616666666', '1', 'stick4', 'stick4', '2023-08-01 08:24:34', '2023-08-01 08:33:11'),
-(3, 'Abdirizak', 'Abdirahman', 'Abdi', '2023-07-11', 'Male', '613324221', '1', 'abdihiga', 'abdihiga', '2023-08-01 08:24:34', '2023-08-01 08:33:30'),
-(4, 'Wehliye', 'Sh.Cali', 'Maxamed', '1967-05-16', 'Male', '0619492048', '2', 'wehman', 'denta123', '2023-08-01 08:31:55', '2023-08-01 08:33:37');
+(1, 'Kamaal', 'Abdirahman', 'Yussuf', '2005-01-01', 'Male', '616347481', '1', 'kool12', 'kool12', '2023-08-01 05:24:34', '2023-08-01 05:32:50'),
+(2, 'Stick', 'Abdirahman', 'Man', '2010-06-06', 'Male', '616666666', '1', 'stick4', 'stick4', '2023-08-01 05:24:34', '2023-08-01 05:33:11'),
+(3, 'Abdirizak', 'Abdirahman', 'Abdi', '2023-07-11', 'Male', '613324221', '1', 'abdihiga', 'abdihiga', '2023-08-01 05:24:34', '2023-08-01 05:33:30'),
+(4, 'Wehliye', 'Sh.Cali', 'Maxamed', '1967-05-16', 'Male', '0619492048', '2', 'wehman', 'denta123', '2023-08-01 05:31:55', '2023-08-01 05:33:37'),
+(5, 'abdirahman', NULL, 'ali', '2001-09-11', 'Male', '4574575', '3', NULL, 'denta123', '2023-08-02 07:31:44', '2023-08-02 07:31:44');
 
 --
 -- Triggers `patients`
@@ -456,7 +482,11 @@ CREATE TABLE `patientservices` (
 INSERT INTO `patientservices` (`patientService_id`, `patient_id`, `service_id`, `quantity`, `cost`) VALUES
 (55, 1, 2, 1, 50),
 (56, 3, 2, 2, 20),
-(57, 2, 3, 1, 10);
+(57, 2, 3, 1, 10),
+(58, 2, 5, 1, 6),
+(59, 2, 3, 1, 4),
+(60, 1, 4, 1, 10),
+(61, 5, 4, 1, 10);
 
 -- --------------------------------------------------------
 
@@ -595,16 +625,16 @@ CREATE TABLE `salary` (
 --
 
 INSERT INTO `salary` (`salary_id`, `employee_id`, `amount`, `paid_in_full`, `datePaid`) VALUES
-(1, 2, 1200, 1, '2023-07-19'); 
+(1, 2, 1200, 1, '2023-07-19');
 
 -- --------------------------------------------------------
 
 --
 -- Stand-in structure for view `salary_employee_view`
 -- (See below for the actual view)
---  
+--
 CREATE TABLE `salary_employee_view` (
-`salary_id` int(11)  
+`salary_id` int(11)
 ,`employee_id` int(11)
 ,`first_name` varchar(255)
 ,`last_name` varchar(255)
@@ -634,7 +664,7 @@ CREATE TABLE `services` (
 
 INSERT INTO `services` (`service_id`, `name`, `description`, `fee`) VALUES
 (1, 'Ilig Buuxin', 'fill in teeths', '6.00'),
-(2, 'Dental Cleaning', 'Routine cleaning of teeth to remove plaque and tartar', '100.00'), 
+(2, 'Dental Cleaning', 'Routine cleaning of teeth to remove plaque and tartar', '100.00'),
 (3, 'Dental Examination', 'Comprehensive oral examination and assessment', '150.00'),
 (4, 'Fillings', 'Restoration of decayed teeth with dental fillings', '200.00'),
 (5, 'Dental X-rays', 'Obtaining detailed images of teeth and oral structures', '80.00'),
@@ -663,7 +693,7 @@ CREATE TABLE `suppliers` (
 CREATE TABLE `treatmentplan_patients_view` (
 `treatment_plan_id` int(11)
 ,`first_name` varchar(50)
-,`last_name` varchar(50)  
+,`last_name` varchar(50)
 ,`start_date` date
 ,`end_date` date
 ,`total_cost` decimal(10,2)
@@ -685,6 +715,123 @@ CREATE TABLE `treatment_plans` (
   `status` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Structure for view `addresses_employees_view`
+--
+DROP TABLE IF EXISTS `addresses_employees_view`;
+
+CREATE  VIEW `addresses_employees_view`  AS SELECT `a`.`address_id` AS `address`, `e`.`employee_id` AS `employee_id`, `e`.`first_name` AS `first_name`, `e`.`last_name` AS `last_name`, `e`.`phone` AS `phone`, `e`.`email` AS `email`, `r`.`role_name` AS `role_name`, `e`.`experience` AS `Experience`, `e`.`gender` AS `gender`, `e`.`salary_type` AS `salary_type`, `e`.`currency` AS `currency`, `e`.`amount` AS `amount`, `e`.`hire_date` AS `hire_date`, `a`.`street` AS `street`, `a`.`city` AS `city`, `a`.`state` AS `state`, `e`.`profile` AS `profile` FROM ((`employees` `e` join `addresses` `a` on(`e`.`address` = `a`.`address_id`)) join `roles` `r` on(`e`.`role_id` = `r`.`role_id`))  ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `addresses_patients_view`
+--
+DROP TABLE IF EXISTS `addresses_patients_view`;
+
+CREATE  VIEW `addresses_patients_view`  AS SELECT `pt`.`patient_id` AS `patient_id`, `pt`.`first_name` AS `first_name`, `pt`.`last_name` AS `last_name`, `pt`.`phone_number` AS `phone_number`, `pt`.`gender` AS `gender`, `pt`.`birth_date` AS `birth_date`, `a`.`street` AS `street`, `a`.`city` AS `city`, `a`.`state` AS `state` FROM (`patients` `pt` join `addresses` `a` on(`pt`.`address` = `a`.`address_id`))  ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `addresses_supplier_view`
+--
+DROP TABLE IF EXISTS `addresses_supplier_view`;
+
+CREATE  VIEW `addresses_supplier_view`  AS SELECT `s`.`supplier_id` AS `supplier_id`, `s`.`supplier_name` AS `supplier_name`, `s`.`email` AS `email`, `s`.`phone_number` AS `phone_number`, `a`.`street` AS `street`, `a`.`city` AS `city`, `a`.`state` AS `state` FROM (`suppliers` `s` join `addresses` `a` on(`s`.`address` = `a`.`address_id`))  ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `appointmentdetails`
+--
+DROP TABLE IF EXISTS `appointmentdetails`;
+
+CREATE  VIEW `appointmentdetails`  AS SELECT `a`.`appointment_id` AS `appointment_id`, `p`.`patient_id` AS `patient_id`, concat(`p`.`first_name`,' ',`p`.`last_name`) AS `patient_name`, `s`.`service_id` AS `service_id`, `s`.`name` AS `service_name`, `a`.`date` AS `date`, `a`.`time` AS `time`, `a`.`created_at` AS `created_at`, `a`.`updated_at` AS `updated_at` FROM (((`appointments` `a` join `patients` `p` on(`a`.`patient_id` = `p`.`patient_id`)) join `appointment_services` `aps` on(`a`.`appointment_id` = `aps`.`appointment_id`)) join `services` `s`)  ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `expenses_expense_types_view`
+--
+DROP TABLE IF EXISTS `expenses_expense_types_view`;
+
+CREATE  VIEW `expenses_expense_types_view`  AS SELECT `e`.`expense_id` AS `expense_id`, `et`.`expense_type_id` AS `expense_type_id`, `e`.`description` AS `description`, `e`.`amount` AS `amount`, `e`.`quantity` AS `quantity`, `e`.`date` AS `date`, `et`.`expense_type` AS `expense_type` FROM (`expenses` `e` join `expense_types` `et` on(`e`.`expense_type` = `et`.`expense_type_id`))  ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `incometableview`
+--
+DROP TABLE IF EXISTS `incometableview`;
+
+CREATE  VIEW `incometableview`  AS SELECT `i`.`IncomeID` AS `IncomeID`, `i`.`patient_id` AS `patient_id`, `i`.`IncomeType` AS `IncomeType`, `i`.`IncomeAmount` AS `IncomeAmount`, `i`.`IncomeAmountPaid` AS `IncomeAmountPaid`, `i`.`createdAt` AS `createdAt`, `i`.`IncomeDate` AS `IncomeDate`, `i`.`discount` AS `discount` FROM `incometable` AS `i``i`  ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `logincredentialsview`
+--
+DROP TABLE IF EXISTS `logincredentialsview`;
+
+CREATE  VIEW `logincredentialsview`  AS SELECT `employees`.`employee_id` AS `employee_id`, `employees`.`first_name` AS `first_name`, `employees`.`last_name` AS `last_name`, `roles`.`role_name` AS `role_name`, `logincredentials`.`Username` AS `Username`, `logincredentials`.`Password` AS `Password`, `logincredentials`.`isAdmin` AS `isAdmin` FROM ((`employees` join `logincredentials` on(`employees`.`employee_id` = `logincredentials`.`employee_id`)) join `roles` on(`employees`.`role_id` = `roles`.`role_id`))  ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `patientservicesview`
+--
+DROP TABLE IF EXISTS `patientservicesview`;
+
+CREATE  VIEW `patientservicesview`  AS SELECT `patientservices`.`patientService_id` AS `patientService_id`, `patients`.`patient_id` AS `patient_id`, `patients`.`first_name` AS `first_name`, `patients`.`last_name` AS `last_name`, `services`.`service_id` AS `service_id`, `services`.`name` AS `service_name`, `patientservices`.`quantity` AS `quantity`, `patientservices`.`cost` AS `cost` FROM ((`patientservices` join `patients` on(`patientservices`.`patient_id` = `patients`.`patient_id`)) join `services` on(`patientservices`.`service_id` = `services`.`service_id`))  ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `patient_incometable_view`
+--
+DROP TABLE IF EXISTS `patient_incometable_view`;
+
+CREATE  VIEW `patient_incometable_view`  AS SELECT `i`.`IncomeID` AS `IncomeID`, `i`.`patient_id` AS `patient_id`, `i`.`IncomeType` AS `IncomeType`, `i`.`IncomeAmount` AS `IncomeAmount`, `i`.`IncomeAmountPaid` AS `IncomeAmountPaid`, `i`.`IncomeDate` AS `IncomeDate`, `p`.`first_name` AS `first_name`, `p`.`last_name` AS `last_name`, `i`.`discount` AS `discount` FROM (`patients` `p` join `incometable` `i` on(`p`.`patient_id` = `i`.`patient_id`))  ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `patient_service_view`
+--
+DROP TABLE IF EXISTS `patient_service_view`;
+
+CREATE  VIEW `patient_service_view`  AS SELECT `patientservices`.`patientService_id` AS `patientService_id`, `patientservices`.`patient_id` AS `patient_id`, count(`patientservices`.`service_id`) AS `Services`, count(`patientservices`.`quantity`) AS `Quantity`, sum(`patientservices`.`cost`) AS `Total`, `p`.`first_name` AS `first_name`, `p`.`last_name` AS `last_name` FROM (`patientservices` join `patients` `p` on(`patientservices`.`patient_id` = `p`.`patient_id`)) GROUP BY `patientservices`.`patient_id``patient_id`  ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `prescriptionview`
+--
+DROP TABLE IF EXISTS `prescriptionview`;
+
+CREATE  VIEW `prescriptionview`  AS SELECT `p`.`prescription_id` AS `prescription_id`, `pt`.`first_name` AS `first_name`, `pt`.`last_name` AS `last_name`, `m`.`medication_name` AS `medication_name`, `p`.`dosage` AS `dosage`, `p`.`instructions` AS `instruction`, `p`.`date_prescribed` AS `date_prescribed` FROM ((`prescriptions` `p` join `patients` `pt` on(`p`.`patient_id` = `pt`.`patient_id`)) join `medications` `m` on(`p`.`medication_id` = `m`.`medication_id`))  ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `salary_employee_view`
+--
+DROP TABLE IF EXISTS `salary_employee_view`;
+
+CREATE  VIEW `salary_employee_view`  AS SELECT `s`.`salary_id` AS `salary_id`, `s`.`employee_id` AS `employee_id`, `e`.`first_name` AS `first_name`, `e`.`last_name` AS `last_name`, `e`.`salary_type` AS `salary_type`, `e`.`currency` AS `currency`, `s`.`amount` AS `amount`, `s`.`datePaid` AS `datePaid`, `s`.`paid_in_full` AS `paid_in_full` FROM (`salary` `s` join `employees` `e` on(`s`.`employee_id` = `e`.`employee_id`))  ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `treatmentplan_patients_view`
+--
+DROP TABLE IF EXISTS `treatmentplan_patients_view`;
+
+CREATE  VIEW `treatmentplan_patients_view`  AS SELECT `tp`.`treatment_plan_id` AS `treatment_plan_id`, `pt`.`first_name` AS `first_name`, `pt`.`last_name` AS `last_name`, `tp`.`start_date` AS `start_date`, `tp`.`end_date` AS `end_date`, `tp`.`total_cost` AS `total_cost`, `tp`.`status` AS `status` FROM (`treatment_plans` `tp` join `patients` `pt` on(`tp`.`patient_id` = `pt`.`patient_id`))  ;
+
 --
 -- Indexes for dumped tables
 --
@@ -697,7 +844,7 @@ ALTER TABLE `addresses`
 
 --
 -- Indexes for table `appointments`
---  
+--
 ALTER TABLE `appointments`
   ADD PRIMARY KEY (`appointment_id`),
   ADD KEY `patient_id` (`patient_id`),
@@ -708,7 +855,7 @@ ALTER TABLE `appointments`
 --
 ALTER TABLE `appointment_services`
   ADD KEY `appointment_id` (`appointment_id`);
-  
+
 --
 -- Indexes for table `drugs`
 --
@@ -730,7 +877,7 @@ ALTER TABLE `equipment`
   ADD PRIMARY KEY (`equipment_id`);
 
 --
--- Indexes for table `expenses`  
+-- Indexes for table `expenses`
 --
 ALTER TABLE `expenses`
   ADD PRIMARY KEY (`expense_id`),
@@ -751,18 +898,18 @@ ALTER TABLE `incometable`
 
 --
 -- Indexes for table `inventory`
--- 
+--
 ALTER TABLE `inventory`
   ADD PRIMARY KEY (`inventory_id`),
   ADD KEY `supplier_id` (`supplier_id`);
-  
+
 --
 -- Indexes for table `logincredentials`
 --
 ALTER TABLE `logincredentials`
   ADD PRIMARY KEY (`employee_id`);
 
---  
+--
 -- Indexes for table `medications`
 --
 ALTER TABLE `medications`
@@ -774,7 +921,7 @@ ALTER TABLE `medications`
 ALTER TABLE `patients`
   ADD PRIMARY KEY (`patient_id`),
   ADD UNIQUE KEY `username` (`username`);
-  
+
 --
 -- Indexes for table `patientservices`
 --
@@ -782,8 +929,8 @@ ALTER TABLE `patientservices`
   ADD PRIMARY KEY (`patientService_id`),
   ADD KEY `patient_id` (`patient_id`),
   ADD KEY `service_id` (`service_id`);
-  
---  
+
+--
 -- Indexes for table `prescriptions`
 --
 ALTER TABLE `prescriptions`
@@ -792,7 +939,7 @@ ALTER TABLE `prescriptions`
   ADD KEY `medication_id` (`medication_id`);
 
 --
--- Indexes for table `procedures`  
+-- Indexes for table `procedures`
 --
 ALTER TABLE `procedures`
   ADD PRIMARY KEY (`procedure_id`);
@@ -809,8 +956,8 @@ ALTER TABLE `roles`
 ALTER TABLE `salary`
   ADD PRIMARY KEY (`salary_id`),
   ADD KEY `employee_id` (`employee_id`);
-  
--- 
+
+--
 -- Indexes for table `services`
 --
 ALTER TABLE `services`
@@ -821,14 +968,14 @@ ALTER TABLE `services`
 --
 ALTER TABLE `suppliers`
   ADD PRIMARY KEY (`supplier_id`);
-  
+
 --
 -- Indexes for table `treatment_plans`
 --
 ALTER TABLE `treatment_plans`
   ADD PRIMARY KEY (`treatment_plan_id`),
   ADD KEY `patient_id` (`patient_id`);
-  
+
 --
 -- AUTO_INCREMENT for dumped tables
 --
@@ -837,13 +984,13 @@ ALTER TABLE `treatment_plans`
 -- AUTO_INCREMENT for table `addresses`
 --
 ALTER TABLE `addresses`
-  MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT;  
+  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `drugs`
@@ -854,8 +1001,10 @@ ALTER TABLE `drugs`
 --
 -- AUTO_INCREMENT for table `employees`
 --
-ALTER TABLE `employees` MODIFY  `employee_id` INT(11) NOT NULL AUTO_INCREMENT;
---  
+ALTER TABLE `employees`
+  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `equipment`
 --
 ALTER TABLE `equipment`
@@ -865,19 +1014,19 @@ ALTER TABLE `equipment`
 -- AUTO_INCREMENT for table `expenses`
 --
 ALTER TABLE `expenses`
-  MODIFY `expense_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `expense_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `expense_types`
 --
 ALTER TABLE `expense_types`
-  MODIFY `expense_type_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `expense_type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `incometable`
 --
 ALTER TABLE `incometable`
-  MODIFY `IncomeID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `IncomeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `inventory`
@@ -895,13 +1044,13 @@ ALTER TABLE `medications`
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
-  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `patientservices`
 --
 ALTER TABLE `patientservices`
-  MODIFY `patientService_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `patientService_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT for table `prescriptions`
@@ -919,21 +1068,21 @@ ALTER TABLE `procedures`
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `salary`
 --
 ALTER TABLE `salary`
-  MODIFY `salary_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `salary_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
-  MODIFY `service_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `service_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
---  
+--
 -- AUTO_INCREMENT for table `suppliers`
 --
 ALTER TABLE `suppliers`
@@ -941,7 +1090,7 @@ ALTER TABLE `suppliers`
 
 --
 -- AUTO_INCREMENT for table `treatment_plans`
---  
+--
 ALTER TABLE `treatment_plans`
   MODIFY `treatment_plan_id` int(11) NOT NULL AUTO_INCREMENT;
 
@@ -961,7 +1110,7 @@ ALTER TABLE `appointments`
 --
 ALTER TABLE `appointment_services`
   ADD CONSTRAINT `appointment_services_ibfk_1` FOREIGN KEY (`appointment_id`) REFERENCES `appointments` (`appointment_id`);
-  
+
 --
 -- Constraints for table `employees`
 --
@@ -980,7 +1129,7 @@ ALTER TABLE `expenses`
 --
 ALTER TABLE `incometable`
   ADD CONSTRAINT `incometable_ibfk_1` FOREIGN KEY (`patient_id`) REFERENCES `patients` (`patient_id`);
-  
+
 --
 -- Constraints for table `inventory`
 --
@@ -994,12 +1143,12 @@ ALTER TABLE `logincredentials`
   ADD CONSTRAINT `logincredentials_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`);
 
 --
--- Constraints for table `patientservices`  
+-- Constraints for table `patientservices`
 --
 ALTER TABLE `patientservices`
   ADD CONSTRAINT `patientservices_ibfk_1` FOREIGN KEY (`patient_id`) REFERENCES `patients` (`patient_id`),
   ADD CONSTRAINT `patientservices_ibfk_2` FOREIGN KEY (`service_id`) REFERENCES `services` (`service_id`);
-  
+
 --
 -- Constraints for table `prescriptions`
 --
@@ -1012,122 +1161,14 @@ ALTER TABLE `prescriptions`
 --
 ALTER TABLE `salary`
   ADD CONSTRAINT `salary_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`);
-  
+
 --
 -- Constraints for table `treatment_plans`
 --
 ALTER TABLE `treatment_plans`
   ADD CONSTRAINT `treatment_plans_ibfk_1` FOREIGN KEY (`patient_id`) REFERENCES `patients` (`patient_id`);
-
---
--- Structure for view `addresses_employees_view`
---  
-DROP TABLE IF EXISTS `addresses_employees_view`;
-
-CREATE  VIEW `addresses_employees_view`  AS SELECT `a`.`address_id` AS `address`, `e`.`employee_id` AS `employee_id`, `e`.`first_name` AS `first_name`, `e`.`last_name` AS `last_name`, `e`.`phone` AS `phone`, `e`.`email` AS `email`, `r`.`role_name` AS `role_name`, `e`.`experience` AS `Experience`, `e`.`gender` AS `gender`, `e`.`salary_type` AS `salary_type`, `e`.`currency` AS `currency`, `e`.`amount` AS `amount`, `e`.`hire_date` AS `hire_date`, `a`.`street` AS `street`, `a`.`city` AS `city`, `a`.`state` AS `state`, `e`.`profile` AS `profile` FROM ((`employees` `e` join `addresses` `a` on(`e`.`address` = `a`.`address_id`)) join `roles` `r` on(`e`.`role_id` = `r`.`role_id`)) ;
-
---
--- Structure for view `addresses_patients_view`
---
-DROP TABLE IF EXISTS `addresses_patients_view`;
-
-CREATE  VIEW `addresses_patients_view`  AS SELECT `pt`.`patient_id` AS `patient_id`, `pt`.`first_name` AS `first_name`, `pt`.`last_name` AS `last_name`, `pt`.`phone_number` AS `phone_number`, `pt`.`gender` AS `gender`, `pt`.`birth_date` AS `birth_date`, `a`.`street` AS `street`, `a`.`city` AS `city`, `a`.`state` AS `state` FROM (`patients` `pt` join `addresses` `a` on(`pt`.`address` = `a`.`address_id`)) ;
-
---
--- Structure for view `addresses_supplier_view`
---
-DROP TABLE IF EXISTS `addresses_supplier_view`;
-
-CREATE  VIEW `addresses_supplier_view`  AS SELECT `s`.`supplier_id` AS `supplier_id`, `s`.`supplier_name` AS `supplier_name`, `s`.`email` AS `email`, `s`.`phone_number` AS `phone_number`, `a`.`street` AS `street`, `a`.`city` AS `city`, `a`.`state` AS `state` FROM (`suppliers` `s` join `addresses` `a` on(`s`.`address` = `a`.`address_id`)) ;
-
---
--- Structure for view `appointmentdetails`
---
-DROP TABLE IF EXISTS `appointmentdetails`;
-
-CREATE  VIEW `appointmentdetails`  AS SELECT `a`.`appointment_id` AS `appointment_id`, `p`.`patient_id` AS `patient_id`, `e`.`employee_id` AS `employee_id`, `r`.`role_id` AS `role_id`, `s`.`service_id` AS `service_id`, `a`.`Type` AS `appointment_type`, `a`.`status` AS `appointment_status`, concat(`p`.`first_name`,' ',`p`.`last_name`) AS `patient_name`, concat(`e`.`first_name`,' ',`e`.`last_name`) AS `employee_name`, `r`.`role_name` AS `employee_role`, `s`.`name` AS `service_name`, `s`.`fee` AS `service_fee`, `a`.`date` AS `date`, `a`.`time` AS `time`, `a`.`created_at` AS `created_at`, `a`.`updated_at` AS `updated_at` FROM (((((`appointments` `a` join `patients` `p` on(`a`.`patient_id` = `p`.`patient_id`)) join `employees` `e` on(`a`.`employee_id` = `e`.`employee_id`)) join `roles` `r` on(`e`.`role_id` = `r`.`role_id`)) join `appointment_services` `aps` on(`a`.`appointment_id` = `aps`.`appointment_id`)) join `services` `s` on(`aps`.`service` = `s`.`name`)) ;
-
---
--- Structure for view `expenses_expense_types_view`
---
-DROP TABLE IF EXISTS `expenses_expense_types_view`;
-
-CREATE  VIEW `expenses_expense_types_view`  AS SELECT `e`.`expense_id` AS `expense_id`, `et`.`expense_type_id` AS `expense_type_id`, `e`.`description` AS `description`, `e`.`amount` AS `amount`, `e`.`quantity` AS `quantity`, `e`.`date` AS `date`, `et`.`expense_type` AS `expense_type` FROM (`expenses` `e` join `expense_types` `et` on(`e`.`expense_type` = `et`.`expense_type_id`)) ;
-
---
--- Structure for view `incometableview`  
---
-DROP TABLE IF EXISTS `incometableview`;
-
-CREATE VIEW `incometableview` AS
-SELECT
-    `i`.`IncomeID` AS `IncomeID`,
-    `i`.`patient_id` AS `patient_id`,
-    `i`.`IncomeType` AS `IncomeType`,
-    `i`.`IncomeAmount` AS `IncomeAmount`,
-    `i`.`IncomeAmountPaid` AS `IncomeAmountPaid`,
-    `i`.`createdAt` AS `createdAt`,
-    `i`.`IncomeDate` AS `IncomeDate`,
-    `i`.`discount` AS `discount`
-FROM `incometable` `i`;
---
--- Structure for view `logincredentialsview`
---
-DROP TABLE IF EXISTS `logincredentialsview`;
-
-CREATE  VIEW `logincredentialsview`  AS SELECT `employees`.`employee_id` AS `employee_id`, `employees`.`first_name` AS `first_name`, `employees`.`last_name` AS `last_name`, `roles`.`role_name` AS `role_name`, `logincredentials`.`Username` AS `Username`, `logincredentials`.`Password` AS `Password`, `logincredentials`.`isAdmin` AS `isAdmin` FROM ((`employees` join `logincredentials` on(`employees`.`employee_id` = `logincredentials`.`employee_id`)) join `roles` on(`employees`.`role_id` = `roles`.`role_id`)) ; 
-
---
--- Structure for view `patientservicesview`  
---
-DROP TABLE IF EXISTS `patientservicesview`;
-
-CREATE  VIEW `patientservicesview`  AS SELECT `patientservices`.`patientService_id` AS `patientService_id`, `patients`.`patient_id` AS `patient_id`, `patients`.`first_name` AS `first_name`, `patients`.`last_name` AS `last_name`, `services`.`service_id` AS `service_id`, `services`.`name` AS `service_name`, `patientservices`.`quantity` AS `quantity`, `patientservices`.`cost` AS `cost` FROM ((`patientservices` join `patients` on(`patientservices`.`patient_id` = `patients`.`patient_id`)) join `services` on(`patientservices`.`service_id` = `services`.`service_id`)) ;
-
---
--- Structure for view `patient_incometable_view`
---
-DROP TABLE IF EXISTS `patient_incometable_view`;
-
-CREATE  VIEW `patient_incometable_view`  AS SELECT `i`.`IncomeID` AS `IncomeID`, `i`.`patient_id` AS `patient_id`, `i`.`IncomeType` AS `IncomeType`, `i`.`IncomeAmount` AS `IncomeAmount`, `i`.`IncomeAmountPaid` AS `IncomeAmountPaid`, `i`.`IncomeDate` AS `IncomeDate`, `p`.`first_name` AS `first_name`, `p`.`last_name` AS `last_name`, `i`.`discount` AS `discount` FROM (`patients` `p` join `incometable` `i` on(`p`.`patient_id` = `i`.`patient_id`)) ;
-
---
--- Structure for view `patient_service_view`
---
-DROP TABLE IF EXISTS `patient_service_view`;
-
-CREATE VIEW `patient_service_view` AS
-SELECT
-    `patientservices`.`patientService_id` AS `patientService_id`,
-    `patientservices`.`patient_id` AS `patient_id`,
-    COUNT(`patientservices`.`service_id`) AS `Services`,
-    COUNT(`patientservices`.`quantity`) AS `Quantity`,
-    SUM(`patientservices`.`cost`) AS `Total`,
-    `p`.`first_name` AS `first_name`,
-    `p`.`last_name` AS `last_name`
-FROM `patientservices`
-JOIN `patients` `p` ON `patientservices`.`patient_id` = `p`.`patient_id`
-GROUP BY `patientservices`.`patient_id`;
-
---
--- Structure for view `prescriptionview`
---
-DROP TABLE IF EXISTS `prescriptionview`;
-
-CREATE  VIEW `prescriptionview`  AS SELECT `p`.`prescription_id` AS `prescription_id`, `pt`.`first_name` AS `first_name`, `pt`.`last_name` AS `last_name`, `m`.`medication_name` AS `medication_name`, `p`.`dosage` AS `dosage`, `p`.`instructions` AS `instruction`, `p`.`date_prescribed` AS `date_prescribed` FROM ((`prescriptions` `p` join `patients` `pt` on(`p`.`patient_id` = `pt`.`patient_id`)) join `medications` `m` on(`p`.`medication_id` = `m`.`medication_id`)) ;
-
---
--- Structure for view `salary_employee_view`
---
-DROP TABLE IF EXISTS `salary_employee_view`;
-
-CREATE  VIEW `salary_employee_view`  AS SELECT `s`.`salary_id` AS `salary_id`, `s`.`employee_id` AS `employee_id`, `e`.`first_name` AS `first_name`, `e`.`last_name` AS `last_name`, `e`.`salary_type` AS `salary_type`, `e`.`currency` AS `currency`, `s`.`amount` AS `amount`, `s`.`datePaid` AS `datePaid`, `s`.`paid_in_full` AS `paid_in_full` FROM (`salary` `s` join `employees` `e` on(`s`.`employee_id` = `e`.`employee_id`)) ;
-
---  
--- Structure for view `treatmentplan_patients_view`
---
-DROP TABLE IF EXISTS `treatmentplan_patients_view`;
-
-CREATE  VIEW `treatmentplan_patients_view`  AS SELECT `tp`.`treatment_plan_id` AS `treatment_plan_id`, `pt`.`first_name` AS `first_name`, `pt`.`last_name` AS `last_name`, `tp`.`start_date` AS `start_date`, `tp`.`end_date` AS `end_date`, `tp`.`total_cost` AS `total_cost`, `tp`.`status` AS `status` FROM (`treatment_plans` `tp` join `patients` `pt` on(`tp`.`patient_id` = `pt`.`patient_id`)) ;
-
 COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
