@@ -26,7 +26,7 @@ if (!$conn) {
             // Validate input (e.g., check for empty fields or length restrictions)
 
             // Prepare and bind the SQL statement
-            $sql = "SELECT patient_id, first_name, middle_name, last_name, birth_date, gender, phone_number, address
+            $sql = "SELECT *
                     FROM patients WHERE username = ? AND password = ?";
             $stmt = mysqli_prepare($conn, $sql);
             mysqli_stmt_bind_param($stmt, "ss", $username, $password);
@@ -51,7 +51,9 @@ if (!$conn) {
                         'birth_date' => $row['birth_date'],
                         'gender' => $row['gender'],
                         'phone_number' => $row['phone_number'],
-                        'address' => $row['address']
+                        'address' => $row['address'],
+                        'username' => $row['username'],
+                        'password' => $row['password']
                     ]
                 ];
             } else {
