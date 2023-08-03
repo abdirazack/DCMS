@@ -4,7 +4,7 @@
 
     <div class="container-fluid ">
 
-        <div class=" mt-1 p-3 shadow rounded overflow-auto">
+        <div class=" mt-1 p-3 shadow bg-white rounded overflow-auto">
             <div class='small' id='small'></div>
             <div class='d-flex justify-content-between mb-4'>
                 <h2 class="text-center text-primary">Treatment Plans List</h2>

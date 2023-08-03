@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 24, 2023 at 06:27 PM
+-- Generation Time: Aug 03, 2023 at 03:33 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -54,7 +54,8 @@ INSERT INTO `addresses` (`address_id`, `street`, `city`, `state`, `country`, `zi
 -- (See below for the actual view)
 --
 CREATE TABLE `addresses_employees_view` (
-`employee_id` int(11)
+`address` int(11)
+,`employee_id` int(11)
 ,`first_name` varchar(255)
 ,`last_name` varchar(255)
 ,`phone` varchar(255)
@@ -69,6 +70,7 @@ CREATE TABLE `addresses_employees_view` (
 ,`street` varchar(255)
 ,`city` varchar(255)
 ,`state` varchar(255)
+,`profile` varchar(255)
 );
 
 -- --------------------------------------------------------
@@ -114,16 +116,9 @@ CREATE TABLE `addresses_supplier_view` (
 CREATE TABLE `appointmentdetails` (
 `appointment_id` int(11)
 ,`patient_id` int(11)
-,`employee_id` int(11)
-,`role_id` int(11)
-,`service_id` int(11)
-,`appointment_type` varchar(50)
-,`appointment_status` varchar(20)
 ,`patient_name` varchar(101)
-,`employee_name` varchar(511)
-,`employee_role` varchar(255)
+,`service_id` int(11)
 ,`service_name` varchar(50)
-,`service_fee` decimal(10,2)
 ,`date` date
 ,`time` time
 ,`created_at` timestamp
@@ -145,15 +140,22 @@ CREATE TABLE `appointments` (
   `patient_id` int(11) DEFAULT NULL,
   `employee_id` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `note` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `appointments`
 --
 
-INSERT INTO `appointments` (`appointment_id`, `Type`, `status`, `date`, `time`, `patient_id`, `employee_id`, `created_at`, `updated_at`) VALUES
-(1, 'walk-in', 'Pending', '2023-07-25', '18:17:10', 3, 2, '2023-07-24 06:17:47', '2023-07-24 16:22:26');
+INSERT INTO `appointments` (`appointment_id`, `Type`, `status`, `date`, `time`, `patient_id`, `employee_id`, `created_at`, `updated_at`, `note`) VALUES
+(1, 'walk-in', 'Pending', '2023-07-25', '18:17:10', 3, 2, '2023-07-24 03:17:47', '2023-08-02 14:10:32', 'Bro don\'t forget your card'),
+(2, 'Walk-in', 'Pending', '2023-08-28', '11:15:00', 3, 2, '2023-07-27 07:38:59', '2023-08-02 14:10:49', NULL),
+(3, 'Walki-In', 'Approved', '2023-08-15', '14:15:00', 3, 1, '2023-07-29 08:27:23', '2023-08-02 14:15:55', 'Brudha'),
+(4, 'Online', 'Pending', '2023-08-02', '11:45:00', 3, 2, '2023-07-29 08:27:23', '2023-08-02 14:10:38', 'WHat!!!'),
+(5, 'Online', 'Approved', '2023-08-05', '09:30:00', 3, 3, '2023-07-29 08:27:23', '2023-08-02 14:15:52', 'HEHEHEHEHE'),
+(6, 'Walk-in', 'Pending', '2023-08-21', '10:30:00', 5, 1, '2023-08-02 07:45:04', '2023-08-02 14:10:36', NULL),
+(7, 'Walk-in', 'Approved', '2023-08-30', '11:00:00', 2, 1, '2023-08-03 12:51:02', '2023-08-03 12:51:02', NULL);
 
 -- --------------------------------------------------------
 
@@ -173,7 +175,12 @@ CREATE TABLE `appointment_services` (
 --
 
 INSERT INTO `appointment_services` (`appointment_id`, `service`, `created_at`, `updated_at`) VALUES
-(1, 'Dental Cleaning', '2023-07-24 06:18:34', '2023-07-24 06:18:34');
+(1, 'Dental Cleaning', '2023-07-24 03:18:34', '2023-07-24 03:18:34'),
+(1, '2,3,4', '2023-07-27 05:49:42', '2023-07-27 05:49:42'),
+(6, '2,3', '2023-08-02 07:45:04', '2023-08-02 07:45:04'),
+(1, 'Dental Cleaning', '2023-08-02 13:51:54', '2023-08-02 13:51:54'),
+(2, 'Dental Cleaning', '2023-08-02 13:51:54', '2023-08-02 13:51:54'),
+(7, '2', '2023-08-03 12:51:02', '2023-08-03 12:51:02');
 
 -- --------------------------------------------------------
 
@@ -197,6 +204,7 @@ CREATE TABLE `drugs` (
 CREATE TABLE `employees` (
   `employee_id` int(11) NOT NULL,
   `first_name` varchar(255) DEFAULT NULL,
+  `middle_name` varchar(50) DEFAULT NULL,
   `last_name` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `phone` varchar(255) DEFAULT NULL,
@@ -215,10 +223,10 @@ CREATE TABLE `employees` (
 -- Dumping data for table `employees`
 --
 
-INSERT INTO `employees` (`employee_id`, `first_name`, `last_name`, `email`, `phone`, `role_id`, `experience`, `address`, `gender`, `profile`, `salary_type`, `currency`, `amount`, `hire_date`) VALUES
-(2, 'Abdirizak', 'Abdi', 'abdirizakomar65@gmail.com', '613324221', 1, '2 years', 1, 'Male', '', 'Monthly', 'Dollar', 1200, '2023-06-12'),
-(3, 'farhan', 'ali', 'farxan@gmail.com', '614546598', 4, '2 years', 1, 'Male', '', 'Monthly', 'Dollar', 800, '2023-07-20'),
-(4, 'Ahmed', 'Mukhtar', 'ahmedez@hotmail.com', '0707868481', 2, '2 years', 1, 'Male', '1689748947.php', 'Fixed', 'Dollar', 1000, '2023-07-18');
+INSERT INTO `employees` (`employee_id`, `first_name`, `middle_name`, `last_name`, `email`, `phone`, `role_id`, `experience`, `address`, `gender`, `profile`, `salary_type`, `currency`, `amount`, `hire_date`) VALUES
+(1, 'Abdirizak', 'omar', 'Abdi', 'abdirizakomar65@gmail.com', '613324221', 1, '2 years', 3, 'Male', '1690877422.svg', 'Monthly', 'Dollar', 1200, '2023-06-12'),
+(2, 'farhan', 'omar', 'ali', 'farxan@gmail.com', '614546598', 4, '2 years', 1, 'Male', '1690875501.svg', 'Monthly', 'Dollar', 800, '2023-07-20'),
+(3, 'Ahmed', 'Mukhtar', '', 'ahmedez@hotmail.com', '0707868481', 2, '2 years', 1, 'Male', '1689748947.php', 'Fixed', 'Dollar', 1000, '2023-07-18');
 
 -- --------------------------------------------------------
 
@@ -318,9 +326,10 @@ CREATE TABLE `incometable` (
 --
 
 INSERT INTO `incometable` (`IncomeID`, `patient_id`, `IncomeType`, `IncomeAmount`, `IncomeAmountPaid`, `discount`, `createdAt`, `IncomeDate`) VALUES
-(12, 1, 'Services', 50, 19, 1, '2023-07-17 05:31:35', '2023-07-17'),
-(13, 3, 'Services', 20, 10, 0, '2023-07-18 08:24:14', '2023-07-18'),
-(14, 2, 'Services', 10, 10, 0, '2023-07-22 06:33:39', '2023-07-22');
+(12, 1, 'Services', 60, 39, 1, '2023-07-17 02:31:35', '2023-07-17'),
+(13, 3, 'Services', 20, 10, 0, '2023-07-18 05:24:14', '2023-07-18'),
+(14, 2, 'Services', 20, 10, 0, '2023-07-22 03:33:39', '2023-07-22'),
+(15, 5, 'Services', 10, 10, 0, '2023-08-02 07:32:09', '2023-08-02');
 
 -- --------------------------------------------------------
 
@@ -372,7 +381,7 @@ CREATE TABLE `logincredentials` (
 --
 
 INSERT INTO `logincredentials` (`employee_id`, `Username`, `Password`, `isAdmin`) VALUES
-(2, 'Abdi', '123', 1),
+(2, 'Abdi', '4848', 1),
 (3, 'fa', '111', 0);
 
 -- --------------------------------------------------------
@@ -413,21 +422,44 @@ CREATE TABLE `medications` (
 CREATE TABLE `patients` (
   `patient_id` int(11) NOT NULL,
   `first_name` varchar(50) NOT NULL,
+  `middle_name` varchar(50) DEFAULT NULL,
   `last_name` varchar(50) NOT NULL,
   `birth_date` date NOT NULL,
   `gender` enum('Male','Female','Other') NOT NULL,
   `phone_number` varchar(20) NOT NULL,
-  `address` varchar(255) NOT NULL
+  `address` varchar(255) NOT NULL,
+  `username` varchar(30) DEFAULT NULL,
+  `password` varchar(50) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `patients`
 --
 
-INSERT INTO `patients` (`patient_id`, `first_name`, `last_name`, `birth_date`, `gender`, `phone_number`, `address`) VALUES
-(1, 'Kamaal', 'Yussuf', '2005-01-01', 'Male', '616347481', '1'),
-(2, 'Stick', 'Man', '2010-06-06', 'Male', '616666666', '1'),
-(3, 'Abdirizak', 'Abdi', '2023-07-11', 'Male', '613324221', '1');
+INSERT INTO `patients` (`patient_id`, `first_name`, `middle_name`, `last_name`, `birth_date`, `gender`, `phone_number`, `address`, `username`, `password`, `created_at`, `updated_at`) VALUES
+(1, 'Kamaal', 'Abdirahman', 'Yussuf', '2005-01-01', 'Male', '616347481', '1', 'kool12', 'kool12', '2023-08-01 05:24:34', '2023-08-01 05:32:50'),
+(2, 'Stick', 'Abdirahman', 'Man', '2010-06-06', 'Male', '616666666', '1', 'stick4', 'stick4', '2023-08-01 05:24:34', '2023-08-01 05:33:11'),
+(3, 'Abdirizak', 'Abdirahman', 'Abdi', '2023-07-11', 'Male', '613324221', '1', 'abdihiga', 'abdihiga', '2023-08-01 05:24:34', '2023-08-01 05:33:30'),
+(4, 'Wehliye', 'Sh.Cali', 'Maxamed', '1967-05-16', 'Male', '0619492048', '2', 'wehman', 'denta123', '2023-08-01 05:31:55', '2023-08-01 05:33:37'),
+(5, 'abdirahman', NULL, 'ali', '2001-09-11', 'Male', '4574575', '3', NULL, 'denta123', '2023-08-02 07:31:44', '2023-08-02 07:31:44');
+
+--
+-- Triggers `patients`
+--
+DELIMITER $$
+CREATE TRIGGER `set_default_username_and_pass` BEFORE INSERT ON `patients` FOR EACH ROW BEGIN
+    IF NEW.username IS NULL THEN
+        SET NEW.username = CONCAT(SUBSTRING_INDEX(NEW.first_name, ' ', 1), '_', REPLACE(NEW.middle_name, ' ', ''), '_', NEW.last_name);
+    END IF;
+    
+    IF NEW.password IS NULL THEN
+        SET NEW.password = 'denta123'; 
+    END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -450,7 +482,11 @@ CREATE TABLE `patientservices` (
 INSERT INTO `patientservices` (`patientService_id`, `patient_id`, `service_id`, `quantity`, `cost`) VALUES
 (55, 1, 2, 1, 50),
 (56, 3, 2, 2, 20),
-(57, 2, 3, 1, 10);
+(57, 2, 3, 1, 10),
+(58, 2, 5, 1, 6),
+(59, 2, 3, 1, 4),
+(60, 1, 4, 1, 10),
+(61, 5, 4, 1, 10);
 
 -- --------------------------------------------------------
 
@@ -686,7 +722,7 @@ CREATE TABLE `treatment_plans` (
 --
 DROP TABLE IF EXISTS `addresses_employees_view`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `addresses_employees_view`  AS SELECT `e`.`employee_id` AS `employee_id`, `e`.`first_name` AS `first_name`, `e`.`last_name` AS `last_name`, `e`.`phone` AS `phone`, `e`.`email` AS `email`, `r`.`role_name` AS `role_name`, `e`.`experience` AS `Experience`, `e`.`gender` AS `gender`, `e`.`salary_type` AS `salary_type`, `e`.`currency` AS `currency`, `e`.`amount` AS `amount`, `e`.`hire_date` AS `hire_date`, `a`.`street` AS `street`, `a`.`city` AS `city`, `a`.`state` AS `state` FROM ((`employees` `e` join `addresses` `a` on(`e`.`address` = `a`.`address_id`)) join `roles` `r` on(`e`.`role_id` = `r`.`role_id`))  ;
+CREATE  VIEW `addresses_employees_view`  AS SELECT `a`.`address_id` AS `address`, `e`.`employee_id` AS `employee_id`, `e`.`first_name` AS `first_name`, `e`.`last_name` AS `last_name`, `e`.`phone` AS `phone`, `e`.`email` AS `email`, `r`.`role_name` AS `role_name`, `e`.`experience` AS `Experience`, `e`.`gender` AS `gender`, `e`.`salary_type` AS `salary_type`, `e`.`currency` AS `currency`, `e`.`amount` AS `amount`, `e`.`hire_date` AS `hire_date`, `a`.`street` AS `street`, `a`.`city` AS `city`, `a`.`state` AS `state`, `e`.`profile` AS `profile` FROM ((`employees` `e` join `addresses` `a` on(`e`.`address` = `a`.`address_id`)) join `roles` `r` on(`e`.`role_id` = `r`.`role_id`))  ;
 
 -- --------------------------------------------------------
 
@@ -695,7 +731,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `addresses_patients_view`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `addresses_patients_view`  AS SELECT `pt`.`patient_id` AS `patient_id`, `pt`.`first_name` AS `first_name`, `pt`.`last_name` AS `last_name`, `pt`.`phone_number` AS `phone_number`, `pt`.`gender` AS `gender`, `pt`.`birth_date` AS `birth_date`, `a`.`street` AS `street`, `a`.`city` AS `city`, `a`.`state` AS `state` FROM (`patients` `pt` join `addresses` `a` on(`pt`.`address` = `a`.`address_id`))  ;
+CREATE  VIEW `addresses_patients_view`  AS SELECT `pt`.`patient_id` AS `patient_id`, `pt`.`first_name` AS `first_name`, `pt`.`last_name` AS `last_name`, `pt`.`phone_number` AS `phone_number`, `pt`.`gender` AS `gender`, `pt`.`birth_date` AS `birth_date`, `a`.`street` AS `street`, `a`.`city` AS `city`, `a`.`state` AS `state` FROM (`patients` `pt` join `addresses` `a` on(`pt`.`address` = `a`.`address_id`))  ;
 
 -- --------------------------------------------------------
 
@@ -704,7 +740,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `addresses_supplier_view`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `addresses_supplier_view`  AS SELECT `s`.`supplier_id` AS `supplier_id`, `s`.`supplier_name` AS `supplier_name`, `s`.`email` AS `email`, `s`.`phone_number` AS `phone_number`, `a`.`street` AS `street`, `a`.`city` AS `city`, `a`.`state` AS `state` FROM (`suppliers` `s` join `addresses` `a` on(`s`.`address` = `a`.`address_id`))  ;
+CREATE  VIEW `addresses_supplier_view`  AS SELECT `s`.`supplier_id` AS `supplier_id`, `s`.`supplier_name` AS `supplier_name`, `s`.`email` AS `email`, `s`.`phone_number` AS `phone_number`, `a`.`street` AS `street`, `a`.`city` AS `city`, `a`.`state` AS `state` FROM (`suppliers` `s` join `addresses` `a` on(`s`.`address` = `a`.`address_id`))  ;
 
 -- --------------------------------------------------------
 
@@ -713,7 +749,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `appointmentdetails`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `appointmentdetails`  AS SELECT `a`.`appointment_id` AS `appointment_id`, `p`.`patient_id` AS `patient_id`, `e`.`employee_id` AS `employee_id`, `r`.`role_id` AS `role_id`, `s`.`service_id` AS `service_id`, `a`.`Type` AS `appointment_type`, `a`.`status` AS `appointment_status`, concat(`p`.`first_name`,' ',`p`.`last_name`) AS `patient_name`, concat(`e`.`first_name`,' ',`e`.`last_name`) AS `employee_name`, `r`.`role_name` AS `employee_role`, `s`.`name` AS `service_name`, `s`.`fee` AS `service_fee`, `a`.`date` AS `date`, `a`.`time` AS `time`, `a`.`created_at` AS `created_at`, `a`.`updated_at` AS `updated_at` FROM (((((`appointments` `a` join `patients` `p` on(`a`.`patient_id` = `p`.`patient_id`)) join `employees` `e` on(`a`.`employee_id` = `e`.`employee_id`)) join `roles` `r` on(`e`.`role_id` = `r`.`role_id`)) join `appointment_services` `aps` on(`a`.`appointment_id` = `aps`.`appointment_id`)) join `services` `s` on(`aps`.`service` = `s`.`name`))  ;
+CREATE  VIEW `appointmentdetails`  AS SELECT `a`.`appointment_id` AS `appointment_id`, `p`.`patient_id` AS `patient_id`, concat(`p`.`first_name`,' ',`p`.`last_name`) AS `patient_name`, `s`.`service_id` AS `service_id`, `s`.`name` AS `service_name`, `a`.`date` AS `date`, `a`.`time` AS `time`, `a`.`created_at` AS `created_at`, `a`.`updated_at` AS `updated_at` FROM (((`appointments` `a` join `patients` `p` on(`a`.`patient_id` = `p`.`patient_id`)) join `appointment_services` `aps` on(`a`.`appointment_id` = `aps`.`appointment_id`)) join `services` `s`)  ;
 
 -- --------------------------------------------------------
 
@@ -722,7 +758,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `expenses_expense_types_view`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `expenses_expense_types_view`  AS SELECT `e`.`expense_id` AS `expense_id`, `et`.`expense_type_id` AS `expense_type_id`, `e`.`description` AS `description`, `e`.`amount` AS `amount`, `e`.`quantity` AS `quantity`, `e`.`date` AS `date`, `et`.`expense_type` AS `expense_type` FROM (`expenses` `e` join `expense_types` `et` on(`e`.`expense_type` = `et`.`expense_type_id`))  ;
+CREATE  VIEW `expenses_expense_types_view`  AS SELECT `e`.`expense_id` AS `expense_id`, `et`.`expense_type_id` AS `expense_type_id`, `e`.`description` AS `description`, `e`.`amount` AS `amount`, `e`.`quantity` AS `quantity`, `e`.`date` AS `date`, `et`.`expense_type` AS `expense_type` FROM (`expenses` `e` join `expense_types` `et` on(`e`.`expense_type` = `et`.`expense_type_id`))  ;
 
 -- --------------------------------------------------------
 
@@ -731,7 +767,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `incometableview`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `incometableview`  AS SELECT `incometable`.`IncomeID` AS `IncomeID`, `incometable`.`patient_id` AS `patient_id`, `incometable`.`IncomeType` AS `IncomeType`, `incometable`.`IncomeAmount` AS `IncomeAmount`, `incometable`.`IncomeAmountPaid` AS `IncomeAmountPaid`, `incometable`.`createdAt` AS `createdAt`, `incometable`.`IncomeDate` AS `IncomeDate`, `incometable`.`discount` AS `discount` FROM `incometable``incometable`  ;
+CREATE  VIEW `incometableview`  AS SELECT `i`.`IncomeID` AS `IncomeID`, `i`.`patient_id` AS `patient_id`, `i`.`IncomeType` AS `IncomeType`, `i`.`IncomeAmount` AS `IncomeAmount`, `i`.`IncomeAmountPaid` AS `IncomeAmountPaid`, `i`.`createdAt` AS `createdAt`, `i`.`IncomeDate` AS `IncomeDate`, `i`.`discount` AS `discount` FROM `incometable` AS `i``i`  ;
 
 -- --------------------------------------------------------
 
@@ -740,7 +776,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `logincredentialsview`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `logincredentialsview`  AS SELECT `employees`.`employee_id` AS `employee_id`, `employees`.`first_name` AS `first_name`, `employees`.`last_name` AS `last_name`, `roles`.`role_name` AS `role_name`, `logincredentials`.`Username` AS `Username`, `logincredentials`.`Password` AS `Password`, `logincredentials`.`isAdmin` AS `isAdmin` FROM ((`employees` join `logincredentials` on(`employees`.`employee_id` = `logincredentials`.`employee_id`)) join `roles` on(`employees`.`role_id` = `roles`.`role_id`))  ;
+CREATE  VIEW `logincredentialsview`  AS SELECT `employees`.`employee_id` AS `employee_id`, `employees`.`first_name` AS `first_name`, `employees`.`last_name` AS `last_name`, `roles`.`role_name` AS `role_name`, `logincredentials`.`Username` AS `Username`, `logincredentials`.`Password` AS `Password`, `logincredentials`.`isAdmin` AS `isAdmin` FROM ((`employees` join `logincredentials` on(`employees`.`employee_id` = `logincredentials`.`employee_id`)) join `roles` on(`employees`.`role_id` = `roles`.`role_id`))  ;
 
 -- --------------------------------------------------------
 
@@ -749,7 +785,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `patientservicesview`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `patientservicesview`  AS SELECT `patientservices`.`patientService_id` AS `patientService_id`, `patients`.`patient_id` AS `patient_id`, `patients`.`first_name` AS `first_name`, `patients`.`last_name` AS `last_name`, `services`.`service_id` AS `service_id`, `services`.`name` AS `service_name`, `patientservices`.`quantity` AS `quantity`, `patientservices`.`cost` AS `cost` FROM ((`patientservices` join `patients` on(`patientservices`.`patient_id` = `patients`.`patient_id`)) join `services` on(`patientservices`.`service_id` = `services`.`service_id`))  ;
+CREATE  VIEW `patientservicesview`  AS SELECT `patientservices`.`patientService_id` AS `patientService_id`, `patients`.`patient_id` AS `patient_id`, `patients`.`first_name` AS `first_name`, `patients`.`last_name` AS `last_name`, `services`.`service_id` AS `service_id`, `services`.`name` AS `service_name`, `patientservices`.`quantity` AS `quantity`, `patientservices`.`cost` AS `cost` FROM ((`patientservices` join `patients` on(`patientservices`.`patient_id` = `patients`.`patient_id`)) join `services` on(`patientservices`.`service_id` = `services`.`service_id`))  ;
 
 -- --------------------------------------------------------
 
@@ -758,7 +794,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `patient_incometable_view`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `patient_incometable_view`  AS SELECT `i`.`IncomeID` AS `IncomeID`, `i`.`patient_id` AS `patient_id`, `i`.`IncomeType` AS `IncomeType`, `i`.`IncomeAmount` AS `IncomeAmount`, `i`.`IncomeAmountPaid` AS `IncomeAmountPaid`, `i`.`IncomeDate` AS `IncomeDate`, `p`.`first_name` AS `first_name`, `p`.`last_name` AS `last_name`, `i`.`discount` AS `discount` FROM (`patients` `p` join `incometable` `i` on(`p`.`patient_id` = `i`.`patient_id`))  ;
+CREATE  VIEW `patient_incometable_view`  AS SELECT `i`.`IncomeID` AS `IncomeID`, `i`.`patient_id` AS `patient_id`, `i`.`IncomeType` AS `IncomeType`, `i`.`IncomeAmount` AS `IncomeAmount`, `i`.`IncomeAmountPaid` AS `IncomeAmountPaid`, `i`.`IncomeDate` AS `IncomeDate`, `p`.`first_name` AS `first_name`, `p`.`last_name` AS `last_name`, `i`.`discount` AS `discount` FROM (`patients` `p` join `incometable` `i` on(`p`.`patient_id` = `i`.`patient_id`))  ;
 
 -- --------------------------------------------------------
 
@@ -767,7 +803,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `patient_service_view`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `patient_service_view`  AS SELECT `patientservices`.`patientService_id` AS `patientService_id`, `patientservices`.`patient_id` AS `patient_id`, count(`patientservices`.`service_id`) AS `Services`, count(`patientservices`.`quantity`) AS `Quantity`, sum(`patientservices`.`cost`) AS `Total`, `p`.`first_name` AS `first_name`, `p`.`last_name` AS `last_name` FROM (`patientservices` join `patients` `p` on(`patientservices`.`patient_id` = `p`.`patient_id`)) GROUP BY `patientservices`.`patient_id``patient_id`  ;
+CREATE  VIEW `patient_service_view`  AS SELECT `patientservices`.`patientService_id` AS `patientService_id`, `patientservices`.`patient_id` AS `patient_id`, count(`patientservices`.`service_id`) AS `Services`, count(`patientservices`.`quantity`) AS `Quantity`, sum(`patientservices`.`cost`) AS `Total`, `p`.`first_name` AS `first_name`, `p`.`last_name` AS `last_name` FROM (`patientservices` join `patients` `p` on(`patientservices`.`patient_id` = `p`.`patient_id`)) GROUP BY `patientservices`.`patient_id``patient_id`  ;
 
 -- --------------------------------------------------------
 
@@ -776,7 +812,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `prescriptionview`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `prescriptionview`  AS SELECT `p`.`prescription_id` AS `prescription_id`, `pt`.`first_name` AS `first_name`, `pt`.`last_name` AS `last_name`, `m`.`medication_name` AS `medication_name`, `p`.`dosage` AS `dosage`, `p`.`instructions` AS `instruction`, `p`.`date_prescribed` AS `date_prescribed` FROM ((`prescriptions` `p` join `patients` `pt` on(`p`.`patient_id` = `pt`.`patient_id`)) join `medications` `m` on(`p`.`medication_id` = `m`.`medication_id`))  ;
+CREATE  VIEW `prescriptionview`  AS SELECT `p`.`prescription_id` AS `prescription_id`, `pt`.`first_name` AS `first_name`, `pt`.`last_name` AS `last_name`, `m`.`medication_name` AS `medication_name`, `p`.`dosage` AS `dosage`, `p`.`instructions` AS `instruction`, `p`.`date_prescribed` AS `date_prescribed` FROM ((`prescriptions` `p` join `patients` `pt` on(`p`.`patient_id` = `pt`.`patient_id`)) join `medications` `m` on(`p`.`medication_id` = `m`.`medication_id`))  ;
 
 -- --------------------------------------------------------
 
@@ -785,7 +821,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `salary_employee_view`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `salary_employee_view`  AS SELECT `s`.`salary_id` AS `salary_id`, `s`.`employee_id` AS `employee_id`, `e`.`first_name` AS `first_name`, `e`.`last_name` AS `last_name`, `e`.`salary_type` AS `salary_type`, `e`.`currency` AS `currency`, `s`.`amount` AS `amount`, `s`.`datePaid` AS `datePaid`, `s`.`paid_in_full` AS `paid_in_full` FROM (`salary` `s` join `employees` `e` on(`s`.`employee_id` = `e`.`employee_id`))  ;
+CREATE  VIEW `salary_employee_view`  AS SELECT `s`.`salary_id` AS `salary_id`, `s`.`employee_id` AS `employee_id`, `e`.`first_name` AS `first_name`, `e`.`last_name` AS `last_name`, `e`.`salary_type` AS `salary_type`, `e`.`currency` AS `currency`, `s`.`amount` AS `amount`, `s`.`datePaid` AS `datePaid`, `s`.`paid_in_full` AS `paid_in_full` FROM (`salary` `s` join `employees` `e` on(`s`.`employee_id` = `e`.`employee_id`))  ;
 
 -- --------------------------------------------------------
 
@@ -794,7 +830,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `treatmentplan_patients_view`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `treatmentplan_patients_view`  AS SELECT `tp`.`treatment_plan_id` AS `treatment_plan_id`, `pt`.`first_name` AS `first_name`, `pt`.`last_name` AS `last_name`, `tp`.`start_date` AS `start_date`, `tp`.`end_date` AS `end_date`, `tp`.`total_cost` AS `total_cost`, `tp`.`status` AS `status` FROM (`treatment_plans` `tp` join `patients` `pt` on(`tp`.`patient_id` = `pt`.`patient_id`))  ;
+CREATE  VIEW `treatmentplan_patients_view`  AS SELECT `tp`.`treatment_plan_id` AS `treatment_plan_id`, `pt`.`first_name` AS `first_name`, `pt`.`last_name` AS `last_name`, `tp`.`start_date` AS `start_date`, `tp`.`end_date` AS `end_date`, `tp`.`total_cost` AS `total_cost`, `tp`.`status` AS `status` FROM (`treatment_plans` `tp` join `patients` `pt` on(`tp`.`patient_id` = `pt`.`patient_id`))  ;
 
 --
 -- Indexes for dumped tables
@@ -883,7 +919,8 @@ ALTER TABLE `medications`
 -- Indexes for table `patients`
 --
 ALTER TABLE `patients`
-  ADD PRIMARY KEY (`patient_id`);
+  ADD PRIMARY KEY (`patient_id`),
+  ADD UNIQUE KEY `username` (`username`);
 
 --
 -- Indexes for table `patientservices`
@@ -953,7 +990,7 @@ ALTER TABLE `addresses`
 -- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `drugs`
@@ -965,7 +1002,7 @@ ALTER TABLE `drugs`
 -- AUTO_INCREMENT for table `employees`
 --
 ALTER TABLE `employees`
-  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `equipment`
@@ -983,13 +1020,13 @@ ALTER TABLE `expenses`
 -- AUTO_INCREMENT for table `expense_types`
 --
 ALTER TABLE `expense_types`
-  MODIFY `expense_type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `expense_type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `incometable`
 --
 ALTER TABLE `incometable`
-  MODIFY `IncomeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `IncomeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `inventory`
@@ -1007,13 +1044,13 @@ ALTER TABLE `medications`
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
-  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `patientservices`
 --
 ALTER TABLE `patientservices`
-  MODIFY `patientService_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `patientService_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT for table `prescriptions`
@@ -1043,7 +1080,7 @@ ALTER TABLE `salary`
 -- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
-  MODIFY `service_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `service_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `suppliers`

@@ -7,18 +7,21 @@
 
     $conn = new mysqli($host, $username, $password, $dbname);
 
-    $query = "SELECT appointments.appointment_id AS appointment_id,
-    CONCAT(patients.first_name, ' ', patients.last_name) AS patient_name,
-    appointments.date AS appointment_date,
-    appointments.time AS appointment_time,
-    appointments.status
-    FROM 
-        appointments
-    INNER JOIN 
-        patients ON appointments.patient_id = patients.patient_id
-    WHERE 
-        appointments.status = 'Pending';
-    ";
+    $query = "SELECT
+    a.appointment_id,
+    CONCAT(p.first_name, ' ', p.last_name) AS patient_name,
+    a.date,
+    a.time
+FROM
+    appointments a
+JOIN
+    patients p ON a.patient_id = p.patient_id
+WHERE
+    a.status = 'Pending'
+    AND (a.date > CURDATE() OR (a.date = CURDATE() AND a.time > CURTIME()))
+ORDER BY
+    a.date, a.time;
+";
 
     $result = $conn->query($query);
 
@@ -43,8 +46,8 @@ while ($row = $result->fetch_assoc()) {
 
     // Split the date and time
     $appointment_id = $row['appointment_id'];
-    $date = $row['appointment_date'];
-    $time = $row['appointment_time'];
+    $date = $row['date'];
+    $time = $row['time'];
     $name = $row['patient_name'];
 
     $rows[] = array(

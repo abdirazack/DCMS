@@ -1,7 +1,7 @@
-<div class="container-fluid shadow p-3">
+<div class="container-fluid bg-light p-3">
     <div class="row animated fadeIn overflow-auto">
         <div class="col-md-6">
-            <div class="card mb-3 border-primary rounded">
+            <div class="card mb-3 border-primary rounded ">
                 <div class="row g-0">
                     <div class="col-md-4 p-4">
                         <i class="fa fa-fw fa-person-half-dress img-fluid rounded-start" style="font-size: 120px; color: darkblue"></i>
@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="col-md-6">
-            <div class="card mb-3 border-dark rounded">
+            <div class="card mb-3 border-dark rounded ">
                 <div class="row g-0">
                     <div class="col-md-4 p-4">
                         <i class="fa fa-fw fa-user img-fluid rounded-start" style="font-size: 120px; color: darkslategrey"></i>
@@ -33,7 +33,7 @@
     </div>
     <div class="row">
         <div class="col-md-6">
-            <div class="card mb-3 border-info rounded">
+            <div class="card mb-3 border-info rounded ">
                 <div class="row g-0">
                     <div class="col-md-4 p-4">
                         <i class="fa fa-money-bill-wave img-fluid rounded-start" style="font-size: 120px; color: teal"></i>
@@ -63,10 +63,13 @@
             </div>
         </div>
     </div>
-    <div class="row mt-5">
+    <div class="row mt-5 mx-auto p-4 bg-white shadow rounded">
+        <div class="col-md-12">
+            <h3 class="text-center text-secondary">Appointments</h3>
+        </div>
         <!-- new column for new appointme waiting to be approved -->
-        <div class="col-md-4">
-            <h3 class="text-primary">New Appointments</h3>
+        <div class="col-md-4  p-2 border-right">
+            <h3 class="text-primary">New </h3>
             <div>
                 <table class="table table-primary table-striped table-hover">
                     <thead>
@@ -85,8 +88,8 @@
         </div>
 
 
-        <div class="col-md-4">
-            <h3 class="text-success">Upcoming Appointments</h3>
+        <div class="col-md-4  p-2 border-left border-right">
+            <h3 class="text-success">Upcoming </h3>
             <div>
                 <table class="table table-success table-striped table-hover">
                     <thead>
@@ -104,8 +107,8 @@
             </div>
         </div>
        
-        <div class="col-md-4">
-            <h3 class="text-danger">Cancelled Appointments</h3>
+        <div class="col-md-4  p-2 border-left ">
+            <h3 class="text-danger">Cancelled </h3>
             <div>
                 <table class="table table-danger table-striped table-hover">
                     <thead>

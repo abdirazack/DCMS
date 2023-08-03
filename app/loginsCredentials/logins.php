@@ -34,7 +34,7 @@ include_once('./app/database/conn.php')
                 $count=0;
 
                 // Select all staff from the database
-                $result = mysqli_query($conn, "SELECT * FROM LoginCredentialsView ");
+                $result = mysqli_query($conn, "SELECT * FROM logincredentialsview ");
 
                 // Loop through the results and output each staff member as a table row
                 while ($row = mysqli_fetch_assoc($result)) {
