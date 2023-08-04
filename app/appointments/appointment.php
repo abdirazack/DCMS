@@ -95,7 +95,7 @@ if (!$schedules) {
                                     <select class="form-control select2" name="status" id="status" REQUIRED>
                                         <option value="">Select Status</option>
                                         <option value="Approved">Approved</option>
-                                        <option value="Finished">Finished</option>
+                                        <option value="Completed">Completed</option>
                                         <option value="Pending">Pending</option>
                                         <option value="Cancelled">Cancelled</option>
                                     </select>
