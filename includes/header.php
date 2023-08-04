@@ -39,6 +39,10 @@
         <script src="./vendor/fullcalendar/lib/main.min.js"></script>
         <script src="./vendor/select2/js/select2.js"></script>
 
+        <!-- Charts -->
+        <script src="./vendor/chart.js/Chart.min.js"></script>
+        
+
         <!-- DataTables -->
         <script src="./vendor/DataTables/DataTables/js/jquery.dataTables.min.js"></script>
         <script src="./vendor/DataTables/Buttons/js/dataTables.buttons.min.js"></script>

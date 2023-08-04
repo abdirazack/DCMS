@@ -63,6 +63,17 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-6">
+            <!-- Insert the income chart here -->
+            <canvas id="incomeChart"></canvas>
+        </div>
+        <div class="col-md-6">
+            <!-- Insert the expense chart here -->
+            <canvas id="expenseChart"></canvas>
+        </div>
+    </div>
+
     <div class="row mt-5 mx-auto p-4 bg-white shadow rounded">
         <div class="col-md-12">
             <h3 class="text-center text-secondary">Appointments</h3>
@@ -106,7 +117,7 @@
                 </table>
             </div>
         </div>
-       
+
         <div class="col-md-4  p-2 border-left ">
             <h3 class="text-danger">Cancelled </h3>
             <div>
@@ -119,7 +130,7 @@
                         </tr>
                     </thead>
                     <tbody id="cancelled">
-                        
+
                     </tbody>
                 </table>
             </div>
@@ -161,7 +172,7 @@
                 console.log("Full Error Response:", xhr.responseText);
             }
         });
-    
+
         // Load upcoming appointments
         fetchAppointments('./app/dashboard/upcoming.php', 'upcoming', 'Cancel');
 
@@ -173,14 +184,14 @@
     });
 
     function fetchAppointments(url, tableId, actionButton) {
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            handleAppointments(data, tableId, actionButton);
-        })
-        .catch(error => {
-            console.log('An error occurred:', error);
-        });
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                handleAppointments(data, tableId, actionButton);
+            })
+            .catch(error => {
+                console.log('An error occurred:', error);
+            });
     }
 
     function handleAppointments(data, tableId, actionButton) {
@@ -230,34 +241,202 @@
     }
 
     function processAppointment(id, action) {
-    // Determine the URL based on the action (approve or cancel)
-    var url = './app/dashboard/' + (action === 'approve' ? 'approveAppointment.php' : 'cancelAppointment.php');
+        // Determine the URL based on the action (approve or cancel)
+        var url = './app/dashboard/' + (action === 'approve' ? 'approveAppointment.php' : 'cancelAppointment.php');
 
-    // Send an AJAX request to the server-side script
-    $.ajax({
-        url: url,
-        type: 'POST',
-        data: {
-            id: id,
-        },
-        dataType: 'JSON',
-        success: function (data) {
-            console.log(data);
-            // Reload the new appointments if approved or cancelled
-            if (action === 'approve') {
-                fetchAppointments('./app/dashboard/newAppointments.php', 'newAppointments', 'Approve');
-            } else {
-                fetchAppointments('./app/dashboard/cancelled.php', 'cancelled', '');
+        // Send an AJAX request to the server-side script
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: {
+                id: id,
+            },
+            dataType: 'JSON',
+            success: function(data) {
+                console.log(data);
+                // Reload the new appointments if approved or cancelled
+                if (action === 'approve') {
+                    fetchAppointments('./app/dashboard/newAppointments.php', 'newAppointments', 'Approve');
+                } else {
+                    fetchAppointments('./app/dashboard/cancelled.php', 'cancelled', '');
+                }
+                // Reload the main appointments list
+                fetchAppointments('./app/dashboard/upcoming.php', 'upcoming', 'Cancel');
+            },
+            error: function(xhr, status, error) {
+                console.log("Error Status:", status);
+                console.log("Error Message:", error);
+                console.log("Full Error Response:", xhr.responseText);
             }
-            // Reload the main appointments list
-            fetchAppointments('./app/dashboard/upcoming.php', 'upcoming', 'Cancel');
-        },
-        error: function (xhr, status, error) {
-            console.log("Error Status:", status);
-            console.log("Error Message:", error);
-            console.log("Full Error Response:", xhr.responseText);
-        }
-    });
+        });
+    }
+</script>
+<?php
+// Include database connection code here
+
+// Sample connection code using MySQLi
+$mysqli = new mysqli("localhost", "root", "", "dental_clinic");
+
+if ($mysqli->connect_error) {
+    die("Connection failed: " . $mysqli->connect_error);
+}
+?>
+
+<?php
+// Fetch income data from the database
+$incomeLabels = array();
+$incomeValues = array();
+
+$incomeQuery = "SELECT MONTHNAME(incomeDate) AS month, SUM(IncomeAmount) AS total_income FROM incometable GROUP BY MONTH(incomeDate)";
+$incomeResult = $mysqli->query($incomeQuery);
+
+if ($incomeResult) {
+    while ($row = $incomeResult->fetch_assoc()) {
+        $incomeLabels[] = $row['month'];
+        $incomeValues[] = (int)$row['total_income'];
+    }
 }
 
-</script>
+// Fetch expense data from the database
+$expenseValues = array();
+$expenseLabels = array();
+
+$expenseQuery = "SELECT MONTHNAME(date) AS month, SUM(amount) AS total_expense FROM expenses GROUP BY MONTH(date)";
+$expenseResult = $mysqli->query($expenseQuery);
+
+if ($expenseResult) {
+    while ($row = $expenseResult->fetch_assoc()) {
+        $expenseLabels[] = $row['month'];
+        $expenseValues[] = (int)$row['total_expense'];
+    }
+}
+
+// Close the database connection
+$mysqli->close();
+?>
+
+
+
+<script>
+    // Processed data for income and expenses (from PHP)
+    var incomeLabels = <?php echo json_encode($incomeLabels); ?>;
+    var incomeValues = <?php echo json_encode($incomeValues); ?>;
+    var expenseLabels = <?php echo json_encode($incomeLabels); ?>;
+    var expenseValues = <?php echo json_encode($expenseValues); ?>;
+    
+    // Create the income chart
+    var incomeCtx = document.getElementById('incomeChart').getContext('2d');
+    var incomeChart = new Chart(incomeCtx, {
+        type: 'line',
+        data: {
+            labels: incomeLabels,
+            datasets: [{
+                label: 'Income',
+                data: incomeValues,
+                backgroundColor: 'rgba(20, 255, 100, 0.2)',
+                borderColor: 'rgba(99, 225, 132, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+    
+    // Create the expense chart
+    var expenseCtx = document.getElementById('expenseChart').getContext('2d');
+    var expenseChart = new Chart(expenseCtx, {
+        type: 'line',
+        data: {
+            labels: expenseLabels, // You can use the same labels for consistency
+            datasets: [{
+                label: 'Expenses',
+                data: expenseValues,
+                backgroundColor: 'rgba(255, 59, 32, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script> 
+
+<!-- <script>
+    // Processed data for income and expenses (from PHP)
+    var incomeLabels = <?php echo json_encode($incomeLabels); ?>;
+    var incomeValues = <?php echo json_encode($incomeValues); ?>;
+    var expenseValues = <?php echo json_encode($expenseValues); ?>;
+    var expenseLabels = <?php echo json_encode($expenseLabels); ?>;
+    
+    // Create the income chart
+    var incomeCtx = document.getElementById('incomeChart').getContext('2d');
+    var incomeChart = new Chart(incomeCtx, {
+        type: 'polarArea', // Change chart type to 'polarArea'
+        data: {
+            labels: incomeLabels,
+            datasets: [{
+                label: 'Income',
+                data: incomeValues,
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 205, 86, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 205, 86, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(153, 102, 255, 1)',
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            // Chart options here
+        }
+    });
+    
+    // Create the expense chart
+    var expenseCtx = document.getElementById('expenseChart').getContext('2d');
+    var expenseChart = new Chart(expenseCtx, {
+        type: 'polarArea', // Change chart type to 'polarArea'
+        data: {
+            labels: expenseLabels, // You can use the same labels for consistency
+            datasets: [{
+                label: 'Expenses',
+                data: expenseValues,
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 205, 86, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 205, 86, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(153, 102, 255, 1)',
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            // Chart options here
+        }
+    });
+</script> -->
