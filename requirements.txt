@@ -1,6 +1,6 @@
 Notifications [Future Works]
 Dashboard_reports
-Charts [Future Works]
+Charts 
 medical_files [Future Works]
 Duration_(Treatment Plan)
 Approve_appointment
@@ -8,9 +8,15 @@ Profile_Default
 Patient_Login
 Service_From_Patients_interface
 
-IT HAS TO WITH appointment_serice table
-
 server = 	sql304.infinityfree.com
 username = if0_34737344
 password =  Denta1234
 database = if0_34737344_dental_clinic
+
+hsl(174, 97%, 25%)
+rgb(2, 128, 116)
+028074
+
+hsl(214, 26%, 26%)
+rgb(49, 64, 83)
+314053

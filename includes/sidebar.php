@@ -1,7 +1,12 @@
 
+<style>
+    .bg{
+        background-color: rgb(49, 64, 83);
+    }
+</style>
 
 <!-- Sidebar -->
-<ul class="navbar-nav bg-primary sidebar sidebar-dark accordion sticky-top" id="accordionSidebar">
+<ul class="navbar-nav bg sidebar sidebar-dark accordion sticky-top" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
