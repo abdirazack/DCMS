@@ -9,15 +9,15 @@
 <ul class="navbar-nav bg sidebar sidebar-dark accordion sticky-top" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center mt-1" href="index.php">
         <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-tooth"></i>
-            <div class="sidebar-brand-text mx-3">Emirates Dental</div>
-        </div>
+            <img class="sidebar-brand-icon" src="./app/logos/favicon.svg" height="60px" width="60px">
+           
+        </div> <h5 class="sidebar-brand-text rotate-n-15">Emirates Dental</h5>
     </a>
 
     <!-- Divider -->
-    <hr class="sidebar-divider my-1">
+    <hr class="sidebar-divider mt-2">
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">

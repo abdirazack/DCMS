@@ -3,7 +3,14 @@ var Calendar = FullCalendar.Calendar;
 var events = [];
 
 
+
 $(function () {
+    const statusColors = {
+        Approved: '#4D9650',
+        Pending: '#D4C862', 
+        Cancelled: '#B75738',
+        Completed: '#5590C0'
+      };
     var events = []
     if (!!scheds) {
         Object.keys(scheds).map(k => {
@@ -13,6 +20,7 @@ $(function () {
                 title: row.patient_name,
                 start: row.date,
                 // end: row.date,
+                color: statusColors[row.status],
 
             });  
         })

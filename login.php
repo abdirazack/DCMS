@@ -44,11 +44,11 @@
   <div class="container mt-4">
     <div class="row content">
       <div class="col-md-6 mb-3">
-        <img src="./app/login/undraw_doctors_p6aq.svg" class="img-fluid" alt="image">
+        <img src="./app/logos/logo.png" class="img-fluid" alt="image">
       </div>
       <div class="col-md-6">
         <div class='text-center'>
-          <img src="./app/login/logo.svg" alt="Logo" width="60" height="60">
+          <img src="./app/logos/favicon.svg" alt="Logo" width="100" height="100">
 
           <h3 class="signin-text mb-3"> Login</h3>
         </div>
