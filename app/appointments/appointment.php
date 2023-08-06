@@ -156,8 +156,8 @@ if (!$schedules) {
                 <div class="modal-footer rounded">
                     <div class="text-end">
                         <button type="button" class="btn btn-primary btn-sm rounded" id="edit" data-id="">Edit</button>
-                        <button type="button" class="btn btn-warning btn-sm rounded" id="cancel" data-id="">Cancel</button>
-                        <button type="button" class="btn btn-danger btn-sm rounded" id="delete" data-id="">Delete</button>
+                        <button type="button" class="btn btn-danger btn-sm rounded" id="cancel" data-id="">Cancel</button>
+                        <!-- <button type="button" class="btn btn-danger btn-sm rounded" id="delete" data-id="">Delete</button> -->
                     </div>
                 </div>
             </div>
