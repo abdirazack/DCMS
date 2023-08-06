@@ -726,7 +726,7 @@ CREATE  VIEW `addresses_supplier_view`  AS SELECT `s`.`supplier_id` AS `supplier
 --
 DROP TABLE IF EXISTS `appointmentdetails`;
 
-CREATE  VIEW `appointmentdetails`  AS SELECT `a`.`appointment_id` AS `appointment_id`, `p`.`patient_id` AS `patient_id`, concat(`p`.`first_name`,' ',`p`.`last_name`) AS `patient_name`, concat(`e`.`first_name`,' ',`e`.`last_name`) AS `employee_name`, `a`.`date` AS `date`, `a`.`time` AS `time`, `a`.`created_at` AS `created_at`, `a`.`updated_at` AS `updated_at` FROM ((`appointments` `a` join `patients` `p` on(`a`.`patient_id` = `p`.`patient_id`)) join `employees` `e` on(`a`.`employee_id` = `e`.`employee_id`))  ;
+CREATE  VIEW `appointmentdetails`  AS SELECT `a`.`appointment_id` AS `appointment_id`, `a`.`status` AS `status`, `p`.`patient_id` AS `patient_id`, concat(`p`.`first_name`,' ',`p`.`last_name`) AS `patient_name`, concat(`e`.`first_name`,' ',`e`.`last_name`) AS `employee_name`, `a`.`date` AS `date`, `a`.`time` AS `time`, `a`.`created_at` AS `created_at`, `a`.`updated_at` AS `updated_at` FROM ((`appointments` `a` join `patients` `p` on(`a`.`patient_id` = `p`.`patient_id`)) join `employees` `e` on(`a`.`employee_id` = `e`.`employee_id`))  ;
 
 -- --------------------------------------------------------
 
