@@ -175,7 +175,7 @@ if (!$schedules) {
         //document ready
         $(document).ready(function() {
             $('.select2').select2();
-            // console.log('JSON.stringify(scheds)'); 
+            // console.log(JSON.stringify(scheds)); 
 
             $('#schedule-form').submit(function(e) {
                 e.preventDefault();
