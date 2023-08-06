@@ -1,4 +1,4 @@
-<div class="container-fluid bg-light p-3">
+<div class="container-fluid bg-light p-3 mb-4">
     <div class="row animated fadeIn overflow-auto">
         <div class="col-md-6">
             <div class="card mb-3 border-primary rounded ">
