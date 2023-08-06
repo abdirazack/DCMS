@@ -324,7 +324,7 @@ $mysqli->close();
 
 
 
-<script>
+ <script>
     // Processed data for income and expenses (from PHP)
     var incomeLabels = <?php echo json_encode($incomeLabels); ?>;
     var incomeValues = <?php echo json_encode($incomeValues); ?>;
@@ -376,9 +376,9 @@ $mysqli->close();
             }
         }
     });
-</script> 
+</script>  
 
-<!-- <script>
+ <!-- <script>
     // Processed data for income and expenses (from PHP)
     var incomeLabels = <?php echo json_encode($incomeLabels); ?>;
     var incomeValues = <?php echo json_encode($incomeValues); ?>;
@@ -446,4 +446,4 @@ $mysqli->close();
             // Chart options here
         }
     });
-</script> -->
+</script>  -->
