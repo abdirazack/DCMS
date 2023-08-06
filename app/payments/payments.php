@@ -2,7 +2,7 @@
 // Connect to the database
 include_once('./app/database/conn.php');
 // Select all services from the database
-$sql = "SELECT * FROM Patient_IncomeTable_view ";
+$sql = "SELECT * FROM Patient_IncomeTable_view ORDER BY (IncomeAmount - discount - IncomeAmountPaid) DESC , IncomeDate ASC";
 $result = mysqli_query($conn, $sql);
 ?>
 <style>

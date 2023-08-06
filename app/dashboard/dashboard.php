@@ -1,3 +1,10 @@
+<style>
+    @media (max-width: 768px) {
+  .p-2 {
+    padding: 0.5rem; 
+  }
+}
+</style>
 <div class="container-fluid bg-light p-3 mb-4">
     <div class="row animated fadeIn overflow-auto">
         <div class="col-md-6">
@@ -79,7 +86,7 @@
             <h3 class="text-center text-secondary">Appointments</h3>
         </div>
         <!-- new column for new appointme waiting to be approved -->
-        <div class="col-md-4  p-2 border-right">
+        <div class="col-md-4  p-2 border-right d-none d-md-block overflow-auto">
             <h3 class="text-primary">New </h3>
             <div>
                 <table class="table table-primary table-striped table-hover">
@@ -99,7 +106,7 @@
         </div>
 
 
-        <div class="col-md-4  p-2 border-left border-right">
+        <div class="col-md-4  p-2 border-left border-right d-none d-md-block overflow-auto">
             <h3 class="text-success">Upcoming </h3>
             <div>
                 <table class="table table-success table-striped table-hover">
@@ -118,7 +125,7 @@
             </div>
         </div>
 
-        <div class="col-md-4  p-2 border-left ">
+        <div class="col-md-4  p-2 border-left d-none d-md-block overflow-auto">
             <h3 class="text-danger">Cancelled </h3>
             <div>
                 <table class="table table-danger table-striped table-hover">
