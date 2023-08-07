@@ -4,7 +4,7 @@
 // Connect to the database
 include_once('../database/conn.php');
 $patients = mysqli_real_escape_string($conn, $_POST['patients']);
-$service = $_POST['service'];
+// $service = $_POST['service'];
 $employee_id = mysqli_real_escape_string($conn, $_POST['employee']);
 $date = mysqli_real_escape_string($conn, $_POST['date']);
 $time = mysqli_real_escape_string($conn, $_POST['time']);
@@ -17,8 +17,8 @@ if (empty($patients)) {
         echo json_encode($data);
         return;
 }
-if (empty($service)) {
-        $data = ['message' => 'select a service', 'status' => 404];
+if (empty($status)) {
+        $data = ['message' => 'select a status', 'status' => 404];
         echo json_encode($data);
         return;
 }
@@ -31,15 +31,7 @@ if ($id == "") {
         $appointmentId = mysqli_insert_id($conn);
         mysqli_stmt_close($stmt);
 
-        // Concatenate selected services into a comma-separated string using implode()
-        $selectedServices = implode(",", $_POST['service']);
-
-        // Insert appointment services into appointment_services table
-        $insertAppointmentServiceSql = "INSERT INTO appointment_services (appointment_id, service) VALUES (?, ?)";
-        $stmt = mysqli_prepare($conn, $insertAppointmentServiceSql);
-        mysqli_stmt_bind_param($stmt, "is", $appointmentId, $selectedServices);
-        $result = mysqli_stmt_execute($stmt);
-        mysqli_stmt_close($stmt);
+ 
 
         // Close the database connection
         mysqli_close($conn);

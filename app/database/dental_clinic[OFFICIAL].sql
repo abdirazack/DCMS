@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 03, 2023 at 03:33 PM
+-- Generation Time: Aug 06, 2023 at 09:51 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -117,8 +117,7 @@ CREATE TABLE `appointmentdetails` (
 `appointment_id` int(11)
 ,`patient_id` int(11)
 ,`patient_name` varchar(101)
-,`service_id` int(11)
-,`service_name` varchar(50)
+,`employee_name` varchar(511)
 ,`date` date
 ,`time` time
 ,`created_at` timestamp
@@ -155,32 +154,8 @@ INSERT INTO `appointments` (`appointment_id`, `Type`, `status`, `date`, `time`, 
 (4, 'Online', 'Pending', '2023-08-02', '11:45:00', 3, 2, '2023-07-29 08:27:23', '2023-08-02 14:10:38', 'WHat!!!'),
 (5, 'Online', 'Approved', '2023-08-05', '09:30:00', 3, 3, '2023-07-29 08:27:23', '2023-08-02 14:15:52', 'HEHEHEHEHE'),
 (6, 'Walk-in', 'Pending', '2023-08-21', '10:30:00', 5, 1, '2023-08-02 07:45:04', '2023-08-02 14:10:36', NULL),
-(7, 'Walk-in', 'Approved', '2023-08-30', '11:00:00', 2, 1, '2023-08-03 12:51:02', '2023-08-03 12:51:02', NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `appointment_services`
---
-
-CREATE TABLE `appointment_services` (
-  `appointment_id` int(11) DEFAULT NULL,
-  `service` varchar(50) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `appointment_services`
---
-
-INSERT INTO `appointment_services` (`appointment_id`, `service`, `created_at`, `updated_at`) VALUES
-(1, 'Dental Cleaning', '2023-07-24 03:18:34', '2023-07-24 03:18:34'),
-(1, '2,3,4', '2023-07-27 05:49:42', '2023-07-27 05:49:42'),
-(6, '2,3', '2023-08-02 07:45:04', '2023-08-02 07:45:04'),
-(1, 'Dental Cleaning', '2023-08-02 13:51:54', '2023-08-02 13:51:54'),
-(2, 'Dental Cleaning', '2023-08-02 13:51:54', '2023-08-02 13:51:54'),
-(7, '2', '2023-08-03 12:51:02', '2023-08-03 12:51:02');
+(7, 'Walk-in', 'Cancelled', '2023-08-30', '11:00:00', 2, 1, '2023-08-03 12:51:02', '2023-08-03 13:51:58', NULL),
+(8, 'Walk-in', 'Pending', '2023-08-07', '10:30:00', 1, 1, '2023-08-06 07:16:08', '2023-08-06 07:16:08', NULL);
 
 -- --------------------------------------------------------
 
@@ -265,7 +240,9 @@ CREATE TABLE `expenses` (
 
 INSERT INTO `expenses` (`expense_id`, `amount`, `quantity`, `description`, `expense_type`, `date`) VALUES
 (4, '10.00', 1, 'fdghdh', 1, '2023-07-07'),
-(5, '13.00', 1, 'xfhdfg', 4, '2023-07-12');
+(5, '13.00', 1, 'xfhdfg', 4, '2023-07-12'),
+(6, '200.00', 1, 'Travel expense', 4, '2023-08-04'),
+(7, '100.00', 1, 'Electricity', 3, '2023-08-02');
 
 -- --------------------------------------------------------
 
@@ -326,10 +303,10 @@ CREATE TABLE `incometable` (
 --
 
 INSERT INTO `incometable` (`IncomeID`, `patient_id`, `IncomeType`, `IncomeAmount`, `IncomeAmountPaid`, `discount`, `createdAt`, `IncomeDate`) VALUES
-(12, 1, 'Services', 60, 39, 1, '2023-07-17 02:31:35', '2023-07-17'),
-(13, 3, 'Services', 20, 10, 0, '2023-07-18 05:24:14', '2023-07-18'),
-(14, 2, 'Services', 20, 10, 0, '2023-07-22 03:33:39', '2023-07-22'),
-(15, 5, 'Services', 10, 10, 0, '2023-08-02 07:32:09', '2023-08-02');
+(12, 1, 'Services', 1000, 998, 1, '2023-07-17 02:31:35', '2023-07-17'),
+(13, 3, 'Services', 2000, 1890, 0, '2023-07-18 05:24:14', '2023-07-18'),
+(14, 2, 'Services', 900, 900, 0, '2023-07-22 03:33:39', '2023-07-22'),
+(15, 5, 'Services', 50, 49, 1, '2023-08-02 07:32:09', '2023-08-02');
 
 -- --------------------------------------------------------
 
@@ -749,7 +726,7 @@ CREATE  VIEW `addresses_supplier_view`  AS SELECT `s`.`supplier_id` AS `supplier
 --
 DROP TABLE IF EXISTS `appointmentdetails`;
 
-CREATE  VIEW `appointmentdetails`  AS SELECT `a`.`appointment_id` AS `appointment_id`, `p`.`patient_id` AS `patient_id`, concat(`p`.`first_name`,' ',`p`.`last_name`) AS `patient_name`, `s`.`service_id` AS `service_id`, `s`.`name` AS `service_name`, `a`.`date` AS `date`, `a`.`time` AS `time`, `a`.`created_at` AS `created_at`, `a`.`updated_at` AS `updated_at` FROM (((`appointments` `a` join `patients` `p` on(`a`.`patient_id` = `p`.`patient_id`)) join `appointment_services` `aps` on(`a`.`appointment_id` = `aps`.`appointment_id`)) join `services` `s`)  ;
+CREATE  VIEW `appointmentdetails`  AS SELECT `a`.`appointment_id` AS `appointment_id`, `a`.`status` AS `status`, `p`.`patient_id` AS `patient_id`, concat(`p`.`first_name`,' ',`p`.`last_name`) AS `patient_name`, concat(`e`.`first_name`,' ',`e`.`last_name`) AS `employee_name`, `a`.`employee_id`, `a`.`date` AS `date`, `a`.`time` AS `time`, `a`.`created_at` AS `created_at`, `a`.`updated_at` AS `updated_at` FROM ((`appointments` `a` join `patients` `p` on(`a`.`patient_id` = `p`.`patient_id`)) join `employees` `e` on(`a`.`employee_id` = `e`.`employee_id`))  ;
 
 -- --------------------------------------------------------
 
@@ -849,12 +826,6 @@ ALTER TABLE `appointments`
   ADD PRIMARY KEY (`appointment_id`),
   ADD KEY `patient_id` (`patient_id`),
   ADD KEY `employee_id` (`employee_id`);
-
---
--- Indexes for table `appointment_services`
---
-ALTER TABLE `appointment_services`
-  ADD KEY `appointment_id` (`appointment_id`);
 
 --
 -- Indexes for table `drugs`
@@ -990,7 +961,7 @@ ALTER TABLE `addresses`
 -- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `drugs`
@@ -1014,7 +985,7 @@ ALTER TABLE `equipment`
 -- AUTO_INCREMENT for table `expenses`
 --
 ALTER TABLE `expenses`
-  MODIFY `expense_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `expense_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `expense_types`
@@ -1104,12 +1075,6 @@ ALTER TABLE `treatment_plans`
 ALTER TABLE `appointments`
   ADD CONSTRAINT `appointments_ibfk_1` FOREIGN KEY (`patient_id`) REFERENCES `patients` (`patient_id`),
   ADD CONSTRAINT `appointments_ibfk_2` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`);
-
---
--- Constraints for table `appointment_services`
---
-ALTER TABLE `appointment_services`
-  ADD CONSTRAINT `appointment_services_ibfk_1` FOREIGN KEY (`appointment_id`) REFERENCES `appointments` (`appointment_id`);
 
 --
 -- Constraints for table `employees`

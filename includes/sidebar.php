@@ -1,6 +1,5 @@
-
 <style>
-    .bg{
+    .bg {
         background-color: rgb(49, 64, 83);
     }
 </style>
@@ -9,15 +8,16 @@
 <ul class="navbar-nav bg sidebar sidebar-dark accordion sticky-top" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center mt-1" href="index.php">
         <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-tooth"></i>
-            <div class="sidebar-brand-text mx-3">Emirates Dental</div>
+            <img class="sidebar-brand-icon" src="./app/img/logos/favicon.svg" height="60px" width="60px">
+
         </div>
+        <h5 class="sidebar-brand-text rotate-n-15">Emirates Dental</h5>
     </a>
 
     <!-- Divider -->
-    <hr class="sidebar-divider my-1">
+    <hr class="sidebar-divider mt-2">
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
@@ -43,7 +43,7 @@
         <div id="collapseAppointment" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Appointments:</h6>
-                <a class="collapse-item" >Add New Appointment</a>
+                <a class="collapse-item">Add New Appointment</a>
             </div>
         </div>
     </li>
@@ -71,47 +71,39 @@
     </li>
     <!-- ------------------------------------------------------------------------------------------------ -->
     <!-- Nav Item - New Tab Collapse Menu ---------------------------------------------------------------- -->
-    <?php 
-
-        if($_SESSION['isAdmin']){
-
-            ?>
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStaff" aria-expanded="true" aria-controls="collapseUtilities">
-            <i class="fas fa-fw fa-user"></i>
-            <span>Employees</span>
-        </a>
-        <div id="collapseStaff" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">All Employees:</h6>
-                <a class="collapse-item" href="index.php?page=employee">Employees</a>
-                <h6 class="collapse-header">Employee Roles:</h6>
-                <a class="collapse-item" href="index.php?page=role">Roles</a>
-                <h6 class="collapse-header">Employee Salaries:</h6>
-                <a class="collapse-item" href="index.php?page=salary">Salaries</a>
-                <h6 class="collapse-header">Employee Logins:</h6>
-                <a class="collapse-item" href="index.php?page=logins">Employee Login Credentials</a>
-            </div>
-        </div>
-    </li>
     <?php
-        }?>
+
+    if ($_SESSION['isAdmin']) {
+
+    ?>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStaff" aria-expanded="true" aria-controls="collapseUtilities">
+                <i class="fas fa-fw fa-user"></i>
+                <span>Employees</span>
+            </a>
+            <div id="collapseStaff" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">All Employees:</h6>
+                    <a class="collapse-item" href="index.php?page=employee">Employees</a>
+                    <h6 class="collapse-header">Employee Roles:</h6>
+                    <a class="collapse-item" href="index.php?page=role">Roles</a>
+                    <h6 class="collapse-header">Employee Salaries:</h6>
+                    <a class="collapse-item" href="index.php?page=salary">Salaries</a>
+                    <h6 class="collapse-header">Employee Logins:</h6>
+                    <a class="collapse-item" href="index.php?page=logins">Employee Login Credentials</a>
+                </div>
+            </div>
+        </li>
+    <?php
+    } ?>
     <!-- ------------------------------------------------------------------------------------------------ -->
     <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
     <li class="nav-item">
 
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseServices" aria-expanded="true" aria-controls="collapseUtilities">
+        <a class="nav-link " href="index.php?page=services" >
             <i class="fas fa-fw fa-gear"></i>
-            <span>Services & Procedure</span>
+            <span>Services </span>
         </a>
-        <div id="collapseServices" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Services:</h6>
-                <a class="collapse-item" href="index.php?page=services">Services</a>
-                <h6 class="collapse-header">Procedure:</h6>
-                <a class="collapse-item" href="index.php?page=procedure">Procedue</a>
-            </div>
-        </div>
     </li>
 
     <!-- ------------------------------------------------------------------------------------------------ -->
@@ -184,15 +176,15 @@
     <!-- ------------------------------------------------------------------------------------------------ -->
     <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
     <li class="nav-item">
-        <a class="nav-link " href="index.php?page=address" >
-        <i class="fa-solid fa-location-dot"></i>
+        <a class="nav-link " href="index.php?page=address">
+            <i class="fa-solid fa-location-dot"></i>
             <span>Address</span>
         </a>
     </li>
     <!-- Nav Item - Reports Collapse Menu ---------------------------------------------------------------- -->
     <li class="nav-item">
-        <a class="nav-link " href="index.php?page=reports" >
-        <i class="fa-solid fa-file"></i>
+        <a class="nav-link " href="index.php?page=reports">
+            <i class="fa-solid fa-file"></i>
             <span>Reports</span>
         </a>
     </li>
@@ -222,18 +214,18 @@
             <ul class="navbar-nav ml-auto">
                 <li class="mt-3 text-center me-5 fs-4">
                     <?php if (isset($title)) {
-                                                            echo $title;
-                                                        } ?>
-                                                        </li>
+                        echo $title;
+                    } ?>
+                </li>
                 <div class="topbar-divider d-none d-sm-block"></div>
 
 
                 <!-- Nav Item - User Information -->
                 <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php  echo $_SESSION["employee_name"];  ?></span>
+                        <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION["employee_name"];  ?></span>
                         <div class="rounded-circle " style="border: 1px solid grey;">
-                            <img class="img-profile rounded-circle" alt="" src="<?php  echo './app/img/employee/'.$_SESSION["profile"];  ?>">
+                            <img class="img-profile rounded-circle" alt="" src="<?php echo './app/img/employee/' . $_SESSION["profile"];  ?>">
                         </div>
                     </a>
                     <!-- Dropdown - User Information -->
@@ -261,3 +253,11 @@
 
         </nav>
         <!-- End of Topbar -->
+        <script>
+            $(document).ready(function() {
+                $("#sidebarToggle").click(function() {
+                    $("body").toggleClass("sidebar-toggled");
+                    $(".sidebar").toggleClass("toggled");
+                });
+            });
+        </script>

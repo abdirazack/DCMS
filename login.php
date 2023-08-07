@@ -17,12 +17,12 @@
       align-items: center;
     }
 
-    .content {
+    /* .content {
       margin: 1%;
       background-color: #fff;
       padding: 4rem 1rem 4rem 1rem;
       box-shadow: 0 0 5px 5px rgba(0, 0, 0, .05);
-    }
+    } */
 
     .signin-text {
       font-style: normal;
@@ -40,15 +40,15 @@
   </style>
 </head>
 
-<body>
-  <div class="container mt-4">
+<body class="my-auto">
+  <div class="container mt-4 bg-white shadow p-4 rounded align-self-center">
     <div class="row content">
       <div class="col-md-6 mb-3">
-        <img src="./app/login/undraw_doctors_p6aq.svg" class="img-fluid" alt="image">
+        <img src="./app/img/logos/logo.png" class="img-fluid" alt="image">
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6  card card-inverse ">
         <div class='text-center'>
-          <img src="./app/login/logo.svg" alt="Logo" width="60" height="60">
+          <img src="./app/img/logos/favicon.svg" alt="Logo" width="100" height="100">
 
           <h3 class="signin-text mb-3"> Login</h3>
         </div>
@@ -61,10 +61,10 @@
             <label for="pass">Password</label>
             <input type="password" id="password" name="password" id="password" class="form-control">
           </div>
-          <div class="form-group form-check">
+          <!-- <div class="form-group form-check">
             <input type="checkbox" name="checkbox" class="form-check-input" id="checkbox">
             <label class="form-check-label" for="checkbox">Remember Me</label>
-          </div>
+          </div> -->
           <button id="btnLogin" name="btnLogin" class="btn btn-primary btn-block">Login</button>
         </form>
       </div>

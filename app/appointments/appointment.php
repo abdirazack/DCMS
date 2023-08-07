@@ -74,20 +74,6 @@ if (!$schedules) {
                                     </select>
                                 </div>
 
-                                <div class="form-group mb-2">
-                                    <label for="service" class="control-label">Service </label><br>
-
-                                    <select class="form-control select2" id="service" name="service[]" REQUIRED multiple>
-                                        <option value="">Select service </option>
-                                        <?php
-                                        $query = "SELECT * FROM `services`";
-                                        $result = mysqli_query($conn, $query);
-                                        while ($row = mysqli_fetch_array($result)) {
-                                            echo "<option value='" . $row['service_id'] . "'>" . $row['name'] . "</option>";
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
 
                                 <div class="form-group mb-2">
                                     <label for="title" class="control-label">Status</label> <br>
@@ -170,8 +156,8 @@ if (!$schedules) {
                 <div class="modal-footer rounded">
                     <div class="text-end">
                         <button type="button" class="btn btn-primary btn-sm rounded" id="edit" data-id="">Edit</button>
-                        <button type="button" class="btn btn-warning btn-sm rounded" id="cancel" data-id="">Cancel</button>
-                        <button type="button" class="btn btn-danger btn-sm rounded" id="delete" data-id="">Delete</button>
+                        <button type="button" class="btn btn-danger btn-sm rounded" id="cancel" data-id="">Cancel</button>
+                        <!-- <button type="button" class="btn btn-danger btn-sm rounded" id="delete" data-id="">Delete</button> -->
                     </div>
                 </div>
             </div>
@@ -189,7 +175,7 @@ if (!$schedules) {
         //document ready
         $(document).ready(function() {
             $('.select2').select2();
-            // console.log('JSON.stringify(scheds)'); 
+            // console.log(JSON.stringify(scheds)); 
 
             $('#schedule-form').submit(function(e) {
                 e.preventDefault();
@@ -224,7 +210,7 @@ if (!$schedules) {
                 $('#schedule-form select[name="status"]').val(sched.status).trigger('change');
                 $('#schedule-form select[name="patients"]').val(sched.patient_id).trigger('change');
                 $('#schedule-form select[name="employee"]').val(sched.employee_id).trigger('change');
-                $('#schedule-form select[name="service"]').val(sched.service_id).trigger('change');
+                // $('#schedule-form select[name="service"]').val(sched.service_id).trigger('change');
                 $('#schedule-form input[name="date"]').val(sched.date);
                 $('#schedule-form input[name="time"]').val(sched.time);
                 $('#save').val('Update');
