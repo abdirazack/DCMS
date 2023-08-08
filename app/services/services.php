@@ -11,7 +11,7 @@ include_once('./app/database/conn.php')
 </head>
 <div class="container-fluid ">
 
-        <div class=" mt-1 p-3 rounded overflow-auto shadow">
+        <div class=" mt-1 p-3 rounded overflow-auto shadow  bg-white">
             <div class='small' id='small'></div>
             <div class='d-flex justify-content-between mb-4'>
                 <h2 class="text-center text-white bg-primary px-2">Services List</h2>
