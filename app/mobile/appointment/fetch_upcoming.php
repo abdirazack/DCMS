@@ -29,30 +29,51 @@ if (!$conn) {
 $patientId = $_POST['patient_id'] ?? 1;
 
 // Fetch the top 3 upcoming appointments for the patient
-$sql = "SELECT * 
-FROM appointments 
-WHERE patient_id = $patientId
-  AND (status = 'Pending' OR status = 'Approved') 
-  AND date >= CURDATE() 
-ORDER BY date ASC, time ASC 
-LIMIT 5";
+$sql = "SELECT
+appointments.appointment_id,
+CONCAT(patients.first_name, ' ', patients.middle_name, ' ', patients.last_name) as patient,
+appointments.patient_id,
+CONCAT(employees.first_name, ' ', employees.middle_name, ' ', employees.last_name) as dentist,
+employees.employee_id,
+appointments.date,
+appointments.time,
+appointments.note,
+appointments.type,
+appointments.status
+FROM
+appointments
+JOIN
+employees ON appointments.employee_id = employees.employee_id
+JOIN
+patients ON appointments.patient_id = patients.patient_id
+WHERE
+appointments.patient_id = '$patientId'
+AND (appointments.status = 'Pending' OR appointments.status = 'Approved')
+AND appointments.date >= CURDATE()
+ORDER BY
+appointments.date ASC, appointments.time ASC
+LIMIT 5;
+";
 $result = $conn->query($sql);
 
 $appointments = array();
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        $appointments[] = array(
+        $appointments[] = [
             'appointment_id' => $row['appointment_id'],
-            'type' => $row['Type'],
+            'type' => $row['type'],
             'status' => $row['status'],
             'date' => $row['date'],
             'time' => $row['time'],
             'patient_id' => $row['patient_id'],
             'employee_id' => $row['employee_id'],
-            'note' => $row['note']
-        );
+            'note' => $row['note'],
+            'patient' => $row['patient'],
+            'dentist' => $row['dentist']
+        ];
     }
+
     $response = [
         'statusCode' => 200,
         'status' => 'success',
