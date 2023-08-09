@@ -60,6 +60,8 @@
                 <h6 class="collapse-header">Patients:</h6>
                 <a class="collapse-item" href="index.php?page=patients">Patients</a>
                 <h6 class="collapse-header">Patient_Service:</h6>
+                <h6 class="collapse-header">Drugs:</h6>
+                <a class="collapse-item" href="index.php?page=drug">Drugs</a>
                 <a class="collapse-item" href="index.php?page=patient_service">Patient_Service</a>
                 <h6 class="collapse-header">Prescriptions:</h6>
                 <a class="collapse-item" href="index.php?page=prescription">Prescriptions</a>
@@ -130,19 +132,10 @@
     <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
     <li class="nav-item">
 
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMedication" aria-expanded="true" aria-controls="collapseUtilities">
+        <a class="nav-link collapsed" href="index.php?page=medication" >
             <i class="fas fa-fw fa-pills"></i>
             <span>Medication</span>
         </a>
-        <div id="collapseMedication" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Medication:</h6>
-                <a class="collapse-item" href="index.php?page=medication">Medication</a>
-                <h6 class="collapse-header">Drugs:</h6>
-                <a class="collapse-item" href="index.php?page=drug">Drugs</a>
-
-            </div>
-        </div>
     </li>
 
     <!-- ------------------------------------------------------------------------------------------------ -->
