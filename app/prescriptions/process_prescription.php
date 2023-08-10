@@ -2,48 +2,38 @@
 // Connect to the database
 include_once('../database/conn.php');
 
+$id = @$_POST["id"];
+$patient_id =  $_POST["patient_id"];
+$medications =  $_POST["medication_id"];
+$instructions =  $_POST["instructions"];
+$dates_prescribed =  $_POST["date_prescribed"];
 
-    $id = @$_POST["id"];
-    $patient_id = mysqli_real_escape_string($conn, $_POST["patient"]);
-    $medication = mysqli_real_escape_string($conn, $_POST["medication"]);
-    $dosage = mysqli_real_escape_string($conn,$_POST["dosage"]);
-    $instructions = mysqli_real_escape_string($conn, $_POST["instruction"]);
-    $date_prescribed = mysqli_real_escape_string($conn, $_POST["date_prescribed"]);
+// Check if the ID field is set (if set, it's an update)
+if (is_array($medications) && is_array($instructions) && is_array($dates_prescribed)) {
+  for ($i = 0; $i < count($medications); $i++) {
+    $medication = $medications[$i];
+    $instruction = $instructions[$i];
+    $date_prescribed = $dates_prescribed[$i];
 
-  // Check if the ID field is set (if set, it's an update)
-  if ($id == "") {
-
-    // Insert a new prescriptions
-    $sql = "INSERT INTO prescriptions (patient_id, medication_id, dosage, instructions, date_prescribed) VALUES ('$patient_id', '$medication', '$dosage', '$instructions', '$date_prescribed')";
-    echo $sql;
-    if ($conn->query($sql) === TRUE) {
-        $data = ['message'=>'Succeesully added prescriptions', 'status'=>200];
-        echo json_encode($data);
-        return ;
+    if ($id == "") {
+      // Insert a new prescription
+      $sql = "INSERT INTO prescriptions (patient_id, medication_id, instructions, date_prescribed) VALUES ('$patient_id', '$medication', '$instruction', '$date_prescribed')";
     } else {
-        $data = ['message'=>'failed to add prescriptions', 'status'=>404];
-        echo json_encode($data);
-        return ;
+      // Update the prescription
+      $sql = "UPDATE prescriptions SET patient_id='$patient_id', medication_id='$medication', instructions='$instruction', date_prescribed='$date_prescribed' WHERE prescription_id='$id'";
     }
 
+    $result = mysqli_query($conn, $sql);
 
-
-  } else {
-
-        // Update the prescriptions
-
-    $sql = "UPDATE prescriptions SET  medication_id = '$medication', dosage = '$dosage', instructions = '$instructions', date_prescribed = '$date_prescribed' WHERE prescription_id = '$id'";
-    if ($conn->query($sql) === TRUE) {
-        $data = ['message'=>'succeffully updated prescriptions', 'status'=>200];
-        echo json_encode($data);
-        return ;
+    if ($result) {
+      $data = ['message' => ($id == "") ? 'Successfully added prescription' : 'Successfully updated prescription', 'status' => 200];
+      echo json_encode($data);
     } else {
-        $data = ['message'=>'failed to update prescriptions', 'status'=>404];
-        echo json_encode($data);
-        return ;
+      $data = ['message' => ($id == "") ? 'Failed to add prescription' : 'Failed to update prescription', 'status' => 404];
+      echo json_encode($data);
     }
-
   }
-
-
-?>
+} else {
+  $data = ['message' => 'Something is wrong with the arrays', 'status' => 404];
+  echo json_encode($data);
+}

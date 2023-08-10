@@ -59,9 +59,9 @@
 
                 <h6 class="collapse-header">Patients:</h6>
                 <a class="collapse-item" href="index.php?page=patients">Patients</a>
-                <h6 class="collapse-header">Patient_Service:</h6>
                 <h6 class="collapse-header">Drugs:</h6>
                 <a class="collapse-item" href="index.php?page=drug">Drugs</a>
+                <h6 class="collapse-header">Patient_Service:</h6>
                 <a class="collapse-item" href="index.php?page=patient_service">Patient_Service</a>
                 <h6 class="collapse-header">Prescriptions:</h6>
                 <a class="collapse-item" href="index.php?page=prescription">Prescriptions</a>

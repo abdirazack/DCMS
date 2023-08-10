@@ -48,7 +48,7 @@
                         <tr>
                             <td>
                                 <select class="form-control select2" id="medication_id" name="medication_id[]" REQUIRED>
-                                    <option value="">Select Service</option>
+                                    <option value="">Select Medication</option>
                                     <?php
                                     $query = 'SELECT * FROM `medications`';
                                     $result = mysqli_query($conn, $query);
@@ -171,6 +171,7 @@
                     data: $(this).serialize(),
                     success: function(data) {
                         // alert(data);
+                        // console.log(data);
                         location.reload();
                     },
                     error: function(data) {
@@ -215,7 +216,7 @@
                 },
                 success: function(data) {
                     // alert(data);
-                    console.log(JSON.parse(data));
+                    // console.log(JSON.parse(data));
                     var obj = JSON.parse(data);
                     $('#id').val(obj.drug_id);
                     $('#formPS  select[name="patient_id"]').val(obj.patient_id).trigger('change');

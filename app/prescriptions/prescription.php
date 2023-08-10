@@ -1,244 +1,250 @@
-<?php
-include_once('./app/database/conn.php')
-?>
+<!DOCTYPE html>
+<html>
 
-<div class="container-fluid ">
+<head>
+    <title>Staff Page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <?php
+    include_once('./app/database/conn.php');
+    ?>
+</head>
 
-    <div class=" mt-1 p-3 shadow bg-white overflow-auto rounded  bg-white">
-        <div class='small' id='small'></div>
-        <div class='d-flex justify-content-between mb-4'>
-            <h2 class="text-center text-primary">Prescriptions List</h2>
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#prescriptionModal">
-            <i class="fa-solid fa-plus "></i>
-            </button>
-        </div>
+<body>
 
-        <table class="table table-hover" id="dataTable">
-            <thead>
+    <div class="container p-3 rounded shadow bg-white overflow-auto">
+        <form id="formPS" class="m-2">
+            <div>
+                <h3 class="text-center">Patient Prescription</h3>
+            </div>
+            <div class="row m-5">
+                <!-- hidden id input -->
+                <input type="hidden" name="id" id="id">
+                <label for="patient_id" class="form-label ">Patient Name</label>
+                <select class="form-control select2" id="patient_id" name="patient_id" REQUIRED>
+                    <option value="">Select Patient</option>
+                    <?php
+                    $query = 'SELECT * FROM `patients`';
+                    $result = mysqli_query($conn, $query);
+                    while ($row = mysqli_fetch_array($result)) {
+                        echo '<option value=' . $row['patient_id'] . '>' . $row['first_name'] . ' ' . $row['last_name'] . '</option>';
+                    }
+                    ?>
+                </select>
+            </div>
+            <div class="input-field">
+                <table class="table table-bordered" id="medicationtable">
+                    <thead>
+                        <tr>
+                            <th scope="col">Medication</th>
+                            <th scope="col">Instruction</th>
+                            <th scope="col">Date Prescribed</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <select class="form-control select2" id="medication_id" name="medication_id[]" REQUIRED>
+                                    <option value="">Select Medication</option>
+                                    <?php
+                                    $query = 'SELECT * FROM `medications`';
+                                    $result = mysqli_query($conn, $query);
+                                    while ($row = mysqli_fetch_array($result)) {
+                                        echo '<option value=' . $row['medication_id'] . '>' . $row['medication_name'] . '</option>';
+                                    }
+                                    ?>
+                                </select>
+                            </td>
+                            <td><input type="text" class="form-control" id="instructions" name="instructions[]" REQUIRED></td>
+                            <td><input type="date" class="form-control" id="date_prescribed" name="date_prescribed[]" REQUIRED></td>
+                            <td><button class="btn btn-warning" name="addNewRec" id="addNewRec"><i class="fas fa-plus"></i></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <CENTER>
+                <button type="submit" class="btn btn-primary" name="submit" id="submit">Submit</button>
+            </CENTER>
+        </form>
+
+        <!-- display area -->
+        <div id="display">
+            <table class="table table-bordered" id="dataTable">
+                <thead>
                 <tr>
-                <th scope="col">#NO</th>
-
-
-                    <!-- <th>Prescription ID</th> -->
+                    <th scope="col">#NO</th>
                     <th>First Name</th>
                     <th>Last Name</th>
-                    <th>Medication Name</th>
-                    <th>Dosage</th>
-                    <th>Instruction</th>
-                    <th>Date Prescribed</th>
+                    <th>Total  Prescriptions</th>
                     <th> Action</th>
                 </tr>
-            </thead>
-            <tbody>
-                <?php
-                $count=0;
-
-                // Select all staff from the database
-                $result = mysqli_query($conn, "SELECT * FROM PrescriptionView ");
-
-                // Loop through the results and output each staff member as a table row
-                while ($row = mysqli_fetch_assoc($result)) {
-                    $count++;
-                    echo "<tr>";
-                    echo "<td>" . $count . "</td>";
-                    // echo "<td>" . $row['prescription_id'] . "</td>";
-                    echo "<td>" . $row['first_name'] . "</td>";
-                    echo "<td>" . $row['last_name'] . "</>";
-                    echo "<td>" . $row['medication_name'] . "</td>";
-                    echo "<td>" . $row['dosage'] . "</td>";
-                    echo "<td>" . $row['instruction'] . "</td>";
-                    echo "<td>" . $row['date_prescribed'] . "</td>";
-                    echo "<td class='text-center'> 
-                                    <button  class='btn btn-primary' onclick='editPrescription(" . $row['prescription_id'] . ")'> <i class='fa fa-edit'></i> </button> 
-                                    <a href='#' class='btn btn-danger ms-2 mt-1' onclick='deletePrescription(" . $row['prescription_id'] . ")'> <i class='fa fa-trash'></i> </a> 
-                                  </td>";
-                    echo "</tr>";
-                }
-                ?>
-            </tbody>
-        </table>
-    </div>
-</div>
-
-
-<!-- Modal -->
-<div class="modal fade" id="prescriptionModal" tabindex="-1" aria-labelledby="prescriptionModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content rounded shadow">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="prescriptionModalLabel">ADD NEW PRESCRIPTIONS</h1>
-            </div>
-            <form action="./app/prescriptions/process_prescription.php" method="post" id="formInsertUpdate">
-                <div class="modal-body">
-                    <input type="hidden" name="id" id="id">
-                    <div class="row">
-                        <div class="mb-3">
-                            <!-- select   first_name and last_name from  Patient table -->
-                            <label for="patient" class="form-label">Name:</label>
-                            <select class="form-control select2 border border-1 border-primary " id="patient" name="patient" required>
-                                <option value="">Select Patient</option>
-                                <?php
-                                $result = mysqli_query($conn, "SELECT * FROM patients");
-                                while ($row = mysqli_fetch_assoc($result)) {
-                                    echo "<option value='" . $row['patient_id'] . "'>" . $row['first_name'] . ' ' . $row['last_name']  . "</option>";
-                                }
-                                ?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="mb-3 ">
-                            <!-- select2 for medication -->
-                            <label for="medication" class="form-label">Medication:</label>
-                            <select class="form-control select2 border border-1 border-primary" id="medication" name="medication" required>
-                                <option value="">Select Medication</option>
-                                <?php
-                                $result = mysqli_query($conn, "SELECT * FROM medications");
-                                while ($row = mysqli_fetch_assoc($result)) {
-                                    echo "<option value='" . $row['medication_id'] . "'>" . $row['medication_name'] . "</option>";
-                                }
-                                ?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="mb-3 ">
-                            <!-- dosage -->
-                            <label for="dosage" class="form-label">Dosage:</label>
-                            <input type="text" class="form-control border border-1 border-primary" id="dosage" name="dosage" required>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="mb-3 ">
-                            <!-- instruction -->
-                            <label for="instruction" class="form-label">Instruction:</label>
-                            <input type="text" class="form-control border border-1 border-primary" id="instruction" name="instruction" required>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="mb-3">
-                            <!-- DATE Prescribed -->
-                            <label for="date_prescribed" class="form-label">Date Prescribed:</label>
-                            <input type="date" class="form-control border border-1 border-primary" id="date_prescribed" name="date_prescribed" required>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeButton">Close</button>
-                    <button type="submit" id='submit' class="btn btn-outline-primary">Add Prescronton</button>
-                </div>
-            </form>
+                </thead>
+                <tbody>
+                    <?php
+                    $count = 0;
+                    $query = 'SELECT `prescription_id`, p.`patient_id`, m.`medication_id`, Count(medication_name) as medication_name, first_name, last_name FROM `prescriptions` p join patients ps on p.patient_id = ps.patient_id join medications m on p.medication_id = m.medication_id GROUP by p.patient_id';
+                    $result = mysqli_query($conn, $query);
+                    while ($row = mysqli_fetch_array($result)) {
+                        $count++;
+?>          
+                        <tr>
+                        <td> <?php echo $count ?></td>
+                        <td> <?php echo $row['first_name']?> </td>
+                        <td> <?php echo $row['last_name'] ?></td>
+                        <td> <?php echo $row['medication_name'] ?></td>
+                        <td class="text-center"> 
+                            <button class="btn btn-primary me-5" onclick="ViewpatientPrescriptions(<?php echo $row['patient_id']; ?>)" name='view' id='view'>
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn btn-primary me-5" onclick="EditpatientPrescriptions(<?php echo $row['prescription_id']; ?>)" name="edit" id="edit">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-danger" onclick="DeletepatientPrescriptions(<?php echo $row['prescription_id']; ?>)" name="delete" id="delete">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                        </tr>
+                        <?php
+                    }
+                    ?>
+                </tbody>
+            </table>
         </div>
     </div>
-</div>
 
 
-<script>
-    function editPrescription(ids) {
 
-        var id = ids;
-        $('#id').val(id);
-        $.ajax({
-            url: './app/prescriptions/getPrescription.php',
-            type: 'POST',
-            data: {
-                updateid: id
-            },
-            success: function(response) {
-                // alert(response);
-                var data = JSON.parse(response);
-                $('#formInsertUpdate select[name="patient"]').val(data.patient_id).trigger('change');
-                $('#formInsertUpdate select[name="medication"]').val(data.medication_id).trigger('change');
-                $('#dosage').val(data.dosage);
-                $('#instruction').val(data.instruction);
-                $('#date_prescribed').val(data.date_prescribed);
-
-            }
-        });
-
-        $("#submit").text('Update');
+    <script>
+        //   
         $(document).ready(function() {
-            $('#closeButton').on('click', function() {
-                // Close the modal
-                $('#prescriptionModal').modal('hide');
+            $('.select2').select2();
+            $('#dataTable').DataTable({
+                pagingType: 'full_numbers',
+                "aLengthMenu": [
+                    [5, 10, , 20, 50, 75, -1],
+                    [5, 10, 20, 50, 75, "All"]
+                ],
+                "iDisplayLength": 5,
+                "bDestroy": true
             });
-            // Show the modal
-            $('#prescriptionModal').modal('show');
+
+            var html = '';
+            // When someone clicks on the add button, create a new col and append it to the row and change the add icon to remove icon  
+            html += '<tr>';
+            html += '<td><select class="form-control select2" id="medication_id" name="medication_id[]" REQUIRED><option value="">Select Service</option><?php $query = "SELECT * FROM `medications`";
+                                                                                                                                                    $result = mysqli_query($conn, $query);
+                                                                                                                                                    while ($row = mysqli_fetch_array($result)) {
+                                                                                                                                                        echo "<option value=" . $row["medication_id"] . ">" . $row["medication_name"] . "</option>";
+                                                                                                                                                    } ?></select></td>';
+            html+= "<td><input type='text' class='form-control' id='instructions' name='instructions[]' REQUIRED></td>";
+            html+= '<td><input type="date" class="form-control" id="date_prescribed" name="date_prescribed[]" REQUIRED></td>';
+            html += '<td><button class="btn btn-danger" name="removeRec" id="removeRec"><i class="fas fa-minus"></i></button></td>';
+            html += '</tr>';
+
+            $('#addNewRec').click(function() {
+
+                // append the new row to the table
+                $('#medicationtable').append(html);
+                $('.select2').select2();
+                // $('.select2').removeAttr('select2-hidden-accessible');
+            });
+
+            // When someone clicks on the remove button, remove the col and change the remove icon to add icon
+            $("#medicationtable").on('click', '#removeRec', function() {
+                $(this).closest('tr').remove();
+            });
+
+            //on submit
+            $('#formPS').on('submit', function(event) {
+                event.preventDefault();
+                $.ajax({
+                    url: "./app/prescriptions/process_prescription.php",
+                    method: "POST",
+                    data: $(this).serialize(),
+                    success: function(data) {
+                        alert(data);
+                        console.log(data);
+                        location.reload();
+                    },
+                    error: function(data) {
+                        alert(data);
+                    }
+                });
+            });
+
+
         });
-    }
-
-    function deletePrescription(id) {
-        var id = id;
-        $.ajax({
-            url: './app/prescriptions/deletePrescription.php',
-            type: 'POST',
-            data: {
-                deleteid: id
-            },
-            success: function(response) {
-                var obj = jQuery.parseJSON(response);
-                if (obj.status == 200) {
-                    location.reload();
-                } else {
-                    alert(obj.message);
-                }
-            }
-        });
-    }
-
-    $(document).ready(function() {
-
-        $("#medication").select2({
-            
-            multiple: true,
-        });
-
-        //make the width of the select2 100%
-        $('.select2').css('width', '100%');
-
-
-
-
-        $('.select2').select2({
-            dropdownParent: $('#prescriptionModal')
-        });
-
-        $('#dataTable').DataTable({
-            pagingType: 'full_numbers',
-            "aLengthMenu": [
-                [5, 10, , 20, 50, 75, -1],
-                [5, 10, 20, 50, 75, "All"]
-            ],
-            "iDisplayLength": 5,
-            "bDestroy": true
-        });
-
-        $('#formInsertUpdate').submit(function(e) {
-            e.preventDefault();
-            var formData = new FormData(this);
+        //on delete
+        function DeletepatientPrescriptions(id) {
+            id = id;
             $.ajax({
-                url: './app/prescriptions/process_prescription.php',
-                type: 'POST',
-                data: formData,
-                success: function(response) {
-                    // alert(response);
-                    var obj = jQuery.parseJSON(response);
+                url: "./app/prescriptions/deletePrescription.php",
+                method: "POST",
+                data: {
+                    deleteid: id
+                },
+                success: function(data) {
+                    // alert(data);
+                    console.log(data);
+                    obj = JSON.parse(data);
                     if (obj.status == 200) {
-                        //hide modal
-                        $('#prescriptionModal').modal('hide');
+                        // alert(obj.message);
                         location.reload();
                     } else {
-                        //show error on div with id small
-                        $('#small').html(obj.message);
                         alert(obj.message);
                     }
-                },
-                cache: false,
-                contentType: false,
-                processData: false
+                }
             });
-        });
+        }
 
-    });
-</script>
+        //on edit
+        function EditpatientPrescriptions(id) {
+            id = id;
+            $.ajax({
+                url: "./app/prescriptions/getPrescription.php",
+                method: "POST",
+                data: {
+                    updateid: id
+                },
+                success: function(data) {
+                    // alert(data);
+                    // console.log(JSON.parse(data));
+                    var obj = JSON.parse(data);
+                    $('#id').val(obj.prescription_id);
+                    $('#formPS  select[name="patient_id"]').val(obj.patient_id).trigger('change');
+                    $('#formPS  select[name="medication_id[]"]').val(obj.medication_id).trigger('change');
+                    $('#formPS  input[name="instructions[]"]').val(obj.instructions);
+                    $('#formPS  input[name="date_prescribed[]"]').val(obj.date_prescribed);
+
+                    $('#submit').html('Update');
+                }
+            });
+
+        }
+        //on view
+        function ViewpatientPrescriptions(id) {
+            id = id;
+            // create a small pop up modal to show the details of the patientService
+            $.ajax({
+                url: "./app/prescriptions/view.php",
+                method: "POST",
+                data: {
+                    id: id
+                },
+                success: function(data) {
+                    // alert(data);
+                    // to show the modal
+                    $('#modalDisplay').html(data);
+                    $('#viewModal').modal('show');
+                }
+            });
+
+        }
+    </script>
+
+<div id='modalDisplay' class="container-fluid">
+
+</div>
+
+<!-- Q: Do you see any unclosed brackets? -->
