@@ -20,3 +20,5 @@ rgb(2, 128, 116)
 hsl(214, 26%, 26%)
 rgb(49, 64, 83)
 314053
+
+update [session] variables when profile is updated

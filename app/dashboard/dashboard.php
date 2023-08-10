@@ -1,9 +1,9 @@
 <style>
     @media (max-width: 768px) {
-  .p-2 {
-    padding: 0.5rem; 
-  }
-}
+        .p-2 {
+            padding: 0.5rem;
+        }
+    }
 </style>
 <div class="container-fluid bg-light p-3 mb-4">
     <div class="row animated fadeIn overflow-auto">
@@ -70,14 +70,9 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-6">
-            <!-- Insert the income chart here -->
-            <canvas id="incomeChart"></canvas>
-        </div>
-        <div class="col-md-6">
-            <!-- Insert the expense chart here -->
-            <canvas id="expenseChart"></canvas>
+    <div class="row ">
+        <div class="col-md-10 mx-auto">
+            <canvas id="combinedChart"></canvas>
         </div>
     </div>
 
@@ -231,7 +226,9 @@
                 if (actionButton === 'Approve') {
                     actionButtonElement.classList.add('btn-primary');
                     actionButtonElement.addEventListener('click', () => {
-                        processAppointment(appointment.appointment_id, 'approve');
+                        $('#appointmentId').val(appointment.appointment_id);
+                        $('#assignDentist').modal('show');
+                        // processAppointment(appointment.appointment_id, 'approve');
                     });
                 } else if (actionButton === 'Cancel') {
                     actionButtonElement.classList.add('btn-danger');
@@ -323,14 +320,14 @@ $mysqli->close();
 ?>
 
 
-
- <script>
+<!-- 
+<script>
     // Processed data for income and expenses (from PHP)
     var incomeLabels = <?php echo json_encode($incomeLabels); ?>;
     var incomeValues = <?php echo json_encode($incomeValues); ?>;
     var expenseLabels = <?php echo json_encode($incomeLabels); ?>;
     var expenseValues = <?php echo json_encode($expenseValues); ?>;
-    
+
     // Create the income chart
     var incomeCtx = document.getElementById('incomeChart').getContext('2d');
     var incomeChart = new Chart(incomeCtx, {
@@ -353,7 +350,7 @@ $mysqli->close();
             }
         }
     });
-    
+
     // Create the expense chart
     var expenseCtx = document.getElementById('expenseChart').getContext('2d');
     var expenseChart = new Chart(expenseCtx, {
@@ -376,74 +373,119 @@ $mysqli->close();
             }
         }
     });
-</script>  
-
- <!-- <script>
+</script> -->
+<script>
     // Processed data for income and expenses (from PHP)
     var incomeLabels = <?php echo json_encode($incomeLabels); ?>;
     var incomeValues = <?php echo json_encode($incomeValues); ?>;
+    var expenseLabels = <?php echo json_encode($incomeLabels); ?>;
     var expenseValues = <?php echo json_encode($expenseValues); ?>;
-    var expenseLabels = <?php echo json_encode($expenseLabels); ?>;
-    
-    // Create the income chart
-    var incomeCtx = document.getElementById('incomeChart').getContext('2d');
-    var incomeChart = new Chart(incomeCtx, {
-        type: 'polarArea', // Change chart type to 'polarArea'
-        data: {
-            labels: incomeLabels,
-            datasets: [{
-                label: 'Income',
-                data: incomeValues,
-                backgroundColor: [
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(255, 205, 86, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                ],
-                borderColor: [
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(255, 205, 86, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(153, 102, 255, 1)',
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            // Chart options here
-        }
+var chartData = {
+  labels: incomeLabels,
+  datasets: [
+    {
+      label: 'Income', 
+      data: incomeValues,
+      backgroundColor: 'rgba(20, 255, 100, 0.2)',
+      borderColor: 'rgba(99, 225, 132, 1)',  
+      borderWidth: 1
+    },
+    {
+      label: 'Expenses',
+      data: expenseValues, 
+      backgroundColor: 'rgba(255, 59, 32, 0.2)',
+      borderColor: 'rgba(255, 99, 132, 1)',
+      borderWidth: 1
+    }
+  ]
+};
+
+// Create combined chart
+var ctx = document.getElementById('combinedChart').getContext('2d');
+var combinedChart = new Chart(ctx, {
+  type: 'line',
+  data: chartData,
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  }
+});
+</script>
+
+
+<!-- Modal -->
+<div class="modal fade" id="assignDentist" tabindex="-1" role="dialog" aria-labelledby="assignDentistLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="assignDentistLabel">Assign Appointments To dentist</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form name='assignDentistForm' id='assignDentistForm'>
+            <div class="modal-body">
+                <input type="text" id="appointmentId" name="appointmentId" value="" hidden>
+                <!-- select * dentist from database -->
+                <div class="form-group mt-2 mb-3">
+                    <label for="employee" class="control-label">Dentist:</label><br>
+                    <select class="form-control select2 " id="employee" name="employee" REQUIRED>
+
+                        <option value="">Select Dentist</option>
+                        <?php
+                        include_once './app//database/conn.php';
+                        $query = "SELECT * FROM `addresses_employees_view` WHERE role_name = 'dentist';                                        ";
+                        $result = mysqli_query($conn, $query);
+                        while ($row = mysqli_fetch_array($result)) {
+                            echo "<option value='" . $row['employee_id'] . "'>" . $row['first_name'] . ' ' . $row['last_name'] . "</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" name='assignDentist' id="assignDentist" class="btn btn-primary">Assign Dentist</button>
+            </div>
+                    </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("select").select2();
+    $('.select2').css('width', '100%');
+
+
+    $('#assignDentistForm').submit(function(e) {
+        e.preventDefault();
+        var appointmentId = $('#appointmentId').val();
+        var employeeId = $('#employee').val();
+        // alert(appointmentId + ' ' + employeeId);
+        $.ajax({
+            url: './app/dashboard/approveAppointment.php',
+            type: 'POST',
+            data: {
+                appointmentId: appointmentId,
+                employeeId: employeeId
+            },
+            dataType: 'JSON',
+            success: function(data) {
+                console.log(data);
+                // Reload the new appointments if approved or cancelled
+                fetchAppointments('./app/dashboard/newAppointments.php', 'newAppointments', 'Approve');
+                // Reload the main appointments list
+                fetchAppointments('./app/dashboard/upcoming.php', 'upcoming', 'Cancel');
+                $('#assignDentist').modal('hide');
+            },
+            error: function(xhr, status, error) {
+                console.log("Error Status:", status);
+                console.log("Error Message:", error);
+                console.log("Full Error Response:", xhr.responseText);
+            }
+        });
     });
-    
-    // Create the expense chart
-    var expenseCtx = document.getElementById('expenseChart').getContext('2d');
-    var expenseChart = new Chart(expenseCtx, {
-        type: 'polarArea', // Change chart type to 'polarArea'
-        data: {
-            labels: expenseLabels, // You can use the same labels for consistency
-            datasets: [{
-                label: 'Expenses',
-                data: expenseValues,
-                backgroundColor: [
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(255, 205, 86, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                ],
-                borderColor: [
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(255, 205, 86, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(153, 102, 255, 1)',
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            // Chart options here
-        }
-    });
-</script>  -->
+
+</script>

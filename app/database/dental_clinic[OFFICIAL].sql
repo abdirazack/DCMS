@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 06, 2023 at 09:51 AM
+-- Generation Time: Aug 07, 2023 at 07:18 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -115,9 +115,11 @@ CREATE TABLE `addresses_supplier_view` (
 --
 CREATE TABLE `appointmentdetails` (
 `appointment_id` int(11)
+,`status` varchar(20)
 ,`patient_id` int(11)
 ,`patient_name` varchar(101)
 ,`employee_name` varchar(511)
+,`employee_id` int(11)
 ,`date` date
 ,`time` time
 ,`created_at` timestamp
@@ -149,9 +151,9 @@ CREATE TABLE `appointments` (
 
 INSERT INTO `appointments` (`appointment_id`, `Type`, `status`, `date`, `time`, `patient_id`, `employee_id`, `created_at`, `updated_at`, `note`) VALUES
 (1, 'walk-in', 'Pending', '2023-07-25', '18:17:10', 3, 2, '2023-07-24 03:17:47', '2023-08-02 14:10:32', 'Bro don\'t forget your card'),
-(2, 'Walk-in', 'Pending', '2023-08-28', '11:15:00', 3, 2, '2023-07-27 07:38:59', '2023-08-02 14:10:49', NULL),
+(2, 'Walk-in', 'Approved', '2023-08-28', '11:15:00', 3, 2, '2023-07-27 07:38:59', '2023-08-07 17:17:19', NULL),
 (3, 'Walki-In', 'Approved', '2023-08-15', '14:15:00', 3, 1, '2023-07-29 08:27:23', '2023-08-02 14:15:55', 'Brudha'),
-(4, 'Online', 'Pending', '2023-08-02', '11:45:00', 3, 2, '2023-07-29 08:27:23', '2023-08-02 14:10:38', 'WHat!!!'),
+(4, 'Online', 'Completed', '2023-08-06', '07:00:00', 3, 1, '2023-07-29 08:27:23', '2023-08-06 08:10:08', 'WHat!!!'),
 (5, 'Online', 'Approved', '2023-08-05', '09:30:00', 3, 3, '2023-07-29 08:27:23', '2023-08-02 14:15:52', 'HEHEHEHEHE'),
 (6, 'Walk-in', 'Pending', '2023-08-21', '10:30:00', 5, 1, '2023-08-02 07:45:04', '2023-08-02 14:10:36', NULL),
 (7, 'Walk-in', 'Cancelled', '2023-08-30', '11:00:00', 2, 1, '2023-08-03 12:51:02', '2023-08-03 13:51:58', NULL),
@@ -165,10 +167,25 @@ INSERT INTO `appointments` (`appointment_id`, `Type`, `status`, `date`, `time`, 
 
 CREATE TABLE `drugs` (
   `drug_id` int(11) NOT NULL,
-  `drug_name` varchar(50) NOT NULL,
   `drug_description` text DEFAULT NULL,
-  `drug_cost` decimal(10,2) NOT NULL
+  `drug_cost` decimal(10,2) NOT NULL,
+  `drug_quantity` int(11) NOT NULL,
+  `drug_expiry_date` date DEFAULT NULL,
+  `patient_id` int(11) DEFAULT NULL,
+  `employee_id` int(11) DEFAULT NULL,
+  `medication_id` int(11) DEFAULT NULL,
+  `date_prescribed` date NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `drugs`
+--
+
+INSERT INTO `drugs` (`drug_id`, `drug_description`, `drug_cost`, `drug_quantity`, `drug_expiry_date`, `patient_id`, `employee_id`, `medication_id`, `date_prescribed`, `created_at`, `updated_at`) VALUES
+(3, ' sdfghjkhgfds', '20.00', 2, '2025-01-01', 1, 2, 2, '2023-08-07', '2023-08-07 15:04:53', '2023-08-07 15:04:53'),
+(4, ' sdfghjkhgfds', '20.00', 2, '2025-01-01', 1, 2, 2, '2023-08-07', '2023-08-07 15:05:36', '2023-08-07 15:05:36');
 
 -- --------------------------------------------------------
 
@@ -200,7 +217,7 @@ CREATE TABLE `employees` (
 
 INSERT INTO `employees` (`employee_id`, `first_name`, `middle_name`, `last_name`, `email`, `phone`, `role_id`, `experience`, `address`, `gender`, `profile`, `salary_type`, `currency`, `amount`, `hire_date`) VALUES
 (1, 'Abdirizak', 'omar', 'Abdi', 'abdirizakomar65@gmail.com', '613324221', 1, '2 years', 3, 'Male', '1690877422.svg', 'Monthly', 'Dollar', 1200, '2023-06-12'),
-(2, 'farhan', 'omar', 'ali', 'farxan@gmail.com', '614546598', 4, '2 years', 1, 'Male', '1690875501.svg', 'Monthly', 'Dollar', 800, '2023-07-20'),
+(2, 'Abdi', 'omar', 'ali', 'farxan@gmail.com', '614546598', 4, '2 years', 1, 'Male', '1691428414.svg', 'Monthly', 'Dollar', 800, '2023-07-20'),
 (3, 'Ahmed', 'Mukhtar', '', 'ahmedez@hotmail.com', '0707868481', 2, '2 years', 1, 'Male', '1689748947.php', 'Fixed', 'Dollar', 1000, '2023-07-18');
 
 -- --------------------------------------------------------
@@ -241,8 +258,8 @@ CREATE TABLE `expenses` (
 INSERT INTO `expenses` (`expense_id`, `amount`, `quantity`, `description`, `expense_type`, `date`) VALUES
 (4, '10.00', 1, 'fdghdh', 1, '2023-07-07'),
 (5, '13.00', 1, 'xfhdfg', 4, '2023-07-12'),
-(6, '200.00', 1, 'Travel expense', 4, '2023-08-04'),
-(7, '100.00', 1, 'Electricity', 3, '2023-08-02');
+(6, '50.00', 1, 'Travel expense', 4, '2023-08-04'),
+(7, '50.00', 1, 'Electricity', 3, '2023-08-02');
 
 -- --------------------------------------------------------
 
@@ -390,6 +407,43 @@ CREATE TABLE `medications` (
   `medication_description` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `medications`
+--
+
+INSERT INTO `medications` (`medication_id`, `medication_name`, `medication_dosage`, `medication_description`) VALUES
+(1, 'DawaZone', '3x3', ' for Headache'),
+(2, 'Lisinopril', '10 mg', 'Blood pressure medication'),
+(3, 'Metformin', '500 mg', 'Diabetes medication'),
+(4, 'Amlodipine', '5 mg', 'Blood pressure medication'),
+(5, 'Atorvastatin', '40 mg', 'Cholesterol medication'),
+(6, 'Levothyroxine', '25 mcg', 'Thyroid medication'),
+(7, 'Omeprazole', '20 mg', 'Heartburn medication'),
+(8, 'Albuterol', '90 mcg/inh', 'Asthma medication'),
+(9, 'Losartan', '50 mg', 'Blood pressure medication'),
+(10, 'Gabapentin', '300 mg', 'Nerve pain medication'),
+(11, 'Hydrochlorothiazide', '12.5 mg', 'Water pill'),
+(12, 'Fluticasone', '50 mcg/inh', 'Asthma medication'),
+(13, 'Bupropion', '150 mg', 'Antidepressant'),
+(14, 'Metoprolol', '50 mg', 'Blood pressure medication'),
+(15, 'Pantoprazole', '40 mg', 'Heartburn medication'),
+(16, 'Sertraline', '50 mg', 'Antidepressant'),
+(17, 'Montelukast', '10 mg', 'Asthma medication'),
+(18, 'Furosemide', '40 mg', 'Water pill'),
+(19, 'Duloxetine', '30 mg', 'Antidepressant'),
+(20, 'Prednisone', '10 mg', 'Steroid'),
+(21, 'Tamsulosin', '0.4 mg', 'Enlarged prostate medication'),
+(22, 'Cetirizine', '10 mg', 'Antihistamine'),
+(23, 'Loratadine', '10 mg', 'Antihistamine'),
+(24, 'Trazodone', '50 mg', 'Antidepressant'),
+(25, 'Clonidine', '0.1 mg', 'Blood pressure medication'),
+(26, 'Esomeprazole', '20 mg', 'Heartburn medication'),
+(27, 'Latanoprost', '0.005% eye drops', 'Glaucoma eye drops'),
+(28, 'Folic acid', '400 mcg', 'Vitamin supplement'),
+(29, 'Omega-3 fish oil', '1000 mg', 'Dietary supplement'),
+(30, 'Probiotic', '50 billion CFU', 'Dietary supplement'),
+(31, 'Ibuprofen', '200 mg', 'Pain reliever');
+
 -- --------------------------------------------------------
 
 --
@@ -480,6 +534,27 @@ CREATE TABLE `patientservicesview` (
 ,`service_name` varchar(50)
 ,`quantity` int(11)
 ,`cost` double
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `patient_drugs_view`
+-- (See below for the actual view)
+--
+CREATE TABLE `patient_drugs_view` (
+`patient_id` int(11)
+,`first_name` varchar(50)
+,`last_name` varchar(50)
+,`employee_id` int(11)
+,`drug_id` int(11)
+,`drug_cost` decimal(10,2)
+,`drug_quantity` int(11)
+,`date_prescribed` date
+,`drug_expiry_date` date
+,`drug_description` text
+,`medication_name` varchar(100)
+,`medication_dosage` varchar(100)
 );
 
 -- --------------------------------------------------------
@@ -602,7 +677,7 @@ CREATE TABLE `salary` (
 --
 
 INSERT INTO `salary` (`salary_id`, `employee_id`, `amount`, `paid_in_full`, `datePaid`) VALUES
-(1, 2, 1200, 1, '2023-07-19');
+(1, 2, 800, 1, '2023-07-19');
 
 -- --------------------------------------------------------
 
@@ -726,7 +801,7 @@ CREATE  VIEW `addresses_supplier_view`  AS SELECT `s`.`supplier_id` AS `supplier
 --
 DROP TABLE IF EXISTS `appointmentdetails`;
 
-CREATE  VIEW `appointmentdetails`  AS SELECT `a`.`appointment_id` AS `appointment_id`, `a`.`status` AS `status`, `p`.`patient_id` AS `patient_id`, concat(`p`.`first_name`,' ',`p`.`last_name`) AS `patient_name`, concat(`e`.`first_name`,' ',`e`.`last_name`) AS `employee_name`, `a`.`employee_id`, `a`.`date` AS `date`, `a`.`time` AS `time`, `a`.`created_at` AS `created_at`, `a`.`updated_at` AS `updated_at` FROM ((`appointments` `a` join `patients` `p` on(`a`.`patient_id` = `p`.`patient_id`)) join `employees` `e` on(`a`.`employee_id` = `e`.`employee_id`))  ;
+CREATE  VIEW `appointmentdetails`  AS SELECT `a`.`appointment_id` AS `appointment_id`, `a`.`status` AS `status`, `p`.`patient_id` AS `patient_id`, concat(`p`.`first_name`,' ',`p`.`last_name`) AS `patient_name`, concat(`e`.`first_name`,' ',`e`.`last_name`) AS `employee_name`, `a`.`employee_id` AS `employee_id`, `a`.`date` AS `date`, `a`.`time` AS `time`, `a`.`created_at` AS `created_at`, `a`.`updated_at` AS `updated_at` FROM ((`appointments` `a` join `patients` `p` on(`a`.`patient_id` = `p`.`patient_id`)) join `employees` `e` on(`a`.`employee_id` = `e`.`employee_id`))  ;
 
 -- --------------------------------------------------------
 
@@ -763,6 +838,15 @@ CREATE  VIEW `logincredentialsview`  AS SELECT `employees`.`employee_id` AS `emp
 DROP TABLE IF EXISTS `patientservicesview`;
 
 CREATE  VIEW `patientservicesview`  AS SELECT `patientservices`.`patientService_id` AS `patientService_id`, `patients`.`patient_id` AS `patient_id`, `patients`.`first_name` AS `first_name`, `patients`.`last_name` AS `last_name`, `services`.`service_id` AS `service_id`, `services`.`name` AS `service_name`, `patientservices`.`quantity` AS `quantity`, `patientservices`.`cost` AS `cost` FROM ((`patientservices` join `patients` on(`patientservices`.`patient_id` = `patients`.`patient_id`)) join `services` on(`patientservices`.`service_id` = `services`.`service_id`))  ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `patient_drugs_view`
+--
+DROP TABLE IF EXISTS `patient_drugs_view`;
+
+CREATE  VIEW `patient_drugs_view`  AS SELECT `p`.`patient_id` AS `patient_id`, `p`.`first_name` AS `first_name`, `p`.`last_name` AS `last_name`, `e`.`employee_id` AS `employee_id`, `d`.`drug_id` AS `drug_id`, `d`.`drug_cost` AS `drug_cost`, `d`.`drug_quantity` AS `drug_quantity`, `d`.`date_prescribed` AS `date_prescribed`, `d`.`drug_expiry_date` AS `drug_expiry_date`, `d`.`drug_description` AS `drug_description`, `m`.`medication_name` AS `medication_name`, `m`.`medication_dosage` AS `medication_dosage` FROM (((`patients` `p` join `drugs` `d` on(`p`.`patient_id` = `d`.`patient_id`)) join `employees` `e` on(`d`.`employee_id` = `e`.`employee_id`)) join `medications` `m` on(`d`.`medication_id` = `m`.`medication_id`))  ;
 
 -- --------------------------------------------------------
 
@@ -831,7 +915,10 @@ ALTER TABLE `appointments`
 -- Indexes for table `drugs`
 --
 ALTER TABLE `drugs`
-  ADD PRIMARY KEY (`drug_id`);
+  ADD PRIMARY KEY (`drug_id`),
+  ADD KEY `patient_id` (`patient_id`),
+  ADD KEY `employee_id` (`employee_id`),
+  ADD KEY `medication_id` (`medication_id`);
 
 --
 -- Indexes for table `employees`
@@ -967,7 +1054,7 @@ ALTER TABLE `appointments`
 -- AUTO_INCREMENT for table `drugs`
 --
 ALTER TABLE `drugs`
-  MODIFY `drug_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `drug_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `employees`
@@ -1009,7 +1096,7 @@ ALTER TABLE `inventory`
 -- AUTO_INCREMENT for table `medications`
 --
 ALTER TABLE `medications`
-  MODIFY `medication_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `medication_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `patients`
@@ -1075,6 +1162,14 @@ ALTER TABLE `treatment_plans`
 ALTER TABLE `appointments`
   ADD CONSTRAINT `appointments_ibfk_1` FOREIGN KEY (`patient_id`) REFERENCES `patients` (`patient_id`),
   ADD CONSTRAINT `appointments_ibfk_2` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`);
+
+--
+-- Constraints for table `drugs`
+--
+ALTER TABLE `drugs`
+  ADD CONSTRAINT `drugs_ibfk_1` FOREIGN KEY (`patient_id`) REFERENCES `patients` (`patient_id`),
+  ADD CONSTRAINT `drugs_ibfk_2` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`),
+  ADD CONSTRAINT `drugs_ibfk_3` FOREIGN KEY (`medication_id`) REFERENCES `medications` (`medication_id`);
 
 --
 -- Constraints for table `employees`

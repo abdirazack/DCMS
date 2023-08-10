@@ -1,24 +1,20 @@
 <?php
-    // coonect to database
-    include_once('../database/conn.php');
+    include_once("../database/conn.php");
+    session_start();
+    // Retrieve the form data
+    // get appointment id and employee id from post
+    $appointment_id = $_POST['appointmentId'];
+    $employee_id = $_POST['employeeId'];
 
-    if(isset($_POST['id'])){
-        $id = $_POST['id'];
-        $query = "UPDATE appointments SET status = 'Approved' WHERE appointment_id = $id;";
-        $result = $conn->query($query);
-        if($result){
-            $data = ['message'=>'Success', 'status'=>200];
-            echo json_encode($data);
-            return ;
-        } else {
-            $data = ['message'=>'failed to Approve Appointment', 'status'=>404];
-            echo json_encode($data);
-            return ;
-        }
-    }
-    else{
-        $data = ['message'=>'ID is not set', 'status'=>404];
+    // query to update appointment table
+    $query = "UPDATE `appointments` SET employee_id  = '$employee_id', status = 'Approved' WHERE appointment_id  = '$appointment_id'";
+    $result = mysqli_query($conn, $query);
+    if ($result) {
+        
+        $data = ['message' => 'Succeesully updated appointment', 'status' => 200];
         echo json_encode($data);
-        return ;
-    } 
+    } else {
+        $data = ['message' => 'Failed to update appointment', 'status' => 404];
+        echo json_encode($data);
+    }
 ?>
