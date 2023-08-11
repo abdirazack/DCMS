@@ -75,11 +75,11 @@ include_once('./app/database/conn.php')
                         </div>
                         <div class="mb-3 col-md-6">
                             <label for="phone_number" class="form-label">Phone Number:</label>
-                            <input type="text" class="form-control border border-1 border-primary" id="phone_number" name="phone_number" required>
+                            <input type="number" class="form-control border border-1 border-primary" id="phone_number" name="phone_number" required>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="mb-3">
+                        <div class=" col-lg-12 mb-3">
                             <label for="email" class="form-label">Email:</label>
                             <input type="email" class="form-control border border-1 border-primary" id="email" name="email" required>
                         </div>
@@ -89,7 +89,7 @@ include_once('./app/database/conn.php')
                         <label for="address" class="form-label">Address:</label>
                         <div class="mb-3 input-group">
                             <!-- select2 address from addresses table  -->
-                            <select style="width: 90%;" class="form-control border border-1 border-primary select2" id="address" name="address">
+                            <select style="width: 85%;" class="form-control border border-1 border-primary select2" id="address" name="address">
                                 <option value="">Select Address</option>
                                 <?php
                                 $result = mysqli_query($conn, "SELECT * FROM Addresses");
@@ -98,8 +98,8 @@ include_once('./app/database/conn.php')
                                 }
                                 ?>
                             </select>
-                            <span class="input-group-btn">
-                                <button type="button" class="btn btn-primary ms-1 d-inline" data-toggle="modal" data-target="#addressModal">
+                            <span class="input-group-btn ms-3 text-center">
+                                <button type="button" class="btn btn-primary  d-inline" data-toggle="modal" data-target="#addressModal">
                                     <!-- Add a plus icon with tooltip that says 'add new address' -->
                                     <icon class="fa fa-plus"></icon>
                                 </button>

@@ -7,7 +7,7 @@
         <th data-field="service_name" data-sortable="true">Service Name</th>
         <th data-field="IncomeType" data-sortable="true">Income Type</th>
         <th data-field="IncomeAmount" data-sortable="true">Income Amount</th>
-        <th style="max-width: 5px;" data-field="IncomeAmountPaid" data-sortable="true">Income Amount Paid</th>
+        <th  data-field="IncomeAmountPaid" data-sortable="true">Amount Paid</th>
         <th data-field="IncomeDate">Income Date</th>
     </thead>
     <tbody>

@@ -101,8 +101,19 @@
     <!-- ------------------------------------------------------------------------------------------------ -->
     <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
     <li class="nav-item">
+        <a class="nav-link " href="index.php?page=payments">
+            <i class="fas fa-fw fa-money-bills"></i>
+            <span>Payments</span>
+        </a>
+    </li>
 
-        <a class="nav-link " href="index.php?page=services" >
+    <!-- ------------------------------------------------------------------------------------------------ -->
+    <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
+    <!-- ------------------------------------------------------------------------------------------------ -->
+    <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
+    <li class="nav-item">
+
+        <a class="nav-link " href="index.php?page=services">
             <i class="fas fa-fw fa-gear"></i>
             <span>Services </span>
         </a>
@@ -122,8 +133,6 @@
                 <a class="collapse-item" href="index.php?page=expenses">Expense</a>
                 <h6 class="collapse-header">Expenses Types:</h6>
                 <a class="collapse-item" href="index.php?page=expense_type">Expense Type</a>
-                <h6 class="collapse-header">Payments:</h6>
-                <a class="collapse-item" href="index.php?page=payments">Payments</a>
             </div>
         </div>
     </li>
@@ -132,7 +141,7 @@
     <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
     <li class="nav-item">
 
-        <a class="nav-link collapsed" href="index.php?page=medication" >
+        <a class="nav-link collapsed" href="index.php?page=medication">
             <i class="fas fa-fw fa-pills"></i>
             <span>Medication</span>
         </a>

@@ -9,27 +9,27 @@
                 <div class="modal-body">
                     <input type="hidden" name="id" id="id">
                     <div class="row">
-                        <div class="mb-3>
+                        <div class=" col-md-12 mb-3>
                             <label for="street" class="form-label">Street:</label>
                             <input type="text" class="form-control " id="street" name="street" required>
                         </div>
                     </div>
                     <div class="row">
 
-                        <div class="mb-3>
+                        <div class="col-md-12 mb-3>
                             <label for="city" class="form-label">City:</label>
                             <input type="text" class="form-control " id="city" name="city" required>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="mb-3>
+                        <div class="col-md-12 mb-3>
                             <label for="state" class="form-label">State:</label>
                             <input type="text" class="form-control " id="state" name="state" required>
                         </div>
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" id='submit' class="btn btn-outline-primary">Add Address</button>
                     </div>
                 </div>

@@ -10,8 +10,13 @@ $result = mysqli_query($conn, $sql);
         color: rgba(249, 41, 27, 0.60);
         background-color: rgba(249, 41, 27, 0.10);
         font-size: large;
-        
+        /* box-shadow: 0 0 10px #BF360C; */
     }
+    .hoverBgRed:hover {
+        color: rgba(249, 41, 27, 1);
+        background-color: rgba(249, 41, 27, 0.20);
+    }
+
 </style>
 
 
@@ -26,7 +31,7 @@ $result = mysqli_query($conn, $sql);
                 <i class="fa-solid fa-plus "></i>
             </button>
         </div>
-        <table class="table table-hover" id="dataTable">
+        <table class="table " id="dataTable">
             <thead>
                 <tr>
                     <th scope="col">#NO</th>
@@ -53,11 +58,13 @@ $result = mysqli_query($conn, $sql);
                     $amount_due = ($row["IncomeAmount"] - $row["discount"]) - $row["IncomeAmountPaid"];
                     // add class if amount due is greater than 0
                     $class = "";
+                    $hoverClass = "";
                     if ($amount_due > 0) {
-                        $class = "class='bgRed'";
+                        $class = "bgRed";
+                        $hoverClass = "hoverBgRed";
                     }
                 ?>
-                    <tr <?php echo $class ?>>
+                    <tr class="<?php echo $class .' ' . $hoverClass; ?>">
                         <td><?php echo $count; ?></td>
                         <td><?php echo  $row["first_name"]; ?></td>
                         <td><?php echo  $row["last_name"]; ?></td>
