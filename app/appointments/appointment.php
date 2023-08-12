@@ -42,6 +42,12 @@ if (!$schedules) {
                     </div>
                     <div class="card-body">
                         <div class="container-fluid">
+                            <div class="alert alert-danger alert-dismissible fade show d-none" role="alert" id="alertDanger">
+                               <p id="alertDangerText"></p>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
                             <form action="./app/appointments/save.php" method="post" id="schedule-form">
                                 <input type="hidden" name="id" value="">
                                 <div class="form-group mt-2 mb-3">
@@ -57,7 +63,7 @@ if (!$schedules) {
                                         ?>
                                     </select>
                                 </div>
-                               
+
 
                                 <div class="form-group mt-2 mb-3">
                                     <label for="employee" class="control-label">Dentist:</label><br>
@@ -174,6 +180,7 @@ if (!$schedules) {
         // console.log(scheds);
         //document ready
         $(document).ready(function() {
+            $('.alert').alert();
             $('.select2').select2();
             // console.log(JSON.stringify(scheds)); 
 
@@ -184,7 +191,7 @@ if (!$schedules) {
                     method: 'POST',
                     data: $(this).serialize(),
                     success: function(resp) {
-                        alert(resp);
+                        // alert(resp);
                         var obj = jQuery.parseJSON(resp);
                         console.log(obj);
                         if (obj.status == 200) {
@@ -194,7 +201,9 @@ if (!$schedules) {
                             location.reload();
                         }
                         if (obj.status == 404) {
-                            alert(obj.message);
+                            // alert(obj.message);
+                            $("#alertDangerText").html(obj.message);
+                            $("#alertDanger").removeClass("d-none");
                         }
 
                     }

@@ -125,14 +125,14 @@
 
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseExpenses" aria-expanded="true" aria-controls="collapseUtilities">
             <i class="fas fa-fw fa-money-bills"></i>
-            <span>Expenses & Payments</span>
+            <span>Expenses</span>
         </a>
         <div id="collapseExpenses" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Expenses:</h6>
-                <a class="collapse-item" href="index.php?page=expenses">Expense</a>
                 <h6 class="collapse-header">Expenses Types:</h6>
                 <a class="collapse-item" href="index.php?page=expense_type">Expense Type</a>
+                <h6 class="collapse-header">Expenses:</h6>
+                <a class="collapse-item" href="index.php?page=expenses">Expense</a>
             </div>
         </div>
     </li>
@@ -149,7 +149,7 @@
 
     <!-- ------------------------------------------------------------------------------------------------ -->
     <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
-    <li class="nav-item">
+    <!-- <li class="nav-item">
 
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSupplier" aria-expanded="true" aria-controls="collapseUtilities">
             <i class="fas fa-fw fa-industry"></i>
@@ -163,7 +163,7 @@
                 <a class="collapse-item" href="index.php?page=inventory">Inventory</a>
             </div>
         </div>
-    </li>
+    </li> -->
     <!-- ------------------------------------------------------------------------------------------------ -->
 
     <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
