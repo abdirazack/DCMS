@@ -71,11 +71,14 @@
         </div>
     </div>
     <div class="row ">
-        <div class="col-md-6 mx-auto">
+        <!-- <div class="col-md-6 mx-auto">
             <canvas id="incomeChart"></canvas>
         </div>
         <div class="col-md-6 mx-auto">
             <canvas id="expenseChart"></canvas>
+        </div> -->
+        <div class="col-md-6 mx-auto">
+            <canvas id="combinedChart"></canvas>
         </div>
     </div>
 
@@ -84,7 +87,7 @@
             <h3 class="text-center text-secondary">Appointments</h3>
         </div>
         <!-- new column for new appointme waiting to be approved -->
-        <div class="col-md-4  p-2 border-right d-none d-md-block overflow-auto">
+        <div class="col-md-6  p-2 border-right d-none d-md-block overflow-auto">
             <h3 class="text-primary">New </h3>
             <div>
                 <table class="table table-primary table-striped table-hover">
@@ -104,7 +107,7 @@
         </div>
 
 
-        <div class="col-md-4  p-2 border-left border-right d-none d-md-block overflow-auto">
+        <div class="col-md-6  p-2 border-left border-right d-none d-md-block overflow-auto">
             <h3 class="text-success">Upcoming </h3>
             <div>
                 <table class="table table-success table-striped table-hover">
@@ -123,7 +126,10 @@
             </div>
         </div>
 
-        <div class="col-md-4  p-2 border-left d-none d-md-block overflow-auto">
+
+    </div>
+    <div class="row">
+        <div class="col-md-12  p-2 border-left d-none d-md-block overflow-auto">
             <h3 class="text-danger">Cancelled </h3>
             <div>
                 <table class="table table-danger table-striped table-hover">
@@ -324,7 +330,7 @@ $mysqli->close();
 
 
 
-<script>
+<!-- <script>
     // Processed data for income and expenses (from PHP)
     var incomeLabels = <?php echo json_encode($incomeLabels); ?>;
     var incomeValues = <?php echo json_encode($incomeValues); ?>;
@@ -376,8 +382,8 @@ $mysqli->close();
             }
         }
     });
-</script> 
-<!-- <script>
+</script> -->
+ <script>
     // Processed data for income and expenses (from PHP)
     var incomeLabels = <?php echo json_encode($incomeLabels); ?>;
     var incomeValues = <?php echo json_encode($incomeValues); ?>;
@@ -389,16 +395,16 @@ var chartData = {
     {
       label: 'Income', 
       data: incomeValues,
-      backgroundColor: 'rgba(20, 255, 100, 0.2)',
+      backgroundColor: 'Transparent',
       borderColor: 'rgba(99, 225, 132, 1)',  
-      borderWidth: 1
+      borderWidth: 2
     },
     {
       label: 'Expenses',
       data: expenseValues, 
-      backgroundColor: 'rgba(255, 59, 32, 0.2)',
+      backgroundColor: 'Transparent',
       borderColor: 'rgba(255, 99, 132, 1)',
-      borderWidth: 1
+      borderWidth: 2
     }
   ]
 };
@@ -409,14 +415,19 @@ var combinedChart = new Chart(ctx, {
   type: 'line',
   data: chartData,
   options: {
-    scales: {
-      y: {
-        beginAtZero: true
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Cash Flow'
       }
     }
-  }
+  },
 });
-</script> -->
+</script> 
 
 
 <!-- Modal -->
@@ -430,29 +441,29 @@ var combinedChart = new Chart(ctx, {
                 </button>
             </div>
             <form name='assignDentistForm' id='assignDentistForm'>
-            <div class="modal-body">
-                <input type="text" id="appointmentId" name="appointmentId" value="" hidden>
-                <!-- select * dentist from database -->
-                <div class="form-group mt-2 mb-3">
-                    <label for="employee" class="control-label">Dentist:</label><br>
-                    <select class="form-control select2 " id="employee" name="employee" REQUIRED>
+                <div class="modal-body">
+                    <input type="text" id="appointmentId" name="appointmentId" value="" hidden>
+                    <!-- select * dentist from database -->
+                    <div class="form-group mt-2 mb-3">
+                        <label for="employee" class="control-label">Dentist:</label><br>
+                        <select class="form-control select2 " id="employee" name="employee" REQUIRED>
 
-                        <option value="">Select Dentist</option>
-                        <?php
-                        include_once './app//database/conn.php';
-                        $query = "SELECT * FROM `addresses_employees_view` WHERE role_name = 'dentist';                                        ";
-                        $result = mysqli_query($conn, $query);
-                        while ($row = mysqli_fetch_array($result)) {
-                            echo "<option value='" . $row['employee_id'] . "'>" . $row['first_name'] . ' ' . $row['last_name'] . "</option>";
-                        }
-                        ?>
-                    </select>
+                            <option value="">Select Dentist</option>
+                            <?php
+                            include_once './app//database/conn.php';
+                            $query = "SELECT * FROM `addresses_employees_view` WHERE role_name = 'dentist';                                        ";
+                            $result = mysqli_query($conn, $query);
+                            while ($row = mysqli_fetch_array($result)) {
+                                echo "<option value='" . $row['employee_id'] . "'>" . $row['first_name'] . ' ' . $row['last_name'] . "</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" name='assignDentist' id="assignDentist" class="btn btn-primary">Assign Dentist</button>
-            </div>
-                    </form>
+                <div class="modal-footer">
+                    <button type="submit" name='assignDentist' id="assignDentist" class="btn btn-primary">Assign Dentist</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -490,5 +501,4 @@ var combinedChart = new Chart(ctx, {
             }
         });
     });
-
 </script>

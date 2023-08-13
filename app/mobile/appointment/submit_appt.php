@@ -42,8 +42,8 @@ try {
     }
 
     // Prepare the SQL query to insert the data into the appointments table
-    $query = "INSERT INTO appointments (Type, status, date, time, patient_id, employee_id, note) 
-              VALUES ('$type', '$status', '$date', '$time', '$patientId', null, '$note')";
+    $query = "INSERT INTO appointments (Type, status, date, time, patient_id,  note) 
+              VALUES ('$type', '$status', '$date', '$time', '$patientId',  '$note')";
 
     // Execute the query
     if ($connection->query($query) === TRUE) {

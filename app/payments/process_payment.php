@@ -10,7 +10,7 @@ $amount_paid = isset($_POST["amount_paid"]) ? floatval($_POST["amount_paid"]) : 
 $amountDue = isset($_POST["amountDue"]) ? floatval($_POST["amountDue"]) : 0.0;
 $discount = isset($_POST["discount"]) ? floatval($_POST["discount"]) : 0.0;
 $date_paid = isset($_POST["date_paid"]) ? mysqli_real_escape_string($conn, $_POST["date_paid"]) : "";
-$payment_method = isset($_POST["payment_method"]) ? mysqli_real_escape_string($conn, $_POST["payment_method"]) : "";
+// $payment_method = isset($_POST["payment_method"]) ? mysqli_real_escape_string($conn, $_POST["payment_method"]) : "";
 
 // Check if the ID field is set (if set, it's an update)
 if ($id == "") {
@@ -19,8 +19,8 @@ if ($id == "") {
   return;
 } else {
   // Prepare the UPDATE query using a prepared statement
-  $stmt = $conn->prepare("UPDATE incometable SET patient_id=?, discount=discount+?, IncomeAmountPaid=IncomeAmountPaid+?, IncomeDate=?, payment_method=? WHERE IncomeID=?");
-  $stmt->bind_param("idsssi", $patient_id, $discount, $amount_paid, $date_paid, $payment_method, $id);
+  $stmt = $conn->prepare("UPDATE incometable SET patient_id=?, discount=discount+?, IncomeAmountPaid=IncomeAmountPaid+?, IncomeDate=? WHERE IncomeID=?");
+  $stmt->bind_param("idssi", $patient_id, $discount, $amount_paid, $date_paid, $id);
 
   if ($stmt->execute()) {
     $data = ['message' => 'Successfully updated payments', 'status' => 200];
