@@ -71,8 +71,11 @@
         </div>
     </div>
     <div class="row ">
-        <div class="col-md-10 mx-auto">
-            <canvas id="combinedChart"></canvas>
+        <div class="col-md-6 mx-auto">
+            <canvas id="incomeChart"></canvas>
+        </div>
+        <div class="col-md-6 mx-auto">
+            <canvas id="expenseChart"></canvas>
         </div>
     </div>
 
@@ -320,7 +323,7 @@ $mysqli->close();
 ?>
 
 
-<!-- 
+
 <script>
     // Processed data for income and expenses (from PHP)
     var incomeLabels = <?php echo json_encode($incomeLabels); ?>;
@@ -373,8 +376,8 @@ $mysqli->close();
             }
         }
     });
-</script> -->
-<script>
+</script> 
+<!-- <script>
     // Processed data for income and expenses (from PHP)
     var incomeLabels = <?php echo json_encode($incomeLabels); ?>;
     var incomeValues = <?php echo json_encode($incomeValues); ?>;
@@ -413,7 +416,7 @@ var combinedChart = new Chart(ctx, {
     }
   }
 });
-</script>
+</script> -->
 
 
 <!-- Modal -->

@@ -24,6 +24,17 @@ if (empty($status)) {
 }
 
 if ($id == "") {
+
+        // check if appointment exists
+        $checkAppointmentSql = "SELECT * FROM appointments WHERE `date` = '$date' AND `time` = '$time' ";
+        $result = mysqli_query($conn, $checkAppointmentSql);
+        $appointment = mysqli_fetch_assoc($result);
+        if($appointment) {
+                $data = ['message' => 'Unfortunatly this time is already booked. Please Choose another date or time.', 'status' => 404];
+                echo json_encode($data);
+                return;
+        }
+
         $insertAppointmentSql = "INSERT INTO appointments (`Type`, `status`,`date`, `time`, `patient_id`,`employee_id`) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = mysqli_prepare($conn, $insertAppointmentSql);
         mysqli_stmt_bind_param($stmt, "ssssii", $type, $status, $date, $time, $patients, $employee_id);
