@@ -2,19 +2,28 @@
 include_once('../database/conn.php');
 
 if(isset($_POST['deleteid'])){
-    //delete service
-    $id = $_POST['deleteid'];
-    $sql = mysqli_query($conn,"DELETE FROM logincredentials WHERE employee_id='$id'");
+    $id = intval($_POST['deleteid']); // Validate input
 
-    if($sql){
-        $data = ['message'=>'success', 'status'=>200];
-                echo json_encode($data);
-                return ;
-        
-    }
-    else{
-        $data = ['message'=>'failed to delete staff', 'status'=>404];
+    if ($id <= 0) {
+        $data = ['message'=>'Invalid input', 'status'=>400];
         echo json_encode($data);
-        return ;
+        return;
     }
+
+    // Prepare the DELETE query using a prepared statement
+    $stmt = $conn->prepare("DELETE FROM logincredentials WHERE employee_id = ?");
+    $stmt->bind_param("i", $id);
+    
+    if ($stmt->execute()) {
+        $data = ['message'=>'Success', 'status'=>200];
+        echo json_encode($data);
+        return;
+    } else {
+        $data = ['message'=>'Failed to delete staff', 'status'=>404];
+        echo json_encode($data);
+        return;
+    }
+
+    // Close the statement
+    $stmt->close();
 }
