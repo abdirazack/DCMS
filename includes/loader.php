@@ -1,26 +1,32 @@
 <div id="loading-overlay"></div>
-<div id="loader" class="lds-ripple">
-    <div></div>
-    <div></div>
-</div>
+<div id="loader" class="lds-dual-ring"></div>
 <style>
-    .lds-ripple {
+    .lds-dual-ring {
         display: inline-block;
-        position: relative;
         width: 80px;
         height: 80px;
     }
 
-    .lds-ripple div {
-        position: absolute;
-        border: 4px solid #499CFB;
-        opacity: 1;
+    .lds-dual-ring:after {
+        content: " ";
+        display: block;
+        width: 64px;
+        height: 64px;
+        margin: 8px;
         border-radius: 50%;
-        animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+        border: 6px solid #cef;
+        border-color: #028074 transparent #314053 transparent;
+        animation: lds-dual-ring 1.2s linear infinite;
     }
 
-    .lds-ripple div:nth-child(2) {
-        animation-delay: -0.5s;
+    @keyframes lds-dual-ring {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
     }
 
     #wrapper {
@@ -40,7 +46,7 @@
         z-index: 9999;
         /* Ensure it's above other content */
         /* display: none; Initially hidden */
-        backdrop-filter: blur(3px);
+        backdrop-filter: blur(5px);
         /* Apply blur effect to the overlay */
     }
 
@@ -52,39 +58,5 @@
         z-index: 10000;
         /* Ensure it's above the overlay */
         /* display: none; Initially hidden */
-    }
-
-    @keyframes lds-ripple {
-        0% {
-            top: 36px;
-            left: 36px;
-            width: 0;
-            height: 0;
-            opacity: 0;
-        }
-
-        4.9% {
-            top: 36px;
-            left: 36px;
-            width: 0;
-            height: 0;
-            opacity: 0;
-        }
-
-        5% {
-            top: 36px;
-            left: 36px;
-            width: 0;
-            height: 0;
-            opacity: 1;
-        }
-
-        100% {
-            top: 0px;
-            left: 0px;
-            width: 72px;
-            height: 72px;
-            opacity: 0;
-        }
     }
 </style>
