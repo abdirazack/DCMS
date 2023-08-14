@@ -150,6 +150,7 @@
 </div>
 <script>
     $(document).ready(function() {
+        hideLoader();
         $('.card').hover(function() {
             $(this).addClass('shadow').css('cursor', 'pointer');
         }, function() {
@@ -157,6 +158,7 @@
         });
 
         // Send an AJAX request to the server-side script
+        showLoader();
         $.ajax({
             url: './app/dashboard/dashboard_process.php',
             type: 'GET',
@@ -175,13 +177,16 @@
 
                 //populate expense number h5 tag with the expense number
                 $('#expense_number').text(data.expenses);
-
+                hideLoader();
             },
             error: function(xhr, status, error) {
                 console.log("Error Status:", status);
                 console.log("Error Message:", error);
                 console.log("Full Error Response:", xhr.responseText);
-            }
+            },
+                complete: function(data) {
+                    hideLoader();
+                }
         });
 
         // Load upcoming appointments
@@ -195,13 +200,16 @@
     });
 
     function fetchAppointments(url, tableId, actionButton) {
+        showLoader();
         fetch(url)
             .then(response => response.json())
             .then(data => {
                 handleAppointments(data, tableId, actionButton);
+                hideLoader();
             })
             .catch(error => {
                 console.log('An error occurred:', error);
+                hideLoader();
             });
     }
 
@@ -235,13 +243,20 @@
                 if (actionButton === 'Approve') {
                     actionButtonElement.classList.add('btn-primary');
                     actionButtonElement.addEventListener('click', () => {
+                        showLoader();
                         $('#appointmentId').val(appointment.appointment_id);
                         $('#assignDentist').modal('show');
                         // processAppointment(appointment.appointment_id, 'approve');
+                        hideLoader();
                     });
                 } else if (actionButton === 'Cancel') {
                     actionButtonElement.classList.add('btn-danger');
                     actionButtonElement.addEventListener('click', () => {
+                        // confirm the cancellation before proceeding
+                        const confirmed = confirm('Are you sure you want to cancel this appointment?');
+                        if (!confirmed) {
+                            return;
+                        }
                         processAppointment(appointment.appointment_id, 'cancel');
                     });
                 }
@@ -258,6 +273,7 @@
         var url = './app/dashboard/' + (action === 'approve' ? 'approveAppointment.php' : 'cancelAppointment.php');
 
         // Send an AJAX request to the server-side script
+        showLoader();
         $.ajax({
             url: url,
             type: 'POST',
@@ -275,12 +291,16 @@
                 }
                 // Reload the main appointments list
                 fetchAppointments('./app/dashboard/upcoming.php', 'upcoming', 'Cancel');
+                hideLoader();
             },
             error: function(xhr, status, error) {
                 console.log("Error Status:", status);
                 console.log("Error Message:", error);
                 console.log("Full Error Response:", xhr.responseText);
-            }
+            },
+                complete: function(data) {
+                    hideLoader();
+                }
         });
     }
 </script>
@@ -478,6 +498,7 @@ var combinedChart = new Chart(ctx, {
         var appointmentId = $('#appointmentId').val();
         var employeeId = $('#employee').val();
         // alert(appointmentId + ' ' + employeeId);
+        showLoader();
         $.ajax({
             url: './app/dashboard/approveAppointment.php',
             type: 'POST',
@@ -493,12 +514,16 @@ var combinedChart = new Chart(ctx, {
                 // Reload the main appointments list
                 fetchAppointments('./app/dashboard/upcoming.php', 'upcoming', 'Cancel');
                 $('#assignDentist').modal('hide');
+                hideLoader();
             },
             error: function(xhr, status, error) {
                 console.log("Error Status:", status);
                 console.log("Error Message:", error);
                 console.log("Full Error Response:", xhr.responseText);
-            }
+            },
+                complete: function(data) {
+                    hideLoader();
+                }
         });
     });
 </script>

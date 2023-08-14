@@ -61,7 +61,7 @@
 <!-- Modal -->
 <div class="modal fade" id="equipmentModal" tabindex="-1" aria-labelledby="equipmentModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content rounded shadow">
+        <div class="modal-content rounded shadow p-4 mx-auto">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="staffModalLabel">ADD NEW EQUIPMENT</h1>
             </div>
@@ -112,6 +112,7 @@
 
         var id = ids;
         $('#id').val(id);
+        showLoader();
         $.ajax({
             url: './app/Equipment/getEquipment.php',
             type: 'POST',
@@ -126,8 +127,16 @@
                 $('#purchase_date').val(data.purchase_date);
                 $('#warranty_information').val(data.warranty_information);
 
-                $('#submit').text('update equipment')
-            }
+                $('#submit').text('update equipment');
+                hideLoader();
+            },
+                error: function(data) {
+                    alert(data);
+                    hideLoader();
+                },
+                complete: function(data) {
+                    hideLoader();
+                }
 
         });
 
@@ -144,6 +153,7 @@
 
     function deleteEquipment(id) {
         var id = id;
+        showLoader();
         $.ajax({
             url: './app/Equipment/deleteEquipment.php',
             type: 'POST',
@@ -154,14 +164,17 @@
                 var obj = jQuery.parseJSON(response);
                 if (obj.status == 200) {
                     location.reload();
+                    hideLoader();
                 } else {
                     alert(obj.message);
+                    hideLoader();
                 }
             }
         });
     }
 
     $(document).ready(function() {
+        hideLoader();
         $('#dataTable').DataTable({
             pagingType: 'full_numbers',
             "aLengthMenu": [
@@ -175,6 +188,7 @@
         $('#formInsertUpdate').submit(function(e) {
             e.preventDefault();
             var formData = new FormData(this);
+            showLoader();
             $.ajax({
                 url: './app/Equipment/process_equipment.php',
                 type: 'POST',
@@ -185,15 +199,24 @@
                         //hide modal
                         $('#equipmentModal').modal('hide');
                         location.reload();
+                        hideLoader();
                     } else {
                         //show error on div with id small
                         $('#small').html(obj.message);
                         alert(obj.message);
+                        hideLoader();
                     }
                 },
                 cache: false,
                 contentType: false,
-                processData: false
+                processData: false,
+                error: function(data) {
+                    alert(data);
+                    hideLoader();
+                },
+                complete: function(data) {
+                    hideLoader();
+                }
             });
         });
 

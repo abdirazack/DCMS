@@ -118,6 +118,9 @@
     <script>
         //   
         $(document).ready(function() {
+
+            hideLoader();
+
             $('.select2').select2();
             $('#dataTable').DataTable({
                 pagingType: 'full_numbers',
@@ -158,6 +161,7 @@
             //on submit
             $('#formPS').on('submit', function(event) {
                 event.preventDefault();
+                showLoader();
                 $.ajax({
                     url: "./app/prescriptions/process_prescription.php",
                     method: "POST",
@@ -166,10 +170,15 @@
                         alert(data);
                         console.log(data);
                         location.reload();
+                        hideLoader();
                     },
-                    error: function(data) {
-                        alert(data);
-                    }
+                error: function(data) {
+                    alert(data);
+                    hideLoader();
+                },
+                complete: function(data) {
+                    hideLoader();
+                }
                 });
             });
 
@@ -178,6 +187,7 @@
         //on delete
         function DeletepatientPrescriptions(id) {
             id = id;
+            showLoader();
             $.ajax({
                 url: "./app/prescriptions/deletePrescription.php",
                 method: "POST",
@@ -191,9 +201,18 @@
                     if (obj.status == 200) {
                         // alert(obj.message);
                         location.reload();
+                        hideLoader();
                     } else {
                         alert(obj.message);
+                        hideLoader();
                     }
+                },
+                error: function(data) {
+                    alert(data);
+                    hideLoader();
+                },
+                complete: function(data) {
+                    hideLoader();
                 }
             });
         }
@@ -201,6 +220,7 @@
         //on edit
         function EditpatientPrescriptions(id) {
             id = id;
+            showLoader();
             $.ajax({
                 url: "./app/prescriptions/getPrescription.php",
                 method: "POST",
@@ -218,6 +238,16 @@
                     $('#formPS  input[name="date_prescribed[]"]').val(obj.date_prescribed);
 
                     $('#submit').html('Update');
+                    // hide view modal
+                    $('#viewModal').modal('hide');
+                    hideLoader();
+                },
+                error: function(data) {
+                    alert(data);
+                    hideLoader();
+                },
+                complete: function(data) {
+                    hideLoader();
                 }
             });
 
@@ -226,6 +256,7 @@
         function ViewpatientPrescriptions(id) {
             id = id;
             // create a small pop up modal to show the details of the patientService
+            hideLoader();
             $.ajax({
                 url: "./app/prescriptions/view.php",
                 method: "POST",
@@ -237,6 +268,14 @@
                     // to show the modal
                     $('#modalDisplay').html(data);
                     $('#viewModal').modal('show');
+                    hideLoader();
+                },
+                error: function(data) {
+                    alert(data);
+                    hideLoader();
+                },
+                complete: function(data) {
+                    hideLoader();
                 }
             });
 

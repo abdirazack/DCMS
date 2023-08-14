@@ -103,6 +103,7 @@ include_once('conn.php');
 
         var id = ids;
         $('#id').val(id);
+        showloader();
         $.ajax({
             url: 'users/getUser.php',
             type: 'POST',
@@ -117,7 +118,15 @@ include_once('conn.php');
 
                 $('#help').addClass('d-block');
                 $("#password").val("");
-            }
+                hideLoader();
+            },
+                error: function(data) {
+                    alert(data);
+                    hideLoader();
+                },
+                complete: function(data) {
+                    hideLoader();
+                }
 
         });
 
@@ -126,6 +135,7 @@ include_once('conn.php');
 
     function deleteUser(id) {
         var id = id;
+        showloader();
         $.ajax({
             url: 'users/deleteUser.php',
             type: 'POST',
@@ -136,14 +146,24 @@ include_once('conn.php');
                 var obj = jQuery.parseJSON(response);
                 if (obj.status == 200) {
                     location.reload();
+                    hideLoader();
                 } else {
                     alert(obj.message);
+                    hideLoader();
                 }
-            }
+            },
+                error: function(data) {
+                    alert(data);
+                    hideLoader();
+                },
+                complete: function(data) {
+                    hideLoader();
+                }
         });
     }
 
     $(document).ready(function() {
+        hideLoader();
         $('#dataTable').DataTable({
             pagingType: 'full_numbers',
             "aLengthMenu": [
@@ -157,6 +177,7 @@ include_once('conn.php');
         $('#formInsertUpdate').submit(function(e) {
             e.preventDefault();
             var formData = new FormData(this);
+            showloader();
             $.ajax({
                 url: 'users/process_user.php',
                 type: 'POST',
@@ -165,13 +186,22 @@ include_once('conn.php');
                     var obj = jQuery.parseJSON(response);
                     if (obj.status == 200) {
                         location.reload();
+                        hideLoader();
                     } else {
                         alert(obj.message);
+                        hideLoader();
                     }
                 },
                 cache: false,
                 contentType: false,
-                processData: false
+                processData: false,
+                error: function(data) {
+                    alert(data);
+                    hideLoader();
+                },
+                complete: function(data) {
+                    hideLoader();
+                }
             });
         });
 

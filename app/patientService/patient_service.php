@@ -85,25 +85,25 @@
                     $query = 'SELECT * FROM `patient_service_view`';
                     $result = mysqli_query($conn, $query);
                     while ($row = mysqli_fetch_array($result)) {
-?>
+                    ?>
                         <tr>
-                        <td> <?php echo $row['first_name'] . ' ' . $row['last_name']?> </td>
-                        <td> <?php echo $row['Services'] ?></td>
-                        <td> <?php echo $row['Quantity'] ?></td>
-                        <td> <?php echo $row['Total'] ?></td>
-                        <td class="text-center">
-                            <button class="btn btn-primary" onclick="ViewpatientService(<?php echo $row['patient_id']; ?>)" name='view' id='view'>
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="btn btn-primary " onclick="EditpatientService(<?php echo $row['patientService_id']; ?>)" name="edit" id="edit">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="btn btn-danger" onclick="DeletepatientService(<?php echo $row['patientService_id']; ?>)" name="delete" id="delete">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
+                            <td> <?php echo $row['first_name'] . ' ' . $row['last_name'] ?> </td>
+                            <td> <?php echo $row['Services'] ?></td>
+                            <td> <?php echo $row['Quantity'] ?></td>
+                            <td> <?php echo $row['Total'] ?></td>
+                            <td class="text-center">
+                                <button class="btn btn-primary" onclick="ViewpatientService(<?php echo $row['patient_id']; ?>)" name='view' id='view'>
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="btn btn-primary " onclick="EditpatientService(<?php echo $row['patientService_id']; ?>)" name="edit" id="edit">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-danger" onclick="DeletepatientService(<?php echo $row['patientService_id']; ?>)" name="delete" id="delete">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
                         </tr>
-                        <?php
+                    <?php
                     }
                     ?>
                 </tbody>
@@ -116,6 +116,7 @@
     <script>
         //   
         $(document).ready(function() {
+            hideLoader();
             $('.select2').select2();
             $('#dataTable').DataTable({
                 pagingType: 'full_numbers',
@@ -155,6 +156,7 @@
             //on submit
             $('#formPS').on('submit', function(event) {
                 event.preventDefault();
+                showLoader();
                 $.ajax({
                     url: "./app/patientService/Save.php",
                     method: "POST",
@@ -162,11 +164,14 @@
                     success: function(data) {
                         alert(data);
                         location.reload();
-
-
+                        hideLoader();
                     },
                     error: function(data) {
                         alert(data);
+                        hideLoader();
+                    },
+                    complete: function(data) {
+                        hideLoader();
                     }
                 });
             });
@@ -176,6 +181,7 @@
         //on delete
         function DeletepatientService(id) {
             id = id;
+            showLoader();
             $.ajax({
                 url: "./app/patientService/delete.php",
                 method: "POST",
@@ -188,9 +194,18 @@
                     if (obj.status == 200) {
                         // alert(obj.message);
                         location.reload();
+                        hideLoader();
                     } else {
                         alert(obj.message);
+                        hideLoader();
                     }
+                },
+                error: function(data) {
+                    alert(data);
+                    hideLoader();
+                },
+                complete: function(data) {
+                    hideLoader();
                 }
             });
         }
@@ -198,6 +213,7 @@
         //on edit
         function EditpatientService(id) {
             id = id;
+            showLoader();
             $.ajax({
                 url: "./app/patientService/edit.php",
                 method: "POST",
@@ -213,6 +229,16 @@
                     $('#quantity').val(obj.quantity);
                     $('#cost').val(obj.cost);
                     $('#submit').html('Update');
+                    // hide view modal
+                    $('#viewModal').modal('hide');
+                    hideLoader();
+                },
+                error: function(data) {
+                    alert(data);
+                    hideLoader();
+                },
+                complete: function(data) {
+                    hideLoader();
                 }
             });
 
@@ -221,6 +247,7 @@
         function ViewpatientService(id) {
             id = id;
             // create a small pop up modal to show the details of the patientService
+            showLoader();
             $.ajax({
                 url: "./app/patientService/view.php",
                 method: "POST",
@@ -232,14 +259,22 @@
                     // to show the modal
                     $('#modalDisplay').html(data);
                     $('#viewModal').modal('show');
+                    hideLoader();
+                },
+                error: function(data) {
+                    alert(data);
+                    hideLoader();
+                },
+                complete: function(data) {
+                    hideLoader();
                 }
             });
 
         }
     </script>
 
-<div id='modalDisplay'>
+    <div id='modalDisplay'>
 
-</div>
+    </div>
 
-<!-- Q: Do you see any unclosed brackets? -->
+    <!-- Q: Do you see any unclosed brackets? -->

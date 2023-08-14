@@ -53,20 +53,31 @@
 </body>
 <script type="text/javascript">
   $(document).ready(function() {
-
+    hideLoader();
 
     $('#reports').change(function() {
       var report = $(this).val();
 
       if (report != '') {
         // alert(report);
+        showLoader();
         $.ajax({
-          url: "./app/reports/" + report + ".php",
-          method: "POST",
-          success: function(data) {
-            $('#tableHolder').html(data);
+            url: "./app/reports/" + report + ".php",
+            method: "POST",
+            success: function(data) {
+              $('#tableHolder').html(data);
+              hideLoader();
+            },
+            error: function(data) {
+              alert(data);
+              hideLoader();
+            },
+            complete: function(data) {
+              hideLoader();
+            }
           }
-        });
+
+        );
       } else {
         $('#tableHolder').html('<center><h2 class="text-white">Please Select Report</h2></center>');
       }

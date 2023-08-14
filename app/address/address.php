@@ -62,6 +62,7 @@ include_once('./app/address/modal_address.php');
 
         var id = ids;
         $('#id').val(id);
+        showLoader();
         $.ajax({
             url: './app/address/getAddress.php',
             type: 'POST',
@@ -73,7 +74,15 @@ include_once('./app/address/modal_address.php');
                 $('#street').val(data.street);
                 $('#city').val(data.city);
                 $('#state').val(data.state);
-            }
+                hideLoader();
+            },
+                error: function(data) {
+                    alert(data);
+                    hideLoader();
+                },
+                complete: function(data) {
+                    hideLoader();
+                }
         });
 
         $("#submit").text('Update');
@@ -83,6 +92,7 @@ include_once('./app/address/modal_address.php');
 
     function deleteAddress(id) {
         var id = id;
+        showLoader();
         $.ajax({
             url: './app/address/deleteAddress.php',
             type: 'POST',
@@ -93,14 +103,24 @@ include_once('./app/address/modal_address.php');
                 var obj = jQuery.parseJSON(response);
                 if (obj.status == 200) {
                     location.reload();
+                    hideLoader();
                 } else {
                     alert(obj.message);
+                    hideLoader();
                 }
-            }
+            },
+                error: function(data) {
+                    alert(data);
+                    hideLoader();
+                },
+                complete: function(data) {
+                    hideLoader();
+                }
         });
     }
 
     $(document).ready(function() {
+        hideLoader();
         $('#dataTable').DataTable({
             pagingType: 'full_numbers',
             "aLengthMenu": [
@@ -116,6 +136,7 @@ include_once('./app/address/modal_address.php');
         $('#formInsertUpdateAddress').submit(function(e) {
             e.preventDefault();
             var formData = new FormData(this);
+            showLoader();
             $.ajax({
                 url: './app/address/process_address.php',
                 type: 'POST',
@@ -127,15 +148,24 @@ include_once('./app/address/modal_address.php');
                         //hide modal
                         $('#addressModal').modal('hide');
                         location.reload();
+                        hideLoader();
                     } else {
                         //show error on div with id small
                         $('#small').html(obj.message);
                         alert(obj.message);
+                        hideLoader();
                     }
                 },
                 cache: false,
                 contentType: false,
-                processData: false
+                processData: false,
+                error: function(data) {
+                    alert(data);
+                    hideLoader();
+                },
+                complete: function(data) {
+                    hideLoader();
+                }
             });
         });
 

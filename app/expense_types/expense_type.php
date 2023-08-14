@@ -10,14 +10,14 @@ include_once('./app/database/conn.php')
             <h2 class="text-center text-primary">Expense Types List</h2>
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary me-5" data-toggle="modal" data-target="#expenseTypeModal">
-            <i class="fa-solid fa-plus "></i>
+                <i class="fa-solid fa-plus "></i>
             </button>
         </div>
 
         <table class="table table-hover" id="dataTable">
             <thead>
                 <tr>
-                <th scope="col">#NO</th>
+                    <th scope="col">#NO</th>
 
                     <!-- <th>Expense Type ID</th> -->
                     <th>Expense Type</th>
@@ -27,7 +27,7 @@ include_once('./app/database/conn.php')
             </thead>
             <tbody>
                 <?php
-                $count=0;
+                $count = 0;
 
                 // Select all staff from the database
                 $result = mysqli_query($conn, "SELECT * FROM expense_types");
@@ -74,13 +74,13 @@ include_once('./app/database/conn.php')
                         </div>
                     </div>
                 </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-toggle="modal" data-dismiss="modal" id="closeButton">Close</button>
-            <button type="submit" id='submit' class="btn btn-outline-primary">Add Expense Type</button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-dismiss="modal" id="closeButton">Close</button>
+                    <button type="submit" id='submit' class="btn btn-outline-primary">Add Expense Type</button>
+                </div>
+            </form>
         </div>
-        </form>
     </div>
-</div>
 </div>
 
 
@@ -89,6 +89,7 @@ include_once('./app/database/conn.php')
 
         var id = ids;
         $('#id').val(id);
+        showLoader();
         $.ajax({
             url: './app/expense_types/getExpense.php',
             type: 'POST',
@@ -99,6 +100,14 @@ include_once('./app/database/conn.php')
                 var data = JSON.parse(response);
                 $('#expense_type').val(data.expense_type);
                 $('#expense_type_description').val(data.expense_type_description);
+                hideLoader();
+            },
+            error: function(data) {
+                alert(data);
+                hideLoader();
+            },
+            complete: function(data) {
+                hideLoader();
             }
         });
 
@@ -115,6 +124,7 @@ include_once('./app/database/conn.php')
 
     function deleteExpense(id) {
         var id = id;
+        showLoader();
         $.ajax({
             url: './app/expense_types/deleteExpense.php',
             type: 'POST',
@@ -125,14 +135,24 @@ include_once('./app/database/conn.php')
                 var obj = jQuery.parseJSON(response);
                 if (obj.status == 200) {
                     location.reload();
+                    hideLoader();
                 } else {
                     alert(obj.message);
+                    hideLoader();
                 }
+            },
+            error: function(data) {
+                alert(data);
+                hideLoader();
+            },
+            complete: function(data) {
+                hideLoader();
             }
         });
     }
 
     $(document).ready(function() {
+        hideLoader();
         $('#dataTable').DataTable({
             pagingType: 'full_numbers',
             "aLengthMenu": [
@@ -146,6 +166,7 @@ include_once('./app/database/conn.php')
         $('#formInsertUpdate').submit(function(e) {
             e.preventDefault();
             var formData = new FormData(this);
+            showLoader();
             $.ajax({
                 url: './app/expense_types/process_expense_type.php',
                 type: 'POST',
@@ -157,15 +178,24 @@ include_once('./app/database/conn.php')
                         //hide modal
                         $('#expenseTypeModal').modal('hide');
                         location.reload();
+                        hideLoader();
                     } else {
                         //show error on div with id small
                         $('#small').html(obj.message);
                         alert(obj.message);
+                        hideLoader();
                     }
                 },
                 cache: false,
                 contentType: false,
-                processData: false
+                processData: false,
+                error: function(data) {
+                    alert(data);
+                    hideLoader();
+                },
+                complete: function(data) {
+                    hideLoader();
+                }
             });
         });
 

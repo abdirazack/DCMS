@@ -10,14 +10,14 @@ include_once('./app/database/conn.php')
             <h2 class="text-center text-primary">Employees Login Login Credentials</h2>
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary me-2" data-toggle="modal" data-target="#loginModal">
-            <i class="fa-solid fa-plus"></i>
+                <i class="fa-solid fa-plus"></i>
             </button>
         </div>
 
         <table class="table table-hover" id="dataTable">
             <thead>
                 <tr>
-                <th scope="col">#NO</th>
+                    <th scope="col">#NO</th>
 
                     <th>Employee ID</th>
                     <th>First Name</th>
@@ -31,7 +31,7 @@ include_once('./app/database/conn.php')
             </thead>
             <tbody>
                 <?php
-                $count=0;
+                $count = 0;
 
                 // Select all staff from the database
                 $result = mysqli_query($conn, "SELECT * FROM logincredentialsview ");
@@ -90,7 +90,7 @@ include_once('./app/database/conn.php')
                                 <?php
                                 $result = mysqli_query($conn, "SELECT * FROM employees");
                                 while ($row = mysqli_fetch_assoc($result)) {
-                                    echo "<option value='" . $row['employee_id'] . "'>" . $row['first_name'] . ' '. $row['last_name']  . "</option>";
+                                    echo "<option value='" . $row['employee_id'] . "'>" . $row['first_name'] . ' ' . $row['last_name']  . "</option>";
                                 }
                                 ?>
                             </select>
@@ -98,16 +98,16 @@ include_once('./app/database/conn.php')
                     </div>
                     <div class="row">
                         <div class="mb-3 ">
-                            <label for="Username" >Username:</label>
+                            <label for="Username">Username:</label>
                             <input type="text" class="form-control border border-1 border-primary" id="Username" name="Username" required>
                         </div>
                         <div class="mb-3 ">
-                            <label for="Password" >Password:</label>
+                            <label for="Password">Password:</label>
                             <input type="text" class="form-control border border-1 border-primary" id="Password" name="Password" required>
                         </div>
                         <div class="mb-3 mx-3 form-check">
                             <!-- add a checkbox for isAdmin -->
-                            <input class="form-check-input" type="checkbox" value="1"  id="isAdmin" name="isAdmin">
+                            <input class="form-check-input" type="checkbox" value="1" id="isAdmin" name="isAdmin">
                             <label for="isAdmin" class="form-label">Is Admin </label>
                         </div>
                     </div>
@@ -127,6 +127,7 @@ include_once('./app/database/conn.php')
 
         var id = ids;
         $('#id').val(id);
+        showLoader();
         $.ajax({
             url: './app/loginsCredentials/getLogin.php',
             type: 'POST',
@@ -139,12 +140,20 @@ include_once('./app/database/conn.php')
                 $('#formInsertUpdate select[name="employee"]').val(data.employee_id).trigger('change');;
                 $('#Username').val(data.Username);
                 $('#Password').val(data.Password);
-               var chb =  data.isAdmin;
+                var chb = data.isAdmin;
                 if (chb == true) {
                     $('#isAdmin').prop('checked', true);
                 } else {
                     $('#isAdmin').prop('checked', false);
                 }
+                hideLoader();
+            },
+            error: function(data) {
+                alert(data);
+                hideLoader();
+            },
+            complete: function(data) {
+                hideLoader();
             }
         });
 
@@ -161,6 +170,7 @@ include_once('./app/database/conn.php')
 
     function deleteLogin(id) {
         var id = id;
+        showLoader();
         $.ajax({
             url: './app/loginsCredentials/deleteLogin.php',
             type: 'POST',
@@ -171,22 +181,31 @@ include_once('./app/database/conn.php')
                 var obj = jQuery.parseJSON(response);
                 if (obj.status == 200) {
                     location.reload();
+                    hideLoader();
                 } else {
                     alert(obj.message);
+                    hideLoader();
                 }
+            },
+            error: function(data) {
+                alert(data);
+                hideLoader();
+            },
+            complete: function(data) {
+                hideLoader();
             }
         });
     }
 
     $(document).ready(function() {
-
+        hideLoader();
         $(".select2").select2();
 
         //make the width of the select2 100%
         $('.select2').css('width', '100%');
 
 
-        
+
         $('#role').select2({
             dropdownParent: $('#loginModal')
         });
@@ -206,6 +225,7 @@ include_once('./app/database/conn.php')
         $('#formInsertUpdate').submit(function(e) {
             e.preventDefault();
             var formData = new FormData(this);
+            showLoader();
             $.ajax({
                 url: './app/loginsCredentials/process_login.php',
                 type: 'POST',
@@ -217,15 +237,24 @@ include_once('./app/database/conn.php')
                         //hide modal
                         $('#loginModal').modal('hide');
                         location.reload();
+                        hideLoader();
                     } else {
                         //show error on div with id small
                         $('#small').html(obj.message);
                         alert(obj.message);
+                        hideLoader();
                     }
                 },
                 cache: false,
                 contentType: false,
-                processData: false
+                processData: false,
+                error: function(data) {
+                    alert(data);
+                    hideLoader();
+                },
+                complete: function(data) {
+                    hideLoader();
+                }
             });
         });
 

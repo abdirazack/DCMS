@@ -1,6 +1,6 @@
 <?php
-    // Connect to the database
-    include_once('./app/database/conn.php');
+// Connect to the database
+include_once('./app/database/conn.php');
 
 ?>
 
@@ -20,14 +20,14 @@
             <div class='d-flex justify-content-between mb-4'>
                 <h2 class="text-center text-primary">Expenses</h2>
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary me-5" data-toggle="modal" data-target="#ExpenseModal"> 
-                <i class="fa-solid fa-plus "></i>
+                <button type="button" class="btn btn-primary me-5" data-toggle="modal" data-target="#ExpenseModal">
+                    <i class="fa-solid fa-plus "></i>
                 </button>
             </div>
             <table class="table table-hover" id="dataTable">
                 <thead>
                     <tr>
-                    <th scope="col">#NO</th>
+                        <th scope="col">#NO</th>
                         <th>Expense Type</th>
                         <th>Description</th>
                         <th>Amount</th>
@@ -38,7 +38,7 @@
                 </thead>
                 <tbody>
                     <?php
-                    $count=0;
+                    $count = 0;
                     // Select all services from the database
                     $sql = "SELECT * FROM expenses_expense_types_view";
                     $result = mysqli_query($conn, $sql);
@@ -46,7 +46,7 @@
                     while ($row = mysqli_fetch_assoc($result)) {
                         $count++;
                     ?>
-                    
+
                         <tr>
                             <td><?php echo  $count; ?> </td>
                             <td><?php echo  $row["expense_type"]; ?></td>
@@ -133,6 +133,7 @@
         var id = ids;
 
         $('#id').val(id);
+        showLoader();
         $.ajax({
             url: './app/expenses/getExpenses.php',
             type: 'POST',
@@ -148,7 +149,14 @@
                 $('#expense_type').val(data.expense_type);
                 $('#formInsertUpdate select[name="expense_type"]').val(data.expense_type).trigger('change');
 
-
+                hideLoader();
+            },
+            error: function(data) {
+                alert(data);
+                hideLoader();
+            },
+            complete: function(data) {
+                hideLoader();
             }
 
         });
@@ -166,6 +174,7 @@
 
     function deleteExpense(id) {
         var id = id;
+        showLoader();
         $.ajax({
             url: './app/expenses/deleteExpense.php',
             type: 'POST',
@@ -176,9 +185,18 @@
                 var obj = jQuery.parseJSON(response);
                 if (obj.status == 200) {
                     location.reload();
+                    hideLoader();
                 } else {
                     alert(obj.message);
+                    hideLoader();
                 }
+            },
+            error: function(data) {
+                alert(data);
+                hideLoader();
+            },
+            complete: function(data) {
+                hideLoader();
             }
         });
     }
@@ -186,22 +204,23 @@
 
     $(document).ready(function() {
 
-    $(".select2").select2();
+        hideLoader();
+        $(".select2").select2();
 
         //make the width of the select2 100%
-    $('.select2').css('width', '100%');
+        $('.select2').css('width', '100%');
 
 
-    $('#expense_type').select2({
-        dropdownParent: $('#ExpenseModal')
-    });
+        $('#expense_type').select2({
+            dropdownParent: $('#ExpenseModal')
+        });
 
-    $('#expense_type').select2({
-        dropdownParent: $('#ExpenseModal')
-    });
+        $('#expense_type').select2({
+            dropdownParent: $('#ExpenseModal')
+        });
 
-    $('#dataTable').DataTable();
-        
+        $('#dataTable').DataTable();
+
     });
 
     function insertUpdate() {
@@ -213,6 +232,7 @@
         var Quantity = $('#Quantity').val();
         var expense_type = $('#expense_type').val();
         // var expense_type = $('#expense_type').val();
+        showLoader();
         $.ajax({
             url: './app/expenses/process_expense.php',
             type: 'POST',
@@ -230,9 +250,18 @@
                 var obj = jQuery.parseJSON(response);
                 if (obj.status == 200) {
                     location.reload();
+                    hideLoader();
                 } else {
                     alert(obj.message);
+                    hideLoader();
                 }
+            },
+            error: function(data) {
+                alert(data);
+                hideLoader();
+            },
+            complete: function(data) {
+                hideLoader();
             }
         });
     }

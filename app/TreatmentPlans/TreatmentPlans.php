@@ -131,6 +131,7 @@
 
         var id = ids;
         $('#id').val(id);
+        showLoader();
         $.ajax({
             url: './app/TreatmentPlans/getTreatment.php',
             type: 'POST',
@@ -147,7 +148,15 @@
                 $('#formInsertUpdate select[name="status"').val(data.status).trigger('change');
 
                 $('#submit').text('update treatment')
-            }
+                hideLoader();
+            },
+                error: function(data) {
+                    alert(data);
+                    hideLoader();
+                },
+                complete: function(data) {
+                    hideLoader();
+                }
 
         });
 
@@ -166,6 +175,7 @@
 
     function deleteTreatment(id) {
         var id = id;
+        showLoader();
         $.ajax({
             url: './app/TreatmentPlans/deleteTreatment.php',
             type: 'POST',
@@ -176,14 +186,24 @@
                 var obj = jQuery.parseJSON(response);
                 if (obj.status == 200) {
                     location.reload();
+                    hideLoader();
                 } else {
                     alert(obj.message);
+                    hideLoader();
                 }
-            }
+            },
+                error: function(data) {
+                    alert(data);
+                    hideLoader();
+                },
+                complete: function(data) {
+                    hideLoader();
+                }
         });
     }
 
     $(document).ready(function() {
+        hideLoader();
         $('#dataTable').DataTable({
             pagingType: 'full_numbers',
             "aLengthMenu": [
@@ -207,6 +227,7 @@
         $('#formInsertUpdate').submit(function(e) {
             e.preventDefault();
             var formData = new FormData(this);
+            showLoader();
             $.ajax({
                 url: './app/TreatmentPlans/process_treatment.php',
                 type: 'POST',
@@ -218,15 +239,24 @@
                         //hide modal
                         $('#treatmentModal').modal('hide');
                         location.reload();
+                        hideLoader();
                     } else {
                         //show error on div with id small
                         $('#small').html(obj.message);
                         alert(obj.message);
+                        hideLoader();
                     }
                 },
                 cache: false,
                 contentType: false,
-                processData: false
+                processData: false,
+                error: function(data) {
+                    alert(data);
+                    hideLoader();
+                },
+                complete: function(data) {
+                    hideLoader();
+                }
             });
         });
 

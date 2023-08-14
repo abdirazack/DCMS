@@ -165,6 +165,7 @@ $result = mysqli_query($conn, $sql);
 </html>
 <script>
     $(document).ready(function() {
+        hideLoader();
         $('#closeButton').on('click', function() {
             // Close the modal
             $('#PaymentsModal').modal('hide');
@@ -184,6 +185,7 @@ $result = mysqli_query($conn, $sql);
         var id = ids;
 
         $('#id').val(id);
+        showLoader();
         $.ajax({
             url: './app/payments/getPayment.php',
             type: 'POST',
@@ -200,8 +202,16 @@ $result = mysqli_query($conn, $sql);
                 $('#date_paid').val(data.IncomeDate);
                 // Show the modal
                 $('#PaymentsModal').modal('show');
+                hideLoader();
 
-            }
+            },
+                error: function(data) {
+                    alert(data);
+                    hideLoader();
+                },
+                complete: function(data) {
+                    hideLoader();
+                }
 
         });
 
@@ -211,6 +221,7 @@ $result = mysqli_query($conn, $sql);
 
     function deletePayment(id) {
         var id = id;
+        showLoader();
         $.ajax({
             url: './app/payments/deletePayment.php',
             type: 'POST',
@@ -221,10 +232,19 @@ $result = mysqli_query($conn, $sql);
                 var obj = jQuery.parseJSON(response);
                 if (obj.status == 200) {
                     location.reload();
+                    hideLoader();
                 } else {
                     alert(obj.message);
+                    hideLoader();
                 }
-            }
+            },
+                error: function(data) {
+                    alert(data);
+                    hideLoader();
+                },
+                complete: function(data) {
+                    hideLoader();
+                }
         });
     }
 
@@ -257,6 +277,7 @@ $result = mysqli_query($conn, $sql);
         var payment_method = $('#payment_method').val();
         var date_paid = $('#date_paid').val();
 
+        showLoader();
         $.ajax({
             url: './app/payments/process_payment.php',
             type: 'POST',
@@ -276,10 +297,19 @@ $result = mysqli_query($conn, $sql);
                 var obj = jQuery.parseJSON(response);
                 if (obj.status == 200) {
                     location.reload();
+                    hideLoader();
                 } else {
                     alert(obj.message);
+                    hideLoader();
                 }
-            }
+            },
+                error: function(data) {
+                    alert(data);
+                    hideLoader();
+                },
+                complete: function(data) {
+                    hideLoader();
+                }
         });
     }
 </script>
