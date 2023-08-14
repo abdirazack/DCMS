@@ -11,57 +11,57 @@ include_once('./app/database/conn.php')
 </head>
 <div class="container-fluid ">
 
-        <div class=" mt-1 p-3 rounded overflow-auto shadow  bg-white">
-            <div class='small' id='small'></div>
-            <div class='d-flex justify-content-between mb-4'>
-                <h2 class="text-center text-white bg-primary px-2">Services List</h2>
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary me-5" data-toggle="modal" data-target="#serviceModal">
-                    <i class="fa-solid fa-plus "></i>
-                </button>
-            </div>
-            <table class="table table-hover" id="dataTable">
-                <thead>
-                    <tr>
-                        <th scope="col">#NO</th>
+    <div class=" mt-1 p-3 rounded overflow-auto shadow  bg-white">
+        <div class='small' id='small'></div>
+        <div class='d-flex justify-content-between mb-4'>
+            <h2 class="text-center text-white bg-primary px-2">Services List</h2>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary me-5" data-toggle="modal" data-target="#serviceModal">
+                <i class="fa-solid fa-plus "></i>
+            </button>
+        </div>
+        <table class="table table-hover" id="dataTable">
+            <thead>
+                <tr>
+                    <th scope="col">#NO</th>
 
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Fee</th>
-                        <th class="text-center">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    $count = 0;
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Fee</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $count = 0;
 
-                    // Select all services from the database
-                    $sql = "SELECT * FROM services";
-                    $result = mysqli_query($conn, $sql);
+                // Select all services from the database
+                $sql = "SELECT * FROM services";
+                $result = mysqli_query($conn, $sql);
 
-                    // Loop through each row and display the data in the table
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        $count++;
-                        echo "<tr>";
-                        echo "<td>" . $count . "</td>";
-                        echo "<td>" . $row["name"] . "</td>";
-                        echo "<td>" . $row["description"] . "</td>";
-                        echo "<td>" . $row["fee"] . "</td>";
-                        echo "<td class='text-center'> 
+                // Loop through each row and display the data in the table
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $count++;
+                    echo "<tr>";
+                    echo "<td>" . $count . "</td>";
+                    echo "<td>" . $row["name"] . "</td>";
+                    echo "<td>" . htmlspecialchars($row["description"]) . "</td>";
+                    echo "<td>" . htmlspecialchars($row["fee"]) . "</td>";
+                    echo "<td class='text-center'> 
                             <button  class='btn btn-primary' onclick='editServices(" . $row['service_id'] . ")'> <i class='fa fa-edit'></i> </button> 
                             <a href='#' class='btn btn-danger ms-2 mt-1' onclick='deleteServices(" . $row['service_id'] . ")'> <i class='fa fa-trash'></i> </a> 
                           </td>";
-                        echo "</tr>";
-                    }
+                    echo "</tr>";
+                }
 
-                    // Close the database connection
-                    mysqli_close($conn);
-                    ?>
-                </tbody>
-            </table>
+                // Close the database connection
+                mysqli_close($conn);
+                ?>
+            </tbody>
+        </table>
 
-        </div>
     </div>
+</div>
 
 
 <!-- Modal -->
