@@ -13,7 +13,7 @@
 
     .lds-ripple div {
         position: absolute;
-        border: 4px solid #028074;
+        border: 4px solid #499CFB;
         opacity: 1;
         border-radius: 50%;
         animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
@@ -35,12 +35,12 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(27, 27, 27, 0.269);
+        background-color: rgba(27, 27, 27, 0.10);
         /* Semi-transparent black background */
         z-index: 9999;
         /* Ensure it's above other content */
         /* display: none; Initially hidden */
-        backdrop-filter: blur(10px);
+        backdrop-filter: blur(3px);
         /* Apply blur effect to the overlay */
     }
 
