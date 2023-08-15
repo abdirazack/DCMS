@@ -41,18 +41,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $_SESSION['employee_name'] = $employeeRow['first_name'] . ' ' . $employeeRow['last_name'];
       $_SESSION['profile'] = $employeeRow['profile'];
 
-      // Redirect to the dashboard
-      header('Location: ../../index.php?page=dashboard');
-      exit(); // Always exit after a header redirect
+      // // Redirect to the dashboard
+      // header('Location: ../../index.php?page=dashboard');
+      // exit(); // Always exit after a header redirect
+      $data = ['message'=>'Success', 'status'=>200];
+      echo json_encode($data);
+      return ;
     } else {
       // Invalid username or password
-      echo "<center><h2 style='color: red;' class='mt-4'>Invalid username or password</h2></center>";
+      $data = ['message'=>'Invalid Username or Password', 'status'=>404];
+      echo json_encode($data);
+      return ;
     }
   } else {
-    // All fields are required
-    echo "<center><h2 style='color: red;' class='mt-4'>All fields are required</h2></center>";
+    $data = ['message'=>'All Fields are required', 'status'=>404];
+    echo json_encode($data);
+    return ;
   }
 } else {
-  echo "<center><h2 style='color: red;' class='mt-4'>Invalid request</h2></center>";
-  header('Location: ../../login.php');
+  $data = ['message'=>'Invalid Access Method', 'status'=>404];
+  echo json_encode($data);
+  return ;
 }

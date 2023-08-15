@@ -14,7 +14,7 @@ body {
 <ul class="navbar-nav bg sidebar sidebar-dark accordion sticky-top" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center mt-1" href="index.php">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center mt-1" href="index.php?page=dashboard">
         <div class="sidebar-brand-icon rotate-n-15">
             <img class="sidebar-brand-icon" src="./app/img/logos/favicon.svg" height="60px" width="60px">
 
