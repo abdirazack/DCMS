@@ -45,8 +45,10 @@ include_once('./app/database/conn.php')
                     echo "<tr>";
                     echo "<td>" . $count . "</td>";
                     echo "<td>" . $row["name"] . "</td>";
+
                     echo "<td>" . htmlspecialchars($row["description"]) . "</td>";
                     echo "<td>" . htmlspecialchars($row["fee"]) . "</td>";
+
                     echo "<td class='text-center'> 
                             <button  class='btn btn-primary' onclick='editServices(" . $row['service_id'] . ")'> <i class='fa fa-edit'></i> </button> 
                             <a href='#' class='btn btn-danger ms-2 mt-1' onclick='deleteServices(" . $row['service_id'] . ")'> <i class='fa fa-trash'></i> </a> 
@@ -110,50 +112,71 @@ include_once('./app/database/conn.php')
 
 </html>
 <script>
-function editServices(ids) {
 
-    var id = ids;
-    $('#id').val(id);
-    //get services data
+    function editServices(ids) {
 
-    $.ajax({
-        url: './app/services/getService.php',
-        type: 'POST',
-        data: {
-            updateid: id
-        },
-        success: function(response) {
-            var data = JSON.parse(response);
-            // alert(data.name);
-            $('#name').val(data.name);
-            $('#description').val(data.description);
-            $('#fee').val(data.fee);
-            // show modal
-            $('#serviceModal').modal('show');
-        }
-
-    });
-    $("#submit").text('Update');
-}
-
-function deleteServices(id) {
-    var id = id;
-    $.ajax({
-        url: './app/services/deleteService.php',
-        type: 'POST',
-        data: {
-            deleteid: id
-        },
-        success: function(response) {
-            var obj = jQuery.parseJSON(response);
-            if (obj.status == 200) {
-                location.reload();
-            } else {
-                alert(obj.message);
+        var id = ids;
+        $('#id').val(id);
+        //get services data
+        showLoader();
+        $.ajax({
+            url: './app/services/getService.php',
+            type: 'POST',
+            data: {
+                updateid: id
+            },
+            success: function(response) {
+                var data = JSON.parse(response);
+                // alert(data.name);
+                $('#name').val(data.name);
+                $('#description').val(data.description);
+                $('#fee').val(data.fee);
+                // show modal
+                $('#serviceModal').modal('show');
+                hideLoader();
+            },
+            error: function(data) {
+                alert(data);
+                hideLoader();
+            },
+            complete: function(data) {
+                hideLoader();
             }
-        }
-    });
-}
+
+        });
+        $("#submit").text('Update');
+    }
+
+    function deleteServices(id) {
+        var id = id;
+        showLoader();
+        $.ajax({
+            url: './app/services/deleteService.php',
+            type: 'POST',
+            data: {
+                deleteid: id
+            },
+            success: function(response) {
+                var obj = jQuery.parseJSON(response);
+                if (obj.status == 200) {
+                    location.reload();
+                    hideLoader();
+                } else {
+                    alert(obj.message);
+                    hideLoader();
+                }
+            },
+            error: function(data) {
+                alert(data);
+                hideLoader();
+            },
+            complete: function(data) {
+                hideLoader();
+            }
+        });
+    }
+
+
 
 $(document).ready(function() {
     $('#dataTable').DataTable({
@@ -173,30 +196,42 @@ $(document).ready(function() {
 
 });
 
-function insertUpdate() {
 
-    var name = $('#name').val();
-    var description = $('#description').val();
-    var fee = $('#fee').val();
-    var id = $('#id').val();
-    var ulr = './app/services/process_service.php';
-    var data = {
-        name: name,
-        description: description,
-        fee: fee,
-        id: id
-    };
 
-    $.ajax({
-        url: ulr,
-        type: 'POST',
-        data: data,
-        success: function(response) {
-            var obj = jQuery.parseJSON(response);
-            if (obj.status == 200) {
-                location.reload();
-            } else {
-                alert(obj.message);
+    function insertUpdate() {
+
+        var name = $('#name').val();
+        var description = $('#description').val();
+        var fee = $('#fee').val();
+        var id = $('#id').val();
+        var ulr = './app/services/process_service.php';
+        var data = {
+            name: name,
+            description: description,
+            fee: fee,
+            id: id
+        };
+        showLoader();
+        $.ajax({
+            url: ulr,
+            type: 'POST',
+            data: data,
+            success: function(response) {
+                var obj = jQuery.parseJSON(response);
+                if (obj.status == 200) {
+                    location.reload();
+                    hideLoader();
+                } else {
+                    alert(obj.message);
+                    hideLoader();
+                }
+            },
+            error: function(data) {
+                alert(data);
+                hideLoader();
+            },
+            complete: function(data) {
+                hideLoader();
             }
         }
     });

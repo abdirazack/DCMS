@@ -43,7 +43,7 @@ if (!$schedules) {
                     <div class="card-body">
                         <div class="container-fluid">
                             <div class="alert alert-danger alert-dismissible fade show d-none" role="alert" id="alertDanger">
-                               <p id="alertDangerText"></p>
+                                <p id="alertDangerText"></p>
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -180,12 +180,14 @@ if (!$schedules) {
         // console.log(scheds);
         //document ready
         $(document).ready(function() {
+            hideLoader();
             $('.alert').alert();
             $('.select2').select2();
             // console.log(JSON.stringify(scheds)); 
 
             $('#schedule-form').submit(function(e) {
                 e.preventDefault();
+                showLoader();
                 $.ajax({
                     url: $(this).attr('action'),
                     method: 'POST',
@@ -199,14 +201,23 @@ if (!$schedules) {
                             calendar.refetchEvents();
                             //reload page
                             location.reload();
+                            hideLoader();
                         }
                         if (obj.status == 404) {
                             // alert(obj.message);
                             $("#alertDangerText").html(obj.message);
                             $("#alertDanger").removeClass("d-none");
+                            hideLoader();
                         }
 
-                    }
+                    },
+                error: function(data) {
+                    alert(data);
+                    hideLoader();
+                },
+                complete: function(data) {
+                    hideLoader();
+                }
                 });
             });
 
@@ -234,7 +245,7 @@ if (!$schedules) {
                     var _conf = confirm("Are you sure to delete this scheduled event?");
                     if (_conf === true) {
                         //location.href = "appointments/delete.php?id=" + scheds[id].appointment_id;
-
+                        showLoader();
                         $.ajax({
                             url: "./app/appointments/delete.php",
                             type: "post",
@@ -250,12 +261,21 @@ if (!$schedules) {
                                     calendar.refetchEvents();
                                     //reload page
                                     location.reload();
+                                    hideLoader();
                                 }
                                 if (obj.status == 404) {
                                     // $("#state").text(obj.message);
                                     alert(obj.message);
+                                    hideLoader();
                                 }
-                            }
+                            },
+                error: function(data) {
+                    alert(data);
+                    hideLoader();
+                },
+                complete: function(data) {
+                    hideLoader();
+                }
                         });
 
                     }
@@ -272,6 +292,7 @@ if (!$schedules) {
 
                     if (_confirmCancel) {
                         // Send an AJAX request to delete the appointment
+                        showLoader();
                         $.ajax({
                             url: "./app/appointments/delete.php",
                             type: "post",
@@ -289,15 +310,21 @@ if (!$schedules) {
                                     calendar.refetchEvents();
                                     // Reload the page to update any other related data
                                     location.reload();
+                                    hideLoader();
                                 } else if (obj.status == 404) {
                                     // On error status 404:
                                     // Show the error message to the user
                                     alert(obj.message);
+                                    hideLoader();
                                 }
                             },
                             error: function(xhr, status, error) {
                                 // Handle AJAX request error
                                 console.error(status, error);
+                                hideLoader();
+                            },
+                            complete: function(data) {
+                                hideLoader();
                             }
                         });
                     }
@@ -337,6 +364,7 @@ if (!$schedules) {
 
     // Set the minimum date of the date picker to the current date
     $(document).ready(function() {
+        hideLoader();
         document.getElementById('date').setAttribute('min', getCurrentDate());
     });
 </script>

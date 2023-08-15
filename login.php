@@ -7,75 +7,93 @@
   <title>Login</title>
   <!-- Bootstrap CSS -->
   <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
-
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-
-    .container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    /* .content {
-      margin: 1%;
-      background-color: #fff;
-      padding: 4rem 1rem 4rem 1rem;
-      box-shadow: 0 0 5px 5px rgba(0, 0, 0, .05);
-    } */
-
-    .signin-text {
-      font-style: normal;
-
-      font-size: 34px;
-      font-weight: bold;
-      margin-bottom: 10px;
-
-
-    }
-
-    /* .birthday-section {
-      padding: 15px;
-    } */
-  </style>
 </head>
 
 <body class="my-auto">
-  <div class="container mt-4 bg-white shadow p-4 rounded align-self-center">
-    <div class="row content">
-      <div class="col-md-6 mb-3">
-        <img src="./app/img/logos/logo.png" class="img-fluid" alt="image">
-      </div>
-      <div class="col-md-6  card card-inverse ">
-        <div class='text-center'>
-          <img src="./app/img/logos/favicon.svg" alt="Logo" width="100" height="100">
+  <div class="d-flex justify-content-center align-items-center rounded" style="height: 100vh; ">
+    <div class="container rounded">
+      <div class="row justify-content-center bg-white p-5 rounded shadow-lg ">
+        <div class="col-md-8 col-lg-6">
+          <div class='text-center'>
+            <img src="./app/img/logos/favicon.svg" alt="Logo" width="100" height="100">
 
-          <h3 class="signin-text mb-3"> Login</h3>
+            <h3 class="signin-text mb-3"> Login</h3>
+          </div>
+          <form id="loginForm" action="" method="post">
+            <div class="alert alert-danger alert-dismissible fade show d-none" id="alertBlock" role="alert">
+              <p class="" id="alertText"></p>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="form-group">
+              <label for="user">User Name</label>
+              <input id="username" type="text" name="username" id="username" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="pass">Password</label>
+              <input type="password" id="password" name="password" id="password" class="form-control">
+            </div>
+            <div class="text-center">
+              <button id="btnLogin" name="btnLogin" class="btn btn-primary btn-lg">Login</button>
+            </div>
+          </form>
         </div>
-        <form action="./app/login/process_login.php" method="post">
-          <div class="form-group">
-            <label for="user">User Name</label>
-            <input id="username" type="text" name="username" id="username" class="form-control">
-          </div>
-          <div class="form-group">
-            <label for="pass">Password</label>
-            <input type="password" id="password" name="password" id="password" class="form-control">
-          </div>
-          <!-- <div class="form-group form-check">
-            <input type="checkbox" name="checkbox" class="form-check-input" id="checkbox">
-            <label class="form-check-label" for="checkbox">Remember Me</label>
-          </div> -->
-          <button id="btnLogin" name="btnLogin" class="btn btn-primary btn-block">Login</button>
-        </form>
+        <div class="col-md-4 col-lg-6 d-flex justify-content-center align-items-center">
+          <img src="./app/img/logos/logo.png" class="img-fluid p-5" alt="image">
+        </div>
       </div>
     </div>
   </div>
-  </div>
 
 
+  <?php  require_once('./includes/header.php');?>
 
-  <?php
+  <script>
+    $(document).ready(function() {
+      $('.alert').alert()
 
-  require_once('./includes/header.php');
-
-  ?>
+      $('#btnLogin').click(function(e) {
+        e.preventDefault();
+        var username = $('#username').val();
+        var password = $('#password').val();
+        if (username != '' && password != '') {
+          showLoader();
+          $.ajax({
+            url: "./app/login/process_login.php",
+            method: "POST",
+            data: {
+              username: username,
+              password: password
+            },
+            success: function(data) {
+              // alert(data);
+              var obj = jQuery.parseJSON(data);
+              if(obj.status == 200){
+                $('#loginForm')[0].reset();
+                window.location.href = "./index.php?page=dashboard";
+                hideLoader();
+              }
+              if (obj.status == 404) {
+                
+                $('#alertBlock').removeClass('d-none');
+                $('#alertText').html(obj.message);
+                setTimeout(function() {
+                  $('#alertBlock').addClass('d-none');
+                }, 3000);
+                hideLoader();
+              } 
+              // hideLoader();
+            }
+          });
+        } else {
+          $('#alertBlock').removeClass('d-none');
+          $('#alertText').html('Please fill all the fields');
+          setTimeout(function() {
+            $('#alertBlock').addClass('d-none');
+          }, 3000);
+          hideLoader();
+        }
+      });
+    });
+  </script>

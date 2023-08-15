@@ -124,6 +124,7 @@
         //   
         $(document).ready(function() {
             $('.select2').select2();
+            hideLoader();
             $('#dataTable').DataTable({
                 pagingType: 'full_numbers',
                 "aLengthMenu": [
@@ -165,6 +166,7 @@
             //on submit
             $('#formPS').on('submit', function(event) {
                 event.preventDefault();
+                showLoader();
                 $.ajax({
                     url: "./app/drugs/process_drug.php",
                     method: "POST",
@@ -173,9 +175,11 @@
                         // alert(data);
                         // console.log(data);
                         location.reload();
+                        hideLoader();
                     },
                     error: function(data) {
                         alert(data);
+                        hideLoader();
                     }
                 });
             });
@@ -185,6 +189,7 @@
         //on delete
         function DeletepatientDrugs(id) {
             id = id;
+            showLoader();
             $.ajax({
                 url: "./app/drugs/deleteDrug.php",
                 method: "POST",
@@ -198,8 +203,10 @@
                     if (obj.status == 200) {
                         // alert(obj.message);
                         location.reload();
+                        hideLoader();
                     } else {
                         alert(obj.message);
+                        hideLoader();
                     }
                 }
             });
@@ -208,6 +215,7 @@
         //on edit
         function EditpatientDrugs(id) {
             id = id;
+            showLoader();
             $.ajax({
                 url: "./app/drugs/getDrug.php",
                 method: "POST",
@@ -226,6 +234,16 @@
                     $('#expiry_date').val(obj.drug_expiry_date);
                     $('#prescribed_date').val(obj.date_prescribed);
                     $('#submit').html('Update');
+                    // hide view modal
+                    $('#viewModal').modal('hide');
+                    hideLoader();
+                },
+                error: function(data) {
+                    alert(data);
+                    hideLoader();
+                },
+                complete: function(data) {
+                    hideLoader();
                 }
             });
 
@@ -234,6 +252,7 @@
         function ViewpatientDrugs(id) {
             id = id;
             // create a small pop up modal to show the details of the patientService
+            showLoader();
             $.ajax({
                 url: "./app/drugs/view.php",
                 method: "POST",
@@ -245,10 +264,16 @@
                     // to show the modal
                     $('#modalDisplay').html(data);
                     $('#viewModal').modal('show');
-                }
-            });
-
-        }
+                    hideLoader();
+                },
+                error: function(data) {
+                    alert(data);
+                    hideLoader();
+            },
+            complete: function(data) {
+                hideLoader();
+        }});
+    };
     </script>
 
 <div id='modalDisplay' class="container-fluid">

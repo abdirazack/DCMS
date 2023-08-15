@@ -10,14 +10,14 @@ include_once('./app/database/conn.php')
             <h2 class="text-center text-primary">Medications</h2>
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary me-5" data-toggle="modal" data-target="#medicationModal">
-            <i class="fa-solid fa-plus "></i>
+                <i class="fa-solid fa-plus "></i>
             </button>
         </div>
 
         <table class="table table-hover" id="dataTable">
             <thead>
                 <tr>
-                <th scope="col">#NO</th>
+                    <th scope="col">#NO</th>
 
                     <!-- <th>Medication ID</th> -->
                     <th>Medication Name</th>
@@ -28,7 +28,7 @@ include_once('./app/database/conn.php')
             </thead>
             <tbody>
                 <?php
-                $count=0;
+                $count = 0;
 
                 // Select all staff from the database
                 $result = mysqli_query($conn, "SELECT * FROM medications");
@@ -81,14 +81,14 @@ include_once('./app/database/conn.php')
                     <div class="row">
                         <div class="mb-3 col-md-12">
                             <label for="description" class="form-label">medication Description:</label>
-                            <textarea  type="text" class="form-control  border border-1 border-primary" id="description" name="description" required> </textarea>
+                            <textarea type="text" class="form-control  border border-1 border-primary" id="description" name="description" required> </textarea>
                         </div>
                     </div>
                 </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeButton">Close</button>
-                        <button type="submit" id='submit' class="btn btn-outline-primary">Add Medication</button>
-                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeButton">Close</button>
+                    <button type="submit" id='submit' class="btn btn-outline-primary">Add Medication</button>
+                </div>
             </form>
         </div>
     </div>
@@ -101,6 +101,7 @@ include_once('./app/database/conn.php')
 
         var id = ids;
         $('#id').val(id);
+        showLoader();
         $.ajax({
             url: './app/medication/getMedication.php',
             type: 'POST',
@@ -112,8 +113,15 @@ include_once('./app/database/conn.php')
                 $('#name').val(data.medication_name);
                 $('#dosage').val(data.medication_name);
                 $('#description').val(data.medication_description);
+                hideLoader();
 
-                
+            },
+            error: function(data) {
+                alert(data);
+                hideLoader();
+            },
+            complete: function(data) {
+                hideLoader();
             }
 
         });
@@ -131,6 +139,7 @@ include_once('./app/database/conn.php')
 
     function deleteMedication(id) {
         var id = id;
+        showLoader();
         $.ajax({
             url: './app/medication/deleteMedication.php',
             type: 'POST',
@@ -141,14 +150,24 @@ include_once('./app/database/conn.php')
                 var obj = jQuery.parseJSON(response);
                 if (obj.status == 200) {
                     location.reload();
+                    hideLoader();
                 } else {
                     alert(obj.message);
+                    hideLoader();
                 }
-            }
+            },
+                error: function(data) {
+                    alert(data);
+                    hideLoader();
+                },
+                complete: function(data) {
+                    hideLoader();
+                }
         });
     }
 
     $(document).ready(function() {
+        hideLoader();
         $('#dataTable').DataTable({
             pagingType: 'full_numbers',
             "aLengthMenu": [
@@ -162,6 +181,7 @@ include_once('./app/database/conn.php')
         $('#formInsertUpdate').submit(function(e) {
             e.preventDefault();
             var formData = new FormData(this);
+            showLoader();
             $.ajax({
                 url: './app/medication/process_medication.php',
                 type: 'POST',
@@ -173,15 +193,24 @@ include_once('./app/database/conn.php')
                         //hide modal
                         $('#medicationModal').modal('hide');
                         location.reload();
+                        hideLoader();
                     } else {
                         //show error on div with id small
                         $('#small').html(obj.message);
                         alert(obj.message);
+                        hideLoader();
                     }
                 },
                 cache: false,
                 contentType: false,
-                processData: false
+                processData: false,
+                error: function(data) {
+                    alert(data);
+                    hideLoader();
+                },
+                complete: function(data) {
+                    hideLoader();
+                }
             });
         });
 

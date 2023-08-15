@@ -19,6 +19,7 @@
 
     <!-- Custom styles for this template -->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <!-- <link href="css/loader.css" rel="stylesheet"> -->
     <link href="./vendor/fullcalendar/lib/main.min.css" rel="stylesheet">
     <link href="./vendor/DataTables/DataTables/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="./vendor/DataTables/Buttons/css/buttons.dataTables.min.css" rel="stylesheet">
@@ -35,6 +36,7 @@
         <!-- Custom scripts for all pages-->
         <script src="./vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="js/sb-admin-2.min.js"></script>
+        <script src="js/loader.js"></script>
 
         <!-- Other JavaScript imports -->
         <script src="./vendor/fullcalendar/lib/main.min.js"></script>

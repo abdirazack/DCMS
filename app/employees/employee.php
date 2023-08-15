@@ -20,8 +20,6 @@
 
             border-radius: 12px;
         }
-
-
     </style>
 </head>
 
@@ -236,6 +234,7 @@
 
         var id = ids;
         $('#id').val(id);
+        showLoader();
         $.ajax({
             url: './app/employees/getEmployee.php',
             type: 'POST',
@@ -257,6 +256,14 @@
                 $('#email').val(data.email);
                 $('#formInsertUpdate  select[name="address"').val(data.address).trigger('change');
                 $('#hire_date').val(data.hire_date);
+                hideLoader();
+            },
+            error: function(data) {
+                alert(data);
+                hideLoader();
+            },
+            complete: function(data) {
+                hideLoader();
             }
 
         });
@@ -274,6 +281,7 @@
 
     function deleteEmployee(id) {
         var id = id;
+        showLoader();
         $.ajax({
             url: './app/employees/deleteEmployee.php',
             type: 'POST',
@@ -286,15 +294,24 @@
                 var obj = jQuery.parseJSON(response);
                 if (obj.status == 200) {
                     location.reload();
+                    hideLoader();
                 } else {
                     alert(obj.message);
+                    hideLoader();
                 }
+            },
+            error: function(data) {
+                alert(data);
+                hideLoader();
+            },
+            complete: function(data) {
+                hideLoader();
             }
         });
     }
 
     $(document).ready(function() {
-
+        hideLoader();
         // select2
         $(".select2").select2();
         $('#address').select2({
@@ -318,6 +335,7 @@
         $('#formInsertUpdate').submit(function(e) {
             e.preventDefault();
             var formData = new FormData(this);
+            showLoader();
             $.ajax({
                 url: './app/employees/process_employee.php',
                 type: 'POST',
@@ -329,15 +347,24 @@
                         //hide modal
                         $('#staffModal').modal('hide');
                         location.reload();
+                        hideLoader();
                     } else {
                         //show error on div with id small
                         $('#small').text(obj.message);
                         alert(obj.message);
+                        hideLoader();
                     }
                 },
                 cache: false,
                 contentType: false,
-                processData: false
+                processData: false,
+                error: function(data) {
+                    alert(data);
+                    hideLoader();
+                },
+                complete: function(data) {
+                    hideLoader();
+                }
             });
         });
 
@@ -351,6 +378,7 @@
             // var page = 'employee';
             e.preventDefault();
             var formData = new FormData(this);
+            showLoader();
             $.ajax({
                 url: './app/address/process_address.php',
                 type: 'POST',
@@ -362,15 +390,24 @@
                         //hide modal
                         $('#addressModal').modal('hide');
                         // location.reload();
+                        hideLoader();
                     } else {
                         //show error on div with id small
                         $('#small').text(obj.message);
                         alert(obj.message);
+                        hideLoader();
                     }
                 },
                 cache: false,
                 contentType: false,
-                processData: false
+                processData: false,
+                error: function(data) {
+                    alert(data);
+                    hideLoader();
+                },
+                complete: function(data) {
+                    hideLoader();
+                }
             });
         });
     });

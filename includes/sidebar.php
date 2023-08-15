@@ -14,7 +14,7 @@ body {
 <ul class="navbar-nav bg sidebar sidebar-dark accordion sticky-top" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center mt-1" href="index.php">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center mt-1" href="index.php?page=dashboard">
         <div class="sidebar-brand-icon rotate-n-15">
             <img class="sidebar-brand-icon" src="./app/img/logos/favicon.svg" height="60px" width="60px">
 
@@ -251,13 +251,13 @@ body {
                             <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                             Profile
                         </a>
-                        <a class="dropdown-item" href="#">
-                            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Settings
+                        <a class="dropdown-item" href="index.php?page=changePassword">
+                            <i class="fas fa-key fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Change Password
                         </a>
-                        <a class="dropdown-item" href="#">
-                            <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Activity Log
+                        <a class="dropdown-item" href="index.php?page=changePic">
+                            <i class="fas fa-image fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Change Picture
                         </a>
                         <div class="dropdown-divider"></div>
                         <form action="./app/login/logout.php" method="post">

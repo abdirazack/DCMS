@@ -146,6 +146,7 @@ $result = mysqli_query($conn, $sql);
         var id = ids;
 
         $('#id').val(id);
+        showLoader();
         $.ajax({
             url: './app/salary/getSalary.php',
             type: 'POST',
@@ -154,13 +155,24 @@ $result = mysqli_query($conn, $sql);
             },
             success: function(response) {
                 var data = JSON.parse(response);
-                alert(response)
+                // alert(response)
                 $('#formInsertUpdate select[name="employee_id"]').val(data.employee_id).trigger('change');
                 $('#amount').val(data.Amount);
                 $('#SalaryType').val(data.SalaryType);
                 $('#Currency').val(data.Currency);
                 $('#date_paid').val(data.date_paid);
+                // hide the modal
+                $('#SalaryModal').modal('hide');
 
+                hideLoader();
+
+            },
+            error: function(data) {
+                alert(data);
+                hideLoader();
+            },
+            complete: function(data) {
+                hideLoader();
             }
 
         });
@@ -178,6 +190,7 @@ $result = mysqli_query($conn, $sql);
 
     function deleteSalary(id) {
         var id = id;
+        showLoader();
         $.ajax({
             url: './app/salary/deleteSalary.php',
             type: 'POST',
@@ -188,16 +201,25 @@ $result = mysqli_query($conn, $sql);
                 var obj = jQuery.parseJSON(response);
                 if (obj.status == 200) {
                     location.reload();
+                    hideLoader();
                 } else {
                     alert(obj.message);
+                    hideLoader();
                 }
+            },
+            error: function(data) {
+                alert(data);
+                hideLoader();
+            },
+            complete: function(data) {
+                hideLoader();
             }
         });
     }
 
 
     $(document).ready(function() {
-
+        hideLoader();
         $(".select2").select2();
 
         //make the width of the select2 100%
@@ -213,6 +235,7 @@ $result = mysqli_query($conn, $sql);
         //onchange employee_id get the employee salary and put it in the amount input
         $('#employee_id').on('change', function() {
             var employee_id = $(this).val();
+            showLoader();
             $.ajax({
                 url: './app/salary/getSalary.php',
                 type: 'POST',
@@ -222,6 +245,14 @@ $result = mysqli_query($conn, $sql);
                 success: function(response) {
                     var data = JSON.parse(response);
                     $('#amount').val(data.amount);
+                    hideLoader();
+                },
+                error: function(data) {
+                    alert(data);
+                    hideLoader();
+                },
+                complete: function(data) {
+                    hideLoader();
                 }
             });
         });
@@ -236,7 +267,7 @@ $result = mysqli_query($conn, $sql);
         var paid_in_full = $('#paid_in_full').val();
         var date_paid = $('#date_paid').val();
 
-
+        showLoader();
         $.ajax({
             url: './app/salary/process_salary.php',
             type: 'POST',
@@ -249,13 +280,22 @@ $result = mysqli_query($conn, $sql);
 
             },
             success: function(response) {
-                alert(response);
+                // alert(response);
                 var obj = jQuery.parseJSON(response);
                 if (obj.status == 200) {
                     location.reload();
+                    hideLoader();
                 } else {
                     alert(obj.message);
+                    hideLoader();
                 }
+            },
+            error: function(data) {
+                alert(data);
+                hideLoader();
+            },
+            complete: function(data) {
+                hideLoader();
             }
         });
     }

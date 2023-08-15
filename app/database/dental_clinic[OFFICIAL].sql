@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 10, 2023 at 05:41 PM
+-- Generation Time: Aug 15, 2023 at 04:16 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -94,22 +94,6 @@ CREATE TABLE `addresses_patients_view` (
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `addresses_supplier_view`
--- (See below for the actual view)
---
-CREATE TABLE `addresses_supplier_view` (
-`supplier_id` int(11)
-,`supplier_name` varchar(100)
-,`email` varchar(100)
-,`phone_number` varchar(20)
-,`street` varchar(255)
-,`city` varchar(255)
-,`state` varchar(255)
-);
-
--- --------------------------------------------------------
-
---
 -- Stand-in structure for view `appointmentdetails`
 -- (See below for the actual view)
 --
@@ -150,12 +134,33 @@ CREATE TABLE `appointments` (
 --
 
 INSERT INTO `appointments` (`appointment_id`, `Type`, `status`, `date`, `time`, `patient_id`, `employee_id`, `created_at`, `updated_at`, `note`) VALUES
-(1, 'walk-in', 'Pending', '2023-07-25', '18:17:10', 3, 2, '2023-07-24 03:17:47', '2023-08-02 14:10:32', 'Bro don\'t forget your card'),
-(2, 'Walk-in', 'Approved', '2023-08-28', '11:15:00', 3, 1, '2023-07-27 07:38:59', '2023-08-09 18:47:21', NULL),
-(4, 'Online', 'Pending', '2023-08-06', '07:00:00', 3, 1, '2023-07-29 08:27:23', '2023-08-09 18:18:04', 'WHat!!!'),
-(5, 'Online', 'Pending', '2023-08-05', '09:30:00', 3, 3, '2023-07-29 08:27:23', '2023-08-09 18:17:59', 'HEHEHEHEHE'),
-(9, 'Online', 'Approved', '2023-08-17', '19:41:00', 1, 1, '2023-08-09 18:42:28', '2023-08-09 18:42:58', 'teeth fix it'),
-(10, 'Online', 'Approved', '2023-08-18', '00:42:00', 1, 1, '2023-08-09 18:46:20', '2023-08-09 18:46:38', 'fix me tooth');
+(1, 'walk-in', 'Cancelled', '2023-08-30', '07:00:00', 3, 1, '2023-08-24 03:17:47', '2023-08-14 13:58:54', 'Bro don\'t forget your card'),
+(2, 'Walk-in', 'Cancelled', '2023-01-31', '11:15:00', 3, 1, '2023-08-27 07:38:59', '2023-08-12 14:11:28', NULL),
+(4, 'Online', 'Pending', '2023-08-26', '07:00:00', 3, 1, '2023-08-29 08:27:23', '2023-08-12 13:56:57', 'WHat!!!'),
+(5, 'Online', 'Cancelled', '2023-08-25', '09:30:00', 3, 1, '2023-08-29 08:27:23', '2023-08-15 13:57:48', 'HEHEHEHEHE'),
+(9, 'Online', 'Approved', '2023-08-17', '19:41:00', 1, 1, '2023-08-26 18:42:28', '2023-08-12 13:55:48', 'teeth fix it'),
+(10, 'Online', 'Approved', '2023-08-18', '00:42:00', 1, 1, '2023-08-05 18:46:20', '2023-08-12 13:55:55', 'fix me tooth'),
+(11, 'walk-in', 'Cancelled', '2023-08-15', '09:00:00', 1, 1, '2023-08-12 14:06:34', '2023-08-13 19:02:53', 'New patient appointment'),
+(12, 'online', 'Approved', '2023-08-16', '14:30:00', 2, 1, '2023-08-12 14:06:34', '2023-08-14 13:57:46', 'Follow-up consultation'),
+(13, 'walk-in', 'Approved', '2023-08-17', '11:45:00', 3, 13, '2023-08-12 14:06:34', '2023-08-14 13:58:49', 'Routine checkup'),
+(14, 'online', 'Approved', '2023-08-18', '10:15:00', 4, 13, '2023-08-12 14:06:34', '2023-08-15 13:57:25', 'Discussion of test results'),
+(15, 'walk-in', 'Approved', '2023-08-19', '16:30:00', 5, 13, '2023-08-12 14:06:34', '2023-08-15 13:57:39', 'General health inquiry'),
+(16, 'online', 'Approved', '2023-08-20', '13:00:00', 6, 13, '2023-08-12 14:06:34', '2023-08-13 18:25:15', 'Prescription renewal'),
+(17, 'walk-in', 'Approved', '2023-08-21', '15:20:00', 7, 1, '2023-08-12 14:06:34', '2023-08-13 18:26:04', 'Vaccination appointment'),
+(18, 'online', 'pending', '2023-08-22', '12:45:00', 8, NULL, '2023-08-12 14:06:34', '2023-08-12 14:06:34', 'Treatment follow-up'),
+(19, 'walk-in', 'Cancelled', '2023-08-23', '09:30:00', 9, 13, '2023-08-12 14:06:34', '2023-08-15 13:57:50', 'Initial assessment'),
+(20, 'online', 'pending', '2023-08-24', '17:00:00', 10, NULL, '2023-08-12 14:06:34', '2023-08-12 14:06:34', 'Medication review'),
+(21, 'walk-in', 'Cancelled', '2023-08-25', '14:00:00', 11, 1, '2023-08-12 14:06:34', '2023-08-15 13:57:33', 'Minor injury examination'),
+(22, 'online', 'Cancelled', '2023-08-26', '07:00:00', 12, 1, '2023-08-12 14:06:34', '2023-08-15 13:57:30', 'Consultation for symptoms'),
+(23, 'walk-in', 'Cancelled', '2023-08-27', '15:45:00', 13, 1, '2023-08-12 14:06:34', '2023-08-14 14:47:02', 'Health advice'),
+(24, 'online', 'Cancelled', '2023-08-28', '12:15:00', 14, 1, '2023-08-12 14:06:34', '2023-08-14 14:47:00', 'Discussion on treatment options'),
+(25, 'walk-in', 'Cancelled', '2023-08-29', '10:45:00', 15, 1, '2023-08-12 14:06:34', '2023-08-14 13:59:57', 'Wellness check'),
+(26, 'online', 'pending', '2023-08-30', '14:45:00', 16, NULL, '2023-08-12 14:06:34', '2023-08-12 14:06:34', 'Follow-up on previous condition'),
+(27, 'walk-in', 'pending', '2023-08-31', '13:30:00', 17, NULL, '2023-08-12 14:06:34', '2023-08-12 14:06:34', 'General inquiry'),
+(28, 'online', 'pending', '2023-09-01', '10:00:00', 18, NULL, '2023-08-12 14:06:34', '2023-08-12 14:06:34', 'Lab test result discussion'),
+(29, 'walk-in', 'pending', '2023-09-02', '16:15:00', 19, NULL, '2023-08-12 14:06:34', '2023-08-12 14:06:34', 'Advice on healthy living'),
+(30, 'online', 'Cancelled', '2023-09-03', '09:45:00', 20, 1, '2023-08-12 14:06:34', '2023-08-14 14:00:07', 'Follow-up examination'),
+(31, 'online', 'Pending', '2023-08-31', '12:00:00', 1, NULL, '2023-08-13 18:47:16', '2023-08-13 18:50:26', 'fix me teeth');
 
 -- --------------------------------------------------------
 
@@ -221,9 +226,18 @@ CREATE TABLE `employees` (
 --
 
 INSERT INTO `employees` (`employee_id`, `first_name`, `middle_name`, `last_name`, `email`, `phone`, `role_id`, `experience`, `address`, `gender`, `profile`, `salary_type`, `currency`, `amount`, `hire_date`) VALUES
-(1, 'Abdirizak', 'omar', 'Abdi', 'abdirizakomar65@gmail.com', '613324221', 1, '2 years', 3, 'Male', '1690877422.svg', 'Monthly', 'Dollar', 1200, '2023-06-12'),
+(1, 'Abdirizak', 'omar', 'Abdi', 'abdirizakomar65@gmail.com', '613324221', 1, '2 years', 3, 'Male', '1690875501.svg', 'Monthly', 'Dollar', 1200, '2023-06-12'),
 (2, 'Abdi', 'omar', 'ali', 'farxan@gmail.com', '614546598', 4, '2 years', 1, 'Male', '1691428414.svg', 'Monthly', 'Dollar', 800, '2023-07-20'),
-(3, 'Ahmed', 'Mukhtar', '', 'ahmedez@hotmail.com', '0707868481', 2, '2 years', 1, 'Male', '1689748947.php', 'Fixed', 'Dollar', 1000, '2023-07-18');
+(3, 'Ahmed', 'Mukhtar', 'Mukhtar', 'ahmedez@hotmail.com', '0707868481', 2, '2 years', 1, 'Male', '1692088366.jpg', 'Fixed', 'Dollar', 1000, '2023-07-18'),
+(13, 'John', NULL, 'Doe', 'john.doe@example.com', '123-456-7890', 1, '3 years', 1, 'Male', '', 'Monthly', 'USD', 5000, '2023-08-02'),
+(14, 'Jane', NULL, 'Smith', 'jane.smith@example.com', '987-654-3210', 2, '5 years', 2, 'Female', 'profile_image.jpg', 'Monthly', 'USD', 6000, '2023-08-02'),
+(15, 'Michael', NULL, 'Johnson', 'michael.johnson@example.com', '555-123-4567', 3, '2 years', 3, 'Male', 'profile_image.jpg', 'Hourly', 'USD', 20, '2023-08-02'),
+(16, 'Emily', NULL, 'Williams', 'emily.williams@example.com', '111-222-3333', 4, '1 year', 1, 'Female', 'profile_image.jpg', 'Monthly', 'USD', 4500, '2023-08-02'),
+(17, 'Robert', NULL, 'Brown', 'robert.brown@example.com', '444-555-6666', 5, '4 years', 2, 'Male', 'profile_image.jpg', 'Monthly', 'USD', 5500, '2023-08-02'),
+(18, 'Jessica', NULL, 'Jones', 'jessica.jones@example.com', '777-888-9999', 1, '2 years', 3, 'Female', 'profile_image.jpg', 'Hourly', 'USD', 18, '2023-08-02'),
+(19, 'William', NULL, 'Miller', 'william.miller@example.com', '123-987-4567', 2, '3 years', 1, 'Male', 'profile_image.jpg', 'Monthly', 'USD', 5200, '2023-08-02'),
+(20, 'Laura', NULL, 'Davis', 'laura.davis@example.com', '222-111-5555', 3, '5 years', 2, 'Female', 'profile_image.jpg', 'Monthly', 'USD', 6100, '2023-08-02'),
+(21, 'Daniel', NULL, 'Wilson', 'daniel.wilson@example.com', '999-555-3333', 4, '2 years', 3, 'Male', 'profile_image.jpg', 'Hourly', 'USD', 21, '2023-08-02');
 
 -- --------------------------------------------------------
 
@@ -325,7 +339,7 @@ CREATE TABLE `incometable` (
 --
 
 INSERT INTO `incometable` (`IncomeID`, `patient_id`, `IncomeType`, `IncomeAmount`, `IncomeAmountPaid`, `discount`, `createdAt`, `IncomeDate`) VALUES
-(12, 1, 'Services', 1000, 998, 1, '2023-07-17 02:31:35', '2023-07-17'),
+(12, 1, 'Services', 1000, 999, 1, '2023-07-17 02:31:35', '2023-07-17'),
 (13, 3, 'Services', 2032, 1890, 0, '2023-07-18 05:24:14', '2023-07-18'),
 (15, 5, 'Services', 51, 49, 1, '2023-08-02 07:32:09', '2023-08-02'),
 (18, 2, 'Medications', 42, 0, 0, '2023-08-09 06:54:15', '2023-08-09'),
@@ -333,7 +347,9 @@ INSERT INTO `incometable` (`IncomeID`, `patient_id`, `IncomeType`, `IncomeAmount
 (20, 3, 'Medications', 43, 0, 0, '2023-08-09 07:11:49', '2023-08-09'),
 (21, 5, 'Medications', 12, 0, 0, '2023-08-09 07:14:42', '2023-08-09'),
 (22, 1, 'Medications', 13, 13, 0, '2023-08-10 13:18:10', '2023-08-10'),
-(23, 4, 'Services', 30, 28, 2, '2023-08-10 15:33:55', '2023-08-10');
+(23, 4, 'Services', 30, 28, 2, '2023-08-10 15:33:55', '2023-08-10'),
+(24, 8, 'Services', 100, 100, 0, '2023-08-13 18:58:30', '2023-06-01'),
+(25, 38, 'Medication', 50, 50, 0, '2023-08-13 18:58:30', '2023-05-17');
 
 -- --------------------------------------------------------
 
@@ -355,21 +371,6 @@ CREATE TABLE `incometableview` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `inventory`
---
-
-CREATE TABLE `inventory` (
-  `inventory_id` int(11) NOT NULL,
-  `item_name` varchar(100) DEFAULT NULL,
-  `description` text DEFAULT NULL,
-  `unit_cost` decimal(10,2) DEFAULT NULL,
-  `quantity` int(11) DEFAULT NULL,
-  `supplier_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `logincredentials`
 --
 
@@ -386,7 +387,7 @@ CREATE TABLE `logincredentials` (
 
 INSERT INTO `logincredentials` (`employee_id`, `Username`, `Password`, `isAdmin`) VALUES
 (2, 'Abdi', '4848', 1),
-(3, 'fa', '111', 0);
+(3, 'fa', '123', 1);
 
 -- --------------------------------------------------------
 
@@ -422,7 +423,7 @@ CREATE TABLE `medications` (
 --
 
 INSERT INTO `medications` (`medication_id`, `medication_name`, `medication_dosage`, `medication_description`) VALUES
-(1, 'DawaZone', '3x3', ' for Headache'),
+(1, 'DawaZone', 'DawaZone', ' for Headache'),
 (2, 'Lisinopril', '10 mg', 'Blood pressure medication'),
 (3, 'Metformin', '500 mg', 'Diabetes medication'),
 (4, 'Amlodipine', '5 mg', 'Blood pressure medication'),
@@ -504,7 +505,47 @@ INSERT INTO `patients` (`patient_id`, `first_name`, `middle_name`, `last_name`, 
 (2, 'Stick', 'Abdirahman', 'Man', '2010-06-06', 'Male', '616666666', '1', 'stick4', 'stick4', '2023-08-01 05:24:34', '2023-08-01 05:33:11'),
 (3, 'Abdirizak', 'Abdirahman', 'Abdi', '2023-07-11', 'Male', '613324221', '1', 'abdihiga', 'abdihiga', '2023-08-01 05:24:34', '2023-08-01 05:33:30'),
 (4, 'Wehliye', 'Sh.Cali', 'Maxamed', '1967-05-16', 'Male', '0619492048', '2', 'wehman', 'denta123', '2023-08-01 05:31:55', '2023-08-01 05:33:37'),
-(5, 'abdirahman', NULL, 'ali', '2001-09-11', 'Male', '4574575', '3', NULL, 'denta123', '2023-08-02 07:31:44', '2023-08-02 07:31:44');
+(5, 'abdirahman', NULL, 'ali', '2001-09-11', 'Male', '4574575', '3', NULL, 'denta123', '2023-08-02 07:31:44', '2023-08-02 07:31:44'),
+(6, 'John', NULL, 'Doe', '1980-01-01', 'Male', '555-1234', '3', NULL, 'denta123', '2023-08-10 15:49:31', '2023-08-10 15:50:59'),
+(7, 'Jane', NULL, 'Doe', '1985-03-15', 'Female', '555-2345', '2', NULL, 'denta123', '2023-08-10 15:49:31', '2023-08-10 15:51:03'),
+(8, 'Bob', NULL, 'Smith', '1990-05-20', 'Male', '555-3456', '1', NULL, 'denta123', '2023-08-10 15:49:31', '2023-08-10 15:51:08'),
+(9, 'Sara', NULL, 'Brown', '1992-07-08', 'Female', '555-4567', '1', NULL, 'denta123', '2023-08-10 15:49:31', '2023-08-10 15:51:12'),
+(10, 'Mike', NULL, 'Jones', '1988-04-11', 'Male', '555-5678', '2', NULL, 'denta123', '2023-08-10 15:49:31', '2023-08-10 15:51:18'),
+(11, 'Mary', NULL, 'Davis', '1993-09-24', 'Female', '555-6789', '3', NULL, 'denta123', '2023-08-10 15:49:31', '2023-08-10 15:51:22'),
+(12, 'Tom', NULL, 'Wilson', '1989-11-30', 'Male', '555-7890', '3', NULL, 'denta123', '2023-08-10 15:49:31', '2023-08-10 15:51:24'),
+(13, 'Jennifer', NULL, 'Moore', '1991-02-14', 'Female', '555-8901', '2', NULL, 'denta123', '2023-08-10 15:49:31', '2023-08-10 15:51:32'),
+(14, 'James', NULL, 'Taylor', '1994-06-03', 'Male', '555-9012', '1', NULL, 'denta123', '2023-08-10 15:49:31', '2023-08-10 15:51:36'),
+(15, 'Patricia', NULL, 'White', '1996-08-19', 'Female', '555-0123', '1', NULL, 'denta123', '2023-08-10 15:49:31', '2023-08-10 15:51:40'),
+(16, 'Michael', NULL, 'Brown', '1977-12-05', 'Male', '555-1234', '2', NULL, 'denta123', '2023-08-10 15:49:31', '2023-08-10 15:51:45'),
+(17, 'Susan', NULL, 'Miller', '1979-07-19', 'Female', '555-2345', '3', NULL, 'denta123', '2023-08-10 15:49:31', '2023-08-10 15:51:52'),
+(18, 'Robert', NULL, 'Wilson', '1981-03-24', 'Male', '555-3456', '3', NULL, 'denta123', '2023-08-10 15:49:31', '2023-08-10 15:52:03'),
+(19, 'Linda', NULL, 'Moore', '1983-10-17', 'Female', '555-4567', '2', NULL, 'denta123', '2023-08-10 15:49:31', '2023-08-10 15:52:07'),
+(20, 'David', NULL, 'Taylor', '1985-06-29', 'Male', '555-5678', '2', NULL, 'denta123', '2023-08-10 15:49:31', '2023-08-10 15:52:11'),
+(21, 'Elizabeth', NULL, 'Jones', '1987-09-08', 'Female', '555-6789', '2', NULL, 'denta123', '2023-08-10 15:49:31', '2023-08-10 15:52:16'),
+(22, 'William', NULL, 'Brown', '1988-04-27', 'Male', '555-7890', '1', NULL, 'denta123', '2023-08-10 15:49:31', '2023-08-10 15:52:19'),
+(23, 'Barbara', NULL, 'Davis', '1990-08-14', 'Female', '555-8901', '3', NULL, 'denta123', '2023-08-10 15:49:31', '2023-08-10 15:52:25'),
+(25, 'Susan', NULL, 'Wilson', '1993-11-24', 'Female', '555-0123', '2', NULL, 'denta123', '2023-08-10 15:49:31', '2023-08-10 15:52:35'),
+(26, 'Joseph', NULL, 'Moore', '1995-05-10', 'Male', '555-1234', '753 Main St', NULL, 'denta123', '2023-08-10 15:49:31', '2023-08-10 15:49:31'),
+(27, 'Margaret', NULL, 'Taylor', '1996-12-23', 'Female', '555-2345', '357 Oak Ct', NULL, 'denta123', '2023-08-10 15:49:31', '2023-08-10 15:49:31'),
+(28, 'Andrew', NULL, 'White', '1998-09-11', 'Male', '555-3456', '159 Elm Ln', NULL, 'denta123', '2023-08-10 15:49:31', '2023-08-10 15:49:31'),
+(29, 'Sarah', NULL, 'Garcia', '1999-07-05', 'Female', '555-4567', '753 Park Ave', NULL, 'denta123', '2023-08-10 15:49:31', '2023-08-10 15:49:31'),
+(30, 'Jacob', NULL, 'Martinez', '2001-03-19', 'Male', '555-5678', '321 Ridge St', NULL, 'denta123', '2023-08-10 15:49:31', '2023-08-10 15:49:31'),
+(31, 'Emily', NULL, 'Hernandez', '2002-10-28', 'Female', '555-6789', '246 Main Rd', NULL, 'denta123', '2023-08-10 15:49:31', '2023-08-10 15:49:31'),
+(32, 'Daniel', NULL, 'Lopez', '2004-08-08', 'Male', '555-7890', '135 Oak Dr', NULL, 'denta123', '2023-08-10 15:49:31', '2023-08-10 15:49:31'),
+(33, 'Madison', NULL, 'Gonzales', '2005-05-26', 'Female', '555-8901', '357 Valley St', NULL, 'denta123', '2023-08-10 15:49:31', '2023-08-10 15:49:31'),
+(34, 'Anthony', NULL, 'Rodriguez', '2007-01-14', 'Male', '555-9012', '159 Park Ln', NULL, 'denta123', '2023-08-10 15:49:31', '2023-08-10 15:49:31'),
+(35, 'Emma', NULL, 'Martinez', '2008-11-04', 'Female', '555-0123', '753 Grove Ave', NULL, 'denta123', '2023-08-10 15:49:31', '2023-08-10 15:49:31'),
+(36, 'Joshua', NULL, 'Hernandez', '2010-06-23', 'Male', '555-1234', '321 Hill Rd', NULL, 'denta123', '2023-08-10 15:49:31', '2023-08-10 15:49:31'),
+(37, 'Olivia', NULL, 'Garcia', '2011-09-10', 'Female', '555-2345', '135 Main Ct', NULL, 'denta123', '2023-08-10 15:49:31', '2023-08-10 15:49:31'),
+(38, 'Christopher', NULL, 'Lopez', '2013-03-02', 'Male', '555-3456', '753 Elm St', NULL, 'denta123', '2023-08-10 15:49:31', '2023-08-10 15:49:31'),
+(39, 'Isabella', NULL, 'Rodriguez', '2014-07-21', 'Female', '555-4567', '357 Ridge Ln', NULL, 'denta123', '2023-08-10 15:49:31', '2023-08-10 15:49:31'),
+(40, 'Matthew', NULL, 'Gonzales', '2016-05-05', 'Male', '555-5678', '159 Valley Ave', NULL, 'denta123', '2023-08-10 15:49:31', '2023-08-10 15:49:31'),
+(41, 'Sophia', NULL, 'Martinez', '2017-12-19', 'Female', '555-6789', '246 Park Dr', NULL, 'denta123', '2023-08-10 15:49:31', '2023-08-10 15:49:31'),
+(42, 'Ava', NULL, 'Hernandez', '2019-08-31', 'Female', '555-7890', '321 Oak St', NULL, 'denta123', '2023-08-10 15:49:31', '2023-08-10 15:49:31'),
+(43, 'Mia', NULL, 'Garcia', '2020-04-16', 'Female', '555-8901', '135 Elm Ct', NULL, 'denta123', '2023-08-10 15:49:31', '2023-08-10 15:49:31'),
+(44, 'Ethan', NULL, 'Lopez', '2022-02-03', 'Male', '555-9012', '753 Park Ln', NULL, 'denta123', '2023-08-10 15:49:31', '2023-08-10 15:49:31'),
+(45, 'Riley', NULL, 'Rodriguez', '2023-10-11', 'Female', '555-0123', '357 Hill Rd', NULL, 'denta123', '2023-08-10 15:49:31', '2023-08-10 15:49:31'),
+(46, 'ahmed', NULL, 'ahmed', '2023-08-15', 'Male', '613324221', '2', NULL, 'denta123', '2023-08-14 06:43:48', '2023-08-14 06:43:48');
 
 --
 -- Triggers `patients`
@@ -665,20 +706,6 @@ CREATE TABLE `prescriptionview` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `procedures`
---
-
-CREATE TABLE `procedures` (
-  `procedure_id` int(11) NOT NULL,
-  `procedure_code` varchar(20) DEFAULT NULL,
-  `procedure_name` varchar(100) DEFAULT NULL,
-  `procedure_price` decimal(10,2) DEFAULT NULL,
-  `procedure_description` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `roles`
 --
 
@@ -693,10 +720,11 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`role_id`, `role_name`, `role_description`) VALUES
-(1, 'Dentist', 'dfgsfhgr'),
+(1, 'Dentist', 'The Big Boss'),
 (2, 'Receptionist', 'FEastrhdyfuk'),
 (3, 'Cleaner', 'dfgsfhgr'),
-(4, 'Dental Assistant', 'asd');
+(4, 'Dental Assistant', 'asd'),
+(5, 'Physician', 'He is obviously the physician');
 
 -- --------------------------------------------------------
 
@@ -717,7 +745,7 @@ CREATE TABLE `salary` (
 --
 
 INSERT INTO `salary` (`salary_id`, `employee_id`, `amount`, `paid_in_full`, `datePaid`) VALUES
-(1, 2, 800, 1, '2023-07-19');
+(1, 2, 800, 1, '2023-08-15');
 
 -- --------------------------------------------------------
 
@@ -765,20 +793,6 @@ INSERT INTO `services` (`service_id`, `name`, `description`, `fee`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `suppliers`
---
-
-CREATE TABLE `suppliers` (
-  `supplier_id` int(11) NOT NULL,
-  `supplier_name` varchar(100) DEFAULT NULL,
-  `email` varchar(100) DEFAULT NULL,
-  `phone_number` varchar(20) DEFAULT NULL,
-  `address` varchar(200) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Stand-in structure for view `treatmentplan_patients_view`
 -- (See below for the actual view)
 --
@@ -807,6 +821,13 @@ CREATE TABLE `treatment_plans` (
   `status` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `treatment_plans`
+--
+
+INSERT INTO `treatment_plans` (`treatment_plan_id`, `patient_id`, `start_date`, `end_date`, `total_cost`, `status`) VALUES
+(1, 1, '2023-08-14', '2023-08-15', '30.00', 'Active');
+
 -- --------------------------------------------------------
 
 --
@@ -824,15 +845,6 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `addresses_patients_view`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `addresses_patients_view`  AS SELECT `pt`.`patient_id` AS `patient_id`, `pt`.`first_name` AS `first_name`, `pt`.`last_name` AS `last_name`, `pt`.`phone_number` AS `phone_number`, `pt`.`gender` AS `gender`, `pt`.`birth_date` AS `birth_date`, `a`.`street` AS `street`, `a`.`city` AS `city`, `a`.`state` AS `state` FROM (`patients` `pt` join `addresses` `a` on(`pt`.`address` = `a`.`address_id`))  ;
-
--- --------------------------------------------------------
-
---
--- Structure for view `addresses_supplier_view`
---
-DROP TABLE IF EXISTS `addresses_supplier_view`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `addresses_supplier_view`  AS SELECT `s`.`supplier_id` AS `supplier_id`, `s`.`supplier_name` AS `supplier_name`, `s`.`email` AS `email`, `s`.`phone_number` AS `phone_number`, `a`.`street` AS `street`, `a`.`city` AS `city`, `a`.`state` AS `state` FROM (`suppliers` `s` join `addresses` `a` on(`s`.`address` = `a`.`address_id`))  ;
 
 -- --------------------------------------------------------
 
@@ -1004,13 +1016,6 @@ ALTER TABLE `incometable`
   ADD KEY `patient_id` (`patient_id`);
 
 --
--- Indexes for table `inventory`
---
-ALTER TABLE `inventory`
-  ADD PRIMARY KEY (`inventory_id`),
-  ADD KEY `supplier_id` (`supplier_id`);
-
---
 -- Indexes for table `logincredentials`
 --
 ALTER TABLE `logincredentials`
@@ -1046,12 +1051,6 @@ ALTER TABLE `prescriptions`
   ADD KEY `medication_id` (`medication_id`);
 
 --
--- Indexes for table `procedures`
---
-ALTER TABLE `procedures`
-  ADD PRIMARY KEY (`procedure_id`);
-
---
 -- Indexes for table `roles`
 --
 ALTER TABLE `roles`
@@ -1069,12 +1068,6 @@ ALTER TABLE `salary`
 --
 ALTER TABLE `services`
   ADD PRIMARY KEY (`service_id`);
-
---
--- Indexes for table `suppliers`
---
-ALTER TABLE `suppliers`
-  ADD PRIMARY KEY (`supplier_id`);
 
 --
 -- Indexes for table `treatment_plans`
@@ -1097,7 +1090,7 @@ ALTER TABLE `addresses`
 -- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `drugs`
@@ -1109,7 +1102,7 @@ ALTER TABLE `drugs`
 -- AUTO_INCREMENT for table `employees`
 --
 ALTER TABLE `employees`
-  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `equipment`
@@ -1133,13 +1126,7 @@ ALTER TABLE `expense_types`
 -- AUTO_INCREMENT for table `incometable`
 --
 ALTER TABLE `incometable`
-  MODIFY `IncomeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
-
---
--- AUTO_INCREMENT for table `inventory`
---
-ALTER TABLE `inventory`
-  MODIFY `inventory_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `IncomeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `medications`
@@ -1151,7 +1138,7 @@ ALTER TABLE `medications`
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
-  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `patientservices`
@@ -1166,16 +1153,10 @@ ALTER TABLE `prescriptions`
   MODIFY `prescription_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT for table `procedures`
---
-ALTER TABLE `procedures`
-  MODIFY `procedure_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `salary`
@@ -1190,16 +1171,10 @@ ALTER TABLE `services`
   MODIFY `service_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `suppliers`
---
-ALTER TABLE `suppliers`
-  MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `treatment_plans`
 --
 ALTER TABLE `treatment_plans`
-  MODIFY `treatment_plan_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `treatment_plan_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
@@ -1238,12 +1213,6 @@ ALTER TABLE `expenses`
 --
 ALTER TABLE `incometable`
   ADD CONSTRAINT `incometable_ibfk_1` FOREIGN KEY (`patient_id`) REFERENCES `patients` (`patient_id`);
-
---
--- Constraints for table `inventory`
---
-ALTER TABLE `inventory`
-  ADD CONSTRAINT `inventory_ibfk_1` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`supplier_id`);
 
 --
 -- Constraints for table `logincredentials`

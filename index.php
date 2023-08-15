@@ -1,4 +1,5 @@
 <?php
+    include_once('./includes/loader.php');
     session_start();
     if (!isset($_SESSION['empid'])) {
         header('Location: ./login.php');
@@ -6,7 +7,9 @@
 // require('app/util/auth.php');
 $titles = [
         'dashboard'  => ["title" => 'Dashboard',                                       "path" => './app/dashboard/'],
-        'profile'   =>  ["title" => 'Profile',                                         "path" => './app/dashboard/'],    
+        'profile'   =>  ["title" => 'Profile',                                         "path" => './app/profile/'],
+        'changePassword' => ["title" => 'Change Password',                             "path" => './app/profile/'],
+        'changePic' => ["title" => 'Change Profile Picture',                          "path" => './app/profile/'],
 
     //Address
         'address'    => ["title" => 'Address',                                         "path" => './app/address/'],
