@@ -179,6 +179,7 @@ include_once('./app/database/conn.php')
 
 
 $(document).ready(function() {
+    hideLoader();
     $('#dataTable').DataTable({
         "pagingType": "full_numbers",
         "lengthMenu": [
@@ -219,6 +220,8 @@ $(document).ready(function() {
             success: function(response) {
                 var obj = jQuery.parseJSON(response);
                 if (obj.status == 200) {
+                // close modal
+                $('#serviceModal').modal('hide');
                     location.reload();
                     hideLoader();
                 } else {
@@ -233,7 +236,7 @@ $(document).ready(function() {
             complete: function(data) {
                 hideLoader();
             }
-        }
-    });
-}
+        });
+    }
+
 </script>
