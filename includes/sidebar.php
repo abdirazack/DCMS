@@ -251,13 +251,13 @@ body {
                             <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                             Profile
                         </a>
-                        <a class="dropdown-item" href="#">
-                            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Settings
+                        <a class="dropdown-item" href="index.php?page=changePassword">
+                            <i class="fas fa-key fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Change Password
                         </a>
-                        <a class="dropdown-item" href="#">
-                            <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Activity Log
+                        <a class="dropdown-item" href="index.php?page=changePic">
+                            <i class="fas fa-image fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Change Picture
                         </a>
                         <div class="dropdown-divider"></div>
                         <form action="./app/login/logout.php" method="post">
