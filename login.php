@@ -7,37 +7,6 @@
   <title>Login</title>
   <!-- Bootstrap CSS -->
   <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
-
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-
-    .container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    /* .content {
-      margin: 1%;
-      background-color: #fff;
-      padding: 4rem 1rem 4rem 1rem;
-      box-shadow: 0 0 5px 5px rgba(0, 0, 0, .05);
-    } */
-
-    .signin-text {
-      font-style: normal;
-
-      font-size: 34px;
-      font-weight: bold;
-      margin-bottom: 10px;
-
-
-    }
-
-    /* .birthday-section {
-      padding: 15px;
-    } */
-  </style>
 </head>
 
 <body class="my-auto">
@@ -78,12 +47,7 @@
   </div>
 
 
-
-  <?php
-
-  require_once('./includes/header.php');
-
-  ?>
+  <?php  require_once('./includes/header.php');?>
 
   <script>
     $(document).ready(function() {
@@ -108,6 +72,7 @@
               if(obj.status == 200){
                 $('#loginForm')[0].reset();
                 window.location.href = "./index.php?page=dashboard";
+                hideLoader();
               }
               if (obj.status == 404) {
                 
@@ -116,9 +81,9 @@
                 setTimeout(function() {
                   $('#alertBlock').addClass('d-none');
                 }, 3000);
-                
+                hideLoader();
               } 
-              hideLoader();
+              // hideLoader();
             }
           });
         } else {
