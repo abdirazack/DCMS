@@ -45,8 +45,10 @@ include_once('./app/database/conn.php')
                     echo "<tr>";
                     echo "<td>" . $count . "</td>";
                     echo "<td>" . $row["name"] . "</td>";
-                    echo "<td>" . $row["description"] . "</td>";
-                    echo "<td>" . $row["fee"] . "</td>";
+
+                    echo "<td>" . htmlspecialchars($row["description"]) . "</td>";
+                    echo "<td>" . htmlspecialchars($row["fee"]) . "</td>";
+
                     echo "<td class='text-center'> 
                             <button  class='btn btn-primary' onclick='editServices(" . $row['service_id'] . ")'> <i class='fa fa-edit'></i> </button> 
                             <a href='#' class='btn btn-danger ms-2 mt-1' onclick='deleteServices(" . $row['service_id'] . ")'> <i class='fa fa-trash'></i> </a> 
@@ -65,7 +67,8 @@ include_once('./app/database/conn.php')
 
 
 <!-- Modal -->
-<div class="modal fade" id="serviceModal" tabindex="-1" role="dialog" aria-labelledby="serviceModalLabel" aria-hidden="true">
+<div class="modal fade" id="serviceModal" tabindex="-1" role="dialog" aria-labelledby="serviceModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -80,18 +83,22 @@ include_once('./app/database/conn.php')
                     <input type="hidden" name="id" id="id">
                     <div class="mb-3">
                         <label for="name" class="form-label text-primary ">Service Name</label>
-                        <input type="text" class="form-control border border-1 border-primary" id="name" name="name" required>
+                        <input type="text" class="form-control border border-1 border-primary" id="name" name="name"
+                            required>
                     </div>
                     <div class="mb-3">
                         <label for="description" class="form-label text-primary">Description</label>
-                        <textarea class="form-control border border-1 border-primary" id="description" name="description" required></textarea>
+                        <textarea class="form-control border border-1 border-primary" id="description"
+                            name="description" required></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="fee" class="form-label text-primary">Fee</label>
-                        <input type="number" class="form-control border border-1 border-primary" id="fee" name="fee" required>
+                        <input type="number" class="form-control border border-1 border-primary" id="fee" name="fee"
+                            required>
                     </div>
                     <div class="text-center">
-                        <button type="Button" class="btn btn-outline-primary" id="submit" onclick="insertUpdate()">Submit</button>
+                        <button type="Button" class="btn btn-outline-primary" id="submit"
+                            onclick="insertUpdate()">Submit</button>
                     </div>
                 </form>
             </div>
@@ -105,6 +112,7 @@ include_once('./app/database/conn.php')
 
 </html>
 <script>
+
     function editServices(ids) {
 
         var id = ids;
@@ -168,24 +176,27 @@ include_once('./app/database/conn.php')
         });
     }
 
-    $(document).ready(function() {
-        hideLoader();
-        $('#dataTable').DataTable({
-            "pagingType": "full_numbers",
-            "lengthMenu": [
-                [10, 25, 50, -1],
-                [10, 25, 50, "All"]
-            ],
-            responsive: true,
-            language: {
-                search: "_INPUT_",
-                searchPlaceholder: "Search records",
-            }
-        });
-        //$('#dataTable').DataTable();
 
 
+$(document).ready(function() {
+    $('#dataTable').DataTable({
+        "pagingType": "full_numbers",
+        "lengthMenu": [
+            [10, 25, 50, -1],
+            [10, 25, 50, "All"]
+        ],
+        responsive: true,
+        language: {
+            search: "_INPUT_",
+            searchPlaceholder: "Search records",
+        }
     });
+    //$('#dataTable').DataTable();
+
+
+});
+
+
 
     function insertUpdate() {
 
@@ -222,6 +233,7 @@ include_once('./app/database/conn.php')
             complete: function(data) {
                 hideLoader();
             }
-        });
-    }
+        }
+    });
+}
 </script>
