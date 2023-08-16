@@ -21,7 +21,8 @@ WHERE
         )
     )
 ORDER BY
-    a.date, a.time;
+    a.date, a.time
+    LIMIT 10;
 ";
     $result = $conn->query($query);
 

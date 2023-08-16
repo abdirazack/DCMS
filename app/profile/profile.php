@@ -91,34 +91,39 @@ $profile = './app/img/employee/' . $row['profile'];
             <div class="row mb-5 gx-5">
                 <!-- Contact detail -->
                 <div class="col-xl-12 mb-5 mb-xxl-0">
-                    <div class=" px-4 py-5 rounded">
+                    <div class=" px-4 py-2 rounded">
                         <!-- hidden id input -->
                         <input type="hidden" name="id" id="id" value='<?php echo $id;   ?>'>
                         <h4 class="mb-4">Contact detail</h4>
                         <div class="row ">
                             <!-- First Name -->
-                            <div class="col-md-6">
+                            <div class="col-md-6 py-3">
                                 <label class="form-label" for="firstName">First Name *</label>
                                 <input type="text" class="form-control" id="first_Name" name="firstName" value="<?php echo $row['first_name']; ?>">
                             </div>
+                            <!-- Middle Name -->
+                            <div class="col-md-6 py-3">
+                                <label class="form-label" for="firstName">Middle Name *</label>
+                                <input type="text" class="form-control" id="middle_Name" name="middleName" value="<?php echo $row['middle_name']; ?>">
+                            </div>
                             <!-- Last name -->
-                            <div class="col-md-6">
+                            <div class="col-md-6 py-3">
                                 <label class="form-label" for="lastName">Last Name *</label>
                                 <input type="text" class="form-control" id="last_Name" name="lastName" value="<?php echo $row['last_name']; ?>">
                             </div>
                             <!-- Phone number -->
-                            <div class="col-md-6">
+                            <div class="col-md-6 py-3">
                                 <label class="form-label" for="phoneNumber">Phone number *</label>
                                 <input type="text" class="form-control" id="phone" name="phoneNumber" value="<?php echo $row['phone']; ?>">
                             </div>
 
                             <!-- Email -->
-                            <div class="col-md-6">
+                            <div class="col-md-6 py-3">
                                 <label for="email" class="form-label">Email *</label>
                                 <input type="email" class="form-control" id="email" name="email" value="<?php echo $row['email']; ?>">
                             </div>
                             <!-- Address -->
-                            <div class="col-md-12">
+                            <div class="col-md-6 py-3">
                                 <label for="address" class="form-label">Address *</label>
                                 <select class="select2 form-control" name="address" id="address">
 
@@ -135,7 +140,7 @@ $profile = './app/img/employee/' . $row['profile'];
                     </div>
 
                     <!-- button -->
-                    <div class="mt-5 text-center">
+                    <div class="mt-3 text-center">
                         <button type="submit" class="btn btn-outline-primary shadow" name='updateDetails' id='updateDetails'>Update Profile</button>
                     </div>
                 </div>

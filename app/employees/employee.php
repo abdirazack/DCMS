@@ -105,7 +105,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content rounded shadow">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="employeeModalLabel">ADD NEW EMPLOYEE</h1>
+                <h1 class="modal-title fs-5" id="employeeModalLabel1">ADD NEW EMPLOYEE</h1>
             </div>
             <form action="./app/employees/process_employee.php" method="post" id="formInsertUpdate" enctype="multipart/form-data">
                 <div class="modal-body">
@@ -121,12 +121,17 @@
                             <input type="text" class="form-control" id="last_name" name="last_name" required>
                         </div>
                         <div class="mb-3 col-md-4">
-                            <label for="email" class="form-label">Email:</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
+                            <label for="middle_name" class="form-label">Middle Name:</label>
+                            <input type="text" class="form-control" id="middle_name" name="middle_name" required>
                         </div>
+
                     </div>
 
                     <div class="row">
+                        <div class="mb-3 col-md-4">
+                            <label for="email" class="form-label">Email:</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
                         <div class="mb-3 col-md-4">
                             <label for="phone_number" class="form-label">Phone Number:</label>
                             <input type="text" class="form-control" id="phone_number" name="phone_number" required>
@@ -135,13 +140,13 @@
                             <label for="experience" class="form-label">Experience:</label>
                             <input type="text" class="form-control" id="experience" name="experience" required>
                         </div>
+
+                    </div>
+                    <div class="row">
                         <div class="mb-3 col-md-4">
                             <label for="salary_type" class="form-label">Salary Type:</label>
                             <input type="text" class="form-control" id="salary_type" name="salary_type" required>
                         </div>
-                    </div>
-                    <div class="row">
-
                         <div class="mb-3 col-md-4">
                             <label for="currency" class="form-label">Currency:</label>
                             <input type="text" class="form-control" id="currency" name="currency" required>
@@ -150,7 +155,8 @@
                             <label for="amount" class="form-label">Amount:</label>
                             <input type="number" class="form-control" id="amount" name="amount" required>
                         </div>
-
+                    </div>
+                    <div class="row">
                         <div class="mb-3 col-md-4">
                             <label for='gender' class="form-label">Select a Gender</label>
                             <select class="form-select form-control" id="gender" name="gender">
@@ -160,10 +166,7 @@
                                 <option value="Female">Female</option>
                             </select>
                         </div>
-
-                    </div>
-                    <div class="row">
-                        <div class="mb-3">
+                        <div class="mb-3 col-md-4">
                             <!-- select role from database -->
                             <label for="role" class="form-label">Role:</label> <br>
                             <select style="width: 100%;" class="form-select selecjkt2" id="role" name="role" required>
@@ -176,41 +179,38 @@
                                 ?>
                             </select>
                         </div>
-                    </div>
-                    <div class="row">
-                        <label for="address" class="form-label">Address:</label>
-                        <div class="mb-3 input-group">
-                            <!-- select2 address from addresses table  -->
-                            <select style="width: 90%;" class="form-select select2" id="address" name="address">
-                                <option value="">Select Address</option>
-                                <?php
-                                $result = mysqli_query($conn, "SELECT * FROM Addresses");
-                                while ($row = mysqli_fetch_assoc($result)) {
-                                    echo "<option value='" . $row['address_id'] . "'>" . $row['street'] . ', ' . $row['city'] . ', ' . $row['state'] . "</option>";
-                                }
-                                ?>
-                            </select>
-                            <span class="input-group-btn">
-                                <button type="button" class="btn btn-primary mt-2 d-inline" data-toggle="modal" data-target="#addressModal">
-                                    <!-- Add a plus icon with tooltip that says 'add new address' -->
-                                    <icon class="fa fa-plus"></icon>
-                                </button>
-                            </span>
+                        <div class="mb-3 col-md-4">
+                            <label for="address" class="form-label">Address:</label>
+                            <div class="mb-3 input-group">
+                                <!-- select2 address from addresses table  -->
+                                <select style="width: 90%;" class="form-control form-select select2" id="address" name="address">
+                                    <option value="">Select Address</option>
+                                    <?php
+                                    $result = mysqli_query($conn, "SELECT * FROM Addresses");
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        echo "<option value='" . $row['address_id'] . "'>" . $row['street'] . ', ' . $row['city'] . ', ' . $row['state'] . "</option>";
+                                    }
+                                    ?>
+                                </select>
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-primary mt-2 d-inline" data-toggle="modal" data-target="#addressModal">
+                                        <!-- Add a plus icon with tooltip that says 'add new address' -->
+                                        <icon class="fa fa-plus"></icon>
+                                    </button>
+                                </span>
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
 
-                    </div>
 
                     <!-- Upload profile picture -->
                     <div class="row">
-                        <div>
+                        <div class="mb-3 col-md-6">
                             <label class="form-label" for='profile'>Upload Profile</label>
                             <input class="form-control" type="file" name="profile" id="profile">
                         </div>
-                    </div>
-                    <div class="row">
-                        <div>
+
+                        <div  class="mb-3 col-md-6">
                             <label for="Hire Date" class='form-label'>Hire Date</label>
                             <input type="date" class="form-control" id="hire_date" name="hire_date" required>
                         </div>
@@ -245,6 +245,7 @@
                 // alert(response)
                 var data = JSON.parse(response);
                 $('#first_name').val(data.first_name);
+                $('#middle_name').val(data.middle_name);
                 $('#last_name').val(data.last_name);
                 $('#phone_number').val(data.phone);
                 $('#experience').val(data.experience);
@@ -255,7 +256,9 @@
                 $('#gender').val(data.gender);
                 $('#email').val(data.email);
                 $('#formInsertUpdate  select[name="address"').val(data.address).trigger('change');
+                // $('#profile').val(data.profile);
                 $('#hire_date').val(data.hire_date);
+                $('#employeeModalLabel1').html('Update Employee');
                 hideLoader();
             },
             error: function(data) {

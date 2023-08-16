@@ -84,11 +84,11 @@
 
     <div class="row mt-5 mx-auto p-4 bg-white shadow rounded">
         <div class="col-md-12">
-            <h3 class="text-center text-secondary">Appointments</h3>
+            <h3 class="text-center text-secondary">Appointments &nbsp; <a href="index.php?page=appointment" class=" text-decoration-none fs-4 fa fa-link"></a></h3>
         </div>
         <!-- new column for new appointme waiting to be approved -->
         <div class="col-md-6  p-2 border-right d-none d-md-block overflow-auto">
-            <h3 class="text-primary">New </h3>
+            <h3 class="text-primary">Pending </h3>
             <div>
                 <table class="table table-primary table-striped table-hover">
                     <thead>
@@ -108,7 +108,7 @@
 
 
         <div class="col-md-6  p-2 border-left border-right d-none d-md-block overflow-auto">
-            <h3 class="text-success">Upcoming </h3>
+            <h3 class="text-success">Approved </h3>
             <div>
                 <table class="table table-success table-striped table-hover">
                     <thead>
@@ -128,9 +128,10 @@
 
 
     </div>
-    <div class="row">
+    <div class="row mt-5 mx-auto p-4 bg-white shadow rounded">
         <div class="col-md-12  p-2 border-left d-none d-md-block overflow-auto">
             <h3 class="text-danger">Cancelled </h3>
+            <small class="text-muted"> Last 10 Cancelled appointments.</small>
             <div>
                 <table class="table table-danger table-striped table-hover">
                     <thead>
@@ -184,9 +185,9 @@
                 console.log("Error Message:", error);
                 console.log("Full Error Response:", xhr.responseText);
             },
-                complete: function(data) {
-                    hideLoader();
-                }
+            complete: function(data) {
+                hideLoader();
+            }
         });
 
         // Load upcoming appointments
@@ -256,8 +257,10 @@
                         const confirmed = confirm('Are you sure you want to cancel this appointment?');
                         if (!confirmed) {
                             return;
+                        } else {
+                            processAppointment(appointment.appointment_id, 'cancel');
                         }
-                        processAppointment(appointment.appointment_id, 'cancel');
+                        hideLoader();
                     });
                 }
                 actionCell.appendChild(actionButtonElement);
@@ -297,10 +300,11 @@
                 console.log("Error Status:", status);
                 console.log("Error Message:", error);
                 console.log("Full Error Response:", xhr.responseText);
+                hideLoader();
             },
-                complete: function(data) {
-                    hideLoader();
-                }
+            complete: function(data) {
+                hideLoader();
+            }
         });
     }
 </script>
@@ -403,51 +407,50 @@ $mysqli->close();
         }
     });
 </script> -->
- <script>
+<script>
     // Processed data for income and expenses (from PHP)
     var incomeLabels = <?php echo json_encode($incomeLabels); ?>;
     var incomeValues = <?php echo json_encode($incomeValues); ?>;
     var expenseLabels = <?php echo json_encode($incomeLabels); ?>;
     var expenseValues = <?php echo json_encode($expenseValues); ?>;
-var chartData = {
-  labels: incomeLabels,
-  datasets: [
-    {
-      label: 'Income', 
-      data: incomeValues,
-      backgroundColor: 'Transparent',
-      borderColor: 'rgba(99, 225, 132, 1)',  
-      borderWidth: 2
-    },
-    {
-      label: 'Expenses',
-      data: expenseValues, 
-      backgroundColor: 'Transparent',
-      borderColor: 'rgba(255, 99, 132, 1)',
-      borderWidth: 2
-    }
-  ]
-};
+    var chartData = {
+        labels: incomeLabels,
+        datasets: [{
+                label: 'Income',
+                data: incomeValues,
+                backgroundColor: 'Transparent',
+                borderColor: 'rgba(99, 225, 132, 1)',
+                borderWidth: 2
+            },
+            {
+                label: 'Expenses',
+                data: expenseValues,
+                backgroundColor: 'Transparent',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 2
+            }
+        ]
+    };
 
-// Create combined chart
-var ctx = document.getElementById('combinedChart').getContext('2d');
-var combinedChart = new Chart(ctx, {
-  type: 'line',
-  data: chartData,
-  options: {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'top',
-      },
-      title: {
-        display: true,
-        text: 'Cash Flow'
-      }
-    }
-  },
-});
-</script> 
+    // Create combined chart
+    var ctx = document.getElementById('combinedChart').getContext('2d');
+    var combinedChart = new Chart(ctx, {
+        type: 'line',
+        data: chartData,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Cash Flow'
+                }
+            }
+        },
+    });
+</script>
 
 
 <!-- Modal -->
@@ -521,9 +524,9 @@ var combinedChart = new Chart(ctx, {
                 console.log("Error Message:", error);
                 console.log("Full Error Response:", xhr.responseText);
             },
-                complete: function(data) {
-                    hideLoader();
-                }
+            complete: function(data) {
+                hideLoader();
+            }
         });
     });
 </script>

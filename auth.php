@@ -1,12 +1,12 @@
 <?php 
 session_start();
 
-if(!isset($_SESSION['user_id']) || !isset($_SESSION['username'])){
-    header('location: index.php');
+if(isset($_SESSION['empid'])){
+    header('location: index.php?page=dashboard');
     exit;
 }
 else{
-    header('location: login folder/login.php');
+    header('location: ./login.php');
     exit;
 }
 ?>
