@@ -55,7 +55,7 @@ if ($updateStatement->execute()) {
         'status' => 'success',
         'statusCode' => 200,
         'message' => 'Password changed successfully.',
-        "data" => "$newPassword"
+        "newPass" => "$newPassword"
     ];
     header('Content-Type: application/json', true, 200);
 } else {
