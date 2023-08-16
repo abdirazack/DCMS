@@ -15,11 +15,7 @@
       }
     }
 
-    @media screen {
-      #print-content {
-        display: none;
-      }
-    }
+    @media screen {}
   </style>
 </head>
 
@@ -71,26 +67,47 @@
 
               // Add company name and logo to print content
               var companyName = "Emirate Dental Clinic";
-              var logoPath = "./app/img/logos/favicon.svg";
+              var reportTitle = report + " Report";
               var printContent = `
                 <div class="text-center mb-4">
-                  <h4 class="text-secondary">Dental Record Reports</h4>
-                  <img src="${logoPath}" alt="Company Logo" class="img-fluid" style="max-width: 100px;">
-                  <h3 class="mt-2">${companyName}</h3>
+                  <h1 class="text-secondary">Dental Record Reports</h1>
+                  <h2 class="mt-2">${companyName}</h2>
+                  <h3 class="mt-2">${reportTitle}</h3>
                 </div>
-                ${data}
               `;
-              $('#print-content').html(printContent);
+
+
 
 
               // Initialize DataTable
               $('#dataTable').DataTable({
                 dom: 'Bfrtip', // Add buttons to the DataTables' DOM
                 buttons: [
-                  'copy', 'csv', 'excel', 'pdf', 'print' // Add export buttons
+                  'copy', 'csv', 'excel', 'pdf', // Add export buttons
+                  {
+                    extend: 'print',
+                    text: 'Print page',
+                    title : "",
+                    exportOptions: {
+                      modifier: {
+                        page: 'current',
+
+                      }
+
+                    },
+                    customize: function(win) {
+                      $(win.document.body).find('h1').css('text-align', 'center');
+                      $(win.document.body).find('h1').css('font-size', '20px');
+                      // add comapny name and logo
+                      $(win.document.body).find('h1').after(printContent);
+
+                    }
+                  }
                 ],
+
                 // You can add other DataTable options here
               });
+
 
 
             },

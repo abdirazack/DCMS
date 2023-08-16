@@ -69,10 +69,10 @@
                     echo "<tr >";
                     echo "<td>" . $count . "</td>";
                     // echo "<td>" . $row['patient_id'] . "</td>";
-                    echo "<td>" . $row['first_name'] . "</td>";
-                    echo "<td>" . $row['last_name'] . "</>";
-                    echo "<td>" . $row['phone_number'] . "</td>";
-                    echo "<td>" . $row['gender'] . "</td>";
+                    echo "<td>" . htmlspecialchars( $row['first_name']) . "</td>";
+                    echo "<td>" . htmlspecialchars( $row['last_name'] ). "</>";
+                    echo "<td>" .  htmlspecialchars($row['phone_number'] ). "</td>";
+                    echo "<td>" .  htmlspecialchars($row['gender'] ). "</td>";
                     echo "<td class='text-truncate' style='max-width: 10px;'>" . $row['street'] . ' ' . $row['city'] . ' ' . $row['state'] . "</td>";
                     echo "<td>" . $row['birth_date'] . "</td>";
                     echo "<td class='text-center ignore-print'> 
