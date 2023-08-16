@@ -1,11 +1,11 @@
-<table class="table table-hover text-white" id="dataTable">
+<table class="table table-hover " id="dataTable">
     <caption class="text-white fs-3">Patients Report</caption>
     <thead class="thead-dark">
         <th data-field="id">Patient ID</th>
-        <th data-field="first name" data-sortable="true">First Name</th>
-        <th data-field="last name" data-sortable="true">Last Name</th>
-        <th data-field="Phone" data-sortable="true">Phone</th>
-        <th data-field="gender" data-sortable="true">Gender</th>
+        <th data-field="first name" >First Name</th>
+        <th data-field="last name" >Last Name</th>
+        <th data-field="Phone" >Phone</th>
+        <th data-field="gender" >Gender</th>
         <th data-field="birth_date">Birth Date</th>
         <th data-field="street">Street</th>
         <th data-field="state">State</th>
@@ -33,15 +33,3 @@
     </tbody>
 </table>
 
-<script>
-    $(document).ready(function() {
-        // Initialize DataTable
-        $('#dataTable').DataTable({
-            dom: 'Bfrtip', // Add buttons to the DataTables' DOM
-            buttons: [
-                'copy', 'csv', 'excel', 'pdf', 'print' // Add export buttons
-            ],
-            // You can add other DataTable options here
-        });
-    });
-</script>

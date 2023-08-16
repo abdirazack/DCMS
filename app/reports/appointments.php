@@ -1,4 +1,4 @@
-<table class="table table-hover" id="appointmentSummaryTable">
+<table class="table table-hover" id="dataTable">
     <caption class="text-white fs-3">Appointment Summary Report</caption>
     <thead class="thead-dark text-truncate">
         <th data-field="appointment_date" data-sortable="true">Date</th>
@@ -42,15 +42,3 @@
     </tbody>
 </table>
 
-<script>
-    $(document).ready(function() {
-        // Initialize DataTable
-        $('#appointmentSummaryTable').DataTable({
-            dom: 'Bfrtip', // Add buttons to the DataTables' DOM
-            buttons: [
-                'copy', 'csv', 'excel', 'pdf', 'print' // Add export buttons
-            ],
-            // You can add other DataTable options here
-        });
-    });
-</script>
