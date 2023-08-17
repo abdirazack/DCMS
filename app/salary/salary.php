@@ -62,7 +62,7 @@ $result = mysqli_query($conn, $sql);
                             <td><?php echo  $row["last_name"]; ?></td>
                             <td><?php echo  $row["salary_type"]; ?></td>
                             <td><?php echo  $row["currency"]; ?></td>
-                            <td><?php echo  $row["amount"]; ?></td>
+                            <td><?php echo  htmlspecialchars ($row["amount"]); ?></td>
                             <td><?php echo  $paid_in_full; ?></td>
                             <td><?php echo  $row["datePaid"]; ?></td>
                             <td class='text-center'>

@@ -87,10 +87,10 @@
                     while ($row = mysqli_fetch_array($result)) {
                     ?>
                         <tr>
-                            <td> <?php echo $row['first_name'] . ' ' . $row['last_name'] ?> </td>
-                            <td> <?php echo $row['Services'] ?></td>
-                            <td> <?php echo $row['Quantity'] ?></td>
-                            <td> <?php echo $row['Total'] ?></td>
+                            <td> <?php echo  htmlspecialchars ($row['first_name']) . ' ' . htmlspecialchars ( $row['last_name']) ?> </td>
+                            <td> <?php echo  htmlspecialchars ($row['Services']) ?></td>
+                            <td> <?php echo  htmlspecialchars ($row['Quantity']) ?></td>
+                            <td> <?php echo  htmlspecialchars ($row['Total']) ?></td>
                             <td class="text-center">
                                 <button class="btn btn-primary" onclick="ViewpatientService(<?php echo $row['patient_id']; ?>)" name='view' id='view'>
                                     <i class="fas fa-eye"></i>

@@ -44,7 +44,7 @@ include_once('./app/database/conn.php')
                     $count++;
                     echo "<tr>";
                     echo "<td>" . $count . "</td>";
-                    echo "<td>" . $row["name"] . "</td>";
+                    echo "<td>" .  htmlspecialchars ($row["name"]) . "</td>";
 
                     echo "<td>" . htmlspecialchars($row["description"]) . "</td>";
                     echo "<td>" . htmlspecialchars($row["fee"]) . "</td>";

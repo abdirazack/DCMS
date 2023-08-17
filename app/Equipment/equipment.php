@@ -40,11 +40,11 @@
                         echo "<tr>";
                         echo "<td>" . $count . "</td>";
                         // echo "<td>" . $row['equipment_id'] . "</td>";
-                        echo "<td>" . $row['equipment_type'] . "</td>";
-                        echo "<td>" . $row['manufacturer'] . "</>";
-                        echo "<td>" . $row['model'] . "</td>";
+                        echo "<td>" . htmlspecialchars ($row['equipment_type']) . "</td>";
+                        echo "<td>" . htmlspecialchars ($row['manufacturer']) . "</>";
+                        echo "<td>" . htmlspecialchars ( $row['model']) . "</td>";
                         echo "<td>" . $row['purchase_date'] . "</td>";
-                        echo "<td>" . $row['warranty_information'] . "</td>";
+                        echo "<td>" .htmlspecialchars ( $row['warranty_information']) . "</td>";
                         echo "<td class='text-center'> 
                                     <button  class='btn btn-primary' onclick='editEquipment(" . $row['equipment_id'] . ")'> <i class='fa fa-edit'></i> </button> 
                                     <a href='#' class='btn btn-danger ms-2 mt-1' onclick='deleteEquipment(" . $row['equipment_id'] . ")'> <i class='fa fa-trash'></i> </a> 
