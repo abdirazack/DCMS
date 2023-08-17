@@ -31,11 +31,11 @@
           <div class=" col-md-3 mb-5">
             <select class="form-control  bg-white text-secondary" id="reports" style="border-radius:10px;">
               <option value="" class="fs-5">Select Report</option>
-              <option value="appointments">Appointments Summary Report</option>
-              <option value="patients">Patients Report</option>
-              <option value="employees">Employees Report</option>
-              <option value="income">Income Report</option>
-              <option value="expense">Expense Report</option>
+              <option value="Appointments">Appointments Summary Report</option>
+              <option value="Patients">Patients Report</option>
+              <option value="Employees">Employees Report</option>
+              <option value="Income">Income Report</option>
+              <option value="Expense">Expense Report</option>
             </select>
           </div>
           <div id="tableHolder">
@@ -68,11 +68,12 @@
               // Add company name and logo to print content
               var companyName = "Emirate Dental Clinic";
               var reportTitle = report + " Report";
+              date = new Date();
               var printContent = `
                 <div class="text-center mb-4">
-                  <h1 class="text-secondary">Dental Record Reports</h1>
-                  <h2 class="mt-2">${companyName}</h2>
+                  <h1 class="mt-2">${companyName}</h1>
                   <h3 class="mt-2">${reportTitle}</h3>
+                  <h4 class="mt-2">${date.toDateString()}</h4>
                 </div>
               `;
 

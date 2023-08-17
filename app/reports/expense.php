@@ -1,5 +1,5 @@
 <table class="table table-hover" id="dataTable">
-    <caption class="text-white fs-3">Expenses Report</caption>
+    <caption class="text-secondary fs-1">Expenses Report</caption>
     <thead class="thead-dark text-truncate">
         <th data-field="id">ID</th>
         <th data-field="expense_type" data-sortable="true">Expense Type</th>

@@ -1,13 +1,13 @@
 <style>
-.bg {
-    background-color: rgb(49, 64, 83);
-}
+    .bg {
+        background-color: rgb(49, 64, 83);
+    }
 
-@import url('https://fonts.cdnfonts.com/css/poppins');
+    @import url('https://fonts.cdnfonts.com/css/poppins');
 
-body {
-    font-family: 'poppins';
-}
+    body {
+        font-family: 'poppins';
+    }
 </style>
 
 <!-- Sidebar -->
@@ -31,6 +31,14 @@ body {
             <i class="fas fa-fw fa-house"></i>
             <span>Dashboard</span></a>
     </li>
+    <hr class="sidebar-divider">
+
+    <li class="nav-item">
+        <a class="nav-link" href="index.php?page=appointment">
+            <i class="fa fa-fw fa-calendar"></i>
+            <span>Appointments</span>
+        </a>
+    </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider">
@@ -41,24 +49,11 @@ body {
     </div>
 
     <!-- Nav Item - Books Collapse Menu ---------------------------------------------------------------- -->
-    <li class="nav-item">
-        <a class="nav-link" href="index.php?page=appointment">
-            <i class="fa fa-fw fa-calendar"></i>
-            <span>Appointments</span>
-        </a>
-        <div id="collapseAppointment" class="collapse" aria-labelledby="headingUtilities"
-            data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Appointments:</h6>
-                <a class="collapse-item">Add New Appointment</a>
-            </div>
-        </div>
-    </li>
+
     <!-- ------------------------------------------------------------------------------------------------ -->
     <!-- Nav Item - Users Collapse Menu ---------------------------------------------------------------- -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePatient"
-            aria-expanded="true" aria-controls="collapseUtilities">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePatient" aria-expanded="true" aria-controls="collapseUtilities">
             <i class="fa-solid fa-fw fa-person-half-dress"></i>
             <span>Patients</span>
         </a>
@@ -86,29 +81,47 @@ body {
     if ($_SESSION['isAdmin']) {
 
     ?>
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStaff" aria-expanded="true"
-            aria-controls="collapseUtilities">
-            <i class="fas fa-fw fa-user"></i>
-            <span>Employees</span>
-        </a>
-        <div id="collapseStaff" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">All Employees:</h6>
-                <a class="collapse-item" href="index.php?page=employee">Employees</a>
-                <h6 class="collapse-header">Employee Roles:</h6>
-                <a class="collapse-item" href="index.php?page=role">Roles</a>
-                <h6 class="collapse-header">Employee Salaries:</h6>
-                <a class="collapse-item" href="index.php?page=salary">Salaries</a>
-                <h6 class="collapse-header">Employee Logins:</h6>
-                <a class="collapse-item" href="index.php?page=logins">Employee Login Credentials</a>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStaff" aria-expanded="true" aria-controls="collapseUtilities">
+                <i class="fas fa-fw fa-user"></i>
+                <span>Employees</span>
+            </a>
+            <div id="collapseStaff" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">All Employees:</h6>
+                    <a class="collapse-item" href="index.php?page=employee">Employees</a>
+                    <h6 class="collapse-header">Employee Roles:</h6>
+                    <a class="collapse-item" href="index.php?page=role">Roles</a>
+                    <h6 class="collapse-header">Employee Salaries:</h6>
+                    <a class="collapse-item" href="index.php?page=salary">Salaries</a>
+                    <h6 class="collapse-header">Employee Logins:</h6>
+                    <a class="collapse-item" href="index.php?page=logins">Employee Login Credentials</a>
+                </div>
             </div>
-        </div>
-    </li>
+        </li>
     <?php
     } ?>
     <!-- ------------------------------------------------------------------------------------------------ -->
     <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
+    <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
+    <li class="nav-item">
+
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseExpenses" aria-expanded="true" aria-controls="collapseUtilities">
+            <i class="fas fa-fw fa-money-bills"></i>
+            <span>Expenses</span>
+        </a>
+        <div id="collapseExpenses" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Expenses Types:</h6>
+                <a class="collapse-item" href="index.php?page=expense_type">Expense Type</a>
+                <h6 class="collapse-header">Expenses:</h6>
+                <a class="collapse-item" href="index.php?page=expenses">Expense</a>
+            </div>
+        </div>
+    </li>
+
+    <!-- ------------------------------------------------------------------------------------------------ -->
+  
     <li class="nav-item">
         <a class="nav-link " href="index.php?page=payments">
             <i class="fas fa-fw fa-money-bills"></i>
@@ -129,26 +142,7 @@ body {
     </li>
 
     <!-- ------------------------------------------------------------------------------------------------ -->
-    <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
-    <li class="nav-item">
-
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseExpenses"
-            aria-expanded="true" aria-controls="collapseUtilities">
-            <i class="fas fa-fw fa-money-bills"></i>
-            <span>Expenses</span>
-        </a>
-        <div id="collapseExpenses" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Expenses Types:</h6>
-                <a class="collapse-item" href="index.php?page=expense_type">Expense Type</a>
-                <h6 class="collapse-header">Expenses:</h6>
-                <a class="collapse-item" href="index.php?page=expenses">Expense</a>
-            </div>
-        </div>
-    </li>
-
-    <!-- ------------------------------------------------------------------------------------------------ -->
-    <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
+      <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
     <li class="nav-item">
 
         <a class="nav-link collapsed" href="index.php?page=medication">
@@ -235,18 +229,14 @@ body {
 
                 <!-- Nav Item - User Information -->
                 <li class="nav-item dropdown no-arrow">
-                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <span
-                            class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION["employee_name"];  ?></span>
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION["employee_name"];  ?></span>
                         <div class="rounded-circle " style="border: 1px solid grey;">
-                            <img class="img-profile rounded-circle" alt=""
-                                src="<?php echo './app/img/employee/' . $_SESSION["profile"];  ?>">
+                            <img class="img-profile rounded-circle" alt="" src="<?php echo './app/img/employee/' . $_SESSION["profile"];  ?>">
                         </div>
                     </a>
                     <!-- Dropdown - User Information -->
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                        aria-labelledby="userDropdown">
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                         <a class="dropdown-item" href="index.php?page=profile">
                             <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                             Profile
@@ -261,8 +251,7 @@ body {
                         </a>
                         <div class="dropdown-divider"></div>
                         <form action="./app/login/logout.php" method="post">
-                            <input type="submit" class="form-control btn btn-outline-primary" name="logout" id="logout"
-                                value="Logout">
+                            <input type="submit" class="form-control btn btn-outline-primary" name="logout" id="logout" value="Logout">
                         </form>
                     </div>
                 </li>
@@ -272,10 +261,10 @@ body {
         </nav>
         <!-- End of Topbar -->
         <script>
-        $(document).ready(function() {
-            $("#sidebarToggle").click(function() {
-                $("body").toggleClass("sidebar-toggled");
-                $(".sidebar").toggleClass("toggled");
+            $(document).ready(function() {
+                $("#sidebarToggle").click(function() {
+                    $("body").toggleClass("sidebar-toggled");
+                    $(".sidebar").toggleClass("toggled");
+                });
             });
-        });
         </script>

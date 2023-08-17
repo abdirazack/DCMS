@@ -2,7 +2,6 @@
 <html>
 
 <head>
-    <title>Staff Page</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php
@@ -34,7 +33,7 @@
     <div class=" mt-1 p-3 mx-auto rounded shadow overflow-auto">
         <div class='small' id='small'></div>
         <div class='d-flex justify-content-between mb-4'>
-            <h2 class="text-center text-white bg-primary px-2">Patients List</h2>
+            <h2 class="text-center text-white bg-primary p-2 rounded shadow">Patients List</h2>
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary me-5" data-toggle="modal" data-target="#patientModal">
                 <i class="fa-solid fa-plus "></i>
@@ -257,17 +256,7 @@
             "info": true,
             'pagingType': 'full_numbers',
 
-            // Add the Buttons extension options
-            "dom": 'Bfrtip', // B for buttons
-            "buttons": [
-                'copy', 'csv', 'excel', 'pdf',
-                {
-                    extend: 'print',
-                    exportOptions: {
-                        columns: ':visible:not(.ignore-print)' // Exclude columns with "ignore-print" class
-                    }
-                }
-            ]
+            
         });
 
 

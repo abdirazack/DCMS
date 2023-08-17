@@ -1,5 +1,5 @@
 <table class="table table-hover" id="dataTable">
-    <caption class="text-white fs-3">Appointment Summary Report</caption>
+    <caption class="text-secondary fs-1">Appointment Summary Report</caption>
     <thead class="thead-dark text-truncate">
         <th data-field="appointment_date" data-sortable="true">Date</th>
         <th data-field="total_appointments" data-sortable="true">Total Appointments</th>

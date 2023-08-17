@@ -1,5 +1,5 @@
 <table class="table table-hover " id="dataTable">
-    <caption class="text-white fs-3">Patients Report</caption>
+    <caption class="text-secondary fs-1">Patients Report</caption>
     <thead class="thead-dark">
         <th data-field="id">Patient ID</th>
         <th data-field="first name" >First Name</th>

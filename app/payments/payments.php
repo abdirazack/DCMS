@@ -71,7 +71,7 @@ $result = mysqli_query($conn, $sql);
                         <td><?php echo htmlspecialchars (  $row["IncomeType"]); ?></td>
                         <td><?php echo htmlspecialchars (  $row["IncomeAmount"]); ?></td>
                         <td><?php echo htmlspecialchars (  $row["IncomeAmountPaid"]); ?></td>
-                        <td><?php $amount_due; ?></td>
+                        <td><?php  echo $amount_due; ?></td>
                         <td><?php echo htmlspecialchars (  $row["discount"]); ?></td>
                         <td><?php echo  $row["IncomeDate"]; ?></td>
                         <td class='text-center'>

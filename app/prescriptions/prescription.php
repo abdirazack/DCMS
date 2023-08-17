@@ -15,7 +15,7 @@
     <div class="container p-3 rounded shadow bg-white overflow-auto">
         <form id="formPS" class="m-2">
             <div>
-                <h3 class="text-center">Patient Prescription</h3>
+                <h3 class="text-center text-white bg-primary p-2 rounded shadow">Patient Prescription</h3>
             </div>
             <div class="row m-5">
                 <!-- hidden id input -->
