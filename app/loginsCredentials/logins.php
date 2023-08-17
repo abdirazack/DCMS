@@ -51,12 +51,12 @@ include_once('./app/database/conn.php')
                     echo "<tr>";
                     echo "<td>" . $count . "</td>";
 
-                    echo "<td>" . $row['employee_id'] . "</td>";
-                    echo "<td>" . $row['first_name'] . "</td>";
-                    echo "<td>" . $row['last_name'] . "</>";
-                    echo "<td>" . $row['role_name'] . "</>";
-                    echo "<td>" . $row['Username'] . "</td>";
-                    echo "<td>" . $row['Password'] . "</td>";
+                    echo "<td>" . htmlspecialchars ( $row['employee_id']) . "</td>";
+                    echo "<td>" . htmlspecialchars ( $row['first_name']) . "</td>";
+                    echo "<td>" . htmlspecialchars ( $row['last_name']) . "</>";
+                    echo "<td>" . htmlspecialchars ( $row['role_name']) . "</>";
+                    echo "<td>" . htmlspecialchars ( $row['Username']). "</td>";
+                    echo "<td>" . htmlspecialchars ( $row['Password']) . "</td>";
                     echo "<td>" . $chb . "</td>";
                     echo "<td class='text-center'> 
                                     <button  class='btn btn-primary' onclick='editLogin(" . $row['employee_id'] . ")'> <i class='fa fa-edit'></i> </button> 

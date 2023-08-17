@@ -37,9 +37,9 @@ include_once('./app/database/conn.php');
                     echo "<tr>";
                     echo "<td>" . $count . "</td>";
                     // echo "<td>" . $row['address_id'] . "</td>";
-                    echo "<td>" . $row['street'] . "</td>";
-                    echo "<td>" . $row['city'] . "</td>";
-                    echo "<td>" . $row['state'] . "</td>";
+                    echo "<td>" . htmlspecialchars ( $row['street']) . "</td>";
+                    echo "<td>" . htmlspecialchars ( $row['city']) . "</td>";
+                    echo "<td>" . htmlspecialchars ( $row['state']) . "</td>";
                     echo "<td class='text-center'> 
                                     <button  class='btn btn-primary' onclick='editAddress(" . $row['address_id'] . ")'> <i class='fa fa-edit'></i> </button> 
                                     <a href='#' class='btn btn-danger ms-2 mt-1' onclick='deleteAddress(" . $row['address_id'] . ")'> <i class='fa fa-trash'></i> </a> 

@@ -45,7 +45,7 @@
                         echo "<td>" . $row['last_name'] . "</td>";
                         echo "<td>" . $row['start_date'] . "</td>";
                         echo "<td>" . $row['end_date'] . "</td>";
-                        echo "<td>" . $row['total_cost'] . "</td>";
+                        echo "<td>" .  htmlspecialchars ($row['total_cost']) . "</td>";
                         echo "<td>" . $row['status'] . "</td>";
                         echo "<td class='text-center'> 
                                     <button  class='btn btn-primary' onclick='editTreatment(" . $row['treatment_plan_id'] . ")'> <i class='fa fa-edit'></i> </button> 

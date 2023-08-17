@@ -49,10 +49,10 @@ include_once('./app/database/conn.php');
 
                         <tr>
                             <td><?php echo  $count; ?> </td>
-                            <td><?php echo  $row["expense_type"]; ?></td>
-                            <td><?php echo  $row["description"]; ?></td>
-                            <td><?php echo  $row["amount"]; ?></td>
-                            <td><?php echo  $row["quantity"]; ?></td>
+                            <td><?php echo   htmlspecialchars ($row["expense_type"]); ?></td>
+                            <td><?php echo   htmlspecialchars ($row["description"]); ?></td>
+                            <td><?php echo   htmlspecialchars ($row["amount"]); ?></td>
+                            <td><?php echo   htmlspecialchars ($row["quantity"]); ?></td>
                             <td><?php echo  $row["date"]; ?></td>
                             <td class='text-center'>
                                 <button class='btn btn-primary' onclick='editExpenses(<?php echo  $row["expense_id"]; ?>)'> <i class='fa fa-edit'></i> </button>

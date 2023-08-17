@@ -38,8 +38,8 @@ include_once('./app/database/conn.php')
                     echo "<tr>";
                     echo "<td>" . $count . "</td>";
                     // echo "<td>" . $row['role_id'] . "</td>";
-                    echo "<td>" . $row['expense_type'] . "</td>";
-                    echo "<td>" . $row['expense_type_description'] . "</>";
+                    echo "<td>" . htmlspecialchars ( $row['expense_type']) . "</td>";
+                    echo "<td>" .  htmlspecialchars ( $row['expense_type_description']) . "</>";
                     echo "<td class='text-center'> 
                                     <button  class='btn btn-primary' onclick='editExpense(" . $row['expense_type_id'] . ")'> <i class='fa fa-edit'></i> </button> 
                                     <a href='#' class='btn btn-danger ms-2 mt-1' onclick='deleteExpense(" . $row['expense_type_id'] . ")'> <i class='fa fa-trash'></i> </a> 

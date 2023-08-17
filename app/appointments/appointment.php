@@ -58,7 +58,7 @@ if (!$schedules) {
                                         $query = "SELECT * FROM `patients`";
                                         $result = mysqli_query($conn, $query);
                                         while ($row = mysqli_fetch_array($result)) {
-                                            echo "<option value='" . $row['patient_id'] . "'>" . $row['first_name'] . ' ' . $row['last_name'] . "</option>";
+                                            echo "<option value='" . htmlspecialchars ( $row['patient_id']) . "'>" .htmlspecialchars ( $row['first_name']) . ' ' . htmlspecialchars ( $row['last_name']) . "</option>";
                                         }
                                         ?>
                                     </select>
@@ -74,7 +74,7 @@ if (!$schedules) {
                                         $query = "SELECT * FROM `addresses_employees_view` WHERE role_name = 'dentist';                                        ";
                                         $result = mysqli_query($conn, $query);
                                         while ($row = mysqli_fetch_array($result)) {
-                                            echo "<option value='" . $row['employee_id'] . "'>" . $row['first_name'] . ' ' . $row['last_name'] . "</option>";
+                                            echo "<option value='" . htmlspecialchars ($row['employee_id']) . "'>" . htmlspecialchars ( $row['first_name']) . ' ' .htmlspecialchars ( $row['last_name']) . "</option>";
                                         }
                                         ?>
                                     </select>
