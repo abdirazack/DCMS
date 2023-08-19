@@ -1,4 +1,6 @@
 <?php
+
+
 //connect to database
 include_once('./app/database/conn.php');
 // Get all appointments
@@ -21,6 +23,10 @@ if (!$schedules) {
         // Add the appointment to the array
         $sched_res[$row['appointment_id']] = $row;
     }
+}
+if (isset($_GET['page']) && $_GET['page'] === 'appointment' && isset($_GET['trigger_id'])) {
+    $trigger_id = $_GET['trigger_id'];
+    echo "<script>triggerEdit($trigger_id);</script>";
 }
 ?>
 <style>
@@ -58,7 +64,7 @@ if (!$schedules) {
                                         $query = "SELECT * FROM `patients`";
                                         $result = mysqli_query($conn, $query);
                                         while ($row = mysqli_fetch_array($result)) {
-                                            echo "<option value='" . htmlspecialchars ( $row['patient_id']) . "'>" .htmlspecialchars ( $row['first_name']) . ' ' . htmlspecialchars ( $row['last_name']) . "</option>";
+                                            echo "<option value='" . htmlspecialchars($row['patient_id']) . "'>" . htmlspecialchars($row['first_name']) . ' ' . htmlspecialchars($row['last_name']) . "</option>";
                                         }
                                         ?>
                                     </select>
@@ -74,7 +80,7 @@ if (!$schedules) {
                                         $query = "SELECT * FROM `addresses_employees_view` WHERE role_name = 'dentist';                                        ";
                                         $result = mysqli_query($conn, $query);
                                         while ($row = mysqli_fetch_array($result)) {
-                                            echo "<option value='" . htmlspecialchars ($row['employee_id']) . "'>" . htmlspecialchars ( $row['first_name']) . ' ' .htmlspecialchars ( $row['last_name']) . "</option>";
+                                            echo "<option value='" . htmlspecialchars($row['employee_id']) . "'>" . htmlspecialchars($row['first_name']) . ' ' . htmlspecialchars($row['last_name']) . "</option>";
                                         }
                                         ?>
                                     </select>
@@ -211,13 +217,13 @@ if (!$schedules) {
                         }
 
                     },
-                error: function(data) {
-                    alert(data);
-                    hideLoader();
-                },
-                complete: function(data) {
-                    hideLoader();
-                }
+                    error: function(data) {
+                        alert(data);
+                        hideLoader();
+                    },
+                    complete: function(data) {
+                        hideLoader();
+                    }
                 });
             });
 
@@ -269,13 +275,13 @@ if (!$schedules) {
                                     hideLoader();
                                 }
                             },
-                error: function(data) {
-                    alert(data);
-                    hideLoader();
-                },
-                complete: function(data) {
-                    hideLoader();
-                }
+                            error: function(data) {
+                                alert(data);
+                                hideLoader();
+                            },
+                            complete: function(data) {
+                                hideLoader();
+                            }
                         });
 
                     }
@@ -348,6 +354,22 @@ if (!$schedules) {
 
         });
         //onsubmit schedule-form 
+
+        function triggerEdit(id) {
+            var id = id;
+            var sched = scheds[id];
+            // alert(JSON.stringify(sched));
+            $('#schedule-form input[name="id"]').val(sched.appointment_id);
+            $('#schedule-form select[name="status"]').val(sched.status).trigger('change');
+            $('#schedule-form select[name="patients"]').val(sched.patient_id).trigger('change');
+            $('#schedule-form select[name="employee"]').val(sched.employee_id).trigger('change');
+            // $('#schedule-form select[name="service"]').val(sched.service_id).trigger('change');
+            $('#schedule-form input[name="date"]').val(sched.date);
+            $('#schedule-form input[name="time"]').val(sched.time);
+            $('#save').val('Update');
+            $('#schedule-form').attr('action', './app/appointments/save.php');
+            $('#event-details-modal').modal('hide');
+        };
     </script>
     <script src="./app/appointments/app.js"></script>
 </body>

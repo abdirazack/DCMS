@@ -121,7 +121,7 @@
     </li>
 
     <!-- ------------------------------------------------------------------------------------------------ -->
-  
+
     <li class="nav-item">
         <a class="nav-link " href="index.php?page=payments">
             <i class="fas fa-fw fa-money-bills"></i>
@@ -142,7 +142,7 @@
     </li>
 
     <!-- ------------------------------------------------------------------------------------------------ -->
-      <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
+    <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
     <li class="nav-item">
 
         <a class="nav-link collapsed" href="index.php?page=medication">
@@ -226,6 +226,24 @@
                 </li>
                 <div class="topbar-divider d-none d-sm-block"></div>
 
+                <!-- add notification button -->
+                <li class="nav-item dropdown no-arrow mx-1">
+                    <a class="nav-link dropdown-toggle" href="#" id="notificationsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-bell fa-fw"></i>
+                        <span id="counter" class="badge badge-danger badge-counter">0</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="notificationsDropdown">
+                        <h6 class="dropdown-header text-primary">
+                            Notifications
+                        </h6>
+                        <div id="notifications">
+
+                        </div>
+                        <!-- mark all as read -->
+                        <a class="dropdown-item text-center small text-gray-500" href="#" onclick="markAllAsRead()">Mark all as read</a>
+                    </div>
+                </li>
+
 
                 <!-- Nav Item - User Information -->
                 <li class="nav-item dropdown no-arrow">
@@ -256,15 +274,122 @@
                     </div>
                 </li>
 
+
+
+
             </ul>
 
         </nav>
         <!-- End of Topbar -->
         <script>
+            function fetchNotificationCounter() {
+                $.ajax({
+                    type: "GET",
+                    url: "./app/notifications/fetch.php",
+                    dataType: "html",
+                    success: function(data) {
+                        // alert(data);
+                        //    console.log(data);
+                        $("#counter").text(data);
+
+                    }
+                });
+            }
+
+            function fetchNotificationsDetails() {
+                $.ajax({
+                    url: './app/notifications/get.php', // Replace with the path to your PHP script
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        // alert(data);
+                        var notificationsContainer = $('#notifications');
+                        notificationsContainer.empty();
+
+
+                        $.each(data, function(index, notification) {
+                            appointmed_id = notification.appointment_id;
+                            var notificationHtml = `
+                                <a class="dropdown-item"  onclick="goToTriggerEdit(${appointmed_id}); return false;" id="notyLink">
+                                    <i class="fas fa-envelope fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    ${notification.patient_name}
+                                    <span class="float-right text-muted small">${notification.time}</span>
+                                </a>
+                    `;
+                            notificationsContainer.append(notificationHtml);
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            }
+
+            function goToTriggerEdit(id) {
+                console.log(id);
+                $.ajax({
+                    type: "GET",
+                    url: "./index.php",
+                    data: {
+                        page: "appointment",
+                        trigger_id: id
+                    },
+                    success: function(response) {
+                        // Handle the response if needed
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            }
+
+
             $(document).ready(function() {
                 $("#sidebarToggle").click(function() {
                     $("body").toggleClass("sidebar-toggled");
                     $(".sidebar").toggleClass("toggled");
                 });
+
+                // Attach a click event to the notification link
+
+
+                // Initial notifications update
+                fetchNotificationCounter();
+
+                // Update notifications on an interval (e.g., every 1 minute)
+                setInterval(fetchNotificationCounter, 600); // 60000 ms = 1 minute
+                setInterval(fetchNotificationsDetails, 600); // 60000 ms = 1 minute
+
+
             });
+            // mark all as read
+            function markAllAsRead() {
+                // alert("mark all as read");
+                showLoader();
+                $.ajax({
+                    type: "GET",
+                    url: "./app/notifications/markAsRead.php",
+                    dataType: "html",
+                    success: function(data) {
+                        // alert(data);
+                        console.log(data);
+
+                        var obj = JSON.parse(data);
+                        if (obj.status == 200) {
+                            fetchNotificationCounter();
+                            fetchNotificationsDetails();
+                            hideLoader();
+                        } else {
+                            hideLoader();
+                            alert("Something went wrong");
+                        }
+
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                        console.error(error);
+                        hideLoader();
+                    }
+                });
+            }
         </script>

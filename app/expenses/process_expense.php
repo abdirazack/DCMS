@@ -2,7 +2,8 @@
   // Connect to the database
   include_once('../database/conn.php');
 
-
+  session_start();
+  $employee_id = $_SESSION['empid'];
     $id = @$_POST["id"];
     $date = $_POST["date"];
     $description = $_POST["description"];
@@ -15,7 +16,7 @@
   if ($id == "") {
 
     // Insert a new expense
-    $sql = "INSERT INTO expenses ( amount, quantity, description,expense_type, date) VALUES (  '$amount', '$quantity ','$description', '$expense_type','$date' )";
+    $sql = "INSERT INTO expenses ( employee_id, amount, quantity, description,expense_type, date) VALUES ( '$employee_id', '$amount', '$quantity ','$description', '$expense_type','$date' )";
     if ($conn->query($sql) === TRUE) {
         $data = ['message'=>'Succeesully added expense', 'status'=>200];
         echo json_encode($data);
