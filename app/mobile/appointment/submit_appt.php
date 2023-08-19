@@ -33,11 +33,11 @@ $response = [];
 
 try {
     // Get the data from the POST request
-    $type = $_POST['type'] ?? 'Online';
-    $status = $_POST['status'] ?? 'Pending';
+    $type = 'Online';
+    $status = 'Pending';
     $date = $_POST['date'];
     $time = $_POST['time'];
-    $patientId = $_POST['patient_id'] ?? 1;
+    $patientId = $_POST['patient_id'];
     $note = $_POST['note'] ?? null;
 
     // Check if the appointment time is already taken
