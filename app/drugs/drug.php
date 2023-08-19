@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Staff Page</title>
+    <title>Drugs Page</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php
@@ -15,7 +15,7 @@
     <div class="container p-3 rounded shadow bg-white overflow-auto">
         <form id="formPS" class="m-2">
             <div>
-                <h3 class="text-center">Patient Drugs</h3>
+                <h3 class="text-center text-white bg-primary p-2 rounded shadow">Patient Drugs</h3>
             </div>
             <div class="row m-5">
                 <!-- hidden id input -->
@@ -27,7 +27,7 @@
                     $query = 'SELECT * FROM `patients`';
                     $result = mysqli_query($conn, $query);
                     while ($row = mysqli_fetch_array($result)) {
-                        echo '<option value=' . $row['patient_id'] . '>' . $row['first_name'] . ' ' . $row['last_name'] . '</option>';
+                        echo "<option value='" . htmlspecialchars ( $row['patient_id']) . "'>" .htmlspecialchars ( $row['first_name']) . ' ' . htmlspecialchars ( $row['last_name']) . "</option>";
                     }
                     ?>
                 </select>
@@ -53,7 +53,7 @@
                                     $query = 'SELECT * FROM `medications`';
                                     $result = mysqli_query($conn, $query);
                                     while ($row = mysqli_fetch_array($result)) {
-                                        echo '<option value=' . $row['medication_id'] . '>' . $row['medication_name'] . '</option>';
+                                        echo '<option value=' . htmlspecialchars ($row['medication_id']) . '>' . htmlspecialchars ($row['medication_name']) . '</option>';
                                     }
                                     ?>
                                 </select>
@@ -95,17 +95,17 @@
 ?>          
                         <tr>
                         <td> <?php echo $count ?></td>
-                        <td> <?php echo $row['first_name']?> </td>
-                        <td> <?php echo $row['last_name'] ?></td>
-                        <td> <?php echo $row['medication_name'] ?></td>
+                        <td> <?php echo htmlspecialchars ($row['first_name'])?> </td>
+                        <td> <?php echo htmlspecialchars ($row['last_name']) ?></td>
+                        <td> <?php echo htmlspecialchars ($row['medication_name']) ?></td>
                         <td class="text-center"> 
-                            <button class="btn btn-primary me-5" onclick="ViewpatientDrugs(<?php echo $row['patient_id']; ?>)" name='view' id='view'>
+                            <button class="btn btn-primary me-5" onclick="ViewpatientDrugs(<?php echo htmlspecialchars ($row['patient_id']); ?>)" name='view' id='view'>
                                 <i class="fas fa-eye"></i>
                             </button>
-                            <button class="btn btn-primary me-5" onclick="EditpatientDrugs(<?php echo $row['drug_id']; ?>)" name="edit" id="edit">
+                            <button class="btn btn-primary me-5" onclick="EditpatientDrugs(<?php echo htmlspecialchars ( $row['drug_id']); ?>)" name="edit" id="edit">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            <button class="btn btn-danger" onclick="DeletepatientDrugs(<?php echo $row['drug_id']; ?>)" name="delete" id="delete">
+                            <button class="btn btn-danger" onclick="DeletepatientDrugs(<?php echo htmlspecialchars ($row['drug_id']); ?>)" name="delete" id="delete">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </td>

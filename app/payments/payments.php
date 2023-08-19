@@ -66,13 +66,13 @@ $result = mysqli_query($conn, $sql);
                 ?>
                     <tr class="<?php echo $class .' ' . $hoverClass; ?>">
                         <td><?php echo $count; ?></td>
-                        <td><?php echo  $row["first_name"]; ?></td>
-                        <td><?php echo  $row["last_name"]; ?></td>
-                        <td><?php echo  $row["IncomeType"]; ?></td>
-                        <td><?php echo  $row["IncomeAmount"]; ?></td>
-                        <td><?php echo  $row["IncomeAmountPaid"]; ?></td>
-                        <td><?php echo  $amount_due; ?></td>
-                        <td><?php echo  $row["discount"]; ?></td>
+                        <td><?php echo htmlspecialchars (  $row["first_name"]); ?></td>
+                        <td><?php echo htmlspecialchars (  $row["last_name"]); ?></td>
+                        <td><?php echo htmlspecialchars (  $row["IncomeType"]); ?></td>
+                        <td><?php echo htmlspecialchars (  $row["IncomeAmount"]); ?></td>
+                        <td><?php echo htmlspecialchars (  $row["IncomeAmountPaid"]); ?></td>
+                        <td><?php  echo $amount_due; ?></td>
+                        <td><?php echo htmlspecialchars (  $row["discount"]); ?></td>
                         <td><?php echo  $row["IncomeDate"]; ?></td>
                         <td class='text-center'>
                             <button class='btn btn-primary' onclick='editPayment(<?php echo  $row["IncomeID"]; ?>)'> <i class='fa fa-edit'></i> </button>

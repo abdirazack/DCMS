@@ -40,9 +40,9 @@ include_once('./app/database/conn.php')
                     echo "<td>" . $count . "</td>";
 
                     // echo "<td>" . $row['medication_id'] . "</td>";
-                    echo "<td>" . $row['medication_name'] . "</td>";
-                    echo "<td>" . $row['medication_dosage'] . "</>";
-                    echo "<td>" . $row['medication_description'] . "</td>";
+                    echo "<td>" . htmlspecialchars ($row['medication_name']) . "</td>";
+                    echo "<td>" . htmlspecialchars ($row['medication_dosage']) . "</>";
+                    echo "<td>" . htmlspecialchars ($row['medication_description']) . "</td>";
                     echo "<td class='text-center'> 
                                     <button  class='btn btn-primary' onclick='editMedication(" . $row['medication_id'] . ")'> <i class='fa fa-edit'></i> </button> 
                                     <a href='#' class='btn btn-danger ms-2 mt-1' onclick='deleteMedication(" . $row['medication_id'] . ")'> <i class='fa fa-trash'></i> </a> 

@@ -15,11 +15,7 @@
       }
     }
 
-    @media screen {
-      #print-content {
-        display: none;
-      }
-    }
+    @media screen {}
   </style>
 </head>
 
@@ -35,11 +31,11 @@
           <div class=" col-md-3 mb-5">
             <select class="form-control  bg-white text-secondary" id="reports" style="border-radius:10px;">
               <option value="" class="fs-5">Select Report</option>
-              <option value="appointments">Appointments Summary Report</option>
-              <option value="patients">Patients Report</option>
-              <option value="employees">Employees Report</option>
-              <option value="income">Income Report</option>
-              <option value="expense">Expense Report</option>
+              <option value="Appointments">Appointments Summary Report</option>
+              <option value="Patients">Patients Report</option>
+              <option value="Employees">Employees Report</option>
+              <option value="Income">Income Report</option>
+              <option value="Expense">Expense Report</option>
             </select>
           </div>
           <div id="tableHolder">
@@ -71,26 +67,48 @@
 
               // Add company name and logo to print content
               var companyName = "Emirate Dental Clinic";
-              var logoPath = "./app/img/logos/favicon.svg";
+              var reportTitle = report + " Report";
+              date = new Date();
               var printContent = `
                 <div class="text-center mb-4">
-                  <h4 class="text-secondary">Dental Record Reports</h4>
-                  <img src="${logoPath}" alt="Company Logo" class="img-fluid" style="max-width: 100px;">
-                  <h3 class="mt-2">${companyName}</h3>
+                  <h1 class="mt-2">${companyName}</h1>
+                  <h3 class="mt-2">${reportTitle}</h3>
+                  <h4 class="mt-2">${date.toDateString()}</h4>
                 </div>
-                ${data}
               `;
-              $('#print-content').html(printContent);
+
+
 
 
               // Initialize DataTable
               $('#dataTable').DataTable({
                 dom: 'Bfrtip', // Add buttons to the DataTables' DOM
                 buttons: [
-                  'copy', 'csv', 'excel', 'pdf', 'print' // Add export buttons
+                  'copy', 'csv', 'excel', 'pdf', // Add export buttons
+                  {
+                    extend: 'print',
+                    text: 'Print page',
+                    title : "",
+                    exportOptions: {
+                      modifier: {
+                        page: 'current',
+
+                      }
+
+                    },
+                    customize: function(win) {
+                      $(win.document.body).find('h1').css('text-align', 'center');
+                      $(win.document.body).find('h1').css('font-size', '20px');
+                      // add comapny name and logo
+                      $(win.document.body).find('h1').after(printContent);
+
+                    }
+                  }
                 ],
+
                 // You can add other DataTable options here
               });
+
 
 
             },

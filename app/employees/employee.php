@@ -70,17 +70,17 @@
                         echo "<tr>";
                         echo "<td>" . $count . "</td>";
                         // echo "<td>" . $row['employee_id'] . "</td>";
-                        echo "<td>" . $row['first_name'] . "</td>";
-                        echo "<td>" . $row['last_name'] . "</>";
-                        echo "<td class='text-truncate' style='max-width: 10px;'>" . $row['email'] . "</td>";
-                        echo "<td>" . $row['phone'] . "</td>";
-                        echo "<td>" . $row['role_name'] . "</td>";
-                        echo "<td>" . $row['Experience'] . "</td>";
-                        echo "<td class='text-truncate' style='max-width: 10px;'>" . $row['street'] . ' ' . $row['city'] . ' ' . $row['state'] . "</td>";
-                        echo "<td>" . $row['gender'] . "</td>";
-                        echo "<td>" . $row['salary_type'] . "</td>";
-                        echo "<td>" . $row['currency'] . "</td>";
-                        echo "<td>" . $row['amount'] . "</td>";
+                        echo "<td>" . htmlspecialchars ( $row['first_name']) . "</td>";
+                        echo "<td>" . htmlspecialchars ( $row['last_name']) . "</td>";
+                        echo "<td class='text-truncate' style='max-width: 10px;'>" . htmlspecialchars ( $row['email']) . "</td>";
+                        echo "<td>" . htmlspecialchars ( $row['phone']) . "</td>";
+                        echo "<td>" . htmlspecialchars ( $row['role_name']) . "</td>";
+                        echo "<td>" . htmlspecialchars ( $row['Experience']) . "</td>";
+                        echo "<td class='text-truncate' style='max-width: 10px;'>" .  $row['street'] . ' ' . $row['city']. ' ' . $row['state'] . "</td>";
+                        echo "<td>" . htmlspecialchars ( $row['gender']) . "</td>";
+                        echo "<td>" . htmlspecialchars ( $row['salary_type']) . "</td>";
+                        echo "<td>" . htmlspecialchars ( $row['currency']) . "</td>";
+                        echo "<td>" . htmlspecialchars ( $row['amount']) . "</td>";
                         echo "<td>" . $row['hire_date'] . "</td>";
                         echo "<td class='text-center'> 
                                     <a  class='btn btn-primary' onclick='editEmployee(" . $row['employee_id'] . ")'> <icon class='fa fa-edit'></icon> </a> 

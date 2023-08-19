@@ -1,10 +1,10 @@
 <table class="table table-hover " id="dataTable">
-    <caption class="text-white fs-3">Employees Report</caption>
+    <caption class="text-secondary fs-1">Employees Report</caption>
     <thead class="thead-dark text-truncate">
         <th data-field="id">ID</th>
         <th data-field="first name" data-sortable="true">First Name</th>
         <th data-field="last name" data-sortable="true">Last Name</th>
-        <th data-field="service_name" data-sortable="true">Service Name</th>
+        <!-- <th data-field="service_name" data-sortable="true">Service Name</th> -->
         <th data-field="IncomeType" data-sortable="true">Income Type</th>
         <th data-field="IncomeAmount" data-sortable="true">Income Amount</th>
         <th  data-field="IncomeAmountPaid" data-sortable="true">Amount Paid</th>
@@ -39,7 +39,7 @@
                 <td><?php echo $row['IncomeID'] ;?></td>
                 <td><?php echo $row['first_name'] ;?></td>
                 <td><?php echo $row['last_name'] ;?></td>
-                <td><?php echo $row['name'] ;?></td>
+                <!-- <td><?php echo $row['name'] ;?></td> -->
                 <td><?php echo $row['IncomeType'] ;?></td>
                 <td><?php echo $row['IncomeAmount'] ;?></td>
                 <td><?php echo $row['IncomeAmountPaid'] ;?></td>
@@ -49,7 +49,7 @@
     </tbody>
     <tfoot>
         <tr>
-            <th colspan="5" style="text-align:right">Total:</th>
+            <th colspan="4" style="text-align:right">Total:</th>
             <th><?php echo $total_amount; ?></th>
             <th><?php echo $total_amount_paid; ?></th>
             <th></th>
