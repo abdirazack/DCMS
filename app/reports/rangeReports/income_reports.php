@@ -43,7 +43,7 @@
                     </div>
                 </div>
                 <hr>
-                <div id="tableHolder">
+                <div id="tableHolder" class="overflow-auto">
 
                 </div>
 
