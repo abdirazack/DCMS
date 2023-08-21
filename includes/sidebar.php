@@ -188,13 +188,36 @@
             <span>Address</span>
         </a>
     </li>
-    <!-- Nav Item - Reports Collapse Menu ---------------------------------------------------------------- -->
+
     <li class="nav-item">
+
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReports" aria-expanded="true" aria-controls="collapseUtilities">
+            <i class="fa-solid fa-file"></i>
+            <span>Reports</span>
+        </a>
+        <div id="collapseReports" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">All Report:</h6>
+                <a class="collapse-item" href="index.php?page=reports">ALL</a>
+                <h6 class="collapse-header">Patient Report:</h6>
+                <a class="collapse-item" href="index.php?page=patient_reports">Patient</a>
+                <h6 class="collapse-header">Income Report:</h6>
+                <a class="collapse-item" href="index.php?page=income_reports">Income</a>
+                <h6 class="collapse-header">Expense Report:</h6>
+                <a class="collapse-item" href="index.php?page=expense_reports">Expense</a>
+                <h6 class="collapse-header">Employees Report:</h6>
+                <a class="collapse-item" href="index.php?page=employee_reports">Employees</a>
+            </div>
+        </div>
+    </li>
+
+    <!-- Nav Item - Reports Collapse Menu ---------------------------------------------------------------- -->
+    <!-- <li class="nav-item">
         <a class="nav-link " href="index.php?page=reports">
             <i class="fa-solid fa-file"></i>
             <span>Reports</span>
         </a>
-    </li>
+    </li> -->
 
     <!-- ------------------------------------------------------------------------------------------------ -->
 

@@ -84,10 +84,10 @@
               $('#dataTable').DataTable({
                 dom: 'Bfrtip', // Add buttons to the DataTables' DOM
                 buttons: [
-                  'copy', 'csv', 'excel', 'pdf', // Add export buttons
+                  'csv', 'excel', 'pdf', // Add export buttons
                   {
                     extend: 'print',
-                    text: 'Print page',
+                    text: 'Print',
                     title : "",
                     exportOptions: {
                       modifier: {
@@ -103,7 +103,7 @@
                       $(win.document.body).find('h1').after(printContent);
 
                     }
-                  }
+                  },
                 ],
 
                 // You can add other DataTable options here
