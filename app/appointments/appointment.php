@@ -41,7 +41,7 @@ if (isset($_GET['page']) && $_GET['page'] === 'appointment' && isset($_GET['trig
             <div class="col-md-8">
                 <div id="calendar"></div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 overflow-auto">
                 <div class="cardt rounded shadow">
                     <div class="card-header bg-gradient bg-primary text-light">
                         <h5 class="card-title p-2">Appointments Form</h5>
@@ -237,8 +237,8 @@ if (isset($_GET['page']) && $_GET['page'] === 'appointment' && isset($_GET['trig
                 $('#schedule-form select[name="patients"]').val(sched.patient_id).trigger('change');
                 $('#schedule-form select[name="employee"]').val(sched.employee_id).trigger('change');
                 // $('#schedule-form select[name="service"]').val(sched.service_id).trigger('change');
-                $('#schedule-form input[name="date"]').val(sched.date);
-                $('#schedule-form input[name="time"]').val(sched.time);
+                $('#schedule-form input[name="date"]').val(sched.date).trigger('change');
+                $('#schedule-form input[name="time"]').val(sched.time).trigger('change');
                 $('#save').val('Update');
                 $('#schedule-form').attr('action', './app/appointments/save.php');
                 $('#event-details-modal').modal('hide');

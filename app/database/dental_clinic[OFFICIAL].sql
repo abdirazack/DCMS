@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 19, 2023 at 08:26 AM
+-- Generation Time: Aug 21, 2023 at 05:30 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -90,6 +90,7 @@ CREATE TABLE `addresses_patients_view` (
 ,`street` varchar(255)
 ,`city` varchar(255)
 ,`state` varchar(255)
+,`created_at` timestamp
 );
 
 -- --------------------------------------------------------
@@ -137,35 +138,36 @@ CREATE TABLE `appointments` (
 --
 
 INSERT INTO `appointments` (`appointment_id`, `Type`, `status`, `date`, `time`, `patient_id`, `employee_id`, `created_at`, `updated_at`, `note`, `viewed`) VALUES
-(1, 'walk-in', 'Cancelled', '2023-08-30', '07:00:00', 3, 1, '2023-08-24 03:17:47', '2023-08-19 05:29:46', 'Bro don\'t forget your card', 0),
-(2, 'Walk-in', 'Cancelled', '2023-01-31', '11:15:00', 3, 1, '2023-08-27 07:38:59', '2023-08-19 05:29:51', '32465789', 0),
-(4, 'Online', 'Pending', '2023-08-26', '07:00:00', 3, 1, '2023-08-29 08:27:23', '2023-08-19 05:27:32', 'WHat!!!', 1),
-(5, 'Online', 'Cancelled', '2023-08-25', '09:30:00', 3, 1, '2023-08-29 08:27:23', '2023-08-19 05:29:55', 'HEHEHEHEHE', 0),
+(1, 'walk-in', 'Cancelled', '2023-08-30', '07:00:00', 3, 1, '2023-08-24 03:17:47', '2023-08-21 07:11:21', 'Bro don\'t forget your card', 1),
+(2, 'Walk-in', 'Cancelled', '2023-01-31', '11:15:00', 3, 1, '2023-08-27 07:38:59', '2023-08-21 07:11:21', '32465789', 1),
+(4, 'Online', 'Pending', '2023-08-26', '07:00:00', 3, 1, '2023-08-29 08:27:23', '2023-08-21 07:11:34', 'WHat!!!', 0),
+(5, 'Online', 'Cancelled', '2023-08-25', '09:30:00', 3, 1, '2023-08-29 08:27:23', '2023-08-20 06:20:28', 'HEHEHEHEHE', 1),
 (9, 'Online', 'Approved', '2023-08-17', '19:41:00', 1, 1, '2023-08-26 18:42:28', '2023-08-19 05:22:07', 'teeth fix it', 1),
 (10, 'Online', 'Approved', '2023-08-18', '00:42:00', 1, 1, '2023-08-05 18:46:20', '2023-08-19 05:29:01', 'fix me tooth', 1),
 (11, 'walk-in', 'Cancelled', '2023-08-15', '09:00:00', 1, 1, '2023-08-12 14:06:34', '2023-08-19 05:22:07', 'New patient appointment', 1),
 (12, 'online', 'Approved', '2023-08-16', '14:30:00', 2, 1, '2023-08-12 14:06:34', '2023-08-19 05:22:07', 'Follow-up consultation', 1),
-(13, 'walk-in', 'Approved', '2023-08-17', '11:45:00', 3, 13, '2023-08-12 14:06:34', '2023-08-19 05:22:07', 'Routine checkup', 1),
+(13, 'walk-in', 'Approved', '2023-08-21', '09:00:00', 3, 13, '2023-08-12 14:06:34', '2023-08-20 14:43:00', 'Routine checkup', 1),
 (14, 'online', 'Approved', '2023-08-18', '10:15:00', 4, 13, '2023-08-12 14:06:34', '2023-08-19 05:22:07', 'Discussion of test results', 1),
 (15, 'walk-in', 'Approved', '2023-08-19', '16:30:00', 5, 13, '2023-08-12 14:06:34', '2023-08-19 05:22:07', 'General health inquiry', 1),
 (16, 'online', 'Approved', '2023-08-20', '13:00:00', 6, 13, '2023-08-12 14:06:34', '2023-08-19 05:22:07', 'Prescription renewal', 1),
 (17, 'walk-in', 'Approved', '2023-08-21', '15:20:00', 7, 1, '2023-08-12 14:06:34', '2023-08-19 05:22:07', 'Vaccination appointment', 1),
 (18, 'online', 'pending', '2023-08-22', '12:45:00', 8, 1, '2023-08-12 14:06:34', '2023-08-19 05:22:07', 'Treatment follow-up', 1),
 (19, 'walk-in', 'Cancelled', '2023-08-23', '09:30:00', 9, 13, '2023-08-12 14:06:34', '2023-08-19 05:22:07', 'Initial assessment', 1),
-(20, 'online', 'pending', '2023-08-24', '17:00:00', 10, 1, '2023-08-12 14:06:34', '2023-08-19 05:22:07', 'Medication review', 1),
-(21, 'walk-in', 'Cancelled', '2023-08-25', '14:00:00', 11, 1, '2023-08-12 14:06:34', '2023-08-19 05:22:07', 'Minor injury examination', 1),
+(20, 'online', 'Approved', '2023-08-24', '17:00:00', 10, 13, '2023-08-12 14:06:34', '2023-08-20 06:22:05', 'Medication review', 1),
+(21, 'walk-in', 'Cancelled', '2023-08-25', '07:00:00', 11, 1, '2023-08-12 14:06:34', '2023-08-21 06:22:25', 'Minor injury examination', 1),
 (22, 'online', 'Cancelled', '2023-08-26', '07:00:00', 12, 1, '2023-08-12 14:06:34', '2023-08-19 05:22:07', 'Consultation for symptoms', 1),
 (23, 'walk-in', 'Cancelled', '2023-08-27', '15:45:00', 13, 1, '2023-08-12 14:06:34', '2023-08-19 05:22:07', 'Health advice', 1),
 (24, 'online', 'Cancelled', '2023-08-28', '12:15:00', 14, 1, '2023-08-12 14:06:34', '2023-08-19 05:22:07', 'Discussion on treatment options', 1),
 (25, 'walk-in', 'Cancelled', '2023-08-29', '10:45:00', 15, 1, '2023-08-12 14:06:34', '2023-08-19 05:22:07', 'Wellness check', 1),
-(26, 'online', 'pending', '2023-08-30', '14:45:00', 16, 1, '2023-08-12 14:06:34', '2023-08-19 05:22:07', 'Follow-up on previous condition', 1),
+(26, 'online', 'Approved', '2023-08-30', '14:45:00', 16, 1, '2023-08-12 14:06:34', '2023-08-20 06:22:09', 'Follow-up on previous condition', 1),
 (27, 'walk-in', 'pending', '2023-08-31', '13:30:00', 17, 1, '2023-08-12 14:06:34', '2023-08-19 05:22:07', 'General inquiry', 1),
-(28, 'online', 'pending', '2023-09-01', '10:00:00', 18, 1, '2023-08-12 14:06:34', '2023-08-19 05:22:07', 'Lab test result discussion', 1),
+(28, 'online', 'Approved', '2023-09-01', '10:00:00', 18, 1, '2023-08-12 14:06:34', '2023-08-20 06:22:00', 'Lab test result discussion', 1),
 (29, 'walk-in', 'Approved', '2023-09-02', '16:15:00', 19, 1, '2023-08-12 14:06:34', '2023-08-19 05:22:07', 'Advice on healthy living', 1),
 (30, 'online', 'Cancelled', '2023-09-03', '09:45:00', 20, 1, '2023-08-12 14:06:34', '2023-08-19 05:22:07', 'Follow-up examination', 1),
 (31, 'online', 'Pending', '2023-08-31', '12:00:00', 1, 1, '2023-08-13 18:47:16', '2023-08-19 05:22:07', 'fix me teeth', 1),
 (32, 'Walk-in', 'Pending', '2023-08-20', '07:30:00', 31, 18, '2023-08-19 05:24:32', '2023-08-19 05:25:32', NULL, 1),
-(33, 'Walk-in', 'Pending', '2023-08-23', '11:15:00', 26, 13, '2023-08-19 05:25:05', '2023-08-19 05:25:32', NULL, 1);
+(33, 'Walk-in', 'Pending', '2023-08-23', '11:15:00', 26, 13, '2023-08-19 05:25:05', '2023-08-19 05:25:32', NULL, 1),
+(34, 'Walk-in', 'Approved', '2023-08-22', '09:30:00', 2, 1, '2023-08-21 07:19:26', '2023-08-21 07:19:26', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -287,7 +289,13 @@ INSERT INTO `expenses` (`expense_id`, `employee_id`, `amount`, `quantity`, `desc
 (4, 1, '10.00', 1, 'fdghdh', 1, '2023-07-07'),
 (5, 1, '13.00', 1, 'xfhdfg', 4, '2023-07-12'),
 (6, 1, '50.00', 1, 'Travel expense', 4, '2023-08-04'),
-(7, 1, '50.00', 1, 'Electricity', 3, '2023-08-02');
+(7, 1, '50.00', 1, 'Electricity', 3, '2023-08-02'),
+(8, 2, '100.00', -1, 'paid', 1, '2023-06-01'),
+(9, 2, '52.00', 3, 'for traveling ', 4, '2023-06-23'),
+(10, 2, '60.00', 2, '', 3, '2023-07-01'),
+(11, 2, '73.00', -3, 'more', 1, '2023-07-01'),
+(12, 2, '320.00', 2, '', 3, '2023-08-01'),
+(13, 2, '400.00', 5, '', 4, '2023-09-01');
 
 -- --------------------------------------------------------
 
@@ -854,7 +862,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `addresses_patients_view`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `addresses_patients_view`  AS SELECT `pt`.`patient_id` AS `patient_id`, `pt`.`first_name` AS `first_name`, `pt`.`last_name` AS `last_name`, `pt`.`phone_number` AS `phone_number`, `pt`.`gender` AS `gender`, `pt`.`birth_date` AS `birth_date`, `a`.`street` AS `street`, `a`.`city` AS `city`, `a`.`state` AS `state` FROM (`patients` `pt` join `addresses` `a` on(`pt`.`address` = `a`.`address_id`))  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `addresses_patients_view`  AS SELECT `pt`.`patient_id` AS `patient_id`, `pt`.`first_name` AS `first_name`, `pt`.`last_name` AS `last_name`, `pt`.`phone_number` AS `phone_number`, `pt`.`gender` AS `gender`, `pt`.`birth_date` AS `birth_date`, `a`.`street` AS `street`, `a`.`city` AS `city`, `a`.`state` AS `state`, `pt`.`created_at` AS `created_at` FROM (`patients` `pt` join `addresses` `a` on(`pt`.`address` = `a`.`address_id`))  ;
 
 -- --------------------------------------------------------
 
@@ -1103,7 +1111,7 @@ ALTER TABLE `addresses`
 -- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `drugs`
@@ -1127,7 +1135,7 @@ ALTER TABLE `equipment`
 -- AUTO_INCREMENT for table `expenses`
 --
 ALTER TABLE `expenses`
-  MODIFY `expense_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `expense_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `expense_types`

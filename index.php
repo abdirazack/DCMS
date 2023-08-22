@@ -59,6 +59,10 @@ $titles = [
 
     //Reports
         'reports'    => ["title" => 'Reports',                                         "path" => './app/reports/'],
+        'patient_reports' => ["title" => 'Patient Reports',                               "path" => './app/reports/rangeReports/'],
+        'income_reports' => ["title" => 'Income Reports',                                 "path" => './app/reports/rangeReports/'],
+        'expense_reports' => ["title" => 'Expense Reports',                               "path" => './app/reports/rangeReports/'],
+        'employee_reports' => ["title" => 'Employee Reports',                             "path" => './app/reports/rangeReports/'],
 
 ];
 $is404 = false;
