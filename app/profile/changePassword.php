@@ -39,12 +39,14 @@ $username = $row['Username'];
                         <div class="col-md-6">
                             <p class="mb-2"><i class="fas fa-envelope me-2"></i> &nbsp; <?php echo $email; ?></p>
                             <p class="mb-2"><i class="fas fa-phone me-2"></i> &nbsp; <?php echo $phone; ?></p>
-                            <p class="mb-2"><i class="fas fa-map-marker-alt me-2"> </i> &nbsp; <?php echo $address; ?></p>
+                            <p class="mb-2"><i class="fas fa-map-marker-alt me-2"> </i> &nbsp; <?php echo $address; ?>
+                            </p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <img src="<?php echo $profile; ?>" alt="profile" class="img-fluid rounded-circle" width="200px" height="200px">
+                    <img src="<?php echo $profile; ?>" alt="profile" class="img-fluid circle-avatar" width="200px"
+                        height="200px">
                 </div>
             </div>
 
@@ -71,7 +73,8 @@ $username = $row['Username'];
             </div>
             <div class="row text-center mt-4">
                 <div class="col-md-12">
-                    <button type="submit" class="btn btn-outline-primary " name="changePassword" id="changePassword">Change Password</button>
+                    <button type="submit" class="btn btn-outline-primary " name="changePassword"
+                        id="changePassword">Change Password</button>
                 </div>
             </div>
     </div>
@@ -80,68 +83,69 @@ $username = $row['Username'];
 </div>
 
 <script>
-    // check if the new password and confirm password are the same
-    $('#confirmNewPassword').on('keyup', function() {
-        if ($('#newPassword').val() == $('#confirmNewPassword').val()) {
-            if ($('#currentPassword').val() == '<?php echo $oldPassword; ?>') {
-                    $('#small').html('Password matched').css('color', 'green');
-                } else{
-                    $('#small').html('Invalid currentPassword').css('color', 'red');}
-        } else
+// check if the new password and confirm password are the same
+$('#confirmNewPassword').on('keyup', function() {
+    if ($('#newPassword').val() == $('#confirmNewPassword').val()) {
+        if ($('#currentPassword').val() == '<?php echo $oldPassword; ?>') {
+            $('#small').html('Password matched').css('color', 'green');
+        } else {
+            $('#small').html('Invalid currentPassword').css('color', 'red');
+        }
+    } else
+        $('#small').html('Password not matched').css('color', 'red');
+});
+
+// compare old password and new password
+$('#currentPassword').on('keyup', function() {
+
+});
+
+// document load hideLoader();
+$(document).ready(function() {
+    hideLoader();
+
+    // change password
+    $('#changePasswordForm').on('submit', function(e) {
+
+        e.preventDefault();
+        showLoader();
+        var currentPassword = $('#currentPassword').val();
+        var newPassword = $('#newPassword').val();
+        var confirmNewPassword = $('#confirmNewPassword').val();
+        var changePassword = $('#changePassword').val();
+        if (currentPassword == '' || newPassword == '' || confirmNewPassword == '') {
+            hideLoader();
+            $('#small').html('Please fill all the fields').css('color', 'red');
+        } else if (newPassword != confirmNewPassword) {
+            hideLoader();
             $('#small').html('Password not matched').css('color', 'red');
-    });
-
-            // compare old password and new password
-            $('#currentPassword').on('keyup', function() {
-
+        } else {
+            $.ajax({
+                url: './app/profile/password_process.php',
+                method: 'POST',
+                data: {
+                    currentPassword: currentPassword,
+                    newPassword: newPassword,
+                    confirmNewPassword: confirmNewPassword,
+                    changePassword: changePassword
+                },
+                success: function(data) {
+                    var obj = jQuery.parseJSON(data);
+                    $('#small').html(obj.message);
+                    $('#currentPassword').val('');
+                    $('#newPassword').val('');
+                    $('#confirmNewPassword').val('');
+                    hideLoader();
+                },
+                error: function(err) {
+                    console.log(err);
+                    hideLoader();
+                },
+                complete: function() {
+                    hideLoader();
+                }
             });
-
-    // document load hideLoader();
-    $(document).ready(function() {
-        hideLoader();
-
-        // change password
-        $('#changePasswordForm').on('submit', function(e) {
-
-            e.preventDefault();
-            showLoader();
-            var currentPassword = $('#currentPassword').val();
-            var newPassword = $('#newPassword').val();
-            var confirmNewPassword = $('#confirmNewPassword').val();
-            var changePassword = $('#changePassword').val();
-            if (currentPassword == '' || newPassword == '' || confirmNewPassword == '') {
-                hideLoader();
-                $('#small').html('Please fill all the fields').css('color', 'red');
-            } else if (newPassword != confirmNewPassword) {
-                hideLoader();
-                $('#small').html('Password not matched').css('color', 'red');
-            } else {
-                $.ajax({
-                    url: './app/profile/password_process.php',
-                    method: 'POST',
-                    data: {
-                        currentPassword: currentPassword,
-                        newPassword: newPassword,
-                        confirmNewPassword: confirmNewPassword,
-                        changePassword: changePassword
-                    },
-                    success: function(data) {
-                        var obj = jQuery.parseJSON(data);
-                        $('#small').html(obj.message);
-                        $('#currentPassword').val('');
-                        $('#newPassword').val('');
-                        $('#confirmNewPassword').val('');
-                        hideLoader();
-                    },
-                    error: function(err) {
-                        console.log(err);
-                        hideLoader();
-                    },
-                    complete: function() {
-                        hideLoader();
-                    }
-                });
-            }
-        });
+        }
     });
+});
 </script>
