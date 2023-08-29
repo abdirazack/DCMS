@@ -1,13 +1,13 @@
 <style>
-    .bg {
-        background-color: rgb(49, 64, 83);
-    }
+.bg {
+    background-color: rgb(49, 64, 83);
+}
 
-    @import url('https://fonts.cdnfonts.com/css/poppins');
+@import url('https://fonts.cdnfonts.com/css/poppins');
 
-    body {
-        font-family: 'poppins';
-    }
+body {
+    font-family: 'poppins';
+}
 </style>
 
 <!-- Sidebar -->
@@ -53,7 +53,8 @@
     <!-- ------------------------------------------------------------------------------------------------ -->
     <!-- Nav Item - Users Collapse Menu ---------------------------------------------------------------- -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePatient" aria-expanded="true" aria-controls="collapseUtilities">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePatient"
+            aria-expanded="true" aria-controls="collapseUtilities">
             <i class="fa-solid fa-fw fa-person-half-dress"></i>
             <span>Patients</span>
         </a>
@@ -81,24 +82,25 @@
     if ($_SESSION['isAdmin']) {
 
     ?>
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStaff" aria-expanded="true" aria-controls="collapseUtilities">
-                <i class="fas fa-fw fa-user"></i>
-                <span>Employees</span>
-            </a>
-            <div id="collapseStaff" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">All Employees:</h6>
-                    <a class="collapse-item" href="index.php?page=employee">Employees</a>
-                    <h6 class="collapse-header">Employee Roles:</h6>
-                    <a class="collapse-item" href="index.php?page=role">Roles</a>
-                    <h6 class="collapse-header">Employee Salaries:</h6>
-                    <a class="collapse-item" href="index.php?page=salary">Salaries</a>
-                    <h6 class="collapse-header">Employee Logins:</h6>
-                    <a class="collapse-item" href="index.php?page=logins">Employee Login Credentials</a>
-                </div>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStaff" aria-expanded="true"
+            aria-controls="collapseUtilities">
+            <i class="fas fa-fw fa-user"></i>
+            <span>Employees</span>
+        </a>
+        <div id="collapseStaff" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">All Employees:</h6>
+                <a class="collapse-item" href="index.php?page=employee">Employees</a>
+                <h6 class="collapse-header">Employee Roles:</h6>
+                <a class="collapse-item" href="index.php?page=role">Roles</a>
+                <h6 class="collapse-header">Employee Salaries:</h6>
+                <a class="collapse-item" href="index.php?page=salary">Salaries</a>
+                <h6 class="collapse-header">Employee Logins:</h6>
+                <a class="collapse-item" href="index.php?page=logins">Employee Login Credentials</a>
             </div>
-        </li>
+        </div>
+    </li>
     <?php
     } ?>
     <!-- ------------------------------------------------------------------------------------------------ -->
@@ -106,7 +108,8 @@
     <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
     <li class="nav-item">
 
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseExpenses" aria-expanded="true" aria-controls="collapseUtilities">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseExpenses"
+            aria-expanded="true" aria-controls="collapseUtilities">
             <i class="fas fa-fw fa-money-bills"></i>
             <span>Expenses</span>
         </a>
@@ -191,7 +194,8 @@
 
     <li class="nav-item">
 
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReports" aria-expanded="true" aria-controls="collapseUtilities">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReports"
+            aria-expanded="true" aria-controls="collapseUtilities">
             <i class="fa-solid fa-file"></i>
             <span>Reports</span>
         </a>
@@ -251,11 +255,13 @@
 
                 <!-- add notification button -->
                 <li class="nav-item dropdown no-arrow mx-1">
-                    <a class="nav-link dropdown-toggle" href="#" id="notificationsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="notificationsDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-bell fa-fw"></i>
                         <span id="counter" class="badge badge-danger badge-counter">0</span>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="notificationsDropdown">
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                        aria-labelledby="notificationsDropdown">
                         <h6 class="dropdown-header text-primary">
                             Notifications
                         </h6>
@@ -263,21 +269,26 @@
 
                         </div>
                         <!-- mark all as read -->
-                        <a class="dropdown-item text-center small text-gray-500" href="#" onclick="markAllAsRead()">Mark all as read</a>
+                        <a class="dropdown-item text-center small text-gray-500" href="#" onclick="markAllAsRead()">Mark
+                            all as read</a>
                     </div>
                 </li>
 
 
                 <!-- Nav Item - User Information -->
                 <li class="nav-item dropdown no-arrow">
-                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION["employee_name"];  ?></span>
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <span
+                            class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION["employee_name"];  ?></span>
                         <div class="rounded-circle " style="border: 1px solid grey;">
-                            <img class="img-profile rounded-circle" alt="" src="<?php echo './app/img/employee/' . $_SESSION["profile"];  ?>">
+                            <img class="img-profile rounded-circle" alt=""
+                                src="<?php echo './app/img/employee/' . $_SESSION["profile"];  ?>">
                         </div>
                     </a>
                     <!-- Dropdown - User Information -->
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                        aria-labelledby="userDropdown">
                         <a class="dropdown-item" href="index.php?page=profile">
                             <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                             Profile
@@ -292,7 +303,8 @@
                         </a>
                         <div class="dropdown-divider"></div>
                         <form action="./app/login/logout.php" method="post">
-                            <input type="submit" class="form-control btn btn-outline-primary" name="logout" id="logout" value="Logout">
+                            <input type="submit" class="form-control btn btn-outline-primary" name="logout" id="logout"
+                                value="Logout">
                         </form>
                     </div>
                 </li>
@@ -305,114 +317,120 @@
         </nav>
         <!-- End of Topbar -->
         <script>
-            function fetchNotificationCounter() {
-                $.ajax({
-                    type: "GET",
-                    url: "./app/notifications/fetch.php",
-                    dataType: "html",
-                    success: function(data) {
-                        // alert(data);
-                        //    console.log(data);
-                        $("#counter").text(data);
+        function fetchNotificationCounter() {
+            $.ajax({
+                type: "GET",
+                url: "./app/notifications/fetch.php",
+                dataType: "html",
+                success: function(data) {
+                    // alert(data);
+                    //    console.log(data);
+                    $("#counter").text(data);
 
-                    }
-                });
-            }
+                }
+            });
+        }
 
-            function fetchNotificationsDetails() {
-                $.ajax({
-                    url: './app/notifications/get.php', // Replace with the path to your PHP script
-                    method: 'GET',
-                    dataType: 'json',
-                    success: function(data) {
-                        // alert(data);
-                        var notificationsContainer = $('#notifications');
-                        notificationsContainer.empty();
+        function fetchNotificationsDetails() {
+            $.ajax({
+                url: './app/notifications/get.php', // Replace with the path to your PHP script
+                method: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    // alert(data);
+                    var notificationsContainer = $('#notifications');
+                    notificationsContainer.empty();
 
 
-                        $.each(data, function(index, notification) {
-                            appointmed_id = notification.appointment_id;
-                            var notificationHtml = `
+                    $.each(data, function(index, notification) {
+                        appointmed_id = notification.appointment_id;
+                        var notificationHtml = `
                                 <a class="dropdown-item"  onclick="goToTriggerEdit(${appointmed_id}); return false;" id="notyLink">
                                     <i class="fas fa-envelope fa-sm fa-fw mr-2 text-gray-400"></i>
                                     ${notification.patient_name}
                                     <span class="float-right text-muted small">${notification.time}</span>
                                 </a>
                     `;
-                            notificationsContainer.append(notificationHtml);
-                        });
-                    },
-                    error: function(xhr, status, error) {
-                        console.error(error);
-                    }
-                });
-            }
-
-            function goToTriggerEdit(id) {
-                console.log(id);
-                $.ajax({
-                    type: "GET",
-                    url: "./index.php",
-                    data: {
-                        page: "appointment",
-                        trigger_id: id
-                    },
-                    success: function(response) {
-                        // Handle the response if needed
-                    },
-                    error: function(xhr, status, error) {
-                        console.error(error);
-                    }
-                });
-            }
-
-
-            $(document).ready(function() {
-                $("#sidebarToggle").click(function() {
-                    $("body").toggleClass("sidebar-toggled");
-                    $(".sidebar").toggleClass("toggled");
-                });
-
-                // Attach a click event to the notification link
-
-
-                // Initial notifications update
-                fetchNotificationCounter();
-
-                // Update notifications on an interval (e.g., every 1 minute)
-                setInterval(fetchNotificationCounter, 600); // 60000 ms = 1 minute
-                setInterval(fetchNotificationsDetails, 600); // 60000 ms = 1 minute
-
-
+                        notificationsContainer.append(notificationHtml);
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
             });
-            // mark all as read
-            function markAllAsRead() {
-                // alert("mark all as read");
-                showLoader();
-                $.ajax({
-                    type: "GET",
-                    url: "./app/notifications/markAsRead.php",
-                    dataType: "html",
-                    success: function(data) {
-                        // alert(data);
-                        console.log(data);
+        }
 
-                        var obj = JSON.parse(data);
-                        if (obj.status == 200) {
-                            fetchNotificationCounter();
-                            fetchNotificationsDetails();
-                            hideLoader();
-                        } else {
-                            hideLoader();
-                            alert("Something went wrong");
-                        }
+        function goToTriggerEdit(id) {
+            console.log(id);
+            $.ajax({
+                type: "GET",
+                url: "./index.php",
+                data: {
+                    page: "appointment",
+                    trigger_id: id
+                },
+                success: function(response) {
+                    // Handle the response if needed
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        }
 
-                    },
-                    error: function(xhr, status, error) {
-                        console.error(error);
-                        console.error(error);
+
+        $(document).ready(function() {
+            $("#sidebarToggle").click(function() {
+                $("body").toggleClass("sidebar-toggled");
+                $(".sidebar").toggleClass("toggled");
+            });
+
+            // Attach a click event to the notification link
+
+
+            // Initial notifications update
+            fetchNotificationCounter();
+
+
+
+
+
+
+
+            // Update notifications on an interval (e.g., every 1 minute)
+            setInterval(fetchNotificationCounter, 600); // 60000 ms = 1 minute
+            setInterval(fetchNotificationsDetails, 600); // 60000 ms = 1 minute
+
+
+        });
+        // mark all as read
+        function markAllAsRead() {
+            // alert("mark all as read");
+            showLoader();
+            $.ajax({
+                type: "GET",
+                url: "./app/notifications/markAsRead.php",
+                dataType: "html",
+                success: function(data) {
+                    // alert(data);
+                    console.log(data);
+
+                    var obj = JSON.parse(data);
+                    if (obj.status == 200) {
+                        fetchNotificationCounter();
+                        fetchNotificationsDetails();
                         hideLoader();
+                    } else {
+                        hideLoader();
+                        alert("Something went wrong");
                     }
-                });
-            }
+
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                    console.error(error);
+                    hideLoader();
+                }
+            });
+        }
         </script>
