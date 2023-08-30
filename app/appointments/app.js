@@ -41,13 +41,14 @@ $(function () {
         eventClick: function (info) {
             var _details = $('#event-details-modal')
             var id = info.event.id
+ 
             if (!!scheds[id]) {
                 _details.find('#patient').text(scheds[id].patient_name)
                 _details.find('#employee').text(scheds[id].employee_name)
                 _details.find('#date').text(scheds[id].date)
                 _details.find('#time').text(scheds[id].time)
-                _details.find('#edit,#cancel,#delete').attr('data-id', id)
-
+                _details.find('#edit,#cancel').attr('data-id', id)
+                _details.find('#statuss').val(scheds[id].status)
                 _details.modal('show')
             } else {
                 alert("Event is undefined");

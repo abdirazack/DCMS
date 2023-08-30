@@ -1,3 +1,4 @@
+
 <style>
     @media (max-width: 768px) {
         .p-2 {
@@ -6,7 +7,7 @@
     }
 </style>
 <div class="container-fluid bg-light p-3 mb-4">
-    <div class="row animated fadeIn overflow-auto">
+    <div class="row animated fadeIn overflow-auto ">
         <div class="col-md-6">
             <div class="card mb-3 border-primary rounded ">
                 <div class="row g-0">
@@ -153,7 +154,7 @@
     $(document).ready(function() {
         hideLoader();
         $('.card').hover(function() {
-            $(this).addClass('shadow').css('cursor', 'pointer');
+            $(this).addClass('shadow').css('cursor', 'default');
         }, function() {
             $(this).removeClass('shadow');
         });

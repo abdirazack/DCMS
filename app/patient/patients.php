@@ -57,6 +57,7 @@
             </thead>
             <tbody>
                 <?php
+                // session_start();
                 $count = 0;
 
                 // Select all staff from the database
@@ -75,10 +76,13 @@
                     echo "<td class='text-truncate' style='max-width: 10px;'>" . $row['street'] . ' ' . $row['city'] . ' ' . $row['state'] . "</td>";
                     echo "<td>" . $row['birth_date'] . "</td>";
                     echo "<td class='text-center ignore-print'> 
-                                    <a  class='' onclick='editPatient(" . $row['patient_id'] . ")'> <icon class='fa fa-edit'></icon> </a> 
-                                    <a style='color: red;' class=' ms-2 mt-1' onclick='deletePatient(" . $row['patient_id'] . ")'> <icon class='fa fa-trash'></icon> </a> 
+                                    <a  class='btn btn-primary' onclick='editPatient(" . $row['patient_id'] . ")'> <icon class='fa fa-edit'></icon> </a> " ;
+                                     if($_SESSION['isAdmin']) {
+
+                                    echo "<a  class='btn btn-danger ms-2 mt-1' onclick='deletePatient(" . $row['patient_id'] . ")'> <icon class='fa fa-trash'></icon> </a> 
                                   </td>";
                 }
+            }
 
                 ?>
             </tbody>

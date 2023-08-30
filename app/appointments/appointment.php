@@ -1,6 +1,4 @@
 <?php
-
-
 //connect to database
 include_once('./app/database/conn.php');
 // Get all appointments
@@ -143,7 +141,8 @@ if (isset($_GET['page']) && $_GET['page'] === 'appointment' && isset($_GET['trig
                 <div class="modal-body rounded">
                     <div class="container-fluid">
                         <dl>
-
+                                        <!-- hiddent inpu -->
+                            <input type="hidden" name="statuss" id="statuss">
                             <div class="row">
                                 <dt class="text-muted">Patient: &nbsp;&nbsp;</dt>
                                 <dd id="patient" class=""></dd>
@@ -185,7 +184,22 @@ if (isset($_GET['page']) && $_GET['page'] === 'appointment' && isset($_GET['trig
         }
         // console.log(scheds);
         //document ready
+
         $(document).ready(function() {
+            $('#event-details-modal').on('show.bs.modal', function(event) {
+                var status = $("#statuss").val(); 
+                // alert(status);
+                if (status == 'Cancelled') {
+                    $('#cancel').prop('disabled', true);
+                }
+
+            });
+            $('#event-details-modal').on('hidden.bs.modal', function(event) {
+
+                    $('#cancel').prop('disabled', false);
+                
+
+            });
             hideLoader();
             $('.alert').alert();
             $('.select2').select2();
@@ -231,6 +245,7 @@ if (isset($_GET['page']) && $_GET['page'] === 'appointment' && isset($_GET['trig
             $("#edit").click(function() {
                 var id = $(this).attr('data-id');
                 var sched = scheds[id];
+
                 // alert(JSON.stringify(sched));
                 $('#schedule-form input[name="id"]').val(sched.appointment_id);
                 $('#schedule-form select[name="status"]').val(sched.status).trigger('change');
@@ -239,10 +254,16 @@ if (isset($_GET['page']) && $_GET['page'] === 'appointment' && isset($_GET['trig
                 // $('#schedule-form select[name="service"]').val(sched.service_id).trigger('change');
                 $('#schedule-form input[name="date"]').val(sched.date).trigger('change');
                 $('#schedule-form input[name="time"]').val(sched.time).trigger('change');
+
+
                 $('#save').val('Update');
                 $('#schedule-form').attr('action', './app/appointments/save.php');
                 $('#event-details-modal').modal('hide');
             });
+
+            function disableCancel() {
+                $('#cancel').prop('disabled', true);
+            }
 
 
             $("#delete").click(function() {

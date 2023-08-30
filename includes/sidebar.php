@@ -133,6 +133,11 @@
     <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
     <!-- ------------------------------------------------------------------------------------------------ -->
     <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
+    <?php
+
+if ($_SESSION['isAdmin']) {
+
+?>
     <li class="nav-item">
 
         <a class="nav-link " href="index.php?page=services">
@@ -140,7 +145,8 @@
             <span>Services </span>
         </a>
     </li>
-
+<?php
+}?>
     <!-- ------------------------------------------------------------------------------------------------ -->
     <!-- Nav Item - Payments Collapse Menu ---------------------------------------------------------------- -->
     <li class="nav-item">
@@ -188,7 +194,11 @@
             <span>Address</span>
         </a>
     </li>
+    <?php
 
+    if ($_SESSION['isAdmin']) {
+
+    ?>
     <li class="nav-item">
 
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReports" aria-expanded="true" aria-controls="collapseUtilities">
@@ -210,7 +220,8 @@
             </div>
         </div>
     </li>
-
+    <?php
+}?>
     <!-- Nav Item - Reports Collapse Menu ---------------------------------------------------------------- -->
     <!-- <li class="nav-item">
         <a class="nav-link " href="index.php?page=reports">

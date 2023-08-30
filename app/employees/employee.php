@@ -84,7 +84,7 @@
                         echo "<td>" . $row['hire_date'] . "</td>";
                         echo "<td class='text-center'> 
                                     <a  class='btn btn-primary' onclick='editEmployee(" . $row['employee_id'] . ")'> <icon class='fa fa-edit'></icon> </a> 
-                                    <a href='#' class='ms-2 mt-1' style='color: red;' onclick='deleteEmployee(" . $row['employee_id'] . ")'> <icon class='fa fa-trash'></icon> </a> 
+                                    <a href='#' class='btn btn-danger ms-2 mt-1' onclick='deleteEmployee(" . $row['employee_id'] . ")'> <icon class='fa fa-trash'></icon> </a> 
                                   </td>";
                     }
 
