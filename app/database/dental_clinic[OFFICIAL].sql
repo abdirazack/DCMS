@@ -25,6 +25,14 @@ CREATE TABLE medications (
 );
 -- --------------------------------------------------------
 -- --------------------------------------------------------
+CREATE TABLE feedbacks (
+  feedback_id int(11) PRIMARY KEY AUTO_INCREMENT,
+  feedback varchar(500) NOT NULL,
+  created_at timestamp NOT NULL DEFAULT current_timestamp(),
+  updated_at timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+);
+-- --------------------------------------------------------
+-- --------------------------------------------------------
 
 CREATE TABLE patients (
   patient_id int(11) PRIMARY KEY AUTO_INCREMENT,

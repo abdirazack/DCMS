@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
         'status' => 'error',
         'message' => 'Method Not Allowed',
     ];
-    header('Content-Type: application/json', true, 405);
+    header('Content-Type: application/json', 405);   
     echo json_encode($response);
     exit;
 }
@@ -32,49 +32,37 @@ if (!$connection) {
 $response = [];
 
 try {
-    // Get the data from the POST request
-    $type = 'Online';
-    $status = 'Pending';
-    $date = $_POST['date'];
-    $time = $_POST['time'];
-    $patientId = $_POST['patient_id'];
-    $note = $_POST['note'] ?? null;
 
-    // Check if the appointment time is already taken
-    $checkQuery = "SELECT * FROM appointments 
-    WHERE date = ? 
-    AND (time = ? OR time = DATE_ADD(?, INTERVAL 10 MINUTE) OR time = DATE_SUB(?, INTERVAL 10 MINUTE))";
-
-    $checkStatement = $connection->prepare($checkQuery);
-    $checkStatement->bind_param("ssss", $date, $time, $time, $time);
-    $checkStatement->execute();
-    $result = $checkStatement->get_result();
-
-    if ($result && $result->num_rows > 0) {
+    if (!isset($_POST['feedback'])) {
         $response = [
             'statusCode' => 400,
-            'status' => 'errorT',
-            'message' => 'Time has already been appointed.',
+            'status' => 'error',
+            'message' => 'Bad Request: Missing feedback data',
         ];
-        header('Content-Type: application/json', true, 400);
+        header('Content-Type: application/json', 400);
         echo json_encode($response);
         exit;
     }
+    
+
+    // Get the data from the POST request
+    $feedback = $_POST['feedback'];
+ 
 
     // Prepare the SQL query to insert the data into the appointments table
-    $query = "INSERT INTO appointments (Type, status, date, time, patient_id, note) 
-              VALUES (?, ?, ?, ?, ?, ?)";
+    $query = "INSERT INTO feedbacks (feedback) 
+              VALUES (?)";
 
     $insertStatement = $connection->prepare($query);
-    $insertStatement->bind_param("ssssis", $type, $status, $date, $time, $patientId, $note);
+    $insertStatement->bind_param("s", $feedback);
 
     // Execute the query
     if ($insertStatement->execute()) {
         $response['status'] = 'success';
-        $response['message'] = 'Appointment created successfully';
+        $response['message'] = 'Feedback sent successfully';
         header('Content-Type: application/json', true, 200);
     } else {
-        throw new Exception('Failed to create appointment: ' . $insertStatement->error);
+        throw new Exception('Failed to send feedback: ' . $insertStatement->error);
     }
 
     // Close the database connection
