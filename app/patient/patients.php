@@ -219,6 +219,9 @@
     }
 
     function deletePatient(id) {
+        // confirm delete
+        if (confirm("Are you sure you want to delete this patient?")) {
+            // proceed to delete
         var id = id;
         showLoader();
         $.ajax({
@@ -228,7 +231,8 @@
                 deleteid: id
             },
             success: function(response) {
-                alert(response)
+                // alert(response)
+                console.log(response);
                 var obj = jQuery.parseJSON(response);
                 if (obj.status == 200) {
                     hideLoader();
@@ -246,6 +250,9 @@
                     hideLoader();
                 }
         });
+    } else {
+            return false;
+        }
     }
 
     $(document).ready(function() {
