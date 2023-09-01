@@ -24,7 +24,7 @@ include_once('./app/database/conn.php')
                     <th>Last Name</th>
                     <th>Role</th>
                     <th>Username</th>
-                    <th>Password</th>
+                    <!-- <th>Password</th> -->
                     <th>IS ADMIN</th>
                     <th> Action</th>
                 </tr>
@@ -56,7 +56,7 @@ include_once('./app/database/conn.php')
                     echo "<td>" . htmlspecialchars ( $row['last_name']) . "</>";
                     echo "<td>" . htmlspecialchars ( $row['role_name']) . "</>";
                     echo "<td>" . htmlspecialchars ( $row['Username']). "</td>";
-                    echo "<td>" . htmlspecialchars ( $row['Password']) . "</td>";
+                    // echo "<td>" . htmlspecialchars ( $row['Password']) . "</td>";
                     echo "<td>" . $chb . "</td>";
                     echo "<td class='text-center'> 
                                     <button  class='btn btn-primary' onclick='editLogin(" . $row['employee_id'] . ")'> <i class='fa fa-edit'></i> </button> 

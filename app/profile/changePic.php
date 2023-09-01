@@ -123,7 +123,7 @@ $username = $row['Username'];
                         <h4 class="mb-4 mt-0">Upload your new profile</h4>
                         <!-- Image upload -->
                         <div class="display-2 mb-3">
-                            <img src="<?php echo htmlentities($profile); ?>" class="img-fluid circle-avatar"
+                            <img src="<?php echo htmlentities($profile); ?>" class="img-fluid img-thumbnail circle-avatar"
                                 alt="No Profile" style="width: 200px; height: 200px;" />
                         </div>
                         <!-- Button -->
@@ -152,19 +152,19 @@ $username = $row['Username'];
 $(document).ready(function() {
     hideLoader();
 
-    // preview image before upload
-    $('#profile').change(function(e) {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            $('.img-thumbnail').attr('src', e.target.result);
-        }
-        reader.readAsDataURL(e.target.files[0]);
-    });
+     // preview image before upload
+     $('#profile').change(function(e) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('.img-thumbnail').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(e.target.files[0]);
+        });
 
-    // remove image from preview  and reset src to default
-    $('.btn-danger-soft').click(function() {
-        $('.img-thumbnail').attr('src', '<?php echo $profile; ?>');
-    });
+        // remove image from preview  and reset src to default
+        $('.btn-danger-soft').click(function() {
+            $('.img-thumbnail').attr('src', '<?php echo $profile; ?>');
+        });
 
     //change profile
     $('#changePasswordForm').submit(function(e) {
