@@ -26,7 +26,7 @@ $titles = [
     // Patients
         'patients'   => ["title" => 'Patients',                                        "path" => './app/patient/'],
         "patient_service" => ["title" => 'Patient Service',                             "path" => './app/patientService/'], // "patient_service" => "Patient Service
-
+        'feedbacks'  => ["title" => 'Feedbacks',                                       "path" => './app/patient/'],
     // appointments                               
         'appointment' => ["title" => 'Appointment',                                     "path" => './app/appointments'],
     //services
