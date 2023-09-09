@@ -192,6 +192,9 @@ if (isset($_GET['page']) && $_GET['page'] === 'appointment' && isset($_GET['trig
                 if (status == 'Cancelled') {
                     $('#cancel').prop('disabled', true);
                 }
+                else if (status == 'Completed') {
+                    $('#cancel').prop('disabled', true);
+                }
 
             });
             $('#event-details-modal').on('hidden.bs.modal', function(event) {

@@ -1,5 +1,6 @@
 <?php
     include_once('./includes/loader.php');
+    error_reporting(E_ALL & ~E_WARNING & ~E_NOTICE);
     // include_once('auth.php');
     session_start();
     if (!isset($_SESSION['empid'])) {

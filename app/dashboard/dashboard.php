@@ -17,7 +17,7 @@
                     <div class="col-md-8 p-4">
                         <div class="card-body ">
                             <h5 class="card-title fs-1 count" id="patient_number">500</h5>
-                            <p class="card-text">Patienst.</p>
+                            <p class="card-text">Patients.</p>
                         </div>
                     </div>
                 </div>
